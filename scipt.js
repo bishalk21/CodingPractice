@@ -92,7 +92,9 @@ function validParentheses(parens) { //parens is a string
 // Only letters from the latin/english alphabet should be shifted, like in the original Rot13 "implementation".
 
 function rot13(str) {
-    let newString = ""; // create a new string
+    let newString = ""; // variable to hold the new string
+    // newString is the string that will be returned 
+    // create a new string 
     for (let index = 0; index < str.length; index++) { // iterate through the string
         let currentChar = str[index]; // get the current character
         if (currentChar.charCodeAt(0) >= 65 && currentChar.charCodeAt(0) <= 90) { // if the current character is a capital letter
@@ -113,4 +115,64 @@ function rot13(str) {
     } // end for
     return newString; // return the new string
 
+}
+
+
+
+function myLife() {
+    let myLife = "I am a programmer";
+    let myLifeArray = myLife.split("");
+    return myLifeArray;
+    // let myLifeArray2 = myLifeArray.reverse();
+    // let myLifeArray3 = myLifeArray2.join("");
+    return myLifeArray3;
+}
+console.log(myLife());
+
+
+// write a function with conditions: eat, sleep and code all have to be true to return true. 
+
+function myLife() {
+    let myLife = "I am a Programmer";
+
+    while (alive) { //}
+        if (eat && sleep && code) {
+            return true;
+        }
+    }
+
+}
+
+// You are given an array(list) strarr of strings and an integer k. Your task is to return the first longest string consisting of k consecutive strings taken in the array.
+
+function longestConsec(strarr, k) {
+    let longestString = "";
+    let longestStringLength = 0;
+    for (let index = 0; index < strarr.length; index++) {
+        let currentString = strarr[index];
+        let currentStringLength = currentString.length;
+        if (currentStringLength >= k) {
+            if (currentStringLength > longestStringLength) {
+                longestString = currentString;
+                longestStringLength = currentStringLength;
+            }
+        }
+    }
+}
+
+// Complete the method/function so that it converts dash/underscore delimited words into camel casing. 
+// The first word within the output should be capitalized only if the original word was capitalized (known as Upper Camel Case, also often referred to as Pascal case).
+
+function toCamelCase(str) {
+    let newString = "";
+    let stringArray = str.split("-");
+    for (let index = 0; index < stringArray.length; index++) {
+        let currentString = stringArray[index];
+        if (index === 0) {
+            newString += currentString.charAt(0).toUpperCase() + currentString.slice(1);
+        } else {
+            newString += currentString.charAt(0).toLowerCase() + currentString.slice(1);
+        }
+    }
+    return newString;
 }
