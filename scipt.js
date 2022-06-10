@@ -176,3 +176,11 @@ function toCamelCase(str) {
     }
     return newString;
 }
+
+function handleOnChange(event) {
+    console.log(event.target.value);
+}
+
+function handleOnClick(event) {
+    console.log(event.target.value);
+}
