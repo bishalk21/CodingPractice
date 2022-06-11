@@ -208,7 +208,7 @@ const binaryArrayToNumber = arr => {
     }
     return sum;
     // your code
-};\
+};
 // Given a list of integers, determine whether the sum of its elements is odd or even.
 
 function oddOrEven(array) {
@@ -218,4 +218,37 @@ function oddOrEven(array) {
     } else {
         return "odd";
     }
+}
+
+// The first century spans from the year 1 up to and including the year 100, the second century - from the year 101 up to and including the year 200, etc.
+// Given a year, return the century it is in.
+
+function century(year) {
+    let century = Math.floor(year / 100);
+    if (year % 100 === 0) {
+        return century;
+    } else {
+        return century + 1;
+    }
+}
+
+// Complete the solution so that it returns true if the first argument(string) passed in ends with the 2nd argument (also a string).
+
+function solution(str, ending) {
+    return str.endsWith(ending);
+}
+
+// Return the number (count) of vowels in the given string.
+function getCount(str) {
+    // We will consider a, e, i, o, u as vowels for this Kata (but not y).
+    // The input string will only consist of lower case letters.
+    let vowelsCount = 0;
+    let vowels = ["a", "e", "i", "o", "u"];
+    for (let index = 0; index < str.length; index++) {
+        let currentChar = str[index];
+        if (vowels.includes(currentChar)) {
+            vowelsCount++;
+        }
+    }
+    return vowelsCount;
 }
