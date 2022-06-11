@@ -184,3 +184,38 @@ function handleOnChange(event) {
 function handleOnClick(event) {
     console.log(event.target.value);
 }
+
+// You are going to be given a word. Your job is to return the middle character of the word. If the word's length is odd, return the middle character. If the word's length is even, return the middle 2 characters.
+
+function getMiddle(t) {
+    let middle = "";
+    if (t.length % 2 === 0) {
+        middle = t.substring(t.length / 2 - 1, t.length / 2 + 1);
+    } else {
+        middle = t.substring(t.length / 2, t.length / 2 + 1);
+    }
+    return middle;
+}
+
+// Given an array of ones and zeroes, convert the equivalent binary value to an integer.
+
+const binaryArrayToNumber = arr => {
+    let sum = 0;
+    for (let index = 0; index < arr.length; index++) {
+        if (arr[index] === 1) {
+            sum += Math.pow(2, index);
+        }
+    }
+    return sum;
+    // your code
+};\
+// Given a list of integers, determine whether the sum of its elements is odd or even.
+
+function oddOrEven(array) {
+    let hello = array.reduce((a, b) => a + b, 0);
+    if (hello % 2 === 0) {
+        return "even";
+    } else {
+        return "odd";
+    }
+}
