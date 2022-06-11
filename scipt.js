@@ -290,3 +290,38 @@ function basicOp(operation, value1, value2) {
     }
     return result;
 }
+
+// Simple, remove the spaces from the string, then return the resultant string
+
+function noSpace(x) {
+    let newString = "";
+    for (let index = 0; index < x.length; index++) {
+        let currentChar = x[index];
+        if (currentChar !== " ") {
+            newString += currentChar;
+        }
+    }
+    return newString;
+}
+
+
+// We need a function that can transform a number into a string.
+function numberToString(number) {
+    return number.toString();
+    //  one way
+    // let number = arguments[0];
+    // let string = number.toString();
+    // return string;
+}
+
+// Your task is to make a function that can take any non-negative integer as an argument and 
+// return it with its digits in descending order. 
+// Essentially, rearrange the digits to create the highest possible number.
+
+function descendingOrder(n) {
+    let string = n.toString();
+    let stringArray = string.split("");
+    let sortedArray = stringArray.sort((a, b) => b - a);
+    let sortedString = sortedArray.join("");
+    return parseInt(sortedString);
+}
