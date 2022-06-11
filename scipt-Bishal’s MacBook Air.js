@@ -185,108 +185,14 @@ function handleOnClick(event) {
     console.log(event.target.value);
 }
 
-// You are going to be given a word. Your job is to return the middle character of the word. If the word's length is odd, return the middle character. If the word's length is even, return the middle 2 characters.
+// Implement a function that accepts 3 integer values a, b, c. 
+// The function should return true if a triangle can be built with the sides of given length and false in any other case.
+// (In this case, all triangles must have surface greater than 0 to be accepted).
 
-function getMiddle(t) {
-    let middle = "";
-    if (t.length % 2 === 0) {
-        middle = t.substring(t.length / 2 - 1, t.length / 2 + 1);
+function isTriangle(a, b, c) { //isTriangle
+    if (a + b > c && a + c > b && b + c > a) {
+        return true;
     } else {
-        middle = t.substring(t.length / 2, t.length / 2 + 1);
+        return false;
     }
-    return middle;
-}
-
-// Given an array of ones and zeroes, convert the equivalent binary value to an integer.
-
-const binaryArrayToNumber = arr => {
-    let sum = 0;
-    for (let index = 0; index < arr.length; index++) {
-        if (arr[index] === 1) {
-            sum += Math.pow(2, index);
-        }
-    }
-    return sum;
-    // your code
-};
-// Given a list of integers, determine whether the sum of its elements is odd or even.
-
-function oddOrEven(array) {
-    let hello = array.reduce((a, b) => a + b, 0);
-    if (hello % 2 === 0) {
-        return "even";
-    } else {
-        return "odd";
-    }
-}
-
-// The first century spans from the year 1 up to and including the year 100, the second century - from the year 101 up to and including the year 200, etc.
-// Given a year, return the century it is in.
-
-function century(year) {
-    let century = Math.floor(year / 100);
-    if (year % 100 === 0) {
-        return century;
-    } else {
-        return century + 1;
-    }
-}
-
-// Complete the solution so that it returns true if the first argument(string) passed in ends with the 2nd argument (also a string).
-
-function solution(str, ending) {
-    return str.endsWith(ending);
-}
-
-// Return the number (count) of vowels in the given string.
-function getCount(str) {
-    // We will consider a, e, i, o, u as vowels for this Kata (but not y).
-    // The input string will only consist of lower case letters.
-    let vowelsCount = 0;
-    let vowels = ["a", "e", "i", "o", "u"];
-    for (let index = 0; index < str.length; index++) {
-        let currentChar = str[index];
-        if (vowels.includes(currentChar)) {
-            vowelsCount++;
-        }
-    }
-    return vowelsCount;
-}
-// In DNA strings, symbols "A" and "T" are complements of each other, as "C" and "G". 
-// Your function receives one side of the DNA (string, except for Haskell); you need to return the other complementary side. 
-// DNA strand is never empty or there is no DNA at all (again, except for Haskell).
-
-function DNAStrand(dna) {
-    let newString = "";
-    for (let index = 0; index < dna.length; index++) { //index is the current character
-        let currentChar = dna[index]; // get the current character
-        if (currentChar === "A") { // if the current character is A
-            newString += "T"; // add T to the new string
-        } else if (currentChar === "T") { // if the current character is T
-            newString += "A"; // add A to the new string
-        } else if (currentChar === "C") { // if the current character is C
-            newString += "G"; // add G to the new string
-        } else if (currentChar === "G") { // if the current character is G
-            newString += "C"; // add C to the new string
-        }
-    }
-    return newString;
-}
-
-// Your task is to create a function that does four basic mathematical operations.
-// The function should take three arguments - operation(string/char), value1(number), value2(number).
-// The function should return result of numbers after applying the chosen operation.
-
-function basicOp(operation, value1, value2) {
-    let result = 0;
-    if (operation === "+") {
-        result = value1 + value2;
-    } else if (operation === "-") {
-        result = value1 - value2;
-    } else if (operation === "*") {
-        result = value1 * value2;
-    } else if (operation === "/") {
-        result = value1 / value2;
-    }
-    return result;
 }
