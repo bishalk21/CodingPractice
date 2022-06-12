@@ -325,3 +325,45 @@ function descendingOrder(n) {
     let sortedString = sortedArray.join("");
     return parseInt(sortedString);
 }
+
+// Make a function that will return a greeting statement that uses an input; 
+// your program should return, "Hello, <name> how are you doing today?".
+
+function greet(name) {
+    return "Hello, " + name + " how are you doing today?";
+}
+
+// Make a program that filters a list of strings and returns a list with only your friends name in it. 
+// If a name has exactly 4 letters in it, you can be sure that it has to be a friend of yours! Otherwise, you can be sure he's not...
+
+function friend(friends) {
+    let newArray = [];
+    for (let index = 0; index < friends.length; index++) {
+        let currentString = friends[index];
+        if (currentString.length === 4) {
+            newArray.push(currentString);
+        }
+    }
+    return newArray;
+
+}
+
+// Given two integers a and b, which can be positive or negative, 
+// find the sum of all the integers between and including them and return it. 
+// If the two numbers are equal return a or b.
+
+function getSum(a, b) {
+    let sum = 0;
+    if (a === b) {
+        return a;
+    } else if (a < b) {
+        for (let index = a; index <= b; index++) {
+            sum += index;
+        }
+    } else {
+        for (let index = b; index <= a; index++) {
+            sum += index;
+        }
+    }
+    return sum;
+}
