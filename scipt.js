@@ -528,3 +528,16 @@ function order(words) {
 //     }
 //     return newArray.join(" ");
 // }
+
+var number = function (busStops) {
+    let total = 0;
+    for (let index = 0; index < busStops.length; index++) {
+        let currentStop = busStops[index];
+        if (currentStop[0] === 0) {
+            total += currentStop[1];
+        } else {
+            total -= currentStop[1];
+        }
+    }
+    return total;
+}
