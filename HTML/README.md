@@ -360,7 +360,7 @@
 - abbr is used to create an abbreviation // <abbr> is an inline element
 - br is used to create a line break // <br> is an inline element
 - cite is used for refrencing cited creative works // <cite> is an inline element
-- code is used to create a code sample // <code> is an inline element
+- code is used to create a code sample //
 - em is used to create an emphasized text // <em> is an inline element
 - mark is used to create a marked text // <mark> is an inline element
 - small is used to create a small text // <small> is an inline element
@@ -373,7 +373,7 @@
 - <b>: bold text
 - <i>: italic text
 - <u>: underlined text
-- <s>: strikethrough text
+- <code><s></code>: strikethrough text
 - <sub>: subscript text
 - <sup>: superscript text
 - <q>: quotation text
