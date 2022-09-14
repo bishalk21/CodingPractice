@@ -1,38 +1,48 @@
-- [HTML](###html)
-- [HyperText](#hypertext)
-- [Markup](#markup)
-- [SEO](#seo)
-- [HTML Elements](#html-elements)
-- [HTML Comment](#html-comment)
-- [IDS](#ids)
-- [Favicon](#favicon)
-- [Resource Hint: dns-prefetch, prefetch, prerender](#resource-hint-dns-prefetch-prefetch-prerender)
-- [HTML Input Control Elements](#html-input-control-elements)
-- [SVG](#svg)
-- [Canvas](#canvas)
-- [Marking up computer code](#marking-up-computer-code)
-- [Tabindex](#tabindex)
-- [Global Attributes](#global-attributes)
-- [HTML 5 Cache](#html-5-cache)
-- [HTML Event Attributes](#html-event-attributes)
-- [HTML Form Events](##html-form-events)
-- [HTML Keyboard Events](##html-keyboard-events)
-- [ARIA Attributes](#aria)
-- [12 Column Grid Responsive Design or layout](#12-column-grid-responsive-design-or-layout)
-- [HTML URL Encode](#html-url-encode)
-- [HTML URL Decode](#html-url-decode)
+# Internet and HTML
 
-  • Learn the anatomy of HTML syntax to structure your websites.
-  • Understand the HTML boilerplate and HTML doctypes.
-  • How to structure text in HTML.
-  • How to structure HTML lists to create unordered and ordered lists.
-  • How to insert images using HTML
-  • How to create hyperlinks using anchor tags.
-  • Understand how to use HTML tables for content.
-  • How to use tables for layout.
-  • Learn HTML best practices.
-  • Understand about HTML forms and create a simple contact me form.
-  • HTML Divs and how to separate content for CSS styling
+[DNS](#dns)
+[IP Addresses](#ip-addresses)
+[Understand how the browser works](#understand-how-the-browser-works)
+[Rendering](#rendering)
+[Browsers](#browser)
+[Parsing](#parsing)
+[Rendering](#rendering)
+[HTML](###html)
+[HyperText](#hypertext)
+[Markup](#markup)
+[SEO](#seo)
+[Meta](#meta)
+[HTML Elements](#html-elements)
+[HTML Comment](#html-comment)
+[IDS](#ids)
+[Favicon](#favicon)
+[Resource Hint: dns-prefetch, prefetch, prerender](#resource-hint-dns-prefetch-prefetch-prerender)
+[HTML Input Control Elements](#html-input-control-elements)
+[SVG](#svg)
+[Canvas](#canvas)
+[Marking up computer code](#marking-up-computer-code)
+[Tabindex](#tabindex)
+[Global Attributes](#global-attributes)
+[HTML 5 Cache](#html-5-cache)
+[HTML Event Attributes](#html-event-attributes)
+[HTML Form Events](##html-form-events)
+[HTML Keyboard Events](##html-keyboard-events)
+[ARIA Attributes](#aria)
+[12 Column Grid Responsive Design or layout](#12-column-grid-responsive-design-or-layout)
+[HTML URL Encode](#html-url-encode)
+[HTML URL Decode](#html-url-decode)
+
+Learn the anatomy of HTML syntax to structure your websites. <br>
+Understand the HTML boilerplate and HTML doctypes. <br>
+How to structure text in HTML. <br>
+How to structure HTML lists to create unordered and ordered lists. <br>
+How to insert images using HTML and how to use the HTML image tag. <br>
+How to create hyperlinks using anchor tags. <br>
+Understand how to use HTML tables for content. <br>
+How to use tables for layout. <br>
+Learn HTML best practices. <br>
+Understand about HTML forms and create a simple contact me form. <br>
+HTML Divs and how to separate content for CSS styling and JavaScript. <br>
 
 ### HTML
 
@@ -127,11 +137,6 @@
 - Search Engine Optimization is the process of making sure that your website is indexed by search engines and that it is displayed on the top of search results.
 - process of optimizing the content of a website for search engines
 
-# Rendering
-
-- rendering is the process of displaying the content of a web page
-- rendering in HTML is done by the browser and the browser renders the content of the page in the browser window from top to bottom
-
 # DOCTYPE - Declaration of the Document Type
 
 - is used to inform the browser about the type of document or whether the page is following the HTML5 specification or not
@@ -150,9 +155,35 @@
 
 1. Character sets and encodings
 
-- <meta charset="utf-8">:
-- defines the character encoding of the document
+- meta charset="utf-8":
+- An HTML attribute that defines the character encoding for your browser to use when displaying the website content.
 - UTF-8 is the most common character encoding, which is used in the HTML5 specification
+
+## Why is character encoding important?
+
+- Most websites these days have to display characters that are not traditional ASCII characters.
+- When receiving such characters in an HTML source, browsers should be able to handle those properly.
+
+## Various Character Encodings
+
+HTML Standards has listed many encodings along with UTF-8 with reference to "Encoding Standards."
+
+Examples:
+
+❍ UTF-8
+❍ ISO-8859-2
+❍ windows-1251
+❍ windows-1252
+❍ GBK
+❍ UTF-16BE
+
+Find the full list:
+https://encoding.spec.whatwg.org/#names-and-labels
+
+## Why should we use UTF-8?
+
+⬘ The HTML5 specification encourages web developers to use the UTF-8 character set.
+⬙ Why? Because it covers almost all of the characters and symbols in the world.
 
 2. keywords for SEO
 
@@ -249,6 +280,27 @@
 - <meta name="apple-mobile-web-app-status-bar-style" content="black">
 - <meta name="mobile-web-app-capable" content="yes">
 - <meta name="theme-color" content="black">
+
+8. content-type for SEO
+
+- Allow the webserver to include the Content-Type header in the response coming to the browser.
+- Content-Type: text/html; charset=utf-8
+
+8. http-equiv metadata
+
+- Set content for <meta http-equiv="Content-Type" in HTML.
+- When present, it must be inside the head element near the top of the document.
+- meta http-equiv="Content-Type"
+  content="text/html; charset=utf-8">
+
+  9. BOM
+
+- BOM (Byte-Order-Mark) is the usage of a special Unicode character U+FEFF.
+- It should be placed within the first 3 bytes of the document.
+
+10. HTML Entities
+
+- A fallback is that HTML has to display all UTF-8 characters properly by using HTML entities.
 
 # head element
 
@@ -587,7 +639,7 @@
 - &Psi;: creates a psi entity reference: symbol &Psi;
 - &Omega;: creates an omega entity reference: symbol &Omega;
 
-- <&;>: creates an entity reference
+- &;: creates an entity reference
 - &amp;: creates an ampersand: symbol "&"
 - &lt;: creates a less-than: symbol "<"
 - &gt;: creates a greater-than: symbol ">"
@@ -1214,3 +1266,114 @@ browser to verify its legitimacy|
 
 - Web address follows the format:
   scheme://prefix.domain:port/path/filename
+
+# DNS
+
+- Domain Name System
+- is the phone book of the Internet.
+- the translator that translates domain names (that we use) into IP addresses (that browsers use).
+
+# IP addresses
+
+- unique 32-bit numbers assigned to every device connected to the web.
+
+## And how does this whole translation business happens?
+
+1. User types a domain name in the browser and presses enter. (Ex- google . com)
+2. This is a request for the files of the homepage of google and is called a query.
+3. The browser queries this from a DNS server.
+4. The DNS server finds the IP address of the requested domain and returns it to the web browser.
+5. The browser makes an HTTP request to the received IP address.
+6. The server of that address returns the files (HTML, CSS, Javascript files) to the browser.
+7. The browser uses these files to render a page and displays it to the user.
+
+# Understand how the browser works
+
+- DOM Tree, Separation of concerns, request handling by servers, and more!
+- HTML, CSS, and Javascript are the three main components of the web.
+- HTML, CSS, and Javascript are coded and hosted on the server.
+- Now, The job of the server is to listen for requests & 'serve' these files up when requested.
+- When we go to a URL like 'google . com' a request is made to the server where the files for the homepage of Google live.
+- That server keeps listening for these requests and whoever makes these requests, the server sends back the relevant files to them.
+- Browsers are that piece of the puzzle that is used to make these requests.-
+- Browser, in addition to making these request, perform so other tasks.
+
+# Other ways to make a request are:
+
+- pressing a button on a page
+- refreshing a page
+- going to a link
+- Once a request is made, the browser 'requests' the server to send relevant files.
+- The server sends back those files and that's where the real job of a browser begins.
+
+1. HTML - is used for the content and 'what' will be displayed on a page is decided by it
+2. CSS - is used for prettying things up. It is like make-up and decides 'how' things will look on a page
+3. Javascript - is used for interactivity. 'What will happen if' is handled by it.
+
+- This separating of files according to their role is called the 'seperation of concerns' approach.
+
+# parsing
+
+- When the browser receives an HTML file, it undergoes what is called parsing.
+- Parsing is what enables the browser to take HTML files & make a DOM tree out of it.
+- Parsing is itself composed of a process called 'Tokenization' in which the HTML file is broken into several sections.
+
+# Tokenization
+
+- Tokenization essentially enables the browser to go through the entire code file, one section at a time, and make sense of it.
+- We get a parsing tree during parsing and that eventually ends up becoming the DOM tree that we see in the browser.
+
+- everything is an Object in Javascript.
+- DOM tree or the 'Document Object Model' is basically a map of the entire page, which is made up of objects, nodes and elements and we can use Javascript to manipulate these objects.
+- The DOM tree is a representation of the HTML file that the browser receives from the server.
+- The Javascript code we write manipulates the nodes in this DOM tree and produces interactivity.
+- Nodes are the building blocks of the DOM tree or are the basic units of the DOM tree.
+- Nodes such as script tags and head tags are hidden as they don't affect the rendered version of the page.
+
+# Rendering
+
+- rendering is the process of displaying the content of a web page
+- rendering in HTML is done by the browser and the browser renders the content of the page in the browser window from top to bottom
+- Rendering a webpage is the process of turning HTML, CSS, and JavaScript code into an interactive page that website visitors expect to see when clicking on a link.
+- is used to calculate the layout of all the visible elements on a page.
+- After this computation, the process of 'painting' starts in which content is put on the screen.
+
+1. Traverse all visible nodes of DOM tree
+2. Nodes like script (which don't affect rendered output) and those that are hidden by CSS are skipped
+3. Apply relevant CSS rules to each node & compute the final layout.
+4. After the Render Tree construction, the process of layout computation takes place.
+5. So far, we have each visible node with its relevant CSS rules applied.
+6. But we don't know their position in the tree.
+7. That is calculated in the layout computation.
+8. The process of layout computation is recursive & begins at the root html element.
+9. It then recursively goes through the tree hierarchy & calculates geometric information for every renderer.
+10. Each renderer has a 'reflow' method & that's what's invoked in this process.
+11. Now that the browser knows the structure of the document, the style for each node, & the geometry of the page, it now tries to create a picture of the entire page.
+12. This is called 'Painting' & is aptly called so.
+13. The browser computes composites of the page in this step.
+14. The process of painting takes a lot of time and things like GIFs increase the painting time.
+15. After painting the browser knows everything it needs to & only converting what it knows into pixels on the screen is what is left.
+16. That happens in 'Composting.'
+17. Composting is the final step of the process and in this step, 'rasterising' happens.
+18. Rastersing is the process of drawing a picture on the screen using known information.
+19. In composting, the browser separates the page into different layers & rasters them individually
+20. Since the combined effect of rasterising is that the entire page has been rasterised, when the user scrolls on a page, the new layers are displayed quickly to the user.
+21. Chrome uses this technique.
+22. And this is how the page is displayed to the user!
+
+# Browser
+
+Browsers functionality can be classified into four major sections and these include:
+
+- Fetch: A major subsystem called network layer plays a vital role in fetching data from subsequent web servers via the internet.
+  $ The network layer is responsible for the following:
+- Establishing a connection with the web server
+- Sending a request to the web server
+- Receiving a response from the web server
+- Parsing the response
+- Rendering the response
+- Accepts URLs from the browser user interface and is responsible for making network calls to fetch resources via HTTP/FTP protocols.
+
+- Process
+- Display
+- Storage
