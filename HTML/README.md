@@ -1,36 +1,36 @@
 # Internet and HTML
 
-[DNS](#dns)
-[IP Addresses](#ip-addresses)
-[Understand how the browser works](#understand-how-the-browser-works)
-[Rendering](#rendering)
-[Browsers](#browser)
-[Parsing](#parsing)
-[Rendering](#rendering)
-[HTML](###html)
-[HyperText](#hypertext)
-[Markup](#markup)
-[SEO](#seo)
-[Meta](#meta)
-[HTML Elements](#html-elements)
-[HTML Comment](#html-comment)
-[IDS](#ids)
-[Favicon](#favicon)
-[Resource Hint: dns-prefetch, prefetch, prerender](#resource-hint-dns-prefetch-prefetch-prerender)
-[HTML Input Control Elements](#html-input-control-elements)
-[SVG](#svg)
-[Canvas](#canvas)
-[Marking up computer code](#marking-up-computer-code)
-[Tabindex](#tabindex)
-[Global Attributes](#global-attributes)
-[HTML 5 Cache](#html-5-cache)
-[HTML Event Attributes](#html-event-attributes)
-[HTML Form Events](##html-form-events)
-[HTML Keyboard Events](##html-keyboard-events)
-[ARIA Attributes](#aria)
-[12 Column Grid Responsive Design or layout](#12-column-grid-responsive-design-or-layout)
-[HTML URL Encode](#html-url-encode)
-[HTML URL Decode](#html-url-decode)
+[DNS](#dns) <br>
+[IP Addresses](#ip-addresses) <br>
+[Understand how the browser works](#understand-how-the-browser-works) <br>
+[Rendering](#rendering) <br>
+[Browsers](#browser) <br>
+[Parsing](#parsing) <br>
+[Rendering](#rendering) <br>
+[HTML](###html) <br>
+[HyperText](#hypertext) <br>
+[Markup](#markup) <br>
+[SEO](#seo) <br>
+[Meta](#meta) <br>
+[HTML Elements](#html-elements) <br>
+[HTML Comment](#html-comment) <br>
+[IDS](#ids)<br>
+[Favicon](#favicon)<br>
+[Resource Hint: dns-prefetch, prefetch, prerender](#resource-hint-dns-prefetch-prefetch-prerender)<br>
+[HTML Input Control Elements](#html-input-control-elements)<br>
+[SVG](#svg)<br>
+[Canvas](#canvas)<br>
+[Marking up computer code](#marking-up-computer-code)<br>
+[Tabindex](#tabindex)<br>
+[Global Attributes](#global-attributes)<br>
+[HTML 5 Cache](#html-5-cache)<br>
+[HTML Event Attributes](#html-event-attributes)<br>
+[HTML Form Events](##html-form-events)<br>
+[HTML Keyboard Events](##html-keyboard-events)<br>
+[ARIA Attributes](#aria)<br>
+[12 Column Grid Responsive Design or layout](#12-column-grid-responsive-design-or-layout)<br>
+[HTML URL Encode](#html-url-encode)<br>
+[HTML URL Decode](#html-url-decode)<br>
 
 Learn the anatomy of HTML syntax to structure your websites. <br>
 Understand the HTML boilerplate and HTML doctypes. <br>
