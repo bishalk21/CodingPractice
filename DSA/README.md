@@ -5,6 +5,7 @@
 
 - [DSA - Problem Solving](#dsa---problem-solving)
 - [Interview Questions](#interview-questions)
+  - [What are the possible ways to create objects in JavaScript?](###what-are-the-possible-ways-to-create-objects-in-javascript?)
 
 # Day 01 - JavaScript Basics
 
@@ -121,10 +122,8 @@ c = c + " String!";
 
 # DSA - Problem Solving
 
-| Problem | Question |
-Solution |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
--------- |
+| Problem                                                                           | Question                                                                                                                          | Solution |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | [Running Sum of 1d Array](https://leetcode.com/problems/running-sum-of-1d-array/) | Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]). Return the running sum of nums. |
 
 ```JavaScript
@@ -145,9 +144,7 @@ const runningSum = function(nums){
 
 # Interview Questions
 
-| Question                                                   | Answer |
-| ---------------------------------------------------------- | ------ |
-| What are the possible ways to create objects in JavaScript |
+### What are the possible ways to create objects in JavaScript?
 
 - Object constructor:
 
