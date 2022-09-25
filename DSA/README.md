@@ -3,6 +3,9 @@
    - [Variables](##variables)
    - [String Literals](##string-literals)
 
+- [DSA - Problem Solving](#dsa---problem-solving)
+- [Interview Questions](#interview-questions)
+
 # Day 01 - JavaScript Basics
 
 1. Comment Your JavaScript Code
@@ -113,3 +116,42 @@ a = a + 1;
 b = b + 5;
 c = c + " String!";
 </code>
+
+# DSA - Problem Solving
+
+| Problem                                                                           | Question                                                                                                                          | Solution |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| [Running Sum of 1d Array](https://leetcode.com/problems/running-sum-of-1d-array/) | Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]). Return the running sum of nums. | <code>   |
+
+const runningSum = function(nums){
+let sum = 0;
+let result = [];
+for (let i=0, i< nums.length, i++){
+sum = sum + nums[i];
+result.push(sum);
+}
+return result;
+}
+</code> |
+
+# Interview Questions
+
+| Question                                                   | Answer |
+| ---------------------------------------------------------- | ------ |
+| What are the possible ways to create objects in JavaScript |
+
+- Object constructor:
+  <code> var obj = new Object(); </code>
+- Object literal - <code> var obj = {}; </code>
+- Object.create(): The create method of Object creates a new object by passing the prototype object as a parameter
+  <code> var obj = Object.create(null); </code>
+- ES6 class:
+  <code> class Person { constructor(name) { this.name = name; } } var obj = new Person('Bishal'); </code>
+- Function constructor: Create any function and apply the new operator to create object instances,
+  <code> function Person(name) { this.name = name; } var obj = new Person('Bishal'); </code>
+- Function constructor with prototype: This is similar to function constructor but it uses prototype for their properties and methods,
+  <code> function Person(name) { this.name = name; } Person.prototype.getName = function() { return this.name; } var obj = new Person('Bishal'); </code>
+- Singleton pattern: A Singleton is an object which can only be instantiated one time. Repeated calls to its constructor return the same instance and this way one can ensure that they don't accidentally create multiple instances.
+  <code> var object = new (function () {
+  this.name = "Bishal";
+  })(); </code> |

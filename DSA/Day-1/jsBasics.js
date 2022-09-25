@@ -23,3 +23,19 @@ var func = function () {}; // Function
 // Comparison Operators: ==, ===, !=, !==, >, <, >=, <=
 // Logical Operators: &&, ||, !
 // Bitwise Operators: &, |, ^, ~, <<, >>
+
+// Running Sum of 1d Array
+
+// Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+// Return the running sum of nums.
+// Solution:
+
+var runningSum = function (nums) {
+  var sum = 0;
+  var arr = [];
+  for (var i = 0; i < nums.length; i++) {
+    sum += nums[i];
+    arr.push(sum);
+  }
+  return arr;
+};
