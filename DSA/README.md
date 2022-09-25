@@ -121,8 +121,10 @@ c = c + " String!";
 
 # DSA - Problem Solving
 
-| Problem                                                                           | Question                                                                                                                          | Solution |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| Problem | Question |
+Solution |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+-------- |
 | [Running Sum of 1d Array](https://leetcode.com/problems/running-sum-of-1d-array/) | Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]). Return the running sum of nums. |
 
 ```JavaScript
