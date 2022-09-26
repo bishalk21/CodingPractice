@@ -10,10 +10,11 @@
   - [Fibonacci Number](#fibonacci-number)
   - [Shuffle the Array](#shuffle-the-array)
 - [Interview Questions](#interview-questions)
-  - [What are the possible ways to create objects in JavaScript?](#what-are-the-possible-ways-to-create-objects-in-javascript?)
-  - [What is a higher order function?](#what-is-a-higher-order-function?)
-  - [Is JavaScript a compiled or interpreted language?](#is-javascript-a-compiled-or-interpreted-language?)
-  - [Is JavaScript a case-sensitive language?](#is-javascript-a-case-sensitive-language?)
+  - [What are the possible ways to create objects in JavaScript](#what-are-the-possible-ways-to-create-objects-in-javascript)
+  - [What is a higher order function](#what-is-a-higher-order-function)
+  - [Is JavaScript a compiled or interpreted language](#is-javascript-a-compiled-or-interpreted-language)
+  - [Is JavaScript a case-sensitive language](#is-javascript-a-case-sensitive-language)
+  - [What is the currying function](#what-is-the-currying-function)
 
 # Day 01 - JavaScript Basics
 
@@ -210,7 +211,7 @@ const shuffle = function(nums, n) {
 
 # Interview Questions
 
-# What are the possible ways to create objects in JavaScript?
+# What are the possible ways to create objects in JavaScript
 
 - Object constructor:
 
@@ -273,7 +274,7 @@ const shuffle = function(nums, n) {
   ```
   **[⬆ back to top](#table-of-contents)**
 
-# What is a higher order function?
+# What is a higher order function
 
 - Higher-order function is a function that accepts another function as an argument or returns a function as a return value or both.
 
@@ -287,14 +288,35 @@ higherOrder(firstOrderFunc);
 
 **[⬆ back to top](#table-of-contents)**
 
-# Is JavaScript a compiled or interpreted language?
+# Is JavaScript a compiled or interpreted language
 
 - JavaScript is an interpreted language, not a compiled language. An interpreter in the browser reads over the JavaScript code, interprets each line, and runs it. Nowadays modern browsers use a technology known as Just-In-Time (JIT) compilation, which compiles JavaScript to executable bytecode just as it is about to run.
 
 **[⬆ back to top](#table-of-contents)**
 
-# Is JavaScript a case-sensitive language?
+# Is JavaScript a case-sensitive language
 
 - Yes, JavaScript is a case sensitive language. The language keywords, variables, function & object names, and any other identifiers must always be typed with a consistent capitalization of letters.
 
 **[⬆ back to top](#table-of-contents)**
+
+# What is the currying function
+
+- Currying is the process of taking a function with multiple arguments and turning it into a sequence of functions each with only a single argument. Currying is named after a mathematician Haskell Curry. By applying currying, a n-ary function turns it into a unary function.
+
+```JavaScript
+const add = (a) => (b) => a + b;
+add(1)(2); // 3
+```
+
+or
+
+```JavaScript
+const multiArgFunction = (a, b, c) => a + b + c;
+console.log(multiArgFunction(1, 2, 3)); // 6
+
+const curryUnaryFunction = (a) => (b) => (c) => a + b + c;
+curryUnaryFunction(1); // returns a function: b => c =>  1 + b + c
+curryUnaryFunction(1)(2); // returns a function: c => 3 + c
+curryUnaryFunction(1)(2)(3); // returns the number 6
+```
