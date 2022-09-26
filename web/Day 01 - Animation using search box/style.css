@@ -7,7 +7,7 @@ body {
     background-color: whitesmoke;
     position: absolute;
     /* to make it absolute or relative to the body */
-    top: 50%;
+    top: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
     /* to center the box */
@@ -47,4 +47,22 @@ body {
 
 .box:hover>.search {
     background-color: whitesmoke;
+}
+
+.wrapper {
+    background: #d7d382;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }

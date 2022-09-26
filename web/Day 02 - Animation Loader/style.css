@@ -13,22 +13,12 @@ body {
 }
 
 .ring {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     box-shadow: 0 5px 0 white;
     background: transparent;
     animation: animate 1s linear infinite;
-}
-
-@keyframes animate {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 .loading {
@@ -43,4 +33,14 @@ body {
     position: absolute;
     text-align: center;
     line-height: 200px;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
