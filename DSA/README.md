@@ -6,6 +6,7 @@
 - [DSA - Problem Solving](#dsa---problem-solving)
   - [Running Sum of 1d Array](##running-sum-of-1d-array)
   - [Fibonacci Number](##fibonacci-number)
+  - [Shuffle the Array](##shuffle-the-array)
 - [Interview Questions](#interview-questions)
   - [What are the possible ways to create objects in JavaScript?](##what-are-the-possible-ways-to-create-objects-in-javascript?)
 
@@ -142,6 +143,18 @@ const runningSum = function(nums){
 
 ```
 
+or
+
+```JavaScript
+const runningSum = function(nums){
+  let sum = 0;
+  return nums.map((num) => {
+      sum += num;
+      return sum;
+  });
+}
+```
+
 ## Fibonacci Number
 
 Q. The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence,
@@ -233,4 +246,17 @@ const fib = function(n){
   this.name = "Bishal";
   })();
   ```
-  |
+
+## Shuffle the Array
+
+Q. Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn]. Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+
+```JavaScript
+const shuffle = function(nums, n) {
+  let result = [];
+  for(let i = 0; i < n; i++){
+      result.push(nums[i]);
+      result.push(nums[i+n]);
+  }
+  return result;
+```
