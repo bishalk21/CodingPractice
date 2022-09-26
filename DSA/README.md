@@ -1,14 +1,19 @@
+# Table of Contents
+
 1. [JavaScript Basics](#day-01---javascript-basics)
-   - [Data Types](##data-types)
-   - [Variables](##variables)
-   - [String Literals](##string-literals)
+   - [Data Types](#data-types)
+   - [Variables](#variables)
+   - [String Literals](#string-literals)
 
 - [DSA - Problem Solving](#dsa---problem-solving)
-  - [Running Sum of 1d Array](##running-sum-of-1d-array)
-  - [Fibonacci Number](##fibonacci-number)
-  - [Shuffle the Array](##shuffle-the-array)
+  - [Running Sum of 1d Array](#running-sum-of-1d-array)
+  - [Fibonacci Number](#fibonacci-number)
+  - [Shuffle the Array](#shuffle-the-array)
 - [Interview Questions](#interview-questions)
-  - [What are the possible ways to create objects in JavaScript?](##what-are-the-possible-ways-to-create-objects-in-javascript?)
+  - [What are the possible ways to create objects in JavaScript?](#what-are-the-possible-ways-to-create-objects-in-javascript?)
+  - [What is a higher order function?](#what-is-a-higher-order-function?)
+  - [Is JavaScript a compiled or interpreted language?](#is-javascript-a-compiled-or-interpreted-language?)
+  - [Is JavaScript a case-sensitive language?](#is-javascript-a-case-sensitive-language?)
 
 # Day 01 - JavaScript Basics
 
@@ -27,7 +32,7 @@ multi-line comment */
 
 - In computer science, data is anything that is meaningful to the computer.
 
-## Data Types
+# Data Types
 
 - Data Types in JavaScript:
 
@@ -43,7 +48,7 @@ multi-line comment */
   - Array
 ```
 
-## Variables
+# Variables
 
 - Variables are named containers for storing data values.
 - allow computers to store and manipulate data in a dynamic fashion.
@@ -97,7 +102,7 @@ var myFirstName = "Bishal";
 var myLastName = "Karki";
 ```
 
-## String Literals
+# String Literals
 
 - String in JavaScript are used for storing and manipulating text, wrapped in single or double quotes.
 - String literals are string values that are written directly in your code.
@@ -125,7 +130,7 @@ c = c + " String!";
 
 # DSA - Problem Solving
 
-## Running Sum of 1d Array
+# Running Sum of 1d Array
 
 Q. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]). Return the running sum of nums.
 
@@ -155,7 +160,9 @@ const runningSum = function(nums){
 }
 ```
 
-## Fibonacci Number
+**[⬆ back to top](#table-of-contents)**
+
+# Fibonacci Number
 
 Q. The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence,
 such that each number is the sum of the two preceding ones, starting from 0 and 1.
@@ -183,9 +190,27 @@ const fib = function(n){
 }
 ```
 
+**[⬆ back to top](#table-of-contents)**
+
+# Shuffle the Array
+
+Q. Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn]. Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+
+```JavaScript
+const shuffle = function(nums, n) {
+  let result = [];
+  for(let i = 0; i < n; i++){
+      result.push(nums[i]);
+      result.push(nums[i+n]);
+  }
+  return result;
+```
+
+**[⬆ back to top](#table-of-contents)**
+
 # Interview Questions
 
-## What are the possible ways to create objects in JavaScript?
+# What are the possible ways to create objects in JavaScript?
 
 - Object constructor:
 
@@ -246,17 +271,30 @@ const fib = function(n){
   this.name = "Bishal";
   })();
   ```
+  **[⬆ back to top](#table-of-contents)**
 
-## Shuffle the Array
+# What is a higher order function?
 
-Q. Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn]. Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+- Higher-order function is a function that accepts another function as an argument or returns a function as a return value or both.
 
 ```JavaScript
-const shuffle = function(nums, n) {
-  let result = [];
-  for(let i = 0; i < n; i++){
-      result.push(nums[i]);
-      result.push(nums[i+n]);
-  }
-  return result;
+const firstOrderFunc = () =>
+  console.log("Hello, I am a First order function");
+const higherOrder = (ReturnFirstOrderFunc) => ReturnFirstOrderFunc();
+higherOrder(firstOrderFunc);
+
 ```
+
+**[⬆ back to top](#table-of-contents)**
+
+# Is JavaScript a compiled or interpreted language?
+
+- JavaScript is an interpreted language, not a compiled language. An interpreter in the browser reads over the JavaScript code, interprets each line, and runs it. Nowadays modern browsers use a technology known as Just-In-Time (JIT) compilation, which compiles JavaScript to executable bytecode just as it is about to run.
+
+**[⬆ back to top](#table-of-contents)**
+
+# Is JavaScript a case-sensitive language?
+
+- Yes, JavaScript is a case sensitive language. The language keywords, variables, function & object names, and any other identifiers must always be typed with a consistent capitalization of letters.
+
+**[⬆ back to top](#table-of-contents)**
