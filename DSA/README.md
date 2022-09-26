@@ -5,6 +5,7 @@
 
 - [DSA - Problem Solving](#dsa---problem-solving)
   - [Running Sum of 1d Array](##running-sum-of-1d-array)
+  - [Fibonacci Number](##fibonacci-number)
 - [Interview Questions](#interview-questions)
   - [What are the possible ways to create objects in JavaScript?](##what-are-the-possible-ways-to-create-objects-in-javascript?)
 
@@ -141,7 +142,33 @@ const runningSum = function(nums){
 
 ```
 
-|
+## Fibonacci Number
+
+Q. The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence,
+such that each number is the sum of the two preceding ones, starting from 0 and 1.
+
+```JavaScript
+const fib = function(n){
+  if(n === 0) return 0;
+  if(n === 1) return 1;
+  return fib(n-1) + fib(n-2);
+}
+```
+
+or
+
+```JavaScript
+const fib = function(n){
+  let a = 0, b = 1, c;
+  if(n === 0) return a;
+  for(let i = 2; i <= n; i++){
+    c = a + b;
+    a = b;
+    b = c;
+  }
+  return b;
+}
+```
 
 # Interview Questions
 
