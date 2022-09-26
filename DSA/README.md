@@ -4,9 +4,9 @@
    - [String Literals](##string-literals)
 
 - [DSA - Problem Solving](#dsa---problem-solving)
-  - [Running Sum of 1d Array](###running-sum-of-1d-array)
+  - [Running Sum of 1d Array](##running-sum-of-1d-array)
 - [Interview Questions](#interview-questions)
-  - [What are the possible ways to create objects in JavaScript?](###what-are-the-possible-ways-to-create-objects-in-javascript?)
+  - [What are the possible ways to create objects in JavaScript?](##what-are-the-possible-ways-to-create-objects-in-javascript?)
 
 # Day 01 - JavaScript Basics
 
@@ -123,7 +123,7 @@ c = c + " String!";
 
 # DSA - Problem Solving
 
-### Running Sum of 1d Array
+## Running Sum of 1d Array
 
 Q. Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]). Return the running sum of nums.
 
@@ -145,7 +145,7 @@ const runningSum = function(nums){
 
 # Interview Questions
 
-### What are the possible ways to create objects in JavaScript?
+## What are the possible ways to create objects in JavaScript?
 
 - Object constructor:
 
