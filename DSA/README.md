@@ -9,12 +9,14 @@
   - [Running Sum of 1d Array](#running-sum-of-1d-array)
   - [Fibonacci Number](#fibonacci-number)
   - [Shuffle the Array](#shuffle-the-array)
+  - [Search Insert Position](#search-insert-position)
 - [Interview Questions](#interview-questions)
   - [What are the possible ways to create objects in JavaScript](#what-are-the-possible-ways-to-create-objects-in-javascript)
   - [What is a higher order function](#what-is-a-higher-order-function)
   - [Is JavaScript a compiled or interpreted language](#is-javascript-a-compiled-or-interpreted-language)
   - [Is JavaScript a case-sensitive language](#is-javascript-a-case-sensitive-language)
   - [What is the currying function](#what-is-the-currying-function)
+  - [What is Hoisting](#what-is-hoisting)
 
 # Day 01 - JavaScript Basics
 
@@ -209,6 +211,53 @@ const shuffle = function(nums, n) {
 
 **[⬆ back to top](#table-of-contents)**
 
+# Search Insert Position
+
+Q. Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. You must write an algorithm with O(log n) runtime complexity.
+
+Steps:
+
+1. Find the middle element of the array.
+2. If the middle element is equal to the target, return the middle index.
+3. If the middle element is greater than the target, then the target can only lie in the left half of the array. So, we search in the left half of the array.
+4. If the middle element is less than the target, then the target can only lie in the right half of the array. So, we search in the right half of the array.
+5. Repeat the steps 1 to 4 until we find the target or the left index is greater than the right index.
+
+- Algorithms to solve this problem: - Binary Search - Linear Search
+
+```JavaScript
+const searchInsert = function(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+  while(left <= right){
+      let mid = Math.floor((left + right) / 2);
+      if(nums[mid] === target){
+          return mid;
+      } else if(nums[mid] > target){
+          right = mid - 1;
+      } else {
+          left = mid + 1;
+      }
+  }
+  return left;
+};
+```
+
+OR
+
+```JavaScript
+var searchInsert = function (nums, target) {
+for (var i = 0; i < nums.length; i++) {
+  if (nums[i] >= target) {
+    return i;
+  }
+}
+return nums.length;
+};
+```
+
+**[⬆ back to top](#table-of-contents)**
+
 # Interview Questions
 
 # What are the possible ways to create objects in JavaScript
@@ -319,4 +368,26 @@ const curryUnaryFunction = (a) => (b) => (c) => a + b + c;
 curryUnaryFunction(1); // returns a function: b => c =>  1 + b + c
 curryUnaryFunction(1)(2); // returns a function: c => 3 + c
 curryUnaryFunction(1)(2)(3); // returns the number 6
+```
+
+# What is Hoisting
+
+- Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution. Inevitably, this means that no matter where functions and variables are declared, they are moved to the top of their scope regardless of whether their scope is global or local.
+- Hoisting is a JavaScript mechanism where variables, function declarations and classes are moved to the top of their scope before code execution. Remember that JavaScript only hoists declarations, not initialisation.
+
+```JavaScript
+console.log(x); // undefined
+var x = 3;
+
+console.log(y); // ReferenceError: y is not defined
+let y = 3;
+
+```
+
+This hoisting makes functions to be safely used in code before they are declared.
+
+**[⬆ back to top](#table-of-contents)**
+
+```
+
 ```

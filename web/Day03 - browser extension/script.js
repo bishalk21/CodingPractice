@@ -13,3 +13,7 @@ async function fetchData() {
   deaths.innerHTML = record.data[0].deathNew;
 }
 fetchData();
+
+const learning = ["react", "node", "mongo"];
+learning.unshift("html", "css");
+console.log(learning);
