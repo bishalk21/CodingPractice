@@ -75,20 +75,20 @@
 
 <div>
 <small>Support the <strong>author</strong> to create more educational materials</small> <br />  
-<a href = "https://www.paypal.me/asabeneh"><img src='./images/paypal_lg.png' alt='Paypal Logo' style="width:10%"/></a>
+<a href = "https://www.paypal.me/"><img src='./images/paypal_lg.png' alt='Paypal Logo' style="width:10%"/></a>
 </div>
 
 <div align="center">
   <h1> 30 Days Of HTML: Introduction</h1>
-  <a class="header-badge" target="_blank" href="https://www.linkedin.com/in/asabeneh/">
+  <a class="header-badge" target="_blank" href="https://www.linkedin.com/in//">
   <img src="https://img.shields.io/badge/style--5eba00.svg?label=LinkedIn&logo=linkedin&style=social">
   </a>
-  <a class="header-badge" target="_blank" href="https://twitter.com/Asabeneh">
-  <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/asabeneh?style=social">
+  <a class="header-badge" target="_blank" href="https://twitter.com/">
+  <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/?style=social">
   </a>
 
 <sub>Author:
-<a href="https://www.linkedin.com/in/asabeneh/" target="_blank">Asabeneh Yetayeh</a><br>
+<a href="https://www.linkedin.com/in//" target="_blank"> </a><br>
 <small> February, 2020</small>
 </sub>
 
@@ -114,7 +114,7 @@ Congratulations on deciding to participate in 30 days of HTML challenge. In this
 
 A 30DaysOfHTML challenge is a complete guide for both beginners and advanced developers. Welcome to 30DaysOfHTM! HTML is the build-block of the web. There is no website without HTML, therefore, to develop a website it requires an HTML.
 
-In this step by step HTML challenge, you will learn HTML, the standard markup language for the web. HTML is used to build the skeleton or outline of any website. The skeleton or outline of the website is styled(beautified) by CSS(Cascading Style Sheet). JavaScript (JS) can make a website interactive and dynamic. HTML, CSS and JS are the core technologies to build websites and these are the skills required to be a web developer. This challenge will focus on HTML but we will use little CSS to make some HTML concepts more clear to the readers. A 30DaysOfCSS will be a follow up challenge after 30DaysOfHTML. There are [30 Days of JavaScript](https://github.com/Asabeneh/30-Days-Of-JavaScript), [30 Days of React](https://github.com/Asabeneh/30-Days-Of-React), and [30 Days of Python](https://github.com/Asabeneh/30-Days-Of-Python) by the same author.
+In this step by step HTML challenge, you will learn HTML, the standard markup language for the web. HTML is used to build the skeleton or outline of any website. The skeleton or outline of the website is styled(beautified) by CSS(Cascading Style Sheet). JavaScript (JS) can make a website interactive and dynamic. HTML, CSS and JS are the core technologies to build websites and these are the skills required to be a web developer. This challenge will focus on HTML but we will use little CSS to make some HTML concepts more clear to the readers. A 30DaysOfCSS will be a follow up challenge after 30DaysOfHTML. There are [30 Days of JavaScript](https://github.com//30-Days-Of-JavaScript), [30 Days of React](https://github.com//30-Days-Of-React), and [30 Days of Python](https://github.com//30-Days-Of-Python) by the same author.
 
 Look at the following picture to understand the purpose of HTML, CSS and JavaScript very well.
 
@@ -646,7 +646,7 @@ There is a _footer_ HTML tag to make a footer. Let us create footer for the web 
         </p>
       </section>
     </main>
-    <footer>Copyright 2021 | Asabeneh Yetayeh</footer>
+    <footer>Copyright 2021 |</footer>
   </body>
 </html>
 ```
@@ -676,7 +676,7 @@ Instead of just throwing text in the footer tag let us add a _small_ HTML tag to
       </section>
     </main>
     <footer>
-      <small>Copyright 2021 | Asabeneh Yetayeh</small>
+      <small>Copyright 2021 | </small>
     </footer>
   </body>
 </html>
@@ -730,7 +730,7 @@ Similarly let us apply style to the _span_ elements.
       </section>
     </main>
     <footer>
-      <small>Copyright 2021 | Asabeneh Yetayeh</small>
+      <small>Copyright 2021 | </small>
     </footer>
   </body>
 </html>
@@ -779,7 +779,7 @@ Congratulations! You have completed Day 3 challenge
       </section>
     </main>
     <footer>
-      <small>Copyright 2021 | Asabeneh Yetayeh</small>
+      <small>Copyright 2021 | </small>
     </footer>
   </body>
 </html>
@@ -867,7 +867,7 @@ Now, let's use some of the blocking elements in following snippet of code.
       </section>
     </main>
     <footer>
-      <small>Copyright 2021 | Asabeneh Yetayeh</small>
+      <small>Copyright 2021 | </small>
     </footer>
   </body>
 </html>
@@ -983,18 +983,18 @@ Let's make use of the above tags in the previous snippet of code.
 
     </main>
     <footer>
-      <small>Copyright 2021 | Asabeneh Yetayeh</small>
+      <small>Copyright 2021 |  </small>
       <!-- Social Link: -->
       <ul>
         <li>
           <!-- a tag takes href attribute to target a link resource -->
-          <a href="https://www.linkedin.com/in/asabeneh/">LinkedIn</a>
+          <a href="https://www.linkedin.com/in//">LinkedIn</a>
           </li>
             <li>
-          <a href="https://twitter.com/Asabeneh">Twitter</a>
+          <a href="https://twitter.com/">Twitter</a>
           </li>
             <li>
-          <a href="https://github.com/Asabeneh">GitHub</a>
+          <a href="https://github.com/">GitHub</a>
           </li>
         </ul>
     </footer>
@@ -1113,7 +1113,7 @@ Source, [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
     <!-- the following meta tags for Search engine optimization(SEO)-->
     <meta name="description" content="30 Days of HTML Challenge" />
     <meta name="keywords" content="HTML, CSS, Web Development" />
-    <meta name="author" content="Asabeneh Yetayeh" />
+    <meta name="author" content=" " />
     <!-- base url https://www.30daysofreact.com -->
     <base href=" https://www.30daysofreact.com" target="_blank" />
     <!-- Goes to the task bar on the browser-->
@@ -1146,7 +1146,7 @@ Source, [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
     </style>
     <!-- The script tag allows to write JS code -->
     <script>
-      console.log('Welcome to 30 Days of JavaScript')
+      console.log("Welcome to 30 Days of JavaScript");
     </script>
   </head>
   <body>
@@ -1167,7 +1167,7 @@ Source, [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
       </section>
     </main>
     <footer>
-      <small>Copyright 2021 | Asabeneh Yetayeh</small>
+      <small>Copyright 2021 | </small>
     </footer>
   </body>
 </html>
@@ -1336,7 +1336,7 @@ In this section, we will see how to create an HTML table. Table has an external 
     <td>Country</td>
   </tr>
   <tr>
-    <td>Asabeneh</td>
+    <td></td>
     <td>250</td>
     <td>Finland</td>
   </tr>
@@ -1352,7 +1352,7 @@ Let us see the output of the above code
     <td>Country</td>
   </tr>
   <tr>
-  <td>Asabeneh</td>
+  <td></td>
   <td>250</td>
   <td>Finland</td>
   </tr>
@@ -1371,7 +1371,7 @@ However, HTML table has _thead_, \*tbody and tfooter. Let us add thead and tbody
   </thead>
   <tbody>
     <tr>
-      <td>Asabeneh</td>
+      <td></td>
       <td>250</td>
       <td>Finland</td>
     </tr>
@@ -1391,7 +1391,7 @@ Try the output of the above code using visual studio code.
   </thead>
   <tbody>
     <tr>
-      <td>Asabeneh</td>
+      <td></td>
       <td>250</td>
       <td>Finland</td>
     </tr>
@@ -1444,7 +1444,7 @@ The author of this challenge creates different challenges every year. Let us put
           <td>November 2019</td>
           <td>4.6K</td>
           <td>
-            <a href="https://github.com/Asabeneh/30-Days-Of-Python">Link</a>
+            <a href="https://github.com//30-Days-Of-Python">Link</a>
           </td>
         </tr>
         <tr>
@@ -1453,7 +1453,7 @@ The author of this challenge creates different challenges every year. Let us put
           <td>January 2020</td>
           <td>6.8K</td>
           <td>
-            <a href="https://github.com/Asabeneh/30-Days-Of-JavaScript">Link</a>
+            <a href="https://github.com//30-Days-Of-JavaScript">Link</a>
           </td>
         </tr>
         <tr>
@@ -1462,7 +1462,7 @@ The author of this challenge creates different challenges every year. Let us put
           <td>October 2020</td>
           <td>5.6K</td>
           <td>
-            <a href="https://github.com/Asabeneh/30-Days-Of-React">Link</a>
+            <a href="https://github.com//30-Days-Of-React">Link</a>
           </td>
         </tr>
         <tr>
@@ -1471,7 +1471,7 @@ The author of this challenge creates different challenges every year. Let us put
           <td>February 2011</td>
           <td>33</td>
           <td>
-            <a href="https://github.com/Asabeneh/30-Days-Of-HTML">Link</a>
+            <a href="https://github.com//30-Days-Of-HTML">Link</a>
           </td>
         </tr>
       </tbody>
