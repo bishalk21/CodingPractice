@@ -10,7 +10,7 @@ _Click <img src="assets/images/star.png" width="18" height="18" align="absmiddle
 <br/>
 
 | Sl.No | Questions                                                                                                                                                                                                                                                                                                                                              |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- |
 | 01.   | [What is difference between HTML and XHTML?](#q-what-is-difference-between-html-and-xhtml)                                                                                                                                                                                                                                                             |
 | 02.   | [What are the building blocks of HTML5?](#q-what-are-the-building-blocks-of-html5)                                                                                                                                                                                                                                                                     |
 | 03.   | [What are the semantic tags available in html5?](#q-what-are-the-semantic-tags-available-in-html5)                                                                                                                                                                                                                                                     |
@@ -83,6 +83,7 @@ _Click <img src="assets/images/star.png" width="18" height="18" align="absmiddle
 | 71.   | [Discuss the differences between an HTML specification and a browser\'s implementation thereof.](#q-discuss-the-differences-between-an-html-specification-and-a-browser-s-implementation-thereof)                                                                                                                                                      |
 | 72.   | [Why you would use a srcset attribute in an image tag? Explain the process the browser used when evaluating the content of this attribute.](#q-why-you-would-use-a-srcset-attribute-in-an-image-tag-explain-the-process-the-browser-used-when-evaluating-the-content-of-this-attribute)                                                                |
 | 73.   | [What is accessibility & ARIA role means in a web application?](#q-what-is-accessibility-aria-role-means-in-a-web-application)                                                                                                                                                                                                                         |
+| 74.   | [What is href and src attribute in HTML](#q-what-is-href-and-src-attribute-in-html)                                                                                                                                                                                                                                                                    |     |
 
 <br/>
 
@@ -1022,6 +1023,7 @@ For HTML documents, browsers use a `<!DOCTYPE html>` in the beginning of the doc
 - Put Scripts at the Bottom:
 
   - Javascript files can load after the rest of your page. The simplest solution is to place your external Javascript files at the bottom of your page, just before the close of your body tag. Now more of your site can load before your scripts. Another method that allows even more control is to use the defer or async attributes when placing external .js files on your site.
+
     - Async tags load the scripts while the rest of the page loads, but this means scripts can be loaded out of order. Basically, lighter files load first. This might be fine for some scripts, but can be disastrous for others.
 
     - The defer attribute loads your scripts after your content has finished loading. It also runs the scripts in order. Just make sure your scripts run so late without breaking your site.
@@ -2573,3 +2575,11 @@ While there are 35 aria properties and states the W3C defines and which you can 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
+
+## Q. What is href and src attribute in HTML
+
+| href                                                                                | src                                                                          |
+| :---------------------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
+| href is used to link to another page or file.                                       | src is used to link to an external resource.                                 |
+| href is an attribute of the anchor tag.                                             | src is an attribute of the img tag.                                          |
+| REFerence to information for the current page ie css info for the page style sheet. | REFerence to information for the current page ie css info for the page style |
