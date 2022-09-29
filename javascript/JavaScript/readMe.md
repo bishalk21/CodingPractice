@@ -1,26 +1,5 @@
-<div align="center">
-  <h1> JavaScript for Everyone</h1>
-  <a class="header-badge" target="_blank" href="https://www.linkedin.com/in/asabeneh/">
-  <img src="https://img.shields.io/badge/style--5eba00.svg?label=LinkedIn&logo=linkedin&style=social">
-  </a>
-  <a class="header-badge" target="_blank" href="https://twitter.com/Asabeneh">
-  <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/asabeneh?style=social">
-  </a>
-
-  <sub>Author:
-  <a href="https://www.linkedin.com/in/asabeneh/" target="_blank">Asabeneh Yetayeh</a><br>
-  <small> January, 2018</small>
-  </sub>
-</div>
-
-<div>
-
-<small>Support the **author** to create more educational materials</small>  
-<a href = "https://www.paypal.me/asabeneh"><img src='./images/paypal_lg.png' alt='Paypal Logo' style="width:10%"/></a>
-
-</div> 
-
 ![JS](./images/javascript_for_everyone.png)
+
 - [Introduction](#introduction)
 - [Setup](#setup)
 - [Requirements](#requirements)
@@ -126,7 +105,7 @@
 - [Functional Programming](#functional-programming)
   - [Exercises](#exercises-1)
 - [Destructuring and Spread](#destructuring-and-spread)
-  - [Destructing  Arrays](#destructing--arrays)
+  - [Destructing Arrays](#destructing--arrays)
     - [Destructuring Object](#destructuring-object)
     - [Renaming during structuring](#renaming-during-structuring)
   - [Spread or Rest Operator](#spread-or-rest-operator)
@@ -200,14 +179,14 @@
   - [Creating a pattern with RegEx Constructor](#creating-a-pattern-with-regex-constructor)
   - [Creating a pattern without RegEx Constructor](#creating-a-pattern-without-regex-constructor)
   - [RegExp Object Methods](#regexp-object-methods)
-    - [Testing for  a match](#testing-for--a-match)
+    - [Testing for a match](#testing-for--a-match)
     - [Array containing all of the match](#array-containing-all-of-the-match)
     - [Replacing a substring](#replacing-a-substring)
   - [Square Bracket](#square-bracket)
   - [Escape character(\\) in RegEx](#escape-character-in-regex)
   - [One or more times(+)](#one-or-more-times)
   - [Period(.)](#period)
-  - [Zero or more times(*)](#zero-or-more-times)
+  - [Zero or more times(\*)](#zero-or-more-times)
   - [Zero or one times(?)](#zero-or-one-times)
   - [Quantifier in RegEx](#quantifier-in-regex)
   - [Cart ^](#cart-)
@@ -269,9 +248,9 @@ You may not need it right now but you may need it for later. Install [node.js](h
 
 After downloading double click and install
 
- ![Install node](images/install_node.png)
+![Install node](images/install_node.png)
 
-We can check if node is installed in our local machine by opening our device terminal or command  prompt.
+We can check if node is installed in our local machine by opening our device terminal or command prompt.
 
 ```sh
 asabeneh $ node -v
@@ -330,7 +309,7 @@ Ctl+Shift+I
 To write our first JavaScript code, we used a builtin function **console.log()**. We passed an argument as input data, and the function displays the output. We passed 'Hello, World' as input data or argument in the console.log() function.
 
 ```js
-console.log('Hello, World!')
+console.log("Hello, World!");
 ```
 
 ##### Console.log with multiple arguments
@@ -340,32 +319,32 @@ The console.log(param1, param2, param3), can take multiple arguments.
 ![console log multiple arguments](./images/console_log_multipl_arguments.png)
 
 ```js
-console.log('Hello', 'World', '!')
-console.log('HAPPY', 'NEW', 'YEAR', 2020)
-console.log('Welcome', 'to', 30, 'Days', 'Of', 'JavaScript')
+console.log("Hello", "World", "!");
+console.log("HAPPY", "NEW", "YEAR", 2020);
+console.log("Welcome", "to", 30, "Days", "Of", "JavaScript");
 ```
 
-As you can see from the above snippet code, *console.log()* can take multiple arguments.
+As you can see from the above snippet code, _console.log()_ can take multiple arguments.
 
-Congratulations! You wrote your first JavaScript code using *console.log()*.
+Congratulations! You wrote your first JavaScript code using _console.log()_.
 
 ##### Comment
 
-We add comments to our code. Comments are very important to make code more readable and to leave remarks in our code. JavaScript does not execute the comment part of our code. Any text starts with // in JavaScript is a comment or anything enclose like this /* */ is a comment.
+We add comments to our code. Comments are very important to make code more readable and to leave remarks in our code. JavaScript does not execute the comment part of our code. Any text starts with // in JavaScript is a comment or anything enclose like this /\* \*/ is a comment.
 
 **Example: Single Line Comment**
 
- // This is the first comment  
+// This is the first comment  
  // This is the second comment  
- // I am a single line comment  
+ // I am a single line comment
 
 **Example: Multiline Comment**
 
-  /*
-  This is a multiline comment  
-  Multiline comments can take multiple lines  
-  JavaScript is the language of the web  
-  */
+/_
+This is a multiline comment  
+ Multiline comments can take multiple lines  
+ JavaScript is the language of the web  
+ _/
 
 ##### Syntax
 
@@ -376,33 +355,33 @@ JavaScript is a programming language. As a result, it has its syntax like other 
 I made a deliberate mistake. As a result, the console raises a syntax error. Actually, the syntax is very informative. It informs what type of mistake we made. By reading the error feedback guideline, we can correct the syntax and fix the problem. The process of identifying and removing errors from a program is called debugging. Let us fix the errors:
 
 ```js
-console.log("Hello, World!")
-console.log('Hello, World!')
+console.log("Hello, World!");
+console.log("Hello, World!");
 ```
 
-So far, we saw how to display text using a *console.log()*. If we are printing text or string using *console.log()*, the text has to be under the single, double, or backtick.
+So far, we saw how to display text using a _console.log()_. If we are printing text or string using _console.log()_, the text has to be under the single, double, or backtick.
 **Example:**
 
 ```js
-console.log("Hello, World!")
-console.log('Hello, World!')
-console.log(`Hello, World!`)
+console.log("Hello, World!");
+console.log("Hello, World!");
+console.log(`Hello, World!`);
 ```
 
 #### Arithmetics
 
-Now, let us practice more writing JavaScript codes using *console.log()* on google chrome console for number data types.
+Now, let us practice more writing JavaScript codes using _console.log()_ on google chrome console for number data types.
 In addition to the text, we can also do mathematical calculations using JavaScript. Let us do the following simple calculations.
 
 ![Arithmetic](images/arithmetic.png)
 
 ```js
-console.log(2 + 3)   // Addition
-console.log(3 - 2)   // Subtraction
-console.log(2 * 3)   // Multiplication  
-console.log(3 / 2)   // Division
-console.log(3 % 2)   // Modulus - finding remainder
-console.log(3 ** 2)  // Exponential
+console.log(2 + 3); // Addition
+console.log(3 - 2); // Subtraction
+console.log(2 * 3); // Multiplication
+console.log(3 / 2); // Division
+console.log(3 % 2); // Modulus - finding remainder
+console.log(3 ** 2); // Exponential
 ```
 
 ### Code Editor
@@ -411,7 +390,7 @@ We can write our codes on the browser console, but it won't be for bigger projec
 
 #### Installing Visual Studio Code
 
-Visual studio code is a very popular open-source text editor.  I would recommend to [download](https://code.visualstudio.com/) visual studio code, but if you are in favor of other editors, feel free to follow with what you have.
+Visual studio code is a very popular open-source text editor. I would recommend to [download](https://code.visualstudio.com/) visual studio code, but if you are in favor of other editors, feel free to follow with what you have.
 
 ![Vscode](images/vscode.png)
 
@@ -433,7 +412,6 @@ Open the visual studio code by double-clicking the visual studio icon. When you 
 
 ![coding running](./images/launched_on_new_tab.png)
 
-
 ### Adding JavaScript to a web page
 
 JavaScript can be added to a web page in three ways:
@@ -450,58 +428,56 @@ Create a folder on your desktop or in any location and create an **_index.html_*
 
 ```html
 <!DOCTYPE html>
-  <html>
-    <head>
-      <title>JavaScript for Everyone</title>
-    </head>
-    <body>
-      <button onclick="alert('Welcome to JavaScript!');">Click Me</button>
-    </body>
-  </html>
+<html>
+  <head>
+    <title>JavaScript for Everyone</title>
+  </head>
+  <body>
+    <button onclick="alert('Welcome to JavaScript!');">Click Me</button>
+  </body>
+</html>
 ```
 
 #### Internal script
 
 Internal script can be written in the _head_ or the _body_ but it is preferred to put it on the body of the html document.
 
-- Internal script  at the head
+- Internal script at the head
 
 ```html
 <!DOCTYPE html>
-  <html>
-    <head>
-      <title>JavaScript for Everyone</title>
-      <script>
-        console.log("Welcome to JavaScript for Everyone");
-      </script>
-    </head>
-    <body>
-  
-    </body>
-  </html>
+<html>
+  <head>
+    <title>JavaScript for Everyone</title>
+    <script>
+      console.log("Welcome to JavaScript for Everyone");
+    </script>
+  </head>
+  <body></body>
+</html>
 ```
 
-- Internal script  at the body
+- Internal script at the body
 
 ```html
 <!DOCTYPE html>
-  <html>
-    <head>
-      <title>JavaScript for Everyone</title>
-    </head>
-    <body>
-      <script>
-        console.log("Welcome to JavaScript for Everyone");
-      </script>
-    </body>
-  </html>
+<html>
+  <head>
+    <title>JavaScript for Everyone</title>
+  </head>
+  <body>
+    <script>
+      console.log("Welcome to JavaScript for Everyone");
+    </script>
+  </body>
+</html>
 ```
 
 #### External script
 
 The external script link can be on the head or body but it is preferred to put it in the body.
 
-- External script  at the head
+- External script at the head
 
 ```html
 <!DOCTYPE html>
@@ -537,33 +513,33 @@ The external script link can be on the head or body but it is preferred to put i
 
 Variables are _containers_ of data. Variables _store_ data in a memory location. When a variable is declared a memory location is reserved and when it is assigned to a value, the memory space will be filled. To declare a variable we use, _var_, _let_ or _const_ key words. For a variable which changes at different time we use _let_ but if the data doesn't change at all we use _const_. For example PI, country name, gravity.
 
-- A JavaScript variable name  shouldn't begin with a number
-- A JavaScript variable name does not allow special characters except dollar sign and underscore. 
+- A JavaScript variable name shouldn't begin with a number
+- A JavaScript variable name does not allow special characters except dollar sign and underscore.
 - A JavaScript variable name follow a camelCase convention.
 - A JavaScript variable name shouldn't have space between words. The following are valid examples of JavaScript variables.
 
 Valid variables in JavaScript:
 
 ```js
-    firstName
-    lastName
-    country
-    city
-    capitalCity
-    age
-    isMarried
+firstName;
+lastName;
+country;
+city;
+capitalCity;
+age;
+isMarried;
 
-    first_name
-    last_name
-    is_married
-    capital_city
+first_name;
+last_name;
+is_married;
+capital_city;
 
-    num1
-    num_1
-    _num_1
-    $num1
-    year2019
-    year_2019
+num1;
+num_1;
+_num_1;
+$num1;
+year2019;
+year_2019;
 ```
 
 Camel case(camelCase) or the first way of declaring is conventional in JavaScript. In this material, camelCase variables will be used.
@@ -581,26 +557,26 @@ Declaring variables
 ```js
 // Declaring different variables of different data types
 
-let firstName = 'Asabeneh'; // first name of a person
-let lastName = 'Yetayeh';   // last name of a person
-let country = 'Finland';    // country
-let city = 'Helsinki';      // capital city
-let age = 100;              // age in years
+let firstName = "Asabeneh"; // first name of a person
+let lastName = "Yetayeh"; // last name of a person
+let country = "Finland"; // country
+let city = "Helsinki"; // capital city
+let age = 100; // age in years
 let isMarried = true;
 console.log(firstName, lastName, country, city, age, isMarried); // Asabeneh, Yetayeh, Finland, Helsinki, 100, True
 
 // Declaring variables with number values
 
-const gravity = 9.81;                    // earth gravity  in m/s2
-const boilingPoint = 100;                // water boiling point, temperature in oC
-const PI = 3.14;                         // geometrical constant
-console.log(gravity, boilingPoint, PI);  // 9.81, 100, 3.14
+const gravity = 9.81; // earth gravity  in m/s2
+const boilingPoint = 100; // water boiling point, temperature in oC
+const PI = 3.14; // geometrical constant
+console.log(gravity, boilingPoint, PI); // 9.81, 100, 3.14
 
 // Variables can also be declaring in one line separated by comma
 
-let name = 'Asabeneh', //name of a person
-  job = 'teacher',
-  live = 'Finland';
+let name = "Asabeneh", //name of a person
+  job = "teacher",
+  live = "Finland";
 console.log(name, job, live);
 ```
 
@@ -659,11 +635,11 @@ In the previous section, we mentioned a little bit about data types. Data or val
 
 Primitive data types in JavaScript includes:
 
- 1. Numbers - Integers, floats
- 2. Strings - Any data under single or double quote
- 3. Booleans - true or false value
- 4. Null - empty value or no value
- 5. Undefined - a declared variable without a value
+1.  Numbers - Integers, floats
+2.  Strings - Any data under single or double quote
+3.  Booleans - true or false value
+4.  Null - empty value or no value
+5.  Undefined - a declared variable without a value
 
 Non-primitive data types in JavaScript includes:
 
@@ -672,92 +648,92 @@ Non-primitive data types in JavaScript includes:
 3. Arrays
 
 Now, let us see what exactly mean primitive and non-primitive data types.
-*Primitive* data types are immutable(non-modifiable) data types. Once a primitive data type is created we can not modify it.
+_Primitive_ data types are immutable(non-modifiable) data types. Once a primitive data type is created we can not modify it.
 **Example:**
 
 ```js
-let word = 'JavaScript'
+let word = "JavaScript";
 ```
 
-If we try to modify the string stored in variable *word*, JavaScript will raise an error. Any data type under a single quote, double-quote, or backtick is a string data type.
+If we try to modify the string stored in variable _word_, JavaScript will raise an error. Any data type under a single quote, double-quote, or backtick is a string data type.
 
 ```js
-word[0] = 'Y'
+word[0] = "Y";
 ```
 
-This expression does not change the string stored in the variable *word*. So, we can say that strings are not modifiable or immutable.
+This expression does not change the string stored in the variable _word_. So, we can say that strings are not modifiable or immutable.
 Primitive data types are compared by its values. Let us compare different data values. See the example below:
 
 ```js
-let numOne = 3
-let numTwo = 3
+let numOne = 3;
+let numTwo = 3;
 
-console.log(numOne == numTwo)      // true
+console.log(numOne == numTwo); // true
 
-let js = 'JavaScript'
-let py = 'Python'
+let js = "JavaScript";
+let py = "Python";
 
-console.log(js == py)             //false 
+console.log(js == py); //false
 
-let lightOn = true
-let lightOff = false
+let lightOn = true;
+let lightOff = false;
 
-console.log(lightOn == lightOff) // false
+console.log(lightOn == lightOff); // false
 ```
 
 ### Non-Primitive Data Types
 
-*Non-primitive* data types are modifiable or mutable. We can modify the value of non-primitive data types after it gets created.
+_Non-primitive_ data types are modifiable or mutable. We can modify the value of non-primitive data types after it gets created.
 Let us see by creating an array. An array is a list of data values in a square bracket. Arrays can contain the same or different data types. Array values are referenced by their index. In JavaScript array index starts at zero. I.e., the first element of an array is found at index zero, the second element at index one, and the third element at index two, etc.
 
 ```js
-let nums = [1, 2, 3]
-nums[0] = 10
+let nums = [1, 2, 3];
+nums[0] = 10;
 
-console.log(nums)  // [10, 2, 3]
+console.log(nums); // [10, 2, 3]
 ```
 
 As you can see, an array in which a non-primitive data type is mutable. Non-primitive data types can not be compared by value. Even if two non-primitive data types have the same properties and values, they are not strictly equal.
 
 ```js
-let nums = [1, 2, 3]
-let numbers = [1, 2, 3]
+let nums = [1, 2, 3];
+let numbers = [1, 2, 3];
 
-console.log(nums == numbers)  // false
+console.log(nums == numbers); // false
 
 let userOne = {
-name:'Asabeneh',
-role:'teaching',
-country:'Finland'
-}
+  name: "Asabeneh",
+  role: "teaching",
+  country: "Finland",
+};
 
 let userTwo = {
-name:'Asabeneh',
-role:'teaching',
-country:'Finland'
-}
+  name: "Asabeneh",
+  role: "teaching",
+  country: "Finland",
+};
 
-console.log(userOne == userTwo) // false
+console.log(userOne == userTwo); // false
 ```
 
 Rule of thumb, we do not compare non-primitive data types. Do not compare array, function, or object.
 Non-primitive values are referred to as reference types because they are being compared by reference instead of value. Two objects are only strictly equal if they refer to the same underlying object.
 
 ```js
-let nums = [1, 2, 3]
-let numbers = nums
+let nums = [1, 2, 3];
+let numbers = nums;
 
-console.log(nums == numbers)  // true
+console.log(nums == numbers); // true
 
 let userOne = {
-name:'Asabeneh',
-role:'teaching',
-country:'Finland'
-}
+  name: "Asabeneh",
+  role: "teaching",
+  country: "Finland",
+};
 
-let userTwo = userOne
+let userTwo = userOne;
 
-console.log(userOne == userTwo)  // true
+console.log(userOne == userTwo); // true
 ```
 
 If you have a hard time understanding the difference between primitive data types and non-primitive data types, you are not the only one. Calm down and just go to the next section and try to come back after some time. Now let us start the data types by number type.
@@ -770,16 +746,16 @@ Lets' see some examples of Numbers.
 ### Declaring number data types
 
 ```js
-let age = 35
-const gravity = 9.81  //we use const for non-changing values, gravitational constant in  m/s2
-let mass = 72         // mass in Kilogram
-const PI = 3.14       // pi a geometrical constant
+let age = 35;
+const gravity = 9.81; //we use const for non-changing values, gravitational constant in  m/s2
+let mass = 72; // mass in Kilogram
+const PI = 3.14; // pi a geometrical constant
 
 //More Examples
-const boilingPoint = 100 // temperature in oC, boiling point of water which is a constant
-const bodyTemp = 37      // oC average human body temperature, which is a constant
+const boilingPoint = 100; // temperature in oC, boiling point of water which is a constant
+const bodyTemp = 37; // oC average human body temperature, which is a constant
 
-console.log(age, gravity, mass, PI, boilingPoint, bodyTemp)
+console.log(age, gravity, mass, PI, boilingPoint, bodyTemp);
 ```
 
 ### Math Object
@@ -787,57 +763,57 @@ console.log(age, gravity, mass, PI, boilingPoint, bodyTemp)
 In JavaScript the Math Object provides a lots of methods to work with numbers.
 
 ```js
-const PI = Math.PI
+const PI = Math.PI;
 
-console.log(PI)                           // 3.141592653589793
+console.log(PI); // 3.141592653589793
 
 // Rounding to the closest number
 // if above .5 up if less 0.5 down rounding
 
-console.log(Math.round(PI))               // 3 to round values to the nearest number
+console.log(Math.round(PI)); // 3 to round values to the nearest number
 
-console.log(Math.round(9.81))             // 10
+console.log(Math.round(9.81)); // 10
 
-console.log(Math.floor(PI))               // 3 rounding down
+console.log(Math.floor(PI)); // 3 rounding down
 
-console.log(Math.ceil(PI))                // 4 rounding up
+console.log(Math.ceil(PI)); // 4 rounding up
 
-console.log(Math.min(-5, 3, 20, 4,5, 10)) // -5, returns the minimum value
+console.log(Math.min(-5, 3, 20, 4, 5, 10)); // -5, returns the minimum value
 
-console.log(Math.max(-5, 3, 20, 4,5, 10)) // 20, returns the maximum value
+console.log(Math.max(-5, 3, 20, 4, 5, 10)); // 20, returns the maximum value
 
-const randNum = Math.random() // creates random number between 0 to 0.999999
-console.log(randNum)
+const randNum = Math.random(); // creates random number between 0 to 0.999999
+console.log(randNum);
 
 // Let us  create random number between 0 to 10
 
-const num = Math.floor(Math.random () * 11) // creates random number between 0 and 10
-console.log(num)
+const num = Math.floor(Math.random() * 11); // creates random number between 0 and 10
+console.log(num);
 
 //Absolute value
-console.log(Math.abs(-10))      //10
+console.log(Math.abs(-10)); //10
 
 //Square root
-console.log(Math.sqrt(100))     // 10
+console.log(Math.sqrt(100)); // 10
 
-console.log(Math.sqrt(2))      //1.4142135623730951
+console.log(Math.sqrt(2)); //1.4142135623730951
 
 // Power
-console.log(Math.pow(3, 2)) // 9
+console.log(Math.pow(3, 2)); // 9
 
-console.log(Math.E) // 2.718
+console.log(Math.E); // 2.718
 
 // Logarithm
 //Returns the natural logarithm of base E of x, Math.log(x)
-console.log(Math.log(2))    // 0.6931471805599453
-console.log(Math.log(10))   // 2.302585092994046
+console.log(Math.log(2)); // 0.6931471805599453
+console.log(Math.log(10)); // 2.302585092994046
 
 // Trigonometry
-Math.sin(0)
-Math.sin(60)
+Math.sin(0);
+Math.sin(60);
 
-Math.cos(0)
-Math.cos(60)
+Math.cos(0);
+Math.cos(60);
 ```
 
 #### Random number generator
@@ -845,19 +821,19 @@ Math.cos(60)
 The JavaScript Math Object has a random() method number generator which generates number from 0 to 0.999999999...
 
 ```js
-let randomNum = Math.random() // generates 0 to 0.999
+let randomNum = Math.random(); // generates 0 to 0.999
 ```
 
 Now, let us see how we can use random() method to generate a random number between 0 and 10 inclusive.
 
 ```js
-let randomNum = Math.random()         // generates 0 to 0.999
-let numBtnZeroAndTen = randomNum * 11
+let randomNum = Math.random(); // generates 0 to 0.999
+let numBtnZeroAndTen = randomNum * 11;
 
-console.log(numBtnZeroAndTen)         // this gives: min 0 and max 10.99
+console.log(numBtnZeroAndTen); // this gives: min 0 and max 10.99
 
-let randomNumRoundToFloor = Math.floor(numBtnZeroAndTen)
-console.log(randomNumRoundToFloor)    // this gives between 0 and 10
+let randomNumRoundToFloor = Math.floor(numBtnZeroAndTen);
+console.log(randomNumRoundToFloor); // this gives between 0 and 10
 ```
 
 ## Strings
@@ -866,13 +842,13 @@ Strings are texts, which are under **_single_** or **_double_** quote. To declar
 Lets' see some examples of string:
 
 ```js
-let space = ' '           // an empty space string
-let firstName = 'Asabeneh'
-let lastName = 'Yetayeh'
-let country = 'Finland'
-let city = 'Helsinki'
-let language = 'JavaScript'
-let job = 'teacher'
+let space = " "; // an empty space string
+let firstName = "Asabeneh";
+let lastName = "Yetayeh";
+let country = "Finland";
+let city = "Helsinki";
+let language = "JavaScript";
+let job = "teacher";
 ```
 
 ### String Concatenation
@@ -881,13 +857,13 @@ Connect two or more strings together is called concatenation.
 
 ```js
 // Declaring different variables of different data types
-let space = ' '
-let firstName = 'Asabeneh'
-let lastName = 'Yetayeh'
-let country = 'Finland'
-let city = 'Helsinki'
-let language = 'JavaScript'
-let job = 'teacher'
+let space = " ";
+let firstName = "Asabeneh";
+let lastName = "Yetayeh";
+let country = "Finland";
+let city = "Helsinki";
+let language = "JavaScript";
+let job = "teacher";
 ```
 
 ```js
@@ -907,19 +883,19 @@ Concatenating using the addition operator is an old way. This way of concatenati
 
 ```js
 // Declaring different variables of different data types
-let space = ' '
-let firstName = 'Asabeneh'
-let lastName = 'Yetayeh'
-let country = 'Finland'
-let city = 'Helsinki'
-let language = 'JavaScript'
-let job = 'teacher'
-let age = 250
-let fullName = firstName + space + lastName
+let space = " ";
+let firstName = "Asabeneh";
+let lastName = "Yetayeh";
+let country = "Finland";
+let city = "Helsinki";
+let language = "JavaScript";
+let job = "teacher";
+let age = 250;
+let fullName = firstName + space + lastName;
 
-let personInfoOne = fullName + '. I am ' + age + '. I live in ' + country; // ES5
+let personInfoOne = fullName + ". I am " + age + ". I live in " + country; // ES5
 
-console.log(personInfoOne)
+console.log(personInfoOne);
 ```
 
 ```sh
@@ -932,38 +908,41 @@ A string could be a single character or paragraph or a page. If the string lengt
 **Example:**
 
 ```js
-const paragraph = "My name is Asabeneh Yetayeh. I live in Finland, Helsinki.\
+const paragraph =
+  "My name is Asabeneh Yetayeh. I live in Finland, Helsinki.\
 I am a teacher and I love teaching. I teach HTML, CSS, JavaScript, React, Redux, \
 Node.js, Python, Data Analysis and D3.js for anyone who is interested to learn. \
 In the end of 2019, I was thinking to expand my teaching and to reach \
 to global audience and I started a Python challenge from November 20 - December 19.\
 It was one of the most rewarding and inspiring experience.\
 Now, we are in 2020. I am enjoying preparing the 30DaysOfJavaScript challenge and \
-I hope you are enjoying too."
-console.log(paragraph)
+I hope you are enjoying too.";
+console.log(paragraph);
 ```
 
 #### Escape Sequences in string
 
-In JavaScript and other programming language \ followed by some characters is  an escape sequence. Let's see the most common escape characters:
+In JavaScript and other programming language \ followed by some characters is an escape sequence. Let's see the most common escape characters:
 
 - \n: new line
 - \t: Tab means(8 spaces)
 - \\\\: Back slash
 - \\': Single quote (')
 - \\":Double quote (")
-  
+
 ```js
-console.log('I hope every one is enjoying the 30 Days Of JavaScript challenge.\nDo you ?') // line break
-console.log('Days\tTopics\tExercises')
-console.log('Day 1\t3\t5')
-console.log('Day 2\t3\t5')
-console.log('Day 3\t3\t5')
-console.log('Day 4\t3\t5')
-console.log('This is a back slash  symbol (\\)') // To write a back slash
-console.log('In every programming language it starts with \"Hello, World!\"')
-console.log("In every programming language it starts with \'Hello, World!\'")
-console.log('The saying \'Seeing is Believing\' is\'t correct in 2020')
+console.log(
+  "I hope every one is enjoying the 30 Days Of JavaScript challenge.\nDo you ?"
+); // line break
+console.log("Days\tTopics\tExercises");
+console.log("Day 1\t3\t5");
+console.log("Day 2\t3\t5");
+console.log("Day 3\t3\t5");
+console.log("Day 4\t3\t5");
+console.log("This is a back slash  symbol (\\)"); // To write a back slash
+console.log('In every programming language it starts with "Hello, World!"');
+console.log("In every programming language it starts with 'Hello, World!'");
+console.log("The saying 'Seeing is Believing' is't correct in 2020");
 ```
 
 #### Template Literals(Template Strings)
@@ -972,35 +951,34 @@ To create a template string, we use two backticks. We can inject data as express
 
 ```js
 //Syntax
-`String literal text`
-`String literal text ${expression}`
+`String literal text``String literal text ${expression}`;
 ```
 
 **Example: 1**
 
 ```js
-console.log(`The sum of 2 and 3 is 5`)              // statically writing the data
-let a = 2
-let b = 3
-console.log(`The sum of ${a} and ${b} is ${a + b}`) // injecting the data dynamically
+console.log(`The sum of 2 and 3 is 5`); // statically writing the data
+let a = 2;
+let b = 3;
+console.log(`The sum of ${a} and ${b} is ${a + b}`); // injecting the data dynamically
 ```
 
 **Example:2**
 
 ```js
-let firstName = 'Asabeneh'
-let lastName = 'Yetayeh'
-let country = 'Finland'
-let city = 'Helsinki'
-let language = 'JavaScript'
-let job = 'teacher'
-let age = 250
-let fullName = firstName + ' ' + lastName
+let firstName = "Asabeneh";
+let lastName = "Yetayeh";
+let country = "Finland";
+let city = "Helsinki";
+let language = "JavaScript";
+let job = "teacher";
+let age = 250;
+let fullName = firstName + " " + lastName;
 
-let personInfoTwo = `I am ${fullName}. I am ${age}. I live in ${country}.` //ES6 - String interpolation method
-let personInfoThree = `I am ${fullName}. I live in ${city}, ${country}. I am a ${job}. I teach ${language}.`
-console.log(personInfoTwo)
-console.log(personInfoThree)
+let personInfoTwo = `I am ${fullName}. I am ${age}. I live in ${country}.`; //ES6 - String interpolation method
+let personInfoThree = `I am ${fullName}. I live in ${city}, ${country}. I am a ${job}. I teach ${language}.`;
+console.log(personInfoTwo);
+console.log(personInfoThree);
 ```
 
 ```sh
@@ -1011,9 +989,9 @@ I am Asabeneh Yetayeh. I live in Helsinki, Finland. I am a teacher. I teach Java
 Using a string template or string interpolation method, we can add expression, which could be a value or some operations(comparison, arithmetic operations, ternary operation).
 
 ```js
-let a = 2
-let b = 3
-console.log(`${a} is greater than ${b}: ${a > b}`)
+let a = 2;
+let b = 3;
+console.log(`${a} is greater than ${b}: ${a > b}`);
 ```
 
 ```sh
@@ -1024,318 +1002,320 @@ console.log(`${a} is greater than ${b}: ${a > b}`)
 
 Everything in JavaScript is an object. A string is a primitive data type that means we can not modify once it is created. The string object has many string methods. There are different string methods that can help us to work with strings.
 
-1. *length*: The string *length* method returns the number of characters in a string included empty space.
-  **Example:**
+1. _length_: The string _length_ method returns the number of characters in a string included empty space.
+   **Example:**
 
    ```js
-   let js = 'JavaScript'
-   console.log(js.length)         // 10
-   let firstName = 'Asabeneh'
-   console.log(firstName.length)  // 8
+   let js = "JavaScript";
+   console.log(js.length); // 10
+   let firstName = "Asabeneh";
+   console.log(firstName.length); // 8
    ```
 
-2. *Accessing characters in a string*: We can access each character in a string using its index. In programming, counting starts from 0. The first index of the string is zero, and the last index is one minus the length of the string.
+2. _Accessing characters in a string_: We can access each character in a string using its index. In programming, counting starts from 0. The first index of the string is zero, and the last index is one minus the length of the string.
 
-  ![Accessing sting by index](./images/string_indexes.png)
-  
+![Accessing sting by index](./images/string_indexes.png)
+
 Let us access different characters in 'JavaScript' string.
 
 ```js
-let string = 'JavaScript'
-let firstLetter = string[0]
+let string = "JavaScript";
+let firstLetter = string[0];
 
-console.log(firstLetter)           // J
+console.log(firstLetter); // J
 
-let secondLetter = string[1]       // a
-let thirdLetter = string[2]
-let lastLetter = string[9]
+let secondLetter = string[1]; // a
+let thirdLetter = string[2];
+let lastLetter = string[9];
 
-console.log(lastLetter)            // t
+console.log(lastLetter); // t
 
-let lastIndex = string.length - 1
+let lastIndex = string.length - 1;
 
-console.log(lastIndex)  // 9
-console.log(string[lastIndex])    // t
+console.log(lastIndex); // 9
+console.log(string[lastIndex]); // t
 ```
 
-3. *toUpperCase()*: this method changes the string to uppercase letters.
+3. _toUpperCase()_: this method changes the string to uppercase letters.
 
 ```js
-let string = 'JavaScript'
+let string = "JavaScript";
 
-console.log(string.toUpperCase())     // JAVASCRIPT
+console.log(string.toUpperCase()); // JAVASCRIPT
 
-let firstName = 'Asabeneh'
+let firstName = "Asabeneh";
 
-console.log(firstName.toUpperCase())  // ASABENEH
+console.log(firstName.toUpperCase()); // ASABENEH
 
-let country = 'Finland'
+let country = "Finland";
 
-console.log(country.toUpperCase())    // FINLAND
+console.log(country.toUpperCase()); // FINLAND
 ```
 
-4. *toLowerCase()*: this method changes the string to lowercase letters.
+4. _toLowerCase()_: this method changes the string to lowercase letters.
 
 ```js
-let string = 'JavasCript'
+let string = "JavasCript";
 
-console.log(string.toLowerCase())     // javascript
+console.log(string.toLowerCase()); // javascript
 
-let firstName = 'Asabeneh'
+let firstName = "Asabeneh";
 
-console.log(firstName.toLowerCase())  // asabeneh
+console.log(firstName.toLowerCase()); // asabeneh
 
-let country = 'Finland'
+let country = "Finland";
 
-console.log(country.toLowerCase())   // finland
+console.log(country.toLowerCase()); // finland
 ```
 
-5. *substr()*: It takes two arguments, the starting index and number of characters to slice.
+5. _substr()_: It takes two arguments, the starting index and number of characters to slice.
 
 ```js
-let string = 'JavaScript'
-console.log(string.substr(4,6))    // Script
+let string = "JavaScript";
+console.log(string.substr(4, 6)); // Script
 
-let country = 'Finland'
-console.log(country.substr(3, 4))   // land
+let country = "Finland";
+console.log(country.substr(3, 4)); // land
 ```
 
-6. *substring()*: It takes two arguments, the starting index and the stopping index but it doesn't include the stopping index.
+6. _substring()_: It takes two arguments, the starting index and the stopping index but it doesn't include the stopping index.
 
 ```js
-let string = 'JavaScript'
+let string = "JavaScript";
 
-console.log(string.substring(0,4))     // Java
-console.log(string.substring(4,10))    // Script
-console.log(string.substring(4))       // Script
+console.log(string.substring(0, 4)); // Java
+console.log(string.substring(4, 10)); // Script
+console.log(string.substring(4)); // Script
 
-let country = 'Finland'
+let country = "Finland";
 
-console.log(country.substring(0, 3))   // Fin
-console.log(country.substring(3, 7))   // land
-console.log(country.substring(3))      // land
+console.log(country.substring(0, 3)); // Fin
+console.log(country.substring(3, 7)); // land
+console.log(country.substring(3)); // land
 ```
 
-7. *split()*: The split method splits a string at a specified place.
+7. _split()_: The split method splits a string at a specified place.
 
 ```js
-let string = '30 Days Of JavaScript'
+let string = "30 Days Of JavaScript";
 
-console.log(string.split())     // ["30 Days Of JavaScript"]
-console.log(string.split(' '))  // ["30", "Days", "Of", "JavaScript"]
+console.log(string.split()); // ["30 Days Of JavaScript"]
+console.log(string.split(" ")); // ["30", "Days", "Of", "JavaScript"]
 
-let firstName = 'Asabeneh'
+let firstName = "Asabeneh";
 
-console.log(firstName.split())    // ["Asabeneh"]
-console.log(firstName.split(''))  // ["A", "s", "a", "b", "e", "n", "e", "h"]
+console.log(firstName.split()); // ["Asabeneh"]
+console.log(firstName.split("")); // ["A", "s", "a", "b", "e", "n", "e", "h"]
 
-let countries = 'Finland, Sweden, Norway, Denmark, and Iceland'
+let countries = "Finland, Sweden, Norway, Denmark, and Iceland";
 
-console.log(countries.split(','))  // ["Finland", " Sweden", " Norway", " Denmark", " and Iceland"]
-console.log(countries.split(', ')) //  ["Finland", "Sweden", "Norway", "Denmark", "and Iceland"]
+console.log(countries.split(",")); // ["Finland", " Sweden", " Norway", " Denmark", " and Iceland"]
+console.log(countries.split(", ")); //  ["Finland", "Sweden", "Norway", "Denmark", "and Iceland"]
 ```
 
-8. *trim()*: Removes trailing space in the beginning or the end of a string.
+8. _trim()_: Removes trailing space in the beginning or the end of a string.
 
 ```js
-let string = '   30 Days Of JavaScript   '
+let string = "   30 Days Of JavaScript   ";
 
-console.log(string)     
-console.log(string.trim(' '))
+console.log(string);
+console.log(string.trim(" "));
 
-let firstName = ' Asabeneh '
+let firstName = " Asabeneh ";
 
-console.log(firstName)
-console.log(firstName.trim())
+console.log(firstName);
+console.log(firstName.trim());
 ```
 
 ```sh
-   30 Days Of JavasCript   
+   30 Days Of JavasCript
 30 Days Of JavasCript
-  Asabeneh 
+  Asabeneh
 Asabeneh
 ```
 
-9. *includes()*: It takes a substring argument and it check if substring argument exists in the string. *includes()* returns a boolean. It checks if a substring exist in a string and it returns true if it exists and false if it doesn't exist.
+9. _includes()_: It takes a substring argument and it check if substring argument exists in the string. _includes()_ returns a boolean. It checks if a substring exist in a string and it returns true if it exists and false if it doesn't exist.
 
 ```js
-let string = '30 Days Of JavaScript'
+let string = "30 Days Of JavaScript";
 
-console.log(string.includes('Days'))     // true
-console.log(string.includes('days'))     // false
-console.log(string.includes('Script'))   // true
-console.log(string.includes('script'))   // false
-console.log(string.includes('java'))     // false
-console.log(string.includes('Java'))     // true
+console.log(string.includes("Days")); // true
+console.log(string.includes("days")); // false
+console.log(string.includes("Script")); // true
+console.log(string.includes("script")); // false
+console.log(string.includes("java")); // false
+console.log(string.includes("Java")); // true
 
-let country = 'Finland'
+let country = "Finland";
 
-console.log(country.includes('fin'))     // false
-console.log(country.includes('Fin'))     // true
-console.log(country.includes('land'))    // true
-console.log(country.includes('Land'))    // false
+console.log(country.includes("fin")); // false
+console.log(country.includes("Fin")); // true
+console.log(country.includes("land")); // true
+console.log(country.includes("Land")); // false
 ```
 
-10. *replace()*: takes to parameter the old substring and new substring.
+10. _replace()_: takes to parameter the old substring and new substring.
 
 ```js
-string.replace(oldsubstring, newsubstring)
-```
-
-```js
-let string = '30 Days Of JavaScript'
-console.log(string.replace('JavaScript', 'Python')) // 30 Days Of Python
-
-let country = 'Finland'
-console.log(country.replace('Fin', 'Noman'))       // Nomanland
-```
-
-11. *charAt()*: Takes index and it returns the value at that index
-
-```js
-string.charAt(index)
+string.replace(oldsubstring, newsubstring);
 ```
 
 ```js
-let string = '30 Days Of JavaScript'
-console.log(string.charAt(0))        // 3
+let string = "30 Days Of JavaScript";
+console.log(string.replace("JavaScript", "Python")); // 30 Days Of Python
 
-let lastIndex = string.length - 1
-console.log(string.charAt(lastIndex)) // t
+let country = "Finland";
+console.log(country.replace("Fin", "Noman")); // Nomanland
 ```
 
-12. *charCodeAt()*: Takes index and it returns char code(ASCII number) of the value at that index
+11. _charAt()_: Takes index and it returns the value at that index
 
 ```js
-string.charCodeAt(index)
-```
-
-```js
-let string = '30 Days Of JavaScript'
-console.log(string.charCodeAt(3))        // D ASCII number is 51
-
-let lastIndex = string.length - 1
-console.log(string.charCodeAt(lastIndex)) // t ASCII is 116
-
-```
-
-13.  *indexOf()*: Takes a substring and if the substring exists in a string it returns the first position of the substring if does not exist it returns -1
-
-```js
-string.indexOf(substring)
+string.charAt(index);
 ```
 
 ```js
-let string = '30 Days Of JavaScript'
+let string = "30 Days Of JavaScript";
+console.log(string.charAt(0)); // 3
 
-console.log(string.indexOf('D'))          // 3
-console.log(string.indexOf('Days'))       // 3
-console.log(string.indexOf('days'))       // -1
-console.log(string.indexOf('a'))          // 4
-console.log(string.indexOf('JavaScript')) // 11
-console.log(string.indexOf('Script'))     //15
-console.log(string.indexOf('script'))     // -1
+let lastIndex = string.length - 1;
+console.log(string.charAt(lastIndex)); // t
 ```
 
-14.  *lastIndexOf()*: Takes a substring and if the substring exists in a string it returns the last position of the substring if it does not exist it returns -1
+12. _charCodeAt()_: Takes index and it returns char code(ASCII number) of the value at that index
+
+```js
+string.charCodeAt(index);
+```
+
+```js
+let string = "30 Days Of JavaScript";
+console.log(string.charCodeAt(3)); // D ASCII number is 51
+
+let lastIndex = string.length - 1;
+console.log(string.charCodeAt(lastIndex)); // t ASCII is 116
+```
+
+13. _indexOf()_: Takes a substring and if the substring exists in a string it returns the first position of the substring if does not exist it returns -1
+
+```js
+string.indexOf(substring);
+```
+
+```js
+let string = "30 Days Of JavaScript";
+
+console.log(string.indexOf("D")); // 3
+console.log(string.indexOf("Days")); // 3
+console.log(string.indexOf("days")); // -1
+console.log(string.indexOf("a")); // 4
+console.log(string.indexOf("JavaScript")); // 11
+console.log(string.indexOf("Script")); //15
+console.log(string.indexOf("script")); // -1
+```
+
+14. _lastIndexOf()_: Takes a substring and if the substring exists in a string it returns the last position of the substring if it does not exist it returns -1
 
 ```js
 //syntax
-string.lastIndexOf(substring)
+string.lastIndexOf(substring);
 ```
 
 ```js
-let string = 'I love JavaScript. If you do not love JavaScript what else can you love.'
+let string =
+  "I love JavaScript. If you do not love JavaScript what else can you love.";
 
-console.log(string.lastIndexOf('love'))       // 67
-console.log(string.lastIndexOf('you'))        // 63
-console.log(string.lastIndexOf('JavaScript')) // 38
+console.log(string.lastIndexOf("love")); // 67
+console.log(string.lastIndexOf("you")); // 63
+console.log(string.lastIndexOf("JavaScript")); // 38
 ```
 
-15. *concat()*: it takes many substrings and creates concatenation.
+15. _concat()_: it takes many substrings and creates concatenation.
 
 ```js
-string.concat(substring, substring, substring)
+string.concat(substring, substring, substring);
 ```
 
 ```js
-let string = '30'
-console.log(string.concat("Days", "Of", "JavaScript")) // 30DaysOfJavaScript
+let string = "30";
+console.log(string.concat("Days", "Of", "JavaScript")); // 30DaysOfJavaScript
 
-let country = 'Fin'
-console.log(country.concat("land")) // Finland
+let country = "Fin";
+console.log(country.concat("land")); // Finland
 ```
 
-16. *startsWith*: it takes a substring as an argument and it checks if the string starts with that specified substring. It returns a boolean(true or false).
+16. _startsWith_: it takes a substring as an argument and it checks if the string starts with that specified substring. It returns a boolean(true or false).
 
 ```js
 //syntax
-string.startsWith(substring)
+string.startsWith(substring);
 ```
 
 ```js
-let string = 'Love is the best to in this world'
+let string = "Love is the best to in this world";
 
-console.log(string.startsWith('Love'))   // true
-console.log(string.startsWith('love'))   // false
-console.log(string.startsWith('world'))  // false
+console.log(string.startsWith("Love")); // true
+console.log(string.startsWith("love")); // false
+console.log(string.startsWith("world")); // false
 
-let country = 'Finland'
+let country = "Finland";
 
-console.log(country.startsWith('Fin'))   // true
-console.log(country.startsWith('fin'))   // false
-console.log(country.startsWith('land'))  //  false
+console.log(country.startsWith("Fin")); // true
+console.log(country.startsWith("fin")); // false
+console.log(country.startsWith("land")); //  false
 ```
 
-17. *endsWith*: it takes a substring as an argument and it checks if the string starts with that specified substring. It returns a boolean(true or false).
+17. _endsWith_: it takes a substring as an argument and it checks if the string starts with that specified substring. It returns a boolean(true or false).
 
 ```js
-string.endsWith(substring)
-```
-
-```js
-let string = 'Love is the best to in this world'
-
-console.log(string.endsWith('world'))         // true
-console.log(string.endsWith('love'))          // false
-console.log(string.endsWith('in this world')) // true
-
-let country = 'Finland'
-
-console.log(country.endsWith('land'))         // true
-console.log(country.endsWith('fin'))          // false
-console.log(country.endsWith('Fin'))          //  false
-```
-
-18. *search*: it takes a substring as an argument and it returns the index of the first match.
-
-```js
-string.search(substring)
+string.endsWith(substring);
 ```
 
 ```js
-let string = 'I love JavaScript. If you do not love JavaScript what else can you love.'
-console.log(string.search('love')) // 2
+let string = "Love is the best to in this world";
+
+console.log(string.endsWith("world")); // true
+console.log(string.endsWith("love")); // false
+console.log(string.endsWith("in this world")); // true
+
+let country = "Finland";
+
+console.log(country.endsWith("land")); // true
+console.log(country.endsWith("fin")); // false
+console.log(country.endsWith("Fin")); //  false
 ```
 
-19. *match*: it takes a substring or regular expression pattern as an argument and it returns an array if there is match if not it returns null. Let us see how a regular expression pattern looks like. It starts with / sign and ends with / sign.
+18. _search_: it takes a substring as an argument and it returns the index of the first match.
 
 ```js
-let string = 'love'
-let patternOne = /love/     // with out any flag
-let patternTwo = /love/gi   // g-means to search in the whole text, i - case insensitive
+string.search(substring);
+```
+
+```js
+let string =
+  "I love JavaScript. If you do not love JavaScript what else can you love.";
+console.log(string.search("love")); // 2
+```
+
+19. _match_: it takes a substring or regular expression pattern as an argument and it returns an array if there is match if not it returns null. Let us see how a regular expression pattern looks like. It starts with / sign and ends with / sign.
+
+```js
+let string = "love";
+let patternOne = /love/; // with out any flag
+let patternTwo = /love/gi; // g-means to search in the whole text, i - case insensitive
 ```
 
 Match syntax
 
 ```js
 // syntax
-string.match(substring)
+string.match(substring);
 ```
 
 ```js
-let string = 'I love JavaScript. If you do not love JavaScript what else can you love.'
-console.log(string.match('love'))
+let string =
+  "I love JavaScript. If you do not love JavaScript what else can you love.";
+console.log(string.match("love"));
 ```
 
 ```sh
@@ -1343,33 +1323,34 @@ console.log(string.match('love'))
 ```
 
 ```js
-let pattern = /love/gi
-console.log(string.match(pattern))   // ["love", "love", "love"]
+let pattern = /love/gi;
+console.log(string.match(pattern)); // ["love", "love", "love"]
 ```
 
 Let us extract numbers from text using regular expression. This is not regular expression section, no panic, we will cover regular expression in other section.
 
 ```js
-let txt = 'In 2019, I run 30 Days of Python. Now, in 2020 I super exited to start this challenge'
-let regEx = /\d+/
+let txt =
+  "In 2019, I run 30 Days of Python. Now, in 2020 I super exited to start this challenge";
+let regEx = /\d+/;
 
 // d with escape character means d not a normal d instead acts a digit
 // + means one or more digit numbers,
 // if there is g after that it means global, search everywhere.
 
-console.log(txt.match(regEx))  // ["2", "0", "1", "9", "3", "0", "2", "0", "2", "0"]
-console.log(txt.match(/\d+/g)) // ["2019", "30", "2020"]
+console.log(txt.match(regEx)); // ["2", "0", "1", "9", "3", "0", "2", "0", "2", "0"]
+console.log(txt.match(/\d+/g)); // ["2019", "30", "2020"]
 ```
 
-20.   *repeat()*: it takes a number argument and it returned the repeated version of the string.
+20. _repeat()_: it takes a number argument and it returned the repeated version of the string.
 
 ```js
-string.repeat(n)
+string.repeat(n);
 ```
 
 ```js
-let string = 'love'
-console.log(string.repeat(10)) // lovelovelovelovelovelovelovelovelovelove
+let string = "love";
+console.log(string.repeat(10)); // lovelovelovelovelovelovelovelovelovelove
 ```
 
 ## Checking Data types and Casting
@@ -1383,23 +1364,23 @@ console.log(string.repeat(10)) // lovelovelovelovelovelovelovelovelovelove
 // Different javascript data types
 // Let's declare different data types
 
-let firstName = 'Asabeneh'      // string
-let lastName = 'Yetayeh'        // string
-let country = 'Finland'         // string
-let city = 'Helsinki'           // string
-let age = 250                   // number, it is not my real age, do not worry about it
-let job                         // undefined, because a value was not assigned
+let firstName = "Asabeneh"; // string
+let lastName = "Yetayeh"; // string
+let country = "Finland"; // string
+let city = "Helsinki"; // string
+let age = 250; // number, it is not my real age, do not worry about it
+let job; // undefined, because a value was not assigned
 
-console.log(typeof 'Asabeneh')  // string
-console.log(typeof firstName)   // string
-console.log(typeof 10)          // number
-console.log(typeof 3.14)        // number
-console.log(typeof true)        // boolean
-console.log(typeof false)       // boolean
-console.log(typeof NaN)         // number
-console.log(typeof job)         // undefined
-console.log(typeof undefined)   // undefined
-console.log(typeof null)        // object
+console.log(typeof "Asabeneh"); // string
+console.log(typeof firstName); // string
+console.log(typeof 10); // number
+console.log(typeof 3.14); // number
+console.log(typeof true); // boolean
+console.log(typeof false); // boolean
+console.log(typeof NaN); // number
+console.log(typeof job); // undefined
+console.log(typeof undefined); // undefined
+console.log(typeof null); // object
 ```
 
 ### Changing data type(Casting)
@@ -1409,7 +1390,7 @@ console.log(typeof null)        // object
 
 #### String to Int
 
-We can convert string number to a number. Any number inside a quote is a string number.  An example of a string number: '10', '5', etc.
+We can convert string number to a number. Any number inside a quote is a string number. An example of a string number: '10', '5', etc.
 We can convert string to number using the following methods:
 
 - parseInt()
@@ -1417,28 +1398,28 @@ We can convert string to number using the following methods:
 - Plus sign(+)
 
 ```js
-let num = '10'
-let numInt = parseInt(num)
-console.log(numInt) // 10
+let num = "10";
+let numInt = parseInt(num);
+console.log(numInt); // 10
 ```
 
 ```js
-let num = '10'
-let numInt = Number(num)
+let num = "10";
+let numInt = Number(num);
 
-console.log(numInt) // 10
+console.log(numInt); // 10
 ```
 
 ```js
-let num = '10'
-let numInt = +num
+let num = "10";
+let numInt = +num;
 
-console.log(numInt) // 10
+console.log(numInt); // 10
 ```
 
 #### String to Float
 
-We can convert string float number to a float number. Any  float number inside a quote is a string float number.  An example of a string float number: '9.81', '3.14', '1.44', etc.
+We can convert string float number to a float number. Any float number inside a quote is a string float number. An example of a string float number: '9.81', '3.14', '1.44', etc.
 We can convert string float to number using the following methods:
 
 - parseFloat()
@@ -1446,24 +1427,24 @@ We can convert string float to number using the following methods:
 - Plus sign(+)
 
 ```js
-let num = '9.81'
-let numFloat = parseFloat(num)
+let num = "9.81";
+let numFloat = parseFloat(num);
 
-console.log(numFloat) // 9.81
+console.log(numFloat); // 9.81
 ```
 
 ```js
-let num = '9.81'
-let numFloat = Number(num)
+let num = "9.81";
+let numFloat = Number(num);
 
-console.log(numFloat) // 9.81
+console.log(numFloat); // 9.81
 ```
 
 ```js
-let num = '9.81'
-let numFloat = +num
+let num = "9.81";
+let numFloat = +num;
 
-console.log(numInt) // 9.81
+console.log(numInt); // 9.81
 ```
 
 #### Float to Int
@@ -1472,48 +1453,47 @@ We can convert float numbers to integers.
 We use the following method to convert float to int:
 
 - parseInt()
-  
+
 ```js
-let num = 9.81
-let numInt = parseInt(num)
+let num = 9.81;
+let numInt = parseInt(num);
 
-console.log(numInt) // 9
+console.log(numInt); // 9
 ```
-
 
 ### Exercises: Data Types
 
 1. Declare variables and assign string, boolean, undefined and null data types
-1. The JavaScript ***typeof*** operator uses to check different data types. Check the data type of each variables from question number 1.
+1. The JavaScript **_typeof_** operator uses to check different data types. Check the data type of each variables from question number 1.
 
 #### Exercise: String
 
 1. Declare a variable name company and assign it to an initial value **'Coding Academy'**.
-1. Print the string on the browser console using __console.log()__
-1. Print the __length__ of the string on the browser console using _console.log()_
-1. Change all the string to capital letters using __toUpperCase()__ method
-1. Change all the string to lowercase letters using __toLowerCase()__ method
-1. Cut(slice) out the first word of the string using __slice__, __substr()__ or __substring()__ method
-1. Use __substr__ to slice out the phase __because because because__ in the following sentence:__'You cannot end a sentence with because because because is a conjunction'__
-1. Check if the string contains a word __Academy__ using __includes()__ method
-1. Split the __string__ into __array__ using __split()__ method
-1. Split the string Coding Academy at the space using __split()__ method
-1. 'Facebook, Google, Microsoft, Apple, IBM, Oracle, Amazon' __split__ the string at the comma and change it to an array.
-1. Change Coding Academy to Microsoft Academy using __replace()__ method.
-1. What is character at index 10 in 'Coding Academy' string use __charAt()__ method.
-1. What is the character code of A in 'Coding Academy' string using __charCodeAt()__
-1. Use __indexOf__ to determine the position of the first occurrence of c in Coding Academy
-1. Use __lastIndexOf__ to determine the position of the last occurrence of c in Coding Academy.
-1. Use __indexOf__ to find the position of the first occurrence of the word __because__ in the following sentence:__'You cannot end a sentence with because because because is a conjunction'__
-1. Use __lastIndexOf__ to find the position of the first occurrence of the word __because__ in the following sentence:__'You cannot end a sentence with because because because is a conjunction'__
-1. Use __search__ to find the position of the first occurrence of the word __because__ in the following sentence:__'You cannot end a sentence with because because because is a conjunction'__
-1. Use __trim()__ to remove if there is trailing whitespace at the beginning and the end of a string.E.g ' Coding Academy '.
-1. Use __startsWith()__ method with the string Coding Academy make the result true
-1. Use __endsWith()__ method with the string Coding Academy make the result true
-1. Use __match()__ method to find all the c’s in Coding Academy
-1. Use __match()__ to count the number all because's in the following sentence:__'You cannot end a sentence with because because because is a conjunction'__
-1. Use __concat()__ and merge 'Coding' and 'Academy' to a single string, 'Coding Academy'
-1. Use __repeat()__ method to print Coding Academy 5 times
+1. Print the string on the browser console using **console.log()**
+1. Print the **length** of the string on the browser console using _console.log()_
+1. Change all the string to capital letters using **toUpperCase()** method
+1. Change all the string to lowercase letters using **toLowerCase()** method
+1. Cut(slice) out the first word of the string using **slice**, **substr()** or **substring()** method
+1. Use **substr** to slice out the phase **because because because** in the following sentence:**'You cannot end a sentence with because because because is a conjunction'**
+1. Check if the string contains a word **Academy** using **includes()** method
+1. Split the **string** into **array** using **split()** method
+1. Split the string Coding Academy at the space using **split()** method
+1. 'Facebook, Google, Microsoft, Apple, IBM, Oracle, Amazon' **split** the string at the comma and change it to an array.
+1. Change Coding Academy to Microsoft Academy using **replace()** method.
+1. What is character at index 10 in 'Coding Academy' string use **charAt()** method.
+1. What is the character code of A in 'Coding Academy' string using **charCodeAt()**
+1. Use **indexOf** to determine the position of the first occurrence of c in Coding Academy
+1. Use **lastIndexOf** to determine the position of the last occurrence of c in Coding Academy.
+1. Use **indexOf** to find the position of the first occurrence of the word **because** in the following sentence:**'You cannot end a sentence with because because because is a conjunction'**
+1. Use **lastIndexOf** to find the position of the first occurrence of the word **because** in the following sentence:**'You cannot end a sentence with because because because is a conjunction'**
+1. Use **search** to find the position of the first occurrence of the word **because** in the following sentence:**'You cannot end a sentence with because because because is a conjunction'**
+1. Use **trim()** to remove if there is trailing whitespace at the beginning and the end of a string.E.g ' Coding Academy '.
+1. Use **startsWith()** method with the string Coding Academy make the result true
+1. Use **endsWith()** method with the string Coding Academy make the result true
+1. Use **match()** method to find all the c’s in Coding Academy
+1. Use **match()** to count the number all because's in the following sentence:**'You cannot end a sentence with because because because is a conjunction'**
+1. Use **concat()** and merge 'Coding' and 'Academy' to a single string, 'Coding Academy'
+1. Use **repeat()** method to print Coding Academy 5 times
 1. Calculate the total annual income of the person by extract the numbers from the following text. 'He earns 5000 euro from salary per month, 10000 euro annual bonus, 15000 euro online courses per month.'
 
 ### Booleans
@@ -1565,7 +1545,7 @@ console.log(empty); // -> null , means no value
 
 String, number, boolean, null, undefined and symbol(ES6) are JavaScript primitive data types.
 
-1. The JavaScript *typeof* operator uses to check different data types. Check the data type of each variables from question number 1.
+1. The JavaScript _typeof_ operator uses to check different data types. Check the data type of each variables from question number 1.
 
 ## Operators
 
@@ -1585,12 +1565,12 @@ let remainder = numOne % numTwo;
 console.log(sum, diff, mult, div, remainder); // ->7,1,12,1.33,1
 
 let PI = 3.14;
-let radius = 100;          // length in meter
+let radius = 100; // length in meter
 
-const gravity = 9.81;      // in m/s2
-let mass = 72;             // in Kilogram
-const boilingPoint = 100;  // temperature in oC, boiling point of water
-const bodyTemp = 37;       // body temperature in oC
+const gravity = 9.81; // in m/s2
+let mass = 72; // in Kilogram
+const boilingPoint = 100; // temperature in oC, boiling point of water
+const bodyTemp = 37; // body temperature in oC
 
 // Lets calculate area of a circle
 
@@ -1646,11 +1626,11 @@ const check = 4 < 3 || 10 < 5; // false and false -> false
 
 // ! Negation examples
 
-let check = 4 > 3;           // -> true
-let check = !(4 > 3);        // -> false
-let isLightOn = true;        // -> true
+let check = 4 > 3; // -> true
+let check = !(4 > 3); // -> false
+let isLightOn = true; // -> true
 let isLightOff = !isLightOn; // -> false
-let isMarried = !false;      // -> true
+let isMarried = !false; // -> true
 ```
 
 ### Exercises: Logical Operators
@@ -1676,9 +1656,9 @@ Which are true or which are false ?
 4 < 3;
 4 <= 3;
 4 != 3;
-4 !== '4';
-4 == '4';
-4 === '4';
+4 !== "4";
+4 == "4";
+4 === "4";
 4 === 4;
 ```
 
@@ -1713,7 +1693,7 @@ if (condition) {
 
 let isRaining = true;
 if (isRaining) {
-  console.log('Remember to take your rain coat.');
+  console.log("Remember to take your rain coat.");
 }
 ```
 
@@ -1730,9 +1710,9 @@ if (condition) {
 
 let isRaining = true;
 if (isRaining) {
-  console.log('You need a rain coat.');
+  console.log("You need a rain coat.");
 } else {
-  console.log('No need for a rain coat.');
+  console.log("No need for a rain coat.");
 }
 ```
 
@@ -1742,15 +1722,15 @@ Whenever we have multiple conditions.
 
 ```js
 // if else if else
-let weather = 'sunny';
-if (weather === 'rainy') {
-  console.log('You need a rain coat.');
-} else if (weather === 'cloudy') {
-  console.log('It might be cold, you need a jacket.');
-} else if (weather === 'sunny') {
-  console.log('Go out freely.');
+let weather = "sunny";
+if (weather === "rainy") {
+  console.log("You need a rain coat.");
+} else if (weather === "cloudy") {
+  console.log("It might be cold, you need a jacket.");
+} else if (weather === "sunny") {
+  console.log("Go out freely.");
 } else {
-  console.log('No need for rain coat.');
+  console.log("No need for rain coat.");
 }
 ```
 
@@ -1759,49 +1739,49 @@ if (weather === 'rainy') {
 Switch an alternative for if else if else
 
 ```js
-var weather = 'cloudy';
+var weather = "cloudy";
 switch (weather) {
-  case 'rainy':
-    console.log('You need a rain coat.');
+  case "rainy":
+    console.log("You need a rain coat.");
     break;
-  case 'cloudy':
-    console.log('It might be cold, you need a jacket.');
+  case "cloudy":
+    console.log("It might be cold, you need a jacket.");
     break;
-  case 'sunny':
-    console.log('Go out freely.');
+  case "sunny":
+    console.log("Go out freely.");
     break;
   default:
-    console.log(' No need for rain coat.');
+    console.log(" No need for rain coat.");
     break;
 }
 // Switch More Examples
-var dayUserInput = prompt('What day is it ?');
+var dayUserInput = prompt("What day is it ?");
 var day = dayUserInput.toLowerCase();
 switch (day) {
-  case 'monday':
-    console.log('Today is Monday');
+  case "monday":
+    console.log("Today is Monday");
     break;
-  case 'tuesday':
-    console.log('Today is Tuesday');
+  case "tuesday":
+    console.log("Today is Tuesday");
     break;
-  case 'wednesday':
-    console.log('Today is Wednesday');
+  case "wednesday":
+    console.log("Today is Wednesday");
     break;
-  case 'thursday':
-    console.log('Today is Thursday');
+  case "thursday":
+    console.log("Today is Thursday");
     break;
-  case 'friday':
-    console.log('Today is Friday');
+  case "friday":
+    console.log("Today is Friday");
     break;
-  case 'saturday':
-    console.log('Today is Saturday');
+  case "saturday":
+    console.log("Today is Saturday");
     break;
-  case 'sunday':
-    console.log('Today is Sunday');
+  case "sunday":
+    console.log("Today is Sunday");
     break;
 
   default:
-    console.log('It is not a week day.');
+    console.log("It is not a week day.");
     break;
 }
 ```
@@ -1813,8 +1793,8 @@ Another way to write conditionals is using ternary operators.
 ```js
 let isRaining = true;
 isRaining
-  ? console.log('You need a rain coat.')
-  : console.log('No need for a rain coat.');
+  ? console.log("You need a rain coat.")
+  : console.log("No need for a rain coat.");
 ```
 
 ### Exercise: Conditionals
@@ -1828,7 +1808,7 @@ isRaining
    ```
 
    Output:
-  
+
    ```sh
    Enter your age:15
    You are left with 3 years to drive.
@@ -1836,7 +1816,7 @@ isRaining
 
 1. Compare the values of myAge and yourAge using if … else. Based on the comparison log to console who is older (me or you). Use prompt(“Enter your age:”) to get the age as input.
    Output:
-  
+
    ```sh
    Enter your age: 30
    You are 5 years older than me.
@@ -1849,8 +1829,8 @@ isRaining
     let a = 4
     let b = 3
     4 is greater than 3
-    ```
-  
+   ```
+
 1. Write a code which give grade students according to theirs scores:
    - 80-100, A
    - 70-89, B
@@ -2040,19 +2020,19 @@ const arr = Array(); // creates an an empty array
 console.log(arr);
 
 const eightEmptyValues = Array(8); // it creates eight empty values
-console.log(eightEmptyValues);     // [empty x 8]
+console.log(eightEmptyValues); // [empty x 8]
 ```
 
-- *fill*: Fill all the array elements with a static value
+- _fill_: Fill all the array elements with a static value
 
 ```js
-const arr = Array();                     // creates an an empty array
+const arr = Array(); // creates an an empty array
 console.log(arr);
-const eightXvalues = Array(8).fill('X'); // it creates eight element values
-console.log(eightXvalues);               // ['X', 'X','X','X','X','X','X','X']
+const eightXvalues = Array(8).fill("X"); // it creates eight element values
+console.log(eightXvalues); // ['X', 'X','X','X','X','X','X','X']
 ```
 
-- *concat*: To concatenate two arrays.
+- _concat_: To concatenate two arrays.
 
 ```js
 const firstList = [1, 2, 3];
@@ -2062,37 +2042,37 @@ const thirdList = firstList.concat(secondList);
 console.log(thirdList); // [1,2,3,4,5,6]
 ```
 
-- *length*: To know the size of the array
+- _length_: To know the size of the array
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
 console.log(numbers.length); // -> 5
 ```
 
-- *indexOf*: To check if an item exist in an array. If it exist it returns the index else it returns -1.
+- _indexOf_: To check if an item exist in an array. If it exist it returns the index else it returns -1.
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
 
-console.log(numbers.indexOf(5));  // -> 4
-console.log(numbers.indexOf(0));  // -> -1
-console.log(numbers.indexOf(1));  // -> 0
-console.log(numbers.indexOf(6));  // -> -1
+console.log(numbers.indexOf(5)); // -> 4
+console.log(numbers.indexOf(0)); // -> -1
+console.log(numbers.indexOf(1)); // -> 0
+console.log(numbers.indexOf(6)); // -> -1
 ```
 
-- *lastIndexOf* :Give the position of the last item in the array. If it exist it returns the index else it returns -1.
+- _lastIndexOf_ :Give the position of the last item in the array. If it exist it returns the index else it returns -1.
 
 ```js
 const numbers = [1, 2, 3, 4, 5, 3, 1, 2];
 
-console.log(numbers.lastIndexOf(2));  // -> 7
-console.log(numbers.lastIndexOf(0));  // -> -1
-console.log(numbers.lastIndexOf(1));  // -> 6
-console.log(numbers.lastIndexOf(4));  // -> 3
-console.log(numbers.lastIndexOf(6));  // -> -1
+console.log(numbers.lastIndexOf(2)); // -> 7
+console.log(numbers.lastIndexOf(0)); // -> -1
+console.log(numbers.lastIndexOf(1)); // -> 6
+console.log(numbers.lastIndexOf(4)); // -> 3
+console.log(numbers.lastIndexOf(6)); // -> -1
 ```
 
-*includes*: To check if an item exist in an array. If it exist it returns the true else it returns false.
+_includes_: To check if an item exist in an array. If it exist it returns the true else it returns false.
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
@@ -2103,7 +2083,7 @@ console.log(numbers.includes(1)); // -> true
 console.log(numbers.includes(6)); // -> false
 ```
 
-- *isArray*:  To check if the data type is an array
+- _isArray_: To check if the data type is an array
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
@@ -2113,13 +2093,13 @@ const number = 100;
 console.log(Array.isArray(number)); // -> false
 ```
 
-- *toString*: Converts array to string
+- _toString_: Converts array to string
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
 console.log(numbers.toString()); // 1,2,3,4,5
 
-const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
 console.log(names.toString()); // Asabeneh,Mathias,Elias,Brook
 ```
 
@@ -2127,13 +2107,13 @@ join:To join the elements of the array, the argument passed in the join method w
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
-console.log(numbers.join());        // 1,2,3,4,5
-const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
-console.log(names.join());          // Asabeneh,Mathias,Elias,Brook
-console.log(names.join(''));        //AsabenehMathiasEliasBrook
-console.log(names.join(' '));       //Asabeneh Mathias Elias Brook
-console.log(names.join(', '));      //Asabeneh, Mathias, Elias, Brook
-console.log(names.join(' # '));     //Asabeneh # Mathias # Elias # Brook
+console.log(numbers.join()); // 1,2,3,4,5
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
+console.log(names.join()); // Asabeneh,Mathias,Elias,Brook
+console.log(names.join("")); //AsabenehMathiasEliasBrook
+console.log(names.join(" ")); //Asabeneh Mathias Elias Brook
+console.log(names.join(", ")); //Asabeneh, Mathias, Elias, Brook
+console.log(names.join(" # ")); //Asabeneh # Mathias # Elias # Brook
 ```
 
 Slice: To cut out a multiple items in range. It takes two parameters:starting and ending position. It doesn't include the ending position
@@ -2156,19 +2136,19 @@ Splice: It takes three parameters:Starting position, number of times to be remov
 
 ```
 
-- *push*: adding item in the end
+- _push_: adding item in the end
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
 numbers.push(6);
 
-console.log(numbers);  // -> [1,2,3,4,5,6]
+console.log(numbers); // -> [1,2,3,4,5,6]
 
-numbers.pop();         // -> remove one item from the end
-console.log(numbers);  // -> [1,2,3,4,5]
+numbers.pop(); // -> remove one item from the end
+console.log(numbers); // -> [1,2,3,4,5]
 ```
 
-- *pop*: Removing item in the end
+- _pop_: Removing item in the end
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
@@ -2177,7 +2157,7 @@ numbers.pop(); // -> remove one item from the end
 console.log(numbers); // -> [1,2,3,4]
 ```
 
-- *shift*: Removing item in the beginning
+- _shift_: Removing item in the beginning
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
@@ -2186,12 +2166,12 @@ numbers.shift(); // -> remove one item from the beginning
 console.log(numbers); // -> [2,3,4,5]
 ```
 
-- *unshift*: Adding item in the beginning
+- _unshift_: Adding item in the beginning
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
-numbers.unshift(0);             // -> remove one item from the beginning
-console.log(numbers);           // -> [0,1,2,3,4,5]
+numbers.unshift(0); // -> remove one item from the beginning
+console.log(numbers); // -> [0,1,2,3,4,5]
 ```
 
 ---
@@ -2199,24 +2179,24 @@ console.log(numbers);           // -> [0,1,2,3,4,5]
 ### Exercise -10 : Array Methods
 
 ```js
-const shoppingCart = ['Milk','Coffee','Tea', 'Honey'];
+const shoppingCart = ["Milk", "Coffee", "Tea", "Honey"];
 const todoList = [
   {
-    task:'Learn JavaScript',
-    time:'4/3/2019 8:30',
-    completed:true
+    task: "Learn JavaScript",
+    time: "4/3/2019 8:30",
+    completed: true,
   },
   {
-    task:'Help some in need',
-    time:'4/3/2019 4:00',
-    completed:false
+    task: "Help some in need",
+    time: "4/3/2019 4:00",
+    completed: false,
   },
   {
-    task:'Do some physical exercises',
-    time:'4/3/2019 6:00',
-    completed:false
-  }
-]
+    task: "Do some physical exercises",
+    time: "4/3/2019 6:00",
+    completed: false,
+  },
+];
 ```
 
 ## Functions
@@ -2311,7 +2291,7 @@ function sumArrayValues(arr) {
 }
 const numbers = [1, 2, 3, 4, 5];
 console.log(sumArrayValues(numbers));
-  
+
 
 const areaOfCircle = (radius) => {
       let area = Math.PI * radius * radius;
@@ -2329,7 +2309,7 @@ function square(n) {
 }
 console.log(square(2)); // -> 4
 // Function expression
-const square = function(n) {
+const square = function (n) {
   return n * n;
 };
 console.log(square(2)); // -> 4
@@ -2339,28 +2319,27 @@ console.log(square(2)); // -> 4
 
 ```js
 // Self invoking functions
-(function(n) {
+(function (n) {
   return n * n;
 })(2);
 
-const x = (function(n) {
+const x = (function (n) {
   return n * n;
 })(2);
-console.log(x) // 4
-
+console.log(x); // 4
 ```
 
 ### Arrow Function
 
 ```js
-const square = n => {
+const square = (n) => {
   return n * n;
 };
 console.log(square(2)); // -> 4
 
 // if we have only one line, it can be written as follows
 // Explicit return
-const square = n => n * n; // -> 4
+const square = (n) => n * n; // -> 4
 ```
 
 ### Arrow Function vs Declaration Function
@@ -2416,8 +2395,8 @@ Arrow function and regular functions are not exactly the same.
    ```js
    console.log(reverseArray([1, 2, 3, 4, 5]));
    [5, 4, 3, 2, 1];
-   console.log(reverseArray(['A', 'B', 'C']));
-   ['C', 'B', 'A'];
+   console.log(reverseArray(["A", "B", "C"]));
+   ["C", "B", "A"];
    ```
 
 1. Declare a function name _capitalizeArray_. It takes array as a parameter and it returns the - capitalizedarray.
@@ -2449,7 +2428,7 @@ Arrow function and regular functions are not exactly the same.
    console.log(randomHexaNumberGenerator());
    '#ee33df'
    ```
-  
+
 1. Declare a function name _userIdGenerator_. When this function is called it generates seven character id. The function return the id.
 
    ```sh
@@ -2483,23 +2462,23 @@ Arrow function and regular functions are not exactly the same.
    rgb(125,244,255)
    ```
 
-1. Write a function ***arrayOfHexaColors*** which return any number of hexadecimal colors in an array.
-1. Write a function ***arrayOfRgbColors*** which return any number of RGB colors in an array.
-1. Write a function ***convertHexaToRgb*** which converts hexa color to rgb and it returns an rgb color.
-1. Write a function ***convertRgbToHexa*** which converts rgb to hexa color  and it returns an hexa color.
-1. Write a function ***generateColors*** which can generate any number of hexa or rgb colors.
+1. Write a function **_arrayOfHexaColors_** which return any number of hexadecimal colors in an array.
+1. Write a function **_arrayOfRgbColors_** which return any number of RGB colors in an array.
+1. Write a function **_convertHexaToRgb_** which converts hexa color to rgb and it returns an rgb color.
+1. Write a function **_convertRgbToHexa_** which converts rgb to hexa color and it returns an hexa color.
+1. Write a function **_generateColors_** which can generate any number of hexa or rgb colors.
 
-    ```js
-      generateColors('hexa', 3)
-      ['#a3e12f','#03ed55','#eb3d2b']
-      generateColors('hexa', 1)
-      '#b334ef'
+   ```js
+   generateColors("hexa", 3)[("#a3e12f", "#03ed55", "#eb3d2b")];
+   generateColors("hexa", 1);
+   ("#b334ef");
 
-      generateColors('rgb', 3)
-      ['rgb(5, 55, 175','rgb(50, 105, 100','rgb(15, 26, 80']
-      generateColors('rgb', 1)
-      'rgb(33,79, 176)'
-    ```
+   generateColors("rgb", 3)[
+     ("rgb(5, 55, 175", "rgb(50, 105, 100", "rgb(15, 26, 80")
+   ];
+   generateColors("rgb", 1);
+   ("rgb(33,79, 176)");
+   ```
 
 1. Call your function _shuffleArray_, it takes an array as a parameter and it returns a shuffled array
 1. Call your function _factorial_, it takes a whole number as a parameter and it return a factorial of the number
@@ -2509,19 +2488,19 @@ Arrow function and regular functions are not exactly the same.
 1. Write a function called _average_, it takes an array parameter and returns the average of the items. Check if all the array items are number types. If not give return reasonable feedback.
 1. Write a function called _modifyArray_ takes array as parameter and modifies the fifth item of the array and return the array. If the array length is less than five it return 'item not found'.
 
-    ```js
-    console.log(modifyArray(['Avocado', 'Tomato', 'Potato','Mango', 'Lemon','Carrot']);
-    // →['Avocado', 'Tomato', 'Potato','Mango', 'LEMON', 'Carrot']
-    console.log(modifyArray(['Google', 'Facebook','Apple', 'Amazon','Microsoft',  'IBM']);
-    // →['Google', 'Facebook','Apple', 'Amazon','MICROSOFT',  'IBM']
-    console.log(modifyArray(['Google', 'Facebook','Apple', 'Amazon']);
-    // →'Not Found'
-    ```
+   ```js
+   console.log(modifyArray(['Avocado', 'Tomato', 'Potato','Mango', 'Lemon','Carrot']);
+   // →['Avocado', 'Tomato', 'Potato','Mango', 'LEMON', 'Carrot']
+   console.log(modifyArray(['Google', 'Facebook','Apple', 'Amazon','Microsoft',  'IBM']);
+   // →['Google', 'Facebook','Apple', 'Amazon','MICROSOFT',  'IBM']
+   console.log(modifyArray(['Google', 'Facebook','Apple', 'Amazon']);
+   // →'Not Found'
+   ```
 
-1. Write a function called *isPrime*, which checks if a number is prime number.
+1. Write a function called _isPrime_, which checks if a number is prime number.
 1. Write a functions which checks if all items are unique in the array.
 1. Write a function which checks if all the items of the array are the same data type.
-1. JavaScript variable name does not support special characters or symbols except $ or _. Write a function ***isValidVariable** which check if a variable is valid or invalid variable.
+1. JavaScript variable name does not support special characters or symbols except $ or \_. Write a function **\*isValidVariable** which check if a variable is valid or invalid variable.
 1. Write a function which returns array of seven random numbers in a range of 0-9. All the numbers must be unique.
 
    ```js
@@ -2542,34 +2521,34 @@ Now, the person object has firstName, lastName, age, location, skills and getFul
 
 ```js
 const person = {
-  firstName: 'Asabeneh',
-  lastName: 'Yetayeh',
+  firstName: "Asabeneh",
+  lastName: "Yetayeh",
   age: 100,
-  location: 'Helsinki',
+  location: "Helsinki",
   skills: [
-    'HTML',
-    'CSS',
-    'JavaScript',
-    'React',
-    'Node',
-    'MongoDB',
-    'Python',
-    'D3.js'
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Node",
+    "MongoDB",
+    "Python",
+    "D3.js",
   ],
-  getFullName: function() {
+  getFullName: function () {
     return `${this.firstName}${this.lastName}`;
-  }
+  },
 };
 
 const rectangle = {
   length: 20,
   width: 20,
-  getArea: function() {
+  getArea: function () {
     return this.length * this.width;
   },
-  getPerimeter: function() {
+  getPerimeter: function () {
     return 2 * (this.length + this.width);
-  }
+  },
 };
 ```
 
@@ -2618,18 +2597,18 @@ _Object.assign_: To copy an object without modifying the original object
 
 ```js
 const person = {
-  name: 'Asabeneh',
+  name: "Asabeneh",
   age: 200,
-  country: 'Finland',
-  skills: ['HTML', 'CSS', 'JS'],
+  country: "Finland",
+  skills: ["HTML", "CSS", "JS"],
   address: {
-    street: 'Heitamienkatu 16',
+    street: "Heitamienkatu 16",
     pobox: 2002,
-    city: 'Helsinki'
+    city: "Helsinki",
   },
-  getPersonInfo: function() {
+  getPersonInfo: function () {
     return `I am ${this.name} and I live in ${this.country}. I am ${this.age}.`;
-  }
+  },
 };
 
 //Object methods: Object.assign, Object.keys, Object.values, Object.entries
@@ -2665,23 +2644,23 @@ console.log(entries);
 _hasOwnProperty_: To check if a specific key or property exist in an object
 
 ```js
-console.log(copyPerson.hasOwnProperty('name'));
-console.log(copyPerson.hasOwnProperty('score'));
+console.log(copyPerson.hasOwnProperty("name"));
+console.log(copyPerson.hasOwnProperty("score"));
 ```
 
 ### Date Object
 
 In JavaScript current time and date is created using JavaScript Date Object.
-Some of the methods to extract date object values:*getFullYear(), getMonths(), getDate(), getDay(), getHours(), getMinutes*
+Some of the methods to extract date object values:_getFullYear(), getMonths(), getDate(), getDay(), getHours(), getMinutes_
 
 ```js
-const now = new Date ();
+const now = new Date();
 const year = now.getFullYear(); // return year
 const month = now.getMonth() + 1; // return month(0 - 11)
 const date = now.getDate(); // return date (1 - 31)
 const hours = now.getHours(); // return number (0 - 23)
-const minutes = now.getMinutes();// return number (0 -59)
-console.log(`${date}/${month}/${year} ${hours}:${minutes}`)
+const minutes = now.getMinutes(); // return number (0 -59)
+console.log(`${date}/${month}/${year} ${hours}:${minutes}`);
 ```
 
 #### Exercises: Date Object
@@ -2698,63 +2677,63 @@ console.log(`${date}/${month}/${year} ${hours}:${minutes}`)
 
 1. Create an empty object called dog
 1. Print the the dog object on the console
-1. Add name, legs, color, age and bark properties for the dog object. The bark property is a method which return *woof woof*
+1. Add name, legs, color, age and bark properties for the dog object. The bark property is a method which return _woof woof_
 1. Get name, legs, color, age and bark value from the dog object
 1. Set new properties the dog object: breed, getDogInfo
 1. Create an object literal called _personAccount_. It has _firstName, lastName, incomes, expenses_ properties and it has _totalIncome, totalExpense, accountInfo,addIncome, addExpense_ and _accountBalance_ methods. Incomes is a set of incomes and its description and the same for expenses.
 1. Count logged in users,count users having greater than equal to 50 points from the following object.
 
-      ```js
-      const users = {
-        Alex: {
-          email: 'alex@alex.com',
-          skills: ['HTML', 'CSS', 'JavaScript'],
-          age: 20,
-          isLoggedIn: false,
-          points: 30
-        },
-        Asab: {
-          email: 'asab@asab.com',
-          skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Node.js'],
-          age: 25,
-          isLoggedIn: false,
-          points: 50
-        },
-        Brook: {
-          email: 'daniel@daniel.com',
-          skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux'],
-          age: 30,
-          isLoggedIn: true,
-          points: 50
-        },
-        Daniel: {
-          email: 'daniel@alex.com',
-          skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
-          age: 20,
-          isLoggedIn: false,
-          points: 40
-        },
-        John: {
-          email: 'john@john.com',
-          skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Node.js'],
-          age: 20,
-          isLoggedIn: true,
-          point: 50
-        },
-        Thomas: {
-          email: 'thomas@thomas.com',
-          skills: ['HTML', 'CSS', 'JavaScript', 'React'],
-          age: 20,
-          isLoggedIn: false,
-          points: 40
-        }
-      };
-    ```
+   ```js
+   const users = {
+     Alex: {
+       email: "alex@alex.com",
+       skills: ["HTML", "CSS", "JavaScript"],
+       age: 20,
+       isLoggedIn: false,
+       points: 30,
+     },
+     Asab: {
+       email: "asab@asab.com",
+       skills: ["HTML", "CSS", "JavaScript", "React", "Redux", "Node.js"],
+       age: 25,
+       isLoggedIn: false,
+       points: 50,
+     },
+     Brook: {
+       email: "daniel@daniel.com",
+       skills: ["HTML", "CSS", "JavaScript", "React", "Redux"],
+       age: 30,
+       isLoggedIn: true,
+       points: 50,
+     },
+     Daniel: {
+       email: "daniel@alex.com",
+       skills: ["HTML", "CSS", "JavaScript", "Python"],
+       age: 20,
+       isLoggedIn: false,
+       points: 40,
+     },
+     John: {
+       email: "john@john.com",
+       skills: ["HTML", "CSS", "JavaScript", "React", "Redux", "Node.js"],
+       age: 20,
+       isLoggedIn: true,
+       point: 50,
+     },
+     Thomas: {
+       email: "thomas@thomas.com",
+       skills: ["HTML", "CSS", "JavaScript", "React"],
+       age: 20,
+       isLoggedIn: false,
+       points: 40,
+     },
+   };
+   ```
 
 1. Set your name in the users object without modifying the original users object
 1. Get all keys or properties of users object
 1. Get all the values of users object
-1. ** Develop a small JavaScript library.
+1. \*\* Develop a small JavaScript library.
 
 ## JSON
 
@@ -2925,10 +2904,10 @@ const usersText = `{
   "email":"lidiya@lidiya.com"
   }
 ]
-}`
+}`;
 
-const usersObj = JSON.parse(usersText, undefined, 4)
-console.log(usersObj)
+const usersObj = JSON.parse(usersText, undefined, 4);
+console.log(usersObj);
 ```
 
 ### Using a reviver function with JSON.parse()
@@ -2957,14 +2936,14 @@ const usersText = `{
   "email":"lidiya@lidiya.com"
   }
 ]
-}`
+}`;
 
 const usersObj = JSON.parse(usersText, (key, value) => {
   let newValue =
-    typeof value == 'string' && key != 'email' ? value.toUpperCase() : value
-  return newValue
-})
-console.log(usersObj)
+    typeof value == "string" && key != "email" ? value.toUpperCase() : value;
+  return newValue;
+});
+console.log(usersObj);
 ```
 
 The _JSON.parse()_ is very handy to use. You do not have to pass optional parameter, you can just use it with the required parameter and you will achieve quite a lot.
@@ -2974,7 +2953,7 @@ The _JSON.parse()_ is very handy to use. You do not have to pass optional parame
 When we want to change the object to JSON we use _JSON.stringify()_. The stringify method takes one required parameter and two optional parameters. The replacer is used as filter and the space is an indentations. If we do not want to filter out any of the keys from the object we can just pass undefined.
 
 ```js
-JSON.stringify(obj, replacer, space)
+JSON.stringify(obj, replacer, space);
 // json or text , the data
 // reviver is an optional callback function
 ```
@@ -2984,75 +2963,75 @@ Let us convert the following object to a string. First let use keep all the keys
 ```js
 const users = {
   Alex: {
-    email: 'alex@alex.com',
-    skills: ['HTML', 'CSS', 'JavaScript'],
+    email: "alex@alex.com",
+    skills: ["HTML", "CSS", "JavaScript"],
     age: 20,
     isLoggedIn: false,
-    points: 30
+    points: 30,
   },
   Asab: {
-    email: 'asab@asab.com',
+    email: "asab@asab.com",
     skills: [
-      'HTML',
-      'CSS',
-      'JavaScript',
-      'Redux',
-      'MongoDB',
-      'Express',
-      'React',
-      'Node'
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Redux",
+      "MongoDB",
+      "Express",
+      "React",
+      "Node",
     ],
     age: 25,
     isLoggedIn: false,
-    points: 50
+    points: 50,
   },
   Brook: {
-    email: 'daniel@daniel.com',
-    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux'],
+    email: "daniel@daniel.com",
+    skills: ["HTML", "CSS", "JavaScript", "React", "Redux"],
     age: 30,
     isLoggedIn: true,
-    points: 50
+    points: 50,
   },
   Daniel: {
-    email: 'daniel@alex.com',
-    skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+    email: "daniel@alex.com",
+    skills: ["HTML", "CSS", "JavaScript", "Python"],
     age: 20,
     isLoggedIn: false,
-    points: 40
+    points: 40,
   },
   John: {
-    email: 'john@john.com',
-    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Node.js'],
+    email: "john@john.com",
+    skills: ["HTML", "CSS", "JavaScript", "React", "Redux", "Node.js"],
     age: 20,
     isLoggedIn: true,
-    points: 50
+    points: 50,
   },
   Thomas: {
-    email: 'thomas@thomas.com',
-    skills: ['HTML', 'CSS', 'JavaScript', 'React'],
+    email: "thomas@thomas.com",
+    skills: ["HTML", "CSS", "JavaScript", "React"],
     age: 20,
     isLoggedIn: false,
-    points: 40
+    points: 40,
   },
   Paul: {
-    email: 'paul@paul.com',
+    email: "paul@paul.com",
     skills: [
-      'HTML',
-      'CSS',
-      'JavaScript',
-      'MongoDB',
-      'Express',
-      'React',
-      'Node'
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "MongoDB",
+      "Express",
+      "React",
+      "Node",
     ],
     age: 20,
     isLoggedIn: false,
-    points: 40
-  }
-}
+    points: 40,
+  },
+};
 
-const txt = JSON.stringify(users, undefined, 4)
-console.log(txt) // text means JSON- because json is a string form of an object.
+const txt = JSON.stringify(users, undefined, 4);
+console.log(txt); // text means JSON- because json is a string form of an object.
 ```
 
 ```sh
@@ -3159,19 +3138,23 @@ Now, lets use the replacer as a filter. The user object has long list of keys bu
 
 ```js
 const user = {
-  firstName: 'Asabeneh',
-  lastName: 'Yetayeh',
-  country: 'Finland',
-  city: 'Helsinki',
-  email: 'alex@alex.com',
-  skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Pyhton'],
+  firstName: "Asabeneh",
+  lastName: "Yetayeh",
+  country: "Finland",
+  city: "Helsinki",
+  email: "alex@alex.com",
+  skills: ["HTML", "CSS", "JavaScript", "React", "Pyhton"],
   age: 250,
   isLoggedIn: false,
-  points: 30
-}
+  points: 30,
+};
 
-const txt = JSON.stringify(user,['firstName', 'lastName', 'country', 'city', 'age'],4)
-console.log(txt)
+const txt = JSON.stringify(
+  user,
+  ["firstName", "lastName", "country", "city", "age"],
+  4
+);
+console.log(txt);
 ```
 
 ```sh
@@ -3187,16 +3170,16 @@ console.log(txt)
 ### Exercises
 
 ```js
-const skills = ['HTML', 'CSS', 'JS', 'React','Node', 'Python']
+const skills = ["HTML", "CSS", "JS", "React", "Node", "Python"];
 let age = 250;
-let isMarried = true
+let isMarried = true;
 const student = {
-  firstName:'Asabeneh',
-  lastName:'Yetayehe',
-  age:250,
-  isMarried:true,
-  skills:['HTML', 'CSS', 'JS', 'React','Node', 'Python', ]
-}
+  firstName: "Asabeneh",
+  lastName: "Yetayehe",
+  age: 250,
+  isMarried: true,
+  skills: ["HTML", "CSS", "JS", "React", "Node", "Python"],
+};
 const txt = `{
     "Alex": {
         "email": "alex@alex.com",
@@ -3292,7 +3275,7 @@ const txt = `{
         "points": 40
     }
 }
-`
+`;
 ```
 
 ### Exercises Level 1
@@ -3305,7 +3288,6 @@ const txt = `{
 ### Exercises Level 2
 
 1. Stringify the students object with only firstName, lastName and skills properties
-
 
 ## Higher Order Function
 
@@ -3406,14 +3388,14 @@ In JavaScript, we use setInterval higher order function to do some activity cont
 function callBack() {
   // code goes here
 }
-setInterval(callback, duration)
+setInterval(callback, duration);
 ```
 
 ```js
 function sayHello() {
-  console.log('Hello')
+  console.log("Hello");
 }
-setInterval(sayHello, 2000) // it prints hello in every 2 seconds
+setInterval(sayHello, 2000); // it prints hello in every 2 seconds
 ```
 
 #### setTimeout
@@ -3425,70 +3407,70 @@ In JavaScript, we use setTimeout higher order function to execute some action at
 function callback() {
   // code goes here
 }
-setTimeout(callback, duration) // duration in milliseconds
+setTimeout(callback, duration); // duration in milliseconds
 ```
 
 ```js
 function sayHello() {
-  console.log('Hello')
+  console.log("Hello");
 }
-setTimeout(sayHello, 2000) // it prints hello after it waits for 2 seconds.
+setTimeout(sayHello, 2000); // it prints hello after it waits for 2 seconds.
 ```
 
 ### Exercises Level 3
 
-1. Parse the *txt* JSON to object.
-2. Find the the user who has many skills from the variable stored in *txt*.
+1. Parse the _txt_ JSON to object.
+2. Find the the user who has many skills from the variable stored in _txt_.
 
 ## Functional Programming
 
-- *forEach*: Iterate an array elements and use for array. It takes a callback function with elements and index parameter.
+- _forEach_: Iterate an array elements and use for array. It takes a callback function with elements and index parameter.
 
 ```js
-arr.forEach(function(element, index){
-  console.log(index, element)
-})
+arr.forEach(function (element, index) {
+  console.log(index, element);
+});
 // The above code can be written using arrow function
 arr.forEach((element, index) => {
-  console.log(index, element)
-})
+  console.log(index, element);
+});
 // The above code can be written using arrow function and explicit return
 arr.forEach((element, index) => console.log(index, element));
 ```
 
-- *map*: Iterate an array elements and modify the array elements. It takes a callback function with elements and index parameter and return the modified array.
+- _map_: Iterate an array elements and modify the array elements. It takes a callback function with elements and index parameter and return the modified array.
 
 ```js
-const modifiedArray = arr.map(function(element,index){
-  return element
+const modifiedArray = arr.map(function (element, index) {
+  return element;
 });
 /*Arrow function and explicit return
 const modifiedArray = arr.map((element,index) => element);
 */
 //Example
-const numbers = [1,2,3,4,5];
-const numbersSquare = numbers.map((num) => num * num) 
-console.log(numbersSquare) // [1,4,9,16,25]
-const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
+const numbers = [1, 2, 3, 4, 5];
+const numbersSquare = numbers.map((num) => num * num);
+console.log(numbersSquare); // [1,4,9,16,25]
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
 const namesToUpperCase = names.map((name) => name.toUpperCase());
-console.log(namesToUpperCase) //['ASABENEH', 'MATHIAS', 'ELIAS', 'BROOK']
+console.log(namesToUpperCase); //['ASABENEH', 'MATHIAS', 'ELIAS', 'BROOK']
 const countries = [
-  'Albania',
-  'Bolivia',
-  'Canada',
-  'Denmark',
-  'Ethiopia',
-  'Finland',
-  'Germany',
-  'Hungary',
-  'Ireland',
-  'Japan',
-  'Kenya'
+  "Albania",
+  "Bolivia",
+  "Canada",
+  "Denmark",
+  "Ethiopia",
+  "Finland",
+  "Germany",
+  "Hungary",
+  "Ireland",
+  "Japan",
+  "Kenya",
 ];
-const countriesToUpperCase = countries.map(function(country){
+const countriesToUpperCase = countries.map(function (country) {
   return country.toUpperCase();
 });
-console.log(countriesToUpperCase)
+console.log(countriesToUpperCase);
 // ['ALBANIA', 'BOLIVIA', 'CANADA', 'DENMARK', 'ETHIOPIA', 'FINLAND', 'GERMANY', 'HUNGARY', 'IRELAND', 'JAPAN', 'KENYA']
 /*
 // Arrow function
@@ -3500,123 +3482,131 @@ const countriesToUpperCase = countries.map(country => country.toUpperCase());
 */
 ```
 
-- *Filter*: Filter out items which full fill filtering conditions
+- _Filter_: Filter out items which full fill filtering conditions
 
 ```js
-
 // Filter countries containing land
-const countriesContainingLand = countries.filter(country => country.includes('land'));
-console.log(countriesContainingLand )  //['Finland', 'Ireland']
+const countriesContainingLand = countries.filter((country) =>
+  country.includes("land")
+);
+console.log(countriesContainingLand); //['Finland', 'Ireland']
 
-const countriesEndByia = countries.filter(country => country.includes('ia'));
-console.log(countriesEndByia) //['Albania', 'Bolivia','Ethiopia']
+const countriesEndByia = countries.filter((country) => country.includes("ia"));
+console.log(countriesEndByia); //['Albania', 'Bolivia','Ethiopia']
 
-const countriesHaveFiveLetters = countries.filter(country => country.length === 5);
-console.log(countriesHaveFiveLetters ) //  ['Japan', 'Kenya']
+const countriesHaveFiveLetters = countries.filter(
+  (country) => country.length === 5
+);
+console.log(countriesHaveFiveLetters); //  ['Japan', 'Kenya']
 
-const scores = [{name:'Asabeneh', score:95},{name:'Mathias', score:80},{name:'Elias', score:50},{name:'Martha', score:85},{name:'John', score:100}];
+const scores = [
+  { name: "Asabeneh", score: 95 },
+  { name: "Mathias", score: 80 },
+  { name: "Elias", score: 50 },
+  { name: "Martha", score: 85 },
+  { name: "John", score: 100 },
+];
 
 const scoresGreaterEight = scores.filter((score) => score.score > 80);
-console.log(scoresGreaterEight) //[{name: 'Asabeneh', score: 95}, {name: 'Martha', score: 85},{name: 'John', score: 100}]
+console.log(scoresGreaterEight); //[{name: 'Asabeneh', score: 95}, {name: 'Martha', score: 85},{name: 'John', score: 100}]
 ```
 
-- *reduce*: Reduce takes a callback function. The call back function takes accumulator and current value as a parameter and returns a single value:
+- _reduce_: Reduce takes a callback function. The call back function takes accumulator and current value as a parameter and returns a single value:
 
 ```js
-  const numbers = [1,2,3,4,5];
-  const sum = numbers.reduce((accum, curr)=> accum + curr);
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((accum, curr) => accum + curr);
 
-  console.log(sum); // 15
+console.log(sum); // 15
 ```
 
-- *every*: Check if all the elements are similar in one aspect. It returns boolean
+- _every_: Check if all the elements are similar in one aspect. It returns boolean
 
 ```js
-const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
 const bools = [true, true, true, true];
-const result = bools.every((b)=> {
+const result = bools.every((b) => {
   return b === true;
 });
 
-console.log(result) //true
+console.log(result); //true
 
-const checkType = names.every((name) => typeof name ==='string');
+const checkType = names.every((name) => typeof name === "string");
 
-console.log(checkDataTypes) // true;
+console.log(checkDataTypes); // true;
 ```
 
-- *some*: Check if some of the elements are similar in one aspect. It returns boolean
+- _some_: Check if some of the elements are similar in one aspect. It returns boolean
 
 ```js
-const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
 const bools = [true, true, true, true];
-const result = bools.some((b)=> {
+const result = bools.some((b) => {
   return b === true;
 });
-console.log(result) //true
-const checkType = names.some((name) => typeof name ==='number');
-console.log(checkDataTypes) // false
+console.log(result); //true
+const checkType = names.some((name) => typeof name === "number");
+console.log(checkDataTypes); // false
 ```
 
-- *find*: Return the first element which satisfies the condition
+- _find_: Return the first element which satisfies the condition
 
 ```js
-const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
-const ages = [24, 22,25,32,35,18];
-const result = names.find(name =>  name.length > 7);
-console.log(result) // Asabeneh
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
+const ages = [24, 22, 25, 32, 35, 18];
+const result = names.find((name) => name.length > 7);
+console.log(result); // Asabeneh
 const age = ages.find((age) => age < 20);
-console.log(age) // 18
+console.log(age); // 18
 ```
 
-- *findIndex*: Return the position of the first element which satisfies the condition
+- _findIndex_: Return the position of the first element which satisfies the condition
 
 ```js
-const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
-const ages = [24, 22,25,32,35,18];
-const result = names.findIndex(name =>  name.length > 7);
-console.log(result) // 0
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
+const ages = [24, 22, 25, 32, 35, 18];
+const result = names.findIndex((name) => name.length > 7);
+console.log(result); // 0
 
 const age = ages.findIndex((age) => age < 20);
-console.log(age) // 5
+console.log(age); // 5
 ```
 
-- *sort*: The sort methods arranges the array elements either ascending or descending order. By default, the ***sort()*** method sorts values as strings.This works well for string array items but not for numbers. If number values are sorted as strings and it give us wrong result. Sort method modify the original array.  It is recommended to copy the original document before you start sorting.
+- _sort_: The sort methods arranges the array elements either ascending or descending order. By default, the **_sort()_** method sorts values as strings.This works well for string array items but not for numbers. If number values are sorted as strings and it give us wrong result. Sort method modify the original array. It is recommended to copy the original document before you start sorting.
 
-- *Sorting string values*
+- _Sorting string values_
 
 ```js
-const products = ['Milk', 'Coffee', 'Sugar', 'Honey', 'Apple', 'Carrot'];
-console.log(products.sort()) // ['Apple', 'Carrot', 'Coffee', 'Honey', 'Milk', 'Sugar']
+const products = ["Milk", "Coffee", "Sugar", "Honey", "Apple", "Carrot"];
+console.log(products.sort()); // ['Apple', 'Carrot', 'Coffee', 'Honey', 'Milk', 'Sugar']
 //Now the original products array  is also sorted
 ```
 
-- *Sorting Numeric  values*
+- _Sorting Numeric values_
 
-As you can see in the example below, 100 came first after sorted in ascending order. Sort converts items to string , since '100' and other numbers compared, 1 which the beginning of the string '100' became the smallest.  To avoid this, we use a compare call back function inside the sort method, which return a negative, zero or positive.
+As you can see in the example below, 100 came first after sorted in ascending order. Sort converts items to string , since '100' and other numbers compared, 1 which the beginning of the string '100' became the smallest. To avoid this, we use a compare call back function inside the sort method, which return a negative, zero or positive.
 
 ```js
-const numbers = [9.81, 3.14, 100, 37]
+const numbers = [9.81, 3.14, 100, 37];
 // Using sort method to sort number items provide a wrong result. see below
-console.log(numbers.sort()) //[100, 3.14, 37, 9.81]
-numbers.sort(function(a, b) {
-return a - b;
-})
-
-console.log(numbers) // [3.14, 9.81, 37, 100]
-numbers.sort(function(a, b) {
-return b - a;
+console.log(numbers.sort()); //[100, 3.14, 37, 9.81]
+numbers.sort(function (a, b) {
+  return a - b;
 });
-console.log(numbers) //[100, 37, 9.81, 3.14]
 
+console.log(numbers); // [3.14, 9.81, 37, 100]
+numbers.sort(function (a, b) {
+  return b - a;
+});
+console.log(numbers); //[100, 37, 9.81, 3.14]
 ```
 
-- *Sorting Object Arrays*
+- _Sorting Object Arrays_
 
 When ever we sort objects in an array. We use the object key to compare. Lets see the example below.
 
 ```js
-objArr.sort(function(a, b) {
+objArr.sort(function (a, b) {
   if (a.key < b.key) return -1;
   if (a.key > b.key) return 1;
   return 0;
@@ -3624,13 +3614,18 @@ objArr.sort(function(a, b) {
 
 // or
 
-objArr.sort(function(a, b) {
-  if (a['key'] < b['key']) return -1;
-  if (a['key'] > b['key']) return 1;
+objArr.sort(function (a, b) {
+  if (a["key"] < b["key"]) return -1;
+  if (a["key"] > b["key"]) return 1;
   return 0;
 });
 
-const users = [{name:'Asabeneh', age:150}, {name:'Brook', age:50}, {name:'Eyo', age:100},{name:'Elias', age:22}];
+const users = [
+  { name: "Asabeneh", age: 150 },
+  { name: "Brook", age: 50 },
+  { name: "Eyo", age: 100 },
+  { name: "Elias", age: 22 },
+];
 users.sort((a, b) => {
   if (a.age < b.age) return -1;
   if (a.age > b.age) return 1;
@@ -3644,40 +3639,47 @@ console.log(users); // sorted ascending
 ### Exercises
 
 ```js
-  const countries = ['Estonia', 'Finland', 'Sweden', 'Denmark', 'Norway', 'IceLand'];
-  const names = ['Asabeneh', 'Mathias', 'Elias', 'Brook'];
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const countries = [
+  "Estonia",
+  "Finland",
+  "Sweden",
+  "Denmark",
+  "Norway",
+  "IceLand",
+];
+const names = ["Asabeneh", "Mathias", "Elias", "Brook"];
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 ```
 
-1. Explain the difference between ***forEach, map, filter, and reduce***.
+1. Explain the difference between **_forEach, map, filter, and reduce_**.
 2. Define a call function before you them in forEach, map, filter or reduce.
-3. Use ***forEach*** to console.log each country in the countries array.
-4. Use ***forEach*** to console.log each name in the names array.
-5. Use ***forEach*** to console.log each number in the numbers array.
-6. Use ***map*** to create a new array  by changing each country to uppercase in the countries array;
-7. Use ***map*** to create a new array  by changing each number to square in the numbers array
-8. Use ***map*** to change to each name to uppercase in the names array
-9. Use ***filter*** to filter out countries containing ***land***.
-10. Use ***filter*** to filter out countries having six character.
-11. Use ***filter*** to filter out countries containing six letters and more in the country array.
-12. Use ***filter*** to filter out country start with 'E';
+3. Use **_forEach_** to console.log each country in the countries array.
+4. Use **_forEach_** to console.log each name in the names array.
+5. Use **_forEach_** to console.log each number in the numbers array.
+6. Use **_map_** to create a new array by changing each country to uppercase in the countries array;
+7. Use **_map_** to create a new array by changing each number to square in the numbers array
+8. Use **_map_** to change to each name to uppercase in the names array
+9. Use **_filter_** to filter out countries containing **_land_**.
+10. Use **_filter_** to filter out countries having six character.
+11. Use **_filter_** to filter out countries containing six letters and more in the country array.
+12. Use **_filter_** to filter out country start with 'E';
 13. Chain two or more array iterators(eg. arr.map(callback).filter(callback).reduce(callback))
 14. Declare a function called getStringLists which takes an array as a parameter and then returns an array only with string items.
-15. Use ***reduce*** to sum all the numbers in the numbers array.
-16. Use ***reduce*** to concatenate all the countries and to produce this sentence: ***Estonia, Finland, Sweden, Denmark, Norway, and IceLand are north European countries***
-17. Explain the difference between ***some*** and ***every***
-18. Use ***some*** to check if some names' length greater than seven in names array
-19. Use ***every*** to check if all the countries contain the word land
-20. Explain the difference between ***find*** and ***findIndex***.
-21. Use ***find*** to find the first country containing only six letters in the countries array
-22. Use ***findIndex*** to find the position of the first country containing only six letters in the countries array
-23. Use ***findIndex*** to find the position of ***Norway*** if it doesn't exist in the array you will get -1.
-24. Use ***findIndex*** to find the position of ***Russia*** if it doesn't exist in the array you will get -1.
-25. Declare a function called ***categorizeCountries*** which returns an array of countries which have some common pattern(you find the countries array in this repository as countries.js(eg 'land', 'ia', 'island','stan')).
+15. Use **_reduce_** to sum all the numbers in the numbers array.
+16. Use **_reduce_** to concatenate all the countries and to produce this sentence: **_Estonia, Finland, Sweden, Denmark, Norway, and IceLand are north European countries_**
+17. Explain the difference between **_some_** and **_every_**
+18. Use **_some_** to check if some names' length greater than seven in names array
+19. Use **_every_** to check if all the countries contain the word land
+20. Explain the difference between **_find_** and **_findIndex_**.
+21. Use **_find_** to find the first country containing only six letters in the countries array
+22. Use **_findIndex_** to find the position of the first country containing only six letters in the countries array
+23. Use **_findIndex_** to find the position of **_Norway_** if it doesn't exist in the array you will get -1.
+24. Use **_findIndex_** to find the position of **_Russia_** if it doesn't exist in the array you will get -1.
+25. Declare a function called **_categorizeCountries_** which returns an array of countries which have some common pattern(you find the countries array in this repository as countries.js(eg 'land', 'ia', 'island','stan')).
 26. Create a function which return an array of objects, which is the letter and the number of times the letter use to start with a name of a country.
-27. Declare a ***getFirstTenCountries*** function and return an array of ten countries. Use different functional programming to work on the countries.js array
-28. Declare a ***getLastTenCountries*** function which which returns the last ten countries in the countries array.
-29. Find out which *letter* is used many *times* as initial for a country name from the countries array (eg. Finland, Fiji, France etc)
+27. Declare a **_getFirstTenCountries_** function and return an array of ten countries. Use different functional programming to work on the countries.js array
+28. Declare a **_getLastTenCountries_** function which which returns the last ten countries in the countries array.
+29. Find out which _letter_ is used many _times_ as initial for a country name from the countries array (eg. Finland, Fiji, France etc)
 30. Use the countries information, in the data folder. Sort countries by name, by capital, by population
 31. Sort out the ten most spoken languages by location.
 32. Sort out the ten most populated countries.
@@ -3686,7 +3688,7 @@ console.log(users); // sorted ascending
 
 Destructuring is a way to unpack arrays, and objects and assigning to a distinct variable.
 
-### Destructing  Arrays
+### Destructing Arrays
 
 ```js
   const numbers = [1, 2,3];
@@ -3714,9 +3716,14 @@ If we like to skip on of the values in the array we use additional comma. The co
 We can use default value in case the value of array for that index is undefined:
 
 ```js
-const names = [undefined, 'Brook', 'David'];
-let [firstPerson = 'Asabeneh', secondPerson, thirdPerson, fourthPerson = 'John' ] = names;
-console.log(firstPerson, secondPerson, thirdPerson, fourthPerson) // Asabeneh Brook David John
+const names = [undefined, "Brook", "David"];
+let [
+  firstPerson = "Asabeneh",
+  secondPerson,
+  thirdPerson,
+  fourthPerson = "John",
+] = names;
+console.log(firstPerson, secondPerson, thirdPerson, fourthPerson); // Asabeneh Brook David John
 ```
 
 #### Destructuring Object
@@ -3726,11 +3733,11 @@ When we destructure the name of the variable we use to destructure should be exa
 ```js
 const rectangle = {
   width: 20,
-  height:10,
-  area: 200
-}
-let {width, height, area, perimeter} = rectangle;
-console.log(width, height, area, perimeter) //20 10 200 undefined
+  height: 10,
+  area: 200,
+};
+let { width, height, area, perimeter } = rectangle;
+console.log(width, height, area, perimeter); //20 10 200 undefined
 ```
 
 #### Renaming during structuring
@@ -3738,11 +3745,11 @@ console.log(width, height, area, perimeter) //20 10 200 undefined
 ```js
 const rectangle = {
   width: 20,
-  height:10,
-  area: 200
-}
-let {width:w, heigh:h, area:a, perimeter:p} = rectangle;
-console.log(w, h, a, p) //20 10 200 undefined
+  height: 10,
+  area: 200,
+};
+let { width: w, heigh: h, area: a, perimeter: p } = rectangle;
+console.log(w, h, a, p); //20 10 200 undefined
 ```
 
 If the key is not found in the object the variable will be assigned to undefined. In case, the key is not in the object we can give a default value during declaration. See the example.
@@ -3750,70 +3757,70 @@ If the key is not found in the object the variable will be assigned to undefined
 ```js
 const rectangle = {
   width: 20,
-  height:10,
-  area: 200
-}
-let {width, heigh, area, perimeter = 60} = rectangle;
-console.log(width, height, area, perimeter)  //20 10 200 60
+  height: 10,
+  area: 200,
+};
+let { width, heigh, area, perimeter = 60 } = rectangle;
+console.log(width, height, area, perimeter); //20 10 200 60
 
 //Lets modify the object:width to 30 and perimeter to 80
 const rectangle = {
   width: 30,
-  height:10,
+  height: 10,
   area: 200,
-  perimeter:80
-}
-let {width, heigh, area, perimeter = 60} = rectangle;
-console.log(width, height, area, perimeter) //20 10 200 80
+  perimeter: 80,
+};
+let { width, heigh, area, perimeter = 60 } = rectangle;
+console.log(width, height, area, perimeter); //20 10 200 80
 ```
 
 Destructuring keys as a function parameters. Lets create a function which take a rectangle object and it return a perimeter of a rectangle.
 
 ```js
-    // Without destructuring
-    const rect = {
-      width:20,
-      height:10
-    }
-    const calculatePerimeter = (rectangle) => {
-      return 2 * (rectangle.width + rectangle.height)
-    }
-    console.log(calculatePerimeter(rect)) // 60
-    //with destructuring
+// Without destructuring
+const rect = {
+  width: 20,
+  height: 10,
+};
+const calculatePerimeter = (rectangle) => {
+  return 2 * (rectangle.width + rectangle.height);
+};
+console.log(calculatePerimeter(rect)); // 60
+//with destructuring
 
-     const calculatePerimeter = ({width, height}) => {
-      return 2 * (width + height)
-    }
+const calculatePerimeter = ({ width, height }) => {
+  return 2 * (width + height);
+};
 
-    console.log(calculatePerimeter(rect)) // 60
+console.log(calculatePerimeter(rect)); // 60
 
-    //Another Example
+//Another Example
 const person = {
-  firstName: 'Asabeneh',
-  lastName: 'Yetayeh',
+  firstName: "Asabeneh",
+  lastName: "Yetayeh",
   age: 200,
-  country: 'Finland',
-  job: 'Instructor and Developer',
+  country: "Finland",
+  job: "Instructor and Developer",
   skills: [
-    'HTML',
-    'CSS',
-    'JavaScript',
-    'React',
-    'Redux',
-    'Node',
-    'MongoDB',
-    'Python',
-    'D3.js'
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Redux",
+    "Node",
+    "MongoDB",
+    "Python",
+    "D3.js",
   ],
-  languages: ['Amharic', 'English', 'Suomi(Finnish)']
+  languages: ["Amharic", "English", "Suomi(Finnish)"],
 };
 // Lets create a function which give information about the person object without destructuring
 
-const getPersonInfo = obj => {
+const getPersonInfo = (obj) => {
   const skills = obj.skills;
-  const formattedSkills = skills.slice(0, -1).join(', ');
+  const formattedSkills = skills.slice(0, -1).join(", ");
   const languages = obj.languages;
-  const formattedLanguages = languages.slice(0, -1).join(', ');
+  const formattedLanguages = languages.slice(0, -1).join(", ");
 
   return `${obj.firstName} ${obj.lastName} lives in ${obj.country}. He is  ${
     obj.age
@@ -3831,14 +3838,16 @@ const getPersonInfo = ({
   country,
   job,
   skills,
-  languages
+  languages,
 }) => {
-  const formattedSkills = skills.slice(0, -1).join(', ');
-  const formattedLanguages = languages.slice(0, -1).join(', ');
+  const formattedSkills = skills.slice(0, -1).join(", ");
+  const formattedLanguages = languages.slice(0, -1).join(", ");
 
-  return `${firstName} ${lastName} lives in ${country}. He is ${age} years old. He is an ${job}. He teaches ${formattedSkills} and ${skills[skills.length - 1]}. He speaks ${formattedLanguages} and a little bit of ${languages[2]}.`;
+  return `${firstName} ${lastName} lives in ${country}. He is ${age} years old. He is an ${job}. He teaches ${formattedSkills} and ${
+    skills[skills.length - 1]
+  }. He speaks ${formattedLanguages} and a little bit of ${languages[2]}.`;
 };
-console.log(getPersonInfo(person))
+console.log(getPersonInfo(person));
 /*
 Asabeneh Yetayeh lives in Finland. He is  200 years old. He is an Instructor and Developer. He teaches HTML, CSS, JavaScript, React, Redux, Node, MongoDB, Python and D3.js. He speaks Amharic, English and a little bit of Suomi(Finnish)
 */
@@ -3848,21 +3857,21 @@ Asabeneh Yetayeh lives in Finland. He is  200 years old. He is an Instructor and
 
 #### Exercise: Destructuring
 
-   ```js
-   const constants = [2.72, 3.14, 9.81,37, 100]
-   const countries = ['Finland', 'Estonia', 'Sweden', 'Denmark', 'Norway']
+```js
+const constants = [2.72, 3.14, 9.81, 37, 100];
+const countries = ["Finland", "Estonia", "Sweden", "Denmark", "Norway"];
 
-   const rectangle = {
-     width:20,
-     height:10,
-     area:200,
-     perimeter:60
-   }
-   ```
+const rectangle = {
+  width: 20,
+  height: 10,
+  area: 200,
+  perimeter: 60,
+};
+```
 
-   1. Assign the elements of constants array to e, pi, gravity, humanBodyTemp, waterBoilingTemp.
-   2. Assign the elements of countries array to fin, est, sw, den, nor
-   3. Destructure the rectangle object by its properties or keys.
+1.  Assign the elements of constants array to e, pi, gravity, humanBodyTemp, waterBoilingTemp.
+2.  Assign the elements of countries array to fin, est, sw, den, nor
+3.  Destructure the rectangle object by its properties or keys.
 
 ## Map and Set
 
@@ -3873,33 +3882,33 @@ Set is a collection of unique elements. Lets see how to create a set
 ### Creating a set
 
 ```js
-  const companies = new Set()
+const companies = new Set();
 ```
 
 ### Adding an element to a set
 
 ```js
-  console.log(companies.size) // 0
-  companies.add('Google') // add element to the set
-  companies.add('Facebook')
-  companies.add('Amazon')
-  companies.add('Oracle')
-  companies.add('Microsoft')
-  console.log(companies.size) // 5 elements in the set
+console.log(companies.size); // 0
+companies.add("Google"); // add element to the set
+companies.add("Facebook");
+companies.add("Amazon");
+companies.add("Oracle");
+companies.add("Microsoft");
+console.log(companies.size); // 5 elements in the set
 ```
 
 ### Deleting an element a set
 
 ```js
-console.log(companies.delete('Google'))
-console.log(companies.size) // 4 elements left in the set
+console.log(companies.delete("Google"));
+console.log(companies.size); // 4 elements left in the set
 ```
 
 ### Checking an element in the set
 
 ```js
-console.log(companies.has('Google')) // false
-console.log(companies.has('Facebook')) // true
+console.log(companies.has("Google")); // false
+console.log(companies.has("Facebook")); // true
 ```
 
 ### Clearing the set
@@ -3907,35 +3916,34 @@ console.log(companies.has('Facebook')) // true
 It removes all the elements
 
 ```js
-  companies.clear()
+companies.clear();
 ```
 
 See the example below to learn how to use set.
 
 ```js
-
 const languages = [
-  'English',
-  'Finnish',
-  'English',
-  'French',
-  'Spanish',
-  'English',
-  'French'
-]
-const langSet = new Set(languages)
-console.log(langSet)
-console.log(langSet.size)
+  "English",
+  "Finnish",
+  "English",
+  "French",
+  "Spanish",
+  "English",
+  "French",
+];
+const langSet = new Set(languages);
+console.log(langSet);
+console.log(langSet.size);
 
-const counts = []
-const count = {}
+const counts = [];
+const count = {};
 
 for (const l of langSet) {
-  const filteredLang = languages.filter(lng => lng === l)
-  console.log(filteredLang)
-  counts.push({ lang: l, count: filteredLang.length })
+  const filteredLang = languages.filter((lng) => lng === l);
+  console.log(filteredLang);
+  counts.push({ lang: l, count: filteredLang.length });
 }
-console.log(counts)
+console.log(counts);
 ```
 
 ## Set
@@ -3946,8 +3954,8 @@ Lets see how to create a set
 ### Creating an empty set
 
 ```js
-const companies = new Set()
-console.log(companies)
+const companies = new Set();
+console.log(companies);
 ```
 
 ```sh
@@ -3958,17 +3966,17 @@ console.log(companies)
 
 ```js
 const languages = [
-  'English',
-  'Finnish',
-  'English',
-  'French',
-  'Spanish',
-  'English',
-  'French'
-]
+  "English",
+  "Finnish",
+  "English",
+  "French",
+  "Spanish",
+  "English",
+  "French",
+];
 
-const setOfLangauges = new Set(languages)
-console.log(setOfLangauges)
+const setOfLangauges = new Set(languages);
+console.log(setOfLangauges);
 ```
 
 ```sh
@@ -3979,19 +3987,19 @@ Set is an iterable object and we can iterate through each elements.
 
 ```js
 const languages = [
-  'English',
-  'Finnish',
-  'English',
-  'French',
-  'Spanish',
-  'English',
-  'French'
-]
+  "English",
+  "Finnish",
+  "English",
+  "French",
+  "Spanish",
+  "English",
+  "French",
+];
 
-const setOfLangauges = new Set(languages)
+const setOfLangauges = new Set(languages);
 
 for (const language of setOfLangauges) {
-  console.log(language)
+  console.log(language);
 }
 ```
 
@@ -4005,17 +4013,17 @@ for (const language of setOfLangauges) {
 ### Adding an element to a set
 
 ```js
-const companies = new Set() // creating an empty set
-console.log(companies.size) // 0
+const companies = new Set(); // creating an empty set
+console.log(companies.size); // 0
 
-companies.add('Google') // add element to the set
-companies.add('Facebook')
-companies.add('Amazon')
-companies.add('Oracle')
-companies.add('Microsoft')
+companies.add("Google"); // add element to the set
+companies.add("Facebook");
+companies.add("Amazon");
+companies.add("Oracle");
+companies.add("Microsoft");
 
-console.log(companies.size) // 5 elements in the set
-console.log(companies)
+console.log(companies.size); // 5 elements in the set
+console.log(companies);
 ```
 
 ```sh
@@ -4025,10 +4033,10 @@ Set(5) {"Google", "Facebook", "Amazon", "Oracle", "Microsoft"}
 We can also use loop to add element to a set.
 
 ```js
-const companies = ['Google', 'Facebook', 'Amazon', 'Oracle', 'Microsoft']
-setOfCompanies = new Set()
+const companies = ["Google", "Facebook", "Amazon", "Oracle", "Microsoft"];
+setOfCompanies = new Set();
 for (const company of companies) {
-  setOfCompanies.add(company)
+  setOfCompanies.add(company);
 }
 ```
 
@@ -4042,8 +4050,8 @@ Set(5) {"Google", "Facebook", "Amazon", "Oracle", "Microsoft"}
 We can delete an element from a set using a delete method.
 
 ```js
-console.log(companies.delete('Google'))
-console.log(companies.size) // 4 elements left in the set
+console.log(companies.delete("Google"));
+console.log(companies.size); // 4 elements left in the set
 ```
 
 ### Checking an element in the set
@@ -4051,8 +4059,8 @@ console.log(companies.size) // 4 elements left in the set
 The has method can help to know if a certain element exists in a set.
 
 ```js
-console.log(companies.has('Apple')) // false
-console.log(companies.has('Facebook')) // true
+console.log(companies.has("Apple")); // false
+console.log(companies.has("Facebook")); // true
 ```
 
 ### Clearing the set
@@ -4060,9 +4068,9 @@ console.log(companies.has('Facebook')) // true
 It removes all the elements from a set.
 
 ```js
-companies.clear()
+companies.clear();
 
-console.log(companies)
+console.log(companies);
 ```
 
 ```sh
@@ -4074,45 +4082,45 @@ See the example below to learn how to use set.
 
 ```js
 const languages = [
-  'English',
-  'Finnish',
-  'English',
-  'French',
-  'Spanish',
-  'English',
-  'French'
-]
-const langSet = new Set(languages)
-console.log(langSet) // Set(4) {"English", "Finnish", "French", "Spanish"}
-console.log(langSet.size) // 4
+  "English",
+  "Finnish",
+  "English",
+  "French",
+  "Spanish",
+  "English",
+  "French",
+];
+const langSet = new Set(languages);
+console.log(langSet); // Set(4) {"English", "Finnish", "French", "Spanish"}
+console.log(langSet.size); // 4
 
-const counts = []
-const count = {}
+const counts = [];
+const count = {};
 
 for (const l of langSet) {
-  const filteredLang = languages.filter(lng => lng === l)
-  console.log(filteredLang) // ["English", "English", "English"]
-  counts.push({ lang: l, count: filteredLang.length })
+  const filteredLang = languages.filter((lng) => lng === l);
+  console.log(filteredLang); // ["English", "English", "English"]
+  counts.push({ lang: l, count: filteredLang.length });
 }
-console.log(counts)
+console.log(counts);
 ```
 
 ```js
 [
-  { lang: 'English', count: 3 },
-  { lang: 'Finnish', count: 1 },
-  { lang: 'French', count: 2 },
-  { lang: 'Spanish', count: 1 }
-]
+  { lang: "English", count: 3 },
+  { lang: "Finnish", count: 1 },
+  { lang: "French", count: 2 },
+  { lang: "Spanish", count: 1 },
+];
 ```
 
 Other use case of set. For instance to count unique item in an array.
 
 ```js
-const numbers = [5, 3, 2, 5, 5, 9, 4, 5]
-const setOfNumbers = new Set(numbers)
+const numbers = [5, 3, 2, 5, 5, 9, 4, 5];
+const setOfNumbers = new Set(numbers);
 
-console.log(setOfNumbers)
+console.log(setOfNumbers);
 ```
 
 ```sh
@@ -4124,15 +4132,15 @@ Set(5) {5, 3, 2, 9, 4}
 To find a union to two sets can be achieved using spread operator. Lets find the union of set A and set B (A U B)
 
 ```js
-let a = [1, 2, 3, 4, 5]
-let b = [3, 4, 5, 6]
-let c = [...a, ...b]
+let a = [1, 2, 3, 4, 5];
+let b = [3, 4, 5, 6];
+let c = [...a, ...b];
 
-let A = new Set(a)
-let B = new Set(b)
-let C = new Set(c)
+let A = new Set(a);
+let B = new Set(b);
+let C = new Set(c);
 
-console.log(C)
+console.log(C);
 ```
 
 ```sh
@@ -4145,16 +4153,16 @@ Set(6) {1, 2, 3, 4, 5,6}
 To find an intersection of two sets can be achieved using filter. Lets find the union of set A and set B (A ∩ B)
 
 ```js
-let a = [1, 2, 3, 4, 5]
-let b = [3, 4, 5, 6]
+let a = [1, 2, 3, 4, 5];
+let b = [3, 4, 5, 6];
 
-let A = new Set(a)
-let B = new Set(b)
+let A = new Set(a);
+let B = new Set(b);
 
-let c = a.filter(num => B.has(num))
-let C = new Set(c)
+let c = a.filter((num) => B.has(num));
+let C = new Set(c);
 
-console.log(C)
+console.log(C);
 ```
 
 ```sh
@@ -4167,16 +4175,16 @@ Set(3) {3, 4, 5}
 To find an the difference between two sets can be achieved using filter. Lets find the different of set A and set B (A \ B)
 
 ```js
-let a = [1, 2, 3, 4, 5]
-let b = [3, 4, 5, 6]
+let a = [1, 2, 3, 4, 5];
+let b = [3, 4, 5, 6];
 
-let A = new Set(a)
-let B = new Set(b)
+let A = new Set(a);
+let B = new Set(b);
 
-let c = a.filter(num => !B.has(num))
-let C = new Set(c)
+let c = a.filter((num) => !B.has(num));
+let C = new Set(c);
 
-console.log(C)
+console.log(C);
 ```
 
 ```sh
@@ -4189,8 +4197,8 @@ Set(2) {1, 2}
 ### Creating an empty Map
 
 ```js
-const map = new Map()
-console.log(map)
+const map = new Map();
+console.log(map);
 ```
 
 ```sh
@@ -4201,13 +4209,13 @@ Map(0) {}
 
 ```js
 countries = [
-  ['Finland', 'Helsinki'],
-  ['Sweden', 'Stockholm'],
-  ['Norway', 'Oslo']
-]
-const map = new Map(countries)
-console.log(map)
-console.log(map.size)
+  ["Finland", "Helsinki"],
+  ["Sweden", "Stockholm"],
+  ["Norway", "Oslo"],
+];
+const map = new Map(countries);
+console.log(map);
+console.log(map.size);
 ```
 
 ```sh
@@ -4218,13 +4226,13 @@ Map(3) {"Finland" => "Helsinki", "Sweden" => "Stockholm", "Norway" => "Oslo"}
 ### Adding values to the Map
 
 ```js
-const countriesMap = new Map()
-console.log(countriesMap.size) // 0
-countriesMap.set('Finland', 'Helsinki')
-countriesMap.set('Sweden', 'Stockholm')
-countriesMap.set('Norway', 'Oslo')
-console.log(countriesMap)
-console.log(countriesMap.size)
+const countriesMap = new Map();
+console.log(countriesMap.size); // 0
+countriesMap.set("Finland", "Helsinki");
+countriesMap.set("Sweden", "Stockholm");
+countriesMap.set("Norway", "Oslo");
+console.log(countriesMap);
+console.log(countriesMap.size);
 ```
 
 ```sh
@@ -4235,7 +4243,7 @@ Map(3) {"Finland" => "Helsinki", "Sweden" => "Stockholm", "Norway" => "Oslo"}
 ### Getting a value from Map
 
 ```js
-console.log(countriesMap.get('Finland'))
+console.log(countriesMap.get("Finland"));
 ```
 
 ```sh
@@ -4244,10 +4252,10 @@ Helsinki
 
 ### Checking key in Map
 
-Check if a key exist in a map using *has* method. It returns *true* or *false*.
+Check if a key exist in a map using _has_ method. It returns _true_ or _false_.
 
 ```js
-console.log(countriesMap.has('Finland'))
+console.log(countriesMap.has("Finland"));
 ```
 
 ```sh
@@ -4258,7 +4266,7 @@ Getting all values from map using loop
 
 ```js
 for (const country of countriesMap) {
-  console.log(country)
+  console.log(country);
 }
 ```
 
@@ -4309,30 +4317,31 @@ const countries = ['Finland', 'Sweden', 'Norway']
 
 1. \*\*\* Use the countries data to find the 10 most spoken languages:
 
-   ````js
+   ```js
    // Your output should look like this
-   console.log(mostSpokenLanguages(countries, 10))
-   [
-   {'English':91},
-   {'French':45},
-   {'Arabic':25},
-   {'Spanish':24},
-   {'Russian':9},
-   {'Portuguese':9},
-   {'Dutch':8},
-   {'German':7},
-   {'Chinese':5},
-   {'Swahili':4},
-   {'Serbian':4}]
+   console.log(mostSpokenLanguages(countries, 10))[
+     ({ English: 91 },
+     { French: 45 },
+     { Arabic: 25 },
+     { Spanish: 24 },
+     { Russian: 9 },
+     { Portuguese: 9 },
+     { Dutch: 8 },
+     { German: 7 },
+     { Chinese: 5 },
+     { Swahili: 4 },
+     { Serbian: 4 })
+   ];
 
    // Your output should look like this
-   console.log(mostSpokenLanguages(countries, 3))
+   console.log(mostSpokenLanguages(countries, 3));
+   ```
 
-  [
-   {'English':91},
-   {'French':45},
-   {'Arabic':25}
-   ]````
+[
+{'English':91},
+{'French':45},
+{'Arabic':25}
+]````
 
 ## Document Object Model (DOM)
 
@@ -4357,59 +4366,59 @@ HTML document is structured as a JavaScript Object. Every HTML element has a dif
 
 #### Getting elements by tag name
 
-***getElementsByTagName()*** method returns an HTMLCollection object. An HTMLCollection is an array like list of HTML elements. The length property provides the size of the collection.
+**_getElementsByTagName()_** method returns an HTMLCollection object. An HTMLCollection is an array like list of HTML elements. The length property provides the size of the collection.
 
 ```js
-const allTitles = document.getElementsByTagName('h1');
-console.log(allTitles) //HTMCollections
-console.log(allTitles.length) // 4
-for(let i = 0; i < allTitles.length; i++){
-  console.log(allTitles[i]) // prints each elements in the HTMLCollection
+const allTitles = document.getElementsByTagName("h1");
+console.log(allTitles); //HTMCollections
+console.log(allTitles.length); // 4
+for (let i = 0; i < allTitles.length; i++) {
+  console.log(allTitles[i]); // prints each elements in the HTMLCollection
 }
 ```
 
 #### Getting elements by class name
 
-***getElementsByClassName()*** method returns an HTMLCollection object. An HTMLCollection is an array like list of HTML elements. The length property provides the size of the collection. It is possible to loop through all the HTMLCollection elements. See the example below
+**_getElementsByClassName()_** method returns an HTMLCollection object. An HTMLCollection is an array like list of HTML elements. The length property provides the size of the collection. It is possible to loop through all the HTMLCollection elements. See the example below
 
 ```js
-const allTitles = document.getElementsByClassName('title');
-console.log(allTitles) //HTMCollections
-console.log(allTitles.length) // 4
-for(let i = 0; i < allTitles.length; i++){
-  console.log(allTitles[i]) // prints each elements in the HTMLCollection
+const allTitles = document.getElementsByClassName("title");
+console.log(allTitles); //HTMCollections
+console.log(allTitles.length); // 4
+for (let i = 0; i < allTitles.length; i++) {
+  console.log(allTitles[i]); // prints each elements in the HTMLCollection
 }
 ```
 
 #### Getting an element by id
 
-***getElementsById()***  targets a single HTML element. We pass the id without # as an argument.
+**_getElementsById()_** targets a single HTML element. We pass the id without # as an argument.
 
 ```js
-let firstTitle = document.getElementById('first-title');
-console.log(firstTitle) // <h1>First Title</h1>
+let firstTitle = document.getElementById("first-title");
+console.log(firstTitle); // <h1>First Title</h1>
 ```
 
 #### Getting elements by using querySelector using tag, class and id:
 
-***querySelector***: can be used to select HTML element by its tag name, id or class. If the tag name is used it selects only the first element.
+**_querySelector_**: can be used to select HTML element by its tag name, id or class. If the tag name is used it selects only the first element.
 
 ```js
-let firstTitle = document.querySelect('h1');// select the first available h2 element
-let firstTitle = document.querySelector('#first-title'); // select id with first-title
-let firstTitle = document.querySelector('.title'); // select the first available h2 element with class title
+let firstTitle = document.querySelect("h1"); // select the first available h2 element
+let firstTitle = document.querySelector("#first-title"); // select id with first-title
+let firstTitle = document.querySelector(".title"); // select the first available h2 element with class title
 ```
 
-***querySelectorAll***: can be used to select html element by its tag name or class. It return a nodeList which is an array like object which support array methods. We can use ***for loop*** or ***forEach*** to loop through each nodeList elements.
+**_querySelectorAll_**: can be used to select html element by its tag name or class. It return a nodeList which is an array like object which support array methods. We can use **_for loop_** or **_forEach_** to loop through each nodeList elements.
 
 ```js
-const allTitles = document.querySelectAll('h1');
-console.log(allTitles.length) // 4
-for(let i = 0; i < allTitles.length; i++){
+const allTitles = document.querySelectAll("h1");
+console.log(allTitles.length); // 4
+for (let i = 0; i < allTitles.length; i++) {
   console.log(allTitles[i]);
 }
-allTitles.forEach(title => console.log(title))
-const allTitles = document.querySelectorAll('.title'); // the same goes for selecting using class
+allTitles.forEach((title) => console.log(title));
+const allTitles = document.querySelectorAll(".title"); // the same goes for selecting using class
 ```
 
 ### Adding attribute
@@ -4418,13 +4427,13 @@ An attribute is added in the opening tag of HTML which gives additional informat
 
 #### Adding attribute using setAttribute
 
-The ***setAttribute()*** method set any html attribute. It takes two parameters the type of the attribute and the name of the attribute. 
+The **_setAttribute()_** method set any html attribute. It takes two parameters the type of the attribute and the name of the attribute.
 Let's add class and id attribute for the fourth title.
 
 ```js
-const titles = document.querySelectorAll('h1');
-titles[3].setAttribute('class', 'title');
-titles[3].setAttribute('id', 'fourth-title');
+const titles = document.querySelectorAll("h1");
+titles[3].setAttribute("class", "title");
+titles[3].setAttribute("id", "fourth-title");
 ```
 
 #### Adding attribute without setAttribute
@@ -4433,8 +4442,8 @@ Some attributes are DOM object property and they can be set directly. For instan
 
 ```js
 //another way to setting an attribute
-titles[3].className = 'title';
-titles[3].id = 'fourth-title';
+titles[3].className = "title";
+titles[3].id = "fourth-title";
 ```
 
 #### Adding class using classList
@@ -4443,14 +4452,14 @@ The class list method is a good method to append additional class. It doesn't ov
 
 ```js
 //another way to setting an attribute: append the class, doesn't over ride
-titles[3].classList.add('title', 'header-title')
+titles[3].classList.add("title", "header-title");
 ```
 
 ### Adding Text content
 
 ```js
-const titles = document.querySelectorAll('h1');
-titles[3].textContent = 'Fourth Title';
+const titles = document.querySelectorAll("h1");
+titles[3].textContent = "Fourth Title";
 ```
 
 ### Adding style
@@ -4458,35 +4467,33 @@ titles[3].textContent = 'Fourth Title';
 Lets add some style to our titles. If the element has even index we give it green color else red.
 
 ```js
-const titles = document.querySelectorAll('h1');
-titles.forEach((title,i) => {
-  title.fontSize = '24px'; // all titles will have 24px font size
-  if(i % 2 === 0){
-    title.style.color = 'green';
+const titles = document.querySelectorAll("h1");
+titles.forEach((title, i) => {
+  title.fontSize = "24px"; // all titles will have 24px font size
+  if (i % 2 === 0) {
+    title.style.color = "green";
+  } else {
+    title.style.color = "red";
   }
-  else {
-    title.style.color = 'red';
-  }
-})
-
+});
 ```
 
 ### Creating an Element
 
 ```js
-let title = document.createElement('h1');
-let firstTitle = document.getElementById('first-title');
+let title = document.createElement("h1");
+let firstTitle = document.getElementById("first-title");
 ```
 
 ### Creating elements
 
 ```js
-let firstTitle = document.getElementById('first-title');
-let title
-for(let i = 0; i < 3; i++){
-  title = document.createElement('h1');
-  title.className = 'title';
-  title.style.fontSize = '24px';
+let firstTitle = document.getElementById("first-title");
+let title;
+for (let i = 0; i < 3; i++) {
+  title = document.createElement("h1");
+  title.className = "title";
+  title.style.fontSize = "24px";
 }
 ```
 
@@ -4495,10 +4502,10 @@ for(let i = 0; i < 3; i++){
 ```js
 // creating multiple elements and appending to parent element
 let title;
-for(let i = 0; i < 3; i++){
-  title = document.createElement('h1');
-  title.className = 'title';
-  title.style.fontSize = '24px';
+for (let i = 0; i < 3; i++) {
+  title = document.createElement("h1");
+  title.className = "title";
+  title.style.fontSize = "24px";
   document.body.appendChild(title);
 }
 ```
@@ -4506,12 +4513,12 @@ for(let i = 0; i < 3; i++){
 ### Event Listeners
 
 Common HTML events:onclick, onchange, onmouseover, onmouseout, onkeydown, onkeyup, onload.
-We can add event listener method to any DOM object. Use use ***addEventListener()*** method to listen different event types on HTML elements.
+We can add event listener method to any DOM object. Use use **_addEventListener()_** method to listen different event types on HTML elements.
 The following is an example of click type event.
 
 ```js
-const button = document.querySelector('button');
-button.addEventListener('click', e => {
+const button = document.querySelector("button");
+button.addEventListener("click", (e) => {
   console.log(e.target);
 });
 ```
@@ -4521,54 +4528,54 @@ button.addEventListener('click', e => {
 We usually fill forms and forms accept data. Form fields are created using input HTML element.
 
 ```html
-<input type ='text' placeholder = 'Mass in Kilogram' />
-<input type = 'text' placeholder = 'Height in meters' />
+<input type="text" placeholder="Mass in Kilogram" />
+<input type="text" placeholder="Height in meters" />
 <button>Calculate BMI</button>
 ```
 
 ```js
-const mass = document.querySelector('#mass');
-const height = document.querySelector('#height');
-const button = document.querySelector('button');
+const mass = document.querySelector("#mass");
+const height = document.querySelector("#height");
+const button = document.querySelector("button");
 let bmi;
-button.addEventListen('click', ()=>{
+button.addEventListen("click", () => {
   bmi = mass.value * height.value;
 });
 
-console.log(bmi)
+console.log(bmi);
 ```
 
 #### Exercises:Document Object Model
 
 ```html
-  <!-- index.html -->
+<!-- index.html -->
 <!DOCTYPE html>
-  <html>
-    <head>
-      <title>JavaScript for Everyone:DOM</title>
-    </head>
-    <body>
+<html>
+  <head>
+    <title>JavaScript for Everyone:DOM</title>
+  </head>
+  <body>
     <p>First Paragraph</p>
     <p>Second Paragraph</p>
     <p>Third Paragraph</p>
     <p></p>
-    </body>
-  </html>
+  </body>
+</html>
 ```
 
-  1. Create an index.html file and put four p elements as above: Get the first paragraph by using ***document.querySelector(tagname)*** and tag name
-  2. Get get each of the the paragraph using ***document.querySelector('#id')*** and by their id
-  3. Get all the p as nodeList using ***document.querySelectorAll(tagname)*** and by their tag name
-  4. Loop through the nodeList and get the text content of each paragraph
-  5. Set a text content to paragraph the fourth paragraph,***Fourth Paragraph***
-  6. Set id and class attribute for all the paragraphs using different attribute setting methods
-  7. Change stye of each paragraph using JavaScript(eg. color, background, border, font-size, font-family)
-  8. Select all paragraphs and loop through each elements and give the first and third paragraph a color of color, and the second and the fourth paragraph a red color
-  9. Remove all the paragraph and create them using JavaScript
-  10. Set text content, id and class to each paragraph
-  11. Create a div container on HTML document and create 100 numbers dynamically and append to the container div. Put each number in 150px by 150px box. If the number is even the background will be lightgreen else lightblue.
-  12. Use the rgb color generator function or hexaColor generator to create 10 divs with random background colors
-  13. Use the countries.js to visualize all the countries on the HTML document. You need one wrapper div and box for each countries. In the box display, the letter the country starts with, the name of the country and the number of characters for the country name.
+1. Create an index.html file and put four p elements as above: Get the first paragraph by using **_document.querySelector(tagname)_** and tag name
+2. Get get each of the the paragraph using **_document.querySelector('#id')_** and by their id
+3. Get all the p as nodeList using **_document.querySelectorAll(tagname)_** and by their tag name
+4. Loop through the nodeList and get the text content of each paragraph
+5. Set a text content to paragraph the fourth paragraph,**_Fourth Paragraph_**
+6. Set id and class attribute for all the paragraphs using different attribute setting methods
+7. Change stye of each paragraph using JavaScript(eg. color, background, border, font-size, font-family)
+8. Select all paragraphs and loop through each elements and give the first and third paragraph a color of color, and the second and the fourth paragraph a red color
+9. Remove all the paragraph and create them using JavaScript
+10. Set text content, id and class to each paragraph
+11. Create a div container on HTML document and create 100 numbers dynamically and append to the container div. Put each number in 150px by 150px box. If the number is even the background will be lightgreen else lightblue.
+12. Use the rgb color generator function or hexaColor generator to create 10 divs with random background colors
+13. Use the countries.js to visualize all the countries on the HTML document. You need one wrapper div and box for each countries. In the box display, the letter the country starts with, the name of the country and the number of characters for the country name.
 
 #### DOM: Mini Projects
 
@@ -4616,8 +4623,8 @@ Let us create a dog object from our Person class.
 class Person {
   // code goes here
 }
-const person = new Person()
-console.log(person)
+const person = new Person();
+console.log(person);
 ```
 
 ```sh
@@ -4637,15 +4644,15 @@ The following Person class constructor has firstName and lastName property. Thes
 ```js
 class Person {
   constructor(firstName, lastName) {
-    console.log(this) // Check the output from here
-    this.firstName = firstName
-    this.lastName = lastName
+    console.log(this); // Check the output from here
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 }
 
-const person = new Person()
+const person = new Person();
 
-console.log(person)
+console.log(person);
 ```
 
 ```sh
@@ -4657,14 +4664,14 @@ All the keys of the object are undefined. When ever we instantiate we should pas
 ```js
 class Person {
   constructor(firstName, lastName) {
-    this.firstName = firstName
-    this.lastName = lastName
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh')
+const person1 = new Person("Asabeneh", "Yetayeh");
 
-console.log(person1)
+console.log(person1);
 ```
 
 ```sh
@@ -4676,19 +4683,19 @@ As we have stated at the very beginning that once we create a class we can creat
 ```js
 class Person {
   constructor(firstName, lastName) {
-    console.log(this) // Check the output from here
-    this.firstName = firstName
-    this.lastName = lastName
+    console.log(this); // Check the output from here
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh')
-const person2 = new Person('Lidiya', 'Tekle')
-const person3 = new Person('Abraham', 'Yetayeh')
+const person1 = new Person("Asabeneh", "Yetayeh");
+const person2 = new Person("Lidiya", "Tekle");
+const person3 = new Person("Abraham", "Yetayeh");
 
-console.log(person1)
-console.log(person2)
-console.log(person3)
+console.log(person1);
+console.log(person2);
+console.log(person3);
 ```
 
 ```sh
@@ -4702,18 +4709,18 @@ Using the class Person we created three persons object. As you can see our class
 ```js
 class Person {
   constructor(firstName, lastName, age, country, city) {
-    console.log(this) // Check the output from here
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
+    console.log(this); // Check the output from here
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
+const person1 = new Person("Asabeneh", "Yetayeh", 250, "Finland", "Helsinki");
 
-console.log(person1)
+console.log(person1);
 ```
 
 ```sh
@@ -4727,25 +4734,25 @@ The constructor function properties may have a default value like other regular 
 ```js
 class Person {
   constructor(
-    firstName = 'Asabeneh',
-    lastName = 'Yetayeh',
+    firstName = "Asabeneh",
+    lastName = "Yetayeh",
     age = 250,
-    country = 'Finland',
-    city = 'Helsinki'
+    country = "Finland",
+    city = "Helsinki"
   ) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
   }
 }
 
-const person1 = new Person() // it will take the default values
-const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+const person1 = new Person(); // it will take the default values
+const person2 = new Person("Lidiya", "Tekle", 28, "Finland", "Espoo");
 
-console.log(person1)
-console.log(person2)
+console.log(person1);
+console.log(person2);
 ```
 
 ```sh
@@ -4760,23 +4767,23 @@ The constructor inside a class is a builtin function which allow us to create a 
 ```js
 class Person {
   constructor(firstName, lastName, age, country, city) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
   }
   getFullName() {
-    const fullName = this.firstName + ' ' + this.lastName
-    return fullName
+    const fullName = this.firstName + " " + this.lastName;
+    return fullName;
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
-const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+const person1 = new Person("Asabeneh", "Yetayeh", 250, "Finland", "Helsinki");
+const person2 = new Person("Lidiya", "Tekle", 28, "Finland", "Espoo");
 
-console.log(person1.getFullName())
-console.log(person2.getFullName())
+console.log(person1.getFullName());
+console.log(person2.getFullName());
 ```
 
 ```sh
@@ -4791,28 +4798,28 @@ When we create a class for some properties we may have an initial value. For ins
 ```js
 class Person {
   constructor(firstName, lastName, age, country, city) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
-    this.score = 0
-    this.skills = []
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
+    this.score = 0;
+    this.skills = [];
   }
   getFullName() {
-    const fullName = this.firstName + ' ' + this.lastName
-    return fullName
+    const fullName = this.firstName + " " + this.lastName;
+    return fullName;
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
-const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+const person1 = new Person("Asabeneh", "Yetayeh", 250, "Finland", "Helsinki");
+const person2 = new Person("Lidiya", "Tekle", 28, "Finland", "Espoo");
 
-console.log(person1.score)
-console.log(person2.score)
+console.log(person1.score);
+console.log(person2.score);
 
-console.log(person1.skills)
-console.log(person2.skills)
+console.log(person1.skills);
+console.log(person2.skills);
 ```
 
 ```sh
@@ -4831,34 +4838,34 @@ The get method allow us to access value from the object. We write a get method u
 ```js
 class Person {
   constructor(firstName, lastName, age, country, city) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
-    this.score = 0
-    this.skills = []
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
+    this.score = 0;
+    this.skills = [];
   }
   getFullName() {
-    const fullName = this.firstName + ' ' + this.lastName
-    return fullName
+    const fullName = this.firstName + " " + this.lastName;
+    return fullName;
   }
   get getscore() {
-    return this.score
+    return this.score;
   }
   get getSkills() {
-    return this.skills
+    return this.skills;
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
-const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+const person1 = new Person("Asabeneh", "Yetayeh", 250, "Finland", "Helsinki");
+const person2 = new Person("Lidiya", "Tekle", 28, "Finland", "Espoo");
 
-console.log(person1.getScore) // We do not need parenthesis to call a getter method
-console.log(person2.getScore)
+console.log(person1.getScore); // We do not need parenthesis to call a getter method
+console.log(person2.getScore);
 
-console.log(person1.getSkills)
-console.log(person2.getSkills)
+console.log(person1.getSkills);
+console.log(person2.getSkills);
 ```
 
 ```sh
@@ -4875,50 +4882,50 @@ The setter method allow us to modify the value of certain properties. We write a
 ```js
 class Person {
   constructor(firstName, lastName, age, country, city) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
-    this.score = 0
-    this.skills = []
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
+    this.score = 0;
+    this.skills = [];
   }
   getFullName() {
-    const fullName = this.firstName + ' ' + this.lastName
-    return fullName
+    const fullName = this.firstName + " " + this.lastName;
+    return fullName;
   }
   get getScore() {
-    return this.score
+    return this.score;
   }
   get getSkills() {
-    return this.skills
+    return this.skills;
   }
   set setScore(score) {
-    this.score += score
+    this.score += score;
   }
   set setSkill(skill) {
-    this.skills.push(skill)
+    this.skills.push(skill);
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
-const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
+const person1 = new Person("Asabeneh", "Yetayeh", 250, "Finland", "Helsinki");
+const person2 = new Person("Lidiya", "Tekle", 28, "Finland", "Espoo");
 
-person1.setScore = 1
-person1.setSkill = 'HTML'
-person1.setSkill = 'CSS'
-person1.setSkill = 'JavaScript'
+person1.setScore = 1;
+person1.setSkill = "HTML";
+person1.setSkill = "CSS";
+person1.setSkill = "JavaScript";
 
-person2.setScore = 1
-person2.setSkill = 'Planning'
-person2.setSkill = 'Managing'
-person2.setSkill = 'Organizing'
+person2.setScore = 1;
+person2.setSkill = "Planning";
+person2.setSkill = "Managing";
+person2.setSkill = "Organizing";
 
-console.log(person1.score)
-console.log(person2.score)
+console.log(person1.score);
+console.log(person2.score);
 
-console.log(person1.skills)
-console.log(person2.skills)
+console.log(person1.skills);
+console.log(person2.skills);
 ```
 
 ```sh
@@ -4933,67 +4940,67 @@ Do not be puzzled by the difference between regular method and a getter. If you 
 ```js
 class Person {
   constructor(firstName, lastName, age, country, city) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
-    this.score = 0
-    this.skills = []
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
+    this.score = 0;
+    this.skills = [];
   }
   getFullName() {
-    const fullName = this.firstName + ' ' + this.lastName
-    return fullName
+    const fullName = this.firstName + " " + this.lastName;
+    return fullName;
   }
   get getScore() {
-    return this.score
+    return this.score;
   }
   get getSkills() {
-    return this.skills
+    return this.skills;
   }
   set setScore(score) {
-    this.score += score
+    this.score += score;
   }
   set setSkill(skill) {
-    this.skills.push(skill)
+    this.skills.push(skill);
   }
   getPersonInfo() {
-    let fullName = this.getFullName()
+    let fullName = this.getFullName();
     let skills =
       this.skills.length > 0 &&
-      this.skills.slice(0, this.skills.length - 1).join(', ') +
-        ` and ${this.skills[this.skills.length - 1]}`
-    let formattedSkills = skills ? `He knows ${skills}` : ''
+      this.skills.slice(0, this.skills.length - 1).join(", ") +
+        ` and ${this.skills[this.skills.length - 1]}`;
+    let formattedSkills = skills ? `He knows ${skills}` : "";
 
-    let info = `${fullName} is ${this.age}. He lives ${this.city}, ${this.country}. ${formattedSkills}`
-    return info
+    let info = `${fullName} is ${this.age}. He lives ${this.city}, ${this.country}. ${formattedSkills}`;
+    return info;
   }
 }
 
-const person1 = new Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
-const person2 = new Person('Lidiya', 'Tekle', 28, 'Finland', 'Espoo')
-const person3 = new Person('John', 'Doe', 50, 'Mars', 'Mars city')
+const person1 = new Person("Asabeneh", "Yetayeh", 250, "Finland", "Helsinki");
+const person2 = new Person("Lidiya", "Tekle", 28, "Finland", "Espoo");
+const person3 = new Person("John", "Doe", 50, "Mars", "Mars city");
 
-person1.setScore = 1
-person1.setSkill = 'HTML'
-person1.setSkill = 'CSS'
-person1.setSkill = 'JavaScript'
+person1.setScore = 1;
+person1.setSkill = "HTML";
+person1.setSkill = "CSS";
+person1.setSkill = "JavaScript";
 
-person2.setScore = 1
-person2.setSkill = 'Planning'
-person2.setSkill = 'Managing'
-person2.setSkill = 'Organizing'
+person2.setScore = 1;
+person2.setSkill = "Planning";
+person2.setSkill = "Managing";
+person2.setSkill = "Organizing";
 
-console.log(person1.getScore)
-console.log(person2.getScore)
+console.log(person1.getScore);
+console.log(person2.getScore);
 
-console.log(person1.getSkills)
-console.log(person2.getSkills)
-console.log(person3.getSkills)
+console.log(person1.getSkills);
+console.log(person2.getSkills);
+console.log(person3.getSkills);
 
-console.log(person1.getPersonInfo())
-console.log(person2.getPersonInfo())
-console.log(person3.getPersonInfo())
+console.log(person1.getPersonInfo());
+console.log(person2.getPersonInfo());
+console.log(person3.getPersonInfo());
 ```
 
 ```sh
@@ -5014,70 +5021,70 @@ The static keyword defines a static method for a class. Static methods are not c
 ```js
 class Person {
   constructor(firstName, lastName, age, country, city) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
-    this.country = country
-    this.city = city
-    this.score = 0
-    this.skills = []
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.country = country;
+    this.city = city;
+    this.score = 0;
+    this.skills = [];
   }
   getFullName() {
-    const fullName = this.firstName + ' ' + this.lastName
-    return fullName
+    const fullName = this.firstName + " " + this.lastName;
+    return fullName;
   }
   get getScore() {
-    return this.score
+    return this.score;
   }
   get getSkills() {
-    return this.skills
+    return this.skills;
   }
   set setScore(score) {
-    this.score += score
+    this.score += score;
   }
   set setSkill(skill) {
-    this.skills.push(skill)
+    this.skills.push(skill);
   }
   getPersonInfo() {
-    let fullName = this.getFullName()
+    let fullName = this.getFullName();
     let skills =
       this.skills.length > 0 &&
-      this.skills.slice(0, this.skills.length - 1).join(', ') +
-        ` and ${this.skills[this.skills.length - 1]}`
+      this.skills.slice(0, this.skills.length - 1).join(", ") +
+        ` and ${this.skills[this.skills.length - 1]}`;
 
-    let formattedSkills = skills ? `He knows ${skills}` : ''
+    let formattedSkills = skills ? `He knows ${skills}` : "";
 
-    let info = `${fullName} is ${this.age}. He lives ${this.city}, ${this.country}. ${formattedSkills}`
-    return info
+    let info = `${fullName} is ${this.age}. He lives ${this.city}, ${this.country}. ${formattedSkills}`;
+    return info;
   }
   static favoriteSkill() {
-    const skills = ['HTML', 'CSS', 'JS', 'React', 'Python', 'Node']
-    const index = Math.floor(Math.random() * skills.length)
-    return skills[index]
+    const skills = ["HTML", "CSS", "JS", "React", "Python", "Node"];
+    const index = Math.floor(Math.random() * skills.length);
+    return skills[index];
   }
   static showDateTime() {
-    let now = new Date()
-    let year = now.getFullYear()
-    let month = now.getMonth() + 1
-    let date = now.getDate()
-    let hours = now.getHours()
-    let minutes = now.getMinutes()
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let date = now.getDate();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
     if (hours < 10) {
-      hours = '0' + hours
+      hours = "0" + hours;
     }
     if (minutes < 10) {
-      minutes = '0' + minutes
+      minutes = "0" + minutes;
     }
 
-    let dateMonthYear = date + '.' + month + '.' + year
-    let time = hours + ':' + minutes
-    let fullTime = dateMonthYear + ' ' + time
-    return fullTime
+    let dateMonthYear = date + "." + month + "." + year;
+    let time = hours + ":" + minutes;
+    let fullTime = dateMonthYear + " " + time;
+    return fullTime;
   }
 }
 
-console.log(Person.favoriteSkill())
-console.log(Person.showDateTime())
+console.log(Person.favoriteSkill());
+console.log(Person.showDateTime());
 ```
 
 ```sh
@@ -5103,15 +5110,15 @@ Let us create a Student child class from Person parent class.
 ```js
 class Student extends Person {
   saySomething() {
-    console.log('I am a child of the person class')
+    console.log("I am a child of the person class");
   }
 }
 
-const s1 = new Student('Asabeneh', 'Yetayeh', 'Finland', 250, 'Helsinki')
-console.log(s1)
-console.log(s1.saySomething())
-console.log(s1.getFullName())
-console.log(s1.getPersonInfo())
+const s1 = new Student("Asabeneh", "Yetayeh", "Finland", 250, "Helsinki");
+console.log(s1);
+console.log(s1.saySomething());
+console.log(s1.getFullName());
+console.log(s1.getPersonInfo());
 ```
 
 ```sh
@@ -5129,56 +5136,56 @@ As you can see, we manage to access all the methods in the Person Class and we u
 ```js
 class Student extends Person {
   constructor(firstName, lastName, age, country, city, gender) {
-    super(firstName, lastName, age, country, city)
-    this.gender = gender
+    super(firstName, lastName, age, country, city);
+    this.gender = gender;
   }
 
   saySomething() {
-    console.log('I am a child of the person class')
+    console.log("I am a child of the person class");
   }
   getPersonInfo() {
-    let fullName = this.getFullName()
+    let fullName = this.getFullName();
     let skills =
       this.skills.length > 0 &&
-      this.skills.slice(0, this.skills.length - 1).join(', ') +
-        ` and ${this.skills[this.skills.length - 1]}`
+      this.skills.slice(0, this.skills.length - 1).join(", ") +
+        ` and ${this.skills[this.skills.length - 1]}`;
 
-    let formattedSkills = skills ? `He knows ${skills}` : ''
-    let pronoun = this.gender == 'Male' ? 'He' : 'She'
+    let formattedSkills = skills ? `He knows ${skills}` : "";
+    let pronoun = this.gender == "Male" ? "He" : "She";
 
-    let info = `${fullName} is ${this.age}. ${pronoun} lives in ${this.city}, ${this.country}. ${formattedSkills}`
-    return info
+    let info = `${fullName} is ${this.age}. ${pronoun} lives in ${this.city}, ${this.country}. ${formattedSkills}`;
+    return info;
   }
 }
 
 const s1 = new Student(
-  'Asabeneh',
-  'Yetayeh',
+  "Asabeneh",
+  "Yetayeh",
   250,
-  'Finland',
-  'Helsinki',
-  'Male'
-)
-const s2 = new Student('Lidiya', 'Tekle', 28, 'Finland', 'Helsinki', 'Female')
-s1.setScore = 1
-s1.setSkill = 'HTML'
-s1.setSkill = 'CSS'
-s1.setSkill = 'JavaScript'
+  "Finland",
+  "Helsinki",
+  "Male"
+);
+const s2 = new Student("Lidiya", "Tekle", 28, "Finland", "Helsinki", "Female");
+s1.setScore = 1;
+s1.setSkill = "HTML";
+s1.setSkill = "CSS";
+s1.setSkill = "JavaScript";
 
-s2.setScore = 1
-s2.setSkill = 'Planning'
-s2.setSkill = 'Managing'
-s2.setSkill = 'Organizing'
+s2.setScore = 1;
+s2.setSkill = "Planning";
+s2.setSkill = "Managing";
+s2.setSkill = "Organizing";
 
-console.log(s1)
+console.log(s1);
 
-console.log(s1.saySomething())
-console.log(s1.getFullName())
-console.log(s1.getPersonInfo())
+console.log(s1.saySomething());
+console.log(s1.getFullName());
+console.log(s1.getPersonInfo());
 
-console.log(s2.saySomething())
-console.log(s2.getFullName())
-console.log(s2.getPersonInfo())
+console.log(s2.saySomething());
+console.log(s2.getFullName());
+console.log(s2.getPersonInfo());
 ```
 
 ```sh
@@ -5274,22 +5281,22 @@ Declaring regular expression without global flag and case insensitive flag.
 
 ```js
 // without flag
-let pattern = 'love'
-let regEx = new RegEx(pattern)
+let pattern = "love";
+let regEx = new RegEx(pattern);
 ```
 
 Declaring regular expression with global flag and case insensitive flag.
 
 ```js
-let pattern = 'love'
-let flag = 'gi'
-let regEx = new RegEx(pattern, flag)
+let pattern = "love";
+let flag = "gi";
+let regEx = new RegEx(pattern, flag);
 ```
 
 Declaring a regex pattern using RegEx object. Writing the pattern and the flag inside the RegEx constructor
 
 ```js
-let regEx = new RegEx('love','gi')
+let regEx = new RegEx("love", "gi");
 ```
 
 ### Creating a pattern without RegEx Constructor
@@ -5297,28 +5304,28 @@ let regEx = new RegEx('love','gi')
 Declaring regular expression with global flag and case insensitive flag.
 
 ```js
-let regEx= /love/gi
+let regEx = /love/gi;
 ```
 
 The above regular expression is the same as the one which we created with RegEx constructor
 
 ```js
-let regEx= new RegEx('love','gi')
+let regEx = new RegEx("love", "gi");
 ```
 
 ### RegExp Object Methods
 
 Let see some of RegEx methods
 
-#### Testing for  a match
+#### Testing for a match
 
-*test()*:Tests for a match in a string. It returns true or false.
+_test()_:Tests for a match in a string. It returns true or false.
 
 ```js
-const str = 'I love JavaScript'
-const pattern = /love/
-const result = pattern.test(str)
-console.log(result)
+const str = "I love JavaScript";
+const pattern = /love/;
+const result = pattern.test(str);
+console.log(result);
 ```
 
 ```sh
@@ -5327,14 +5334,14 @@ true
 
 #### Array containing all of the match
 
-*match()*:Returns an array containing all of the matches, including capturing groups, or null if no match is found.
+_match()_:Returns an array containing all of the matches, including capturing groups, or null if no match is found.
 If we do not use a global flag, match() returns an array containing the pattern, index, input and group.
 
 ```js
-const str = 'I love JavaScript'
-const pattern = /love/
-const result = str.match(pattern)
-console.log(result)
+const str = "I love JavaScript";
+const pattern = /love/;
+const result = str.match(pattern);
+console.log(result);
 ```
 
 ```sh
@@ -5342,23 +5349,23 @@ console.log(result)
 ```
 
 ```js
-const str = 'I love JavaScript'
-const pattern = /love/g
-const result = str.match(pattern)
-console.log(result)
+const str = "I love JavaScript";
+const pattern = /love/g;
+const result = str.match(pattern);
+console.log(result);
 ```
 
 ```sh
 ["love"]
 ```
 
-*search()*: Tests for a match in a string. It returns the index of the match, or -1 if the search fails.
+_search()_: Tests for a match in a string. It returns the index of the match, or -1 if the search fails.
 
 ```js
-const str = 'I love JavaScript'
-const pattern = /love/g
-const result = str.search(pattern)
-console.log(result)
+const str = "I love JavaScript";
+const pattern = /love/g;
+const result = str.search(pattern);
+console.log(result);
 ```
 
 ```sh
@@ -5367,14 +5374,15 @@ console.log(result)
 
 #### Replacing a substring
 
-*replace()*: Executes a search for a match in a string, and replaces the matched substring with a replacement substring.
+_replace()_: Executes a search for a match in a string, and replaces the matched substring with a replacement substring.
 
 ```js
-const txt = 'Python is the most beautiful language that a human begin has ever created.\
-I recommend python for a first programming language'
+const txt =
+  "Python is the most beautiful language that a human begin has ever created.\
+I recommend python for a first programming language";
 
-matchReplaced = txt.replace(/Python|python/, 'JavaScript')
-console.log(matchReplaced)
+matchReplaced = txt.replace(/Python|python/, "JavaScript");
+console.log(matchReplaced);
 ```
 
 ```sh
@@ -5382,11 +5390,12 @@ JavaScript is the most beautiful language that a human begin has ever created.I 
 ```
 
 ```js
-const txt = 'Python is the most beautiful language that a human begin has ever created.\
-I recommend python for a first programming language'
+const txt =
+  "Python is the most beautiful language that a human begin has ever created.\
+I recommend python for a first programming language";
 
-matchReplaced = txt.replace(/Python|python/g, 'JavaScript')
-console.log(matchReplaced)
+matchReplaced = txt.replace(/Python|python/g, "JavaScript");
+console.log(matchReplaced);
 ```
 
 ```sh
@@ -5394,11 +5403,12 @@ JavaScript is the most beautiful language that a human begin has ever created.I 
 ```
 
 ```js
-const txt = 'Python is the most beautiful language that a human begin has ever created.\
-I recommend python for a first programming language'
+const txt =
+  "Python is the most beautiful language that a human begin has ever created.\
+I recommend python for a first programming language";
 
-matchReplaced = txt.replace(/Python/gi, 'JavaScript')
-console.log(matchReplaced)
+matchReplaced = txt.replace(/Python/gi, "JavaScript");
+console.log(matchReplaced);
 ```
 
 ```sh
@@ -5406,49 +5416,49 @@ JavaScript is the most beautiful language that a human begin has ever created.I 
 ```
 
 ```js
-
-const txt = '%I a%m te%%a%%che%r% a%n%d %% I l%o%ve te%ach%ing.\
+const txt =
+  "%I a%m te%%a%%che%r% a%n%d %% I l%o%ve te%ach%ing.\
 T%he%re i%s n%o%th%ing as m%ore r%ewarding a%s e%duc%at%i%ng a%n%d e%m%p%ow%er%ing \
 p%e%o%ple.\
 I fo%und te%a%ching m%ore i%n%t%er%%es%ting t%h%an any other %jobs.\
-D%o%es thi%s m%ot%iv%a%te %y%o%u to b%e a t%e%a%cher.'
+D%o%es thi%s m%ot%iv%a%te %y%o%u to b%e a t%e%a%cher.";
 
-matches = txt.replace(/%/g, '')
-console.log(matches)  
+matches = txt.replace(/%/g, "");
+console.log(matches);
 ```
 
 ```sh
 I am teacher and  I love teaching.There is nothing as more rewarding as educating and empowering people.I found teaching more interesting than any other jobs.Does this motivate you to be a teacher.
 ```
 
-* []:  A set of characters
-  * [a-c] means, a or b or c
-  * [a-z] means, any letter a to z
-  * [A-Z] means, any character A to Z
-  * [0-3] means, 0 or 1 or 2 or 3
-  * [0-9] means any number 0 to 9
-  * [A-Za-z0-9] any character which is a to z, A to Z, 0 to 9
-* \\:  uses to escape special characters
-  * \d mean:match where the string contains digits (numbers from 0-9)
-  * \D mean: match where the string does not contain digits
-* . : any character except new line character(\n)
-* ^: starts with
-  * r'^substring' eg r'^love', a sentence which starts with a word love
-  * r'[^abc] mean not a, not b, not c.
-* $: ends with
-  * r'substring$' eg r'love$', sentence ends with a word love
-* *: zero or more times
-  * r'[a]*' means a optional or it can be occur many times.
-* +: one or more times
-  * r'[a]+' mean at least once or more times
-* ?: zero or one times
-  *  r'[a]?' mean zero times or once
-* {3}: Exactly 3 characters
-* {3,}: At least 3 character
-* {3,8}: 3 to 8 characters
-* |: Either or
-  * r'apple|banana' mean either of an apple or a banana
-* (): Capture and group
+- []: A set of characters
+  - [a-c] means, a or b or c
+  - [a-z] means, any letter a to z
+  - [A-Z] means, any character A to Z
+  - [0-3] means, 0 or 1 or 2 or 3
+  - [0-9] means any number 0 to 9
+  - [A-Za-z0-9] any character which is a to z, A to Z, 0 to 9
+- \\: uses to escape special characters
+  - \d mean:match where the string contains digits (numbers from 0-9)
+  - \D mean: match where the string does not contain digits
+- . : any character except new line character(\n)
+- ^: starts with
+  - r'^substring' eg r'^love', a sentence which starts with a word love
+  - r'[^abc] mean not a, not b, not c.
+- $: ends with
+  - r'substring$' eg r'love$', sentence ends with a word love
+- \*: zero or more times
+  - r'[a]\*' means a optional or it can be occur many times.
+- +: one or more times
+  - r'[a]+' mean at least once or more times
+- ?: zero or one times
+  - r'[a]?' mean zero times or once
+- {3}: Exactly 3 characters
+- {3,}: At least 3 character
+- {3,8}: 3 to 8 characters
+- |: Either or
+  - r'apple|banana' mean either of an apple or a banana
+- (): Capture and group
 
 ![Regular Expression cheat sheet](./images/regex.png)
 
@@ -5459,11 +5469,12 @@ Let's use example to clarify the above meta characters
 Let's use square bracket to include lower and upper case
 
 ```js
-const pattern = '[Aa]pple' // this square bracket mean either A or a
-const txt = 'Apple and banana are fruits. An old cliche says an apple a day a doctor way has been replaced by a banana a day keeps the doctor far far away. '
-const matches = txt.match(pattern)
+const pattern = "[Aa]pple"; // this square bracket mean either A or a
+const txt =
+  "Apple and banana are fruits. An old cliche says an apple a day a doctor way has been replaced by a banana a day keeps the doctor far far away. ";
+const matches = txt.match(pattern);
 
-console.log(matches)  
+console.log(matches);
 ```
 
 ```sh
@@ -5472,11 +5483,12 @@ console.log(matches)
 ```
 
 ```js
-const pattern = /[Aa]pple/g // this square bracket mean either A or a
-const txt = 'Apple and banana are fruits. An old cliche says an apple a day a doctor way has been replaced by a banana a day keeps the doctor far far away. '
-const matches = txt.match(pattern)
+const pattern = /[Aa]pple/g; // this square bracket mean either A or a
+const txt =
+  "Apple and banana are fruits. An old cliche says an apple a day a doctor way has been replaced by a banana a day keeps the doctor far far away. ";
+const matches = txt.match(pattern);
 
-console.log(matches)  
+console.log(matches);
 ```
 
 ```sh
@@ -5486,11 +5498,12 @@ console.log(matches)
 If we want to look for the banana, we write the pattern as follows:
 
 ```js
-const pattern = /[Aa]pple|[Bb]anana/g // this square bracket mean either A or a
-const txt = 'Apple and banana are fruits. An old cliche says an apple a day a doctor way has been replaced by a banana a day keeps the doctor far far away. Banana is easy to eat too.'
-const matches = txt.match(pattern)
+const pattern = /[Aa]pple|[Bb]anana/g; // this square bracket mean either A or a
+const txt =
+  "Apple and banana are fruits. An old cliche says an apple a day a doctor way has been replaced by a banana a day keeps the doctor far far away. Banana is easy to eat too.";
+const matches = txt.match(pattern);
 
-console.log(matches)  
+console.log(matches);
 ```
 
 ```sh
@@ -5502,60 +5515,58 @@ Using the square bracket and or operator , we manage to extract Apple, apple, Ba
 ### Escape character(\\) in RegEx
 
 ```js
-const pattern = /\d/g  // d is a special character which means digits
-const txt = 'This regular expression example was made in January 12,  2020.'
-const matches = txt. match(pattern)
+const pattern = /\d/g; // d is a special character which means digits
+const txt = "This regular expression example was made in January 12,  2020.";
+const matches = txt.match(pattern);
 
-console.log(matches)  // ["1", "2", "2", "0", "2", "0"], this is not what we want
+console.log(matches); // ["1", "2", "2", "0", "2", "0"], this is not what we want
 ```
 
 ```js
-const pattern = /\d+/g  // d is a special character which means digits
-const txt = 'This regular expression example was made in January 12,  2020.'
-const matches = txt. match(pattern)
+const pattern = /\d+/g; // d is a special character which means digits
+const txt = "This regular expression example was made in January 12,  2020.";
+const matches = txt.match(pattern);
 
-console.log(matches)  // ["12", "2020"], this is not what we want
+console.log(matches); // ["12", "2020"], this is not what we want
 ```
 
 ### One or more times(+)
 
 ```js
-const pattern = /\d+/g  // d is a special character which means digits
-const txt = 'This regular expression example was made in January 12,  2020.'
-const matches = txt. match(pattern)
-console.log(matches)  // ["12", "2020"], this is not what we want
+const pattern = /\d+/g; // d is a special character which means digits
+const txt = "This regular expression example was made in January 12,  2020.";
+const matches = txt.match(pattern);
+console.log(matches); // ["12", "2020"], this is not what we want
 ```
 
 ### Period(.)
 
 ```js
-const pattern = /[a]./g  // this square bracket means a and . means any character except new line
-const txt = 'Apple and banana are fruits'
-const matches = txt.match(pattern)
+const pattern = /[a]./g; // this square bracket means a and . means any character except new line
+const txt = "Apple and banana are fruits";
+const matches = txt.match(pattern);
 
-console.log(matches)  // ["an", "an", "an", "a ", "ar"]
+console.log(matches); // ["an", "an", "an", "a ", "ar"]
 ```
 
 ```js
-const pattern = /[a].+/g  // . any character, + any character one or more times 
-const txt = 'Apple and banana are fruits'
-const matches = txt.match(pattern)
+const pattern = /[a].+/g; // . any character, + any character one or more times
+const txt = "Apple and banana are fruits";
+const matches = txt.match(pattern);
 
-console.log(matches)  // ['and banana are fruits']
+console.log(matches); // ['and banana are fruits']
 ```
 
-### Zero or more times(*)
+### Zero or more times(\*)
 
 Zero or many times. The pattern could may not occur or it can occur many times.
 
 ```js
+const pattern = /[a].*/g; //. any character, + any character one or more times
+const txt = "Apple and banana are fruits";
+const matches = txt.match(pattern);
 
-const pattern = /[a].*/g  //. any character, + any character one or more times 
-const txt = 'Apple and banana are fruits'
-const matches = txt.match(pattern)
-
-console.log(matches)  // ['and banana are fruits']
-
+console.log(matches); // ['and banana are fruits']
 ```
 
 ### Zero or one times(?)
@@ -5563,13 +5574,13 @@ console.log(matches)  // ['and banana are fruits']
 Zero or one times. The pattern could may not occur or it may occur once.
 
 ```js
-const txt = 'I am not sure if there is a convention how to write the word e-mail.\
-Some people write it email others may write it as Email or E-mail.'
-const pattern = /[Ee]-?mail/g  // ? means optional
-matches = txt.match(pattern)
+const txt =
+  "I am not sure if there is a convention how to write the word e-mail.\
+Some people write it email others may write it as Email or E-mail.";
+const pattern = /[Ee]-?mail/g; // ? means optional
+matches = txt.match(pattern);
 
-console.log(matches)  // ["e-mail", "email", "Email", "E-mail"]
-
+console.log(matches); // ["e-mail", "email", "Email", "E-mail"]
 ```
 
 ### Quantifier in RegEx
@@ -5577,37 +5588,37 @@ console.log(matches)  // ["e-mail", "email", "Email", "E-mail"]
 We can specify the length of the substring we look for in a text, using a curly bracket. Lets imagine, we are interested in substring that their length are 4 characters
 
 ```js
-const txt = 'This regular expression example was made in December 6,  2019.'
-const pattern = /\d{4}/g  // exactly four times
-const matches = txt.match(pattern)
-console.log(matches)  // ['2019']
+const txt = "This regular expression example was made in December 6,  2019.";
+const pattern = /\d{4}/g; // exactly four times
+const matches = txt.match(pattern);
+console.log(matches); // ['2019']
 ```
 
 ```js
-const txt = 'This regular expression example was made in December 6,  2019.'
-const pattern = /\d{1,4}/g   // 1 to 4
-const matches = txt.match(pattern)
-console.log(matches)  // ['6', '2019']
+const txt = "This regular expression example was made in December 6,  2019.";
+const pattern = /\d{1,4}/g; // 1 to 4
+const matches = txt.match(pattern);
+console.log(matches); // ['6', '2019']
 ```
 
 ### Cart ^
 
 - Starts with
-  
+
 ```js
-const txt = 'This regular expression example was made in December 6,  2019.'
-const pattern = /^This/ // ^ means starts with
-const matches = txt.match(pattern)
-console.log(matches)  // ['This']
+const txt = "This regular expression example was made in December 6,  2019.";
+const pattern = /^This/; // ^ means starts with
+const matches = txt.match(pattern);
+console.log(matches); // ['This']
 ```
 
 - Negation
 
 ```js
-const txt = 'This regular expression example was made in December 6,  2019.'
-const pattern = /[^A-Za-z,. ]+/g  // ^ in set character means negation, not A to Z, not a to z, no space, no coma no period
-const matches = txt.match(pattern)
-console.log(matches)  // ["6", "2019"]
+const txt = "This regular expression example was made in December 6,  2019.";
+const pattern = /[^A-Za-z,. ]+/g; // ^ in set character means negation, not A to Z, not a to z, no space, no coma no period
+const matches = txt.match(pattern);
+console.log(matches); // ["6", "2019"]
 ```
 
 ### Exact match
@@ -5616,10 +5627,10 @@ It should have ^ starting and $ which is an end.
 
 ```js
 let pattern = /^[A-Z][a-z]{3,12}$/;
-let name = 'Asabeneh';
-let result = pattern.test(name)
+let name = "Asabeneh";
+let result = pattern.test(name);
 
-console.log(result) // true
+console.log(result); // true
 ```
 
 ## 💻 Exercises
@@ -5627,202 +5638,202 @@ console.log(result) // true
 ### Exercises: Level 1
 
 1. Calculate the total annual income of the person from the following text. ‘He earns 4000 euro from salary per month, 10000 euro annual bonus, 5500 euro online courses per month.’
-1. The position of some particles on the horizontal x-axis -12, -4, -3 and  -1 in the negative direction, 0 at origin, 4 and 8 in the positive direction. Extract these numbers and find the distance between the two furthest particles.
+1. The position of some particles on the horizontal x-axis -12, -4, -3 and -1 in the negative direction, 0 at origin, 4 and 8 in the positive direction. Extract these numbers and find the distance between the two furthest particles.
 
 ```js
-points = ['-1', '2', '-4', '-3', '-1', '0', '4', '8']
-sortedPoints =  [-4, -3, -1, -1, 0, 2, 4, 8]
-distance = 12
+points = ["-1", "2", "-4", "-3", "-1", "0", "4", "8"];
+sortedPoints = [-4, -3, -1, -1, 0, 2, 4, 8];
+distance = 12;
 ```
 
 1. Write a pattern which identify if a string is a valid JavaScript variable
 
-    ```sh
-    is_valid_variable('first_name') # True
-    is_valid_variable('first-name') # False
-    is_valid_variable('1first_name') # False
-    is_valid_variable('firstname') # True
-    ```
+   ```sh
+   is_valid_variable('first_name') # True
+   is_valid_variable('first-name') # False
+   is_valid_variable('1first_name') # False
+   is_valid_variable('firstname') # True
+   ```
 
 ### Exercises: Level 2
 
-1. Write a function called *tenMostFrequentWords* which get the ten most frequent word from a string?
+1. Write a function called _tenMostFrequentWords_ which get the ten most frequent word from a string?
 
-    ```js
-        paragraph = `I love teaching. If you do not love teaching what else can you love. I love Python if you do not love something which can give you all the capabilities to develop an application what else can you love.`
-        console.log(tenMostFrequentWords(paragraph))
-    ```
+   ```js
+   paragraph = `I love teaching. If you do not love teaching what else can you love. I love Python if you do not love something which can give you all the capabilities to develop an application what else can you love.`;
+   console.log(tenMostFrequentWords(paragraph));
+   ```
 
-    ```sh
-        [
-        {word:'love', count:6},
-        {word:'you', count:5},
-        {word:'can', count:3},
-        {word:'what', count:2},
-        {word:'teaching', count:2},
-        {word:'not', count:2},
-        {word:'else', count:2},
-        {word:'do', count:2},
-        {word:'I', count:2},
-        {word:'which', count:1},
-        {word:'to', count:1},
-        {word:'the', count:1},
-        {word:'something', count:1},
-        {word:'if', count:1},
-        {word:'give', count:1},
-        {word:'develop',count:1},
-        {word:'capabilities',count:1},
-        {word:'application', count:1},
-        {word:'an',count:1},
-        {word:'all',count:1},
-        {word:'Python',count:1},
-        {word:'If',count:1}]
-    ```
+   ```sh
+       [
+       {word:'love', count:6},
+       {word:'you', count:5},
+       {word:'can', count:3},
+       {word:'what', count:2},
+       {word:'teaching', count:2},
+       {word:'not', count:2},
+       {word:'else', count:2},
+       {word:'do', count:2},
+       {word:'I', count:2},
+       {word:'which', count:1},
+       {word:'to', count:1},
+       {word:'the', count:1},
+       {word:'something', count:1},
+       {word:'if', count:1},
+       {word:'give', count:1},
+       {word:'develop',count:1},
+       {word:'capabilities',count:1},
+       {word:'application', count:1},
+       {word:'an',count:1},
+       {word:'all',count:1},
+       {word:'Python',count:1},
+       {word:'If',count:1}]
+   ```
 
-    ```js
-    console.log(tenMostFrequentWords(paragraph, 10))
-    ```
+   ```js
+   console.log(tenMostFrequentWords(paragraph, 10));
+   ```
 
-    ```sh
+   ```sh
    [{word:'love', count:6},
-    {word:'you', count:5},
-    {word:'can', count:3},
-    {word:'what', count:2},
-    {word:'teaching', count:2},
-    {word:'not', count:2},
-    {word:'else', count:2},
-    {word:'do', count:2},
-    {word:'I', count:2},
-    {word:'which', count:1}
-    ]
-    ```
+   {word:'you', count:5},
+   {word:'can', count:3},
+   {word:'what', count:2},
+   {word:'teaching', count:2},
+   {word:'not', count:2},
+   {word:'else', count:2},
+   {word:'do', count:2},
+   {word:'I', count:2},
+   {word:'which', count:1}
+   ]
+   ```
 
 ### Exercises: Level 3
 
 1. Writ a function which cleans text. Clean the following text. After cleaning, count three most frequent words in the string.
-  
-  ```js
-    sentence = `%I $am@% a %tea@cher%, &and& I lo%#ve %tea@ching%;. There $is nothing; &as& mo@re rewarding as educa@ting &and& @emp%o@wering peo@ple. ;I found tea@ching m%o@re interesting tha@n any other %jo@bs. %Do@es thi%s mo@tivate yo@u to be a tea@cher!?`
 
-   console.log(cleanText(sentence))
-   ```
+```js
+sentence = `%I $am@% a %tea@cher%, &and& I lo%#ve %tea@ching%;. There $is nothing; &as& mo@re rewarding as educa@ting &and& @emp%o@wering peo@ple. ;I found tea@ching m%o@re interesting tha@n any other %jo@bs. %Do@es thi%s mo@tivate yo@u to be a tea@cher!?`;
 
-   ```sh
-    I am a teacher and I love teaching There is nothing as more rewarding as educating and empowering people I found teaching more interesting than any other jobs Does this motivate you to be a teacher
-    ```
+console.log(cleanText(sentence));
+```
+
+````sh
+ I am a teacher and I love teaching There is nothing as more rewarding as educating and empowering people I found teaching more interesting than any other jobs Does this motivate you to be a teacher
+ ```
 1. Write a function which find the most frequent words. After cleaning, count three most frequent words in the string.
 
-    ```js
-    console.log(mostFrequentWords(cleanedText))
-    [{word:'I', count:3}, {word:'teaching', count:2}, {word:'teacher', count:2}]
-    ```
+ ```js
+ console.log(mostFrequentWords(cleanedText))
+ [{word:'I', count:3}, {word:'teaching', count:2}, {word:'teacher', count:2}]
+ ```
 
 
 ## Promises and Callbacks
 
 From the following code blocks you will notice, the difference between callback and promises:
 
-  ```js
-      //Callback
-    const doSomething = callback => {
-    setTimeout(() => {
-      const skills = ['HTML', 'CSS', 'JS']
-      callback('It didnt go well', skills)
-    }, 2000)
-  }
+```js
+   //Callback
+ const doSomething = callback => {
+ setTimeout(() => {
+   const skills = ['HTML', 'CSS', 'JS']
+   callback('It didnt go well', skills)
+ }, 2000)
+}
 
-  doSomething((err, result) => {
-    if (err) {
-      return console.log(err)
-    }
-    return console.log(result)
-  })
-  // after 2 seconds it will print
-  // => It didnt go well
-
-    const doSomething = callback => {
-    setTimeout(() => {
-      const skills = ['HTML', 'CSS', 'JS']
-      callback(false, skills)
-    }, 2000)
-  }
-
-  doSomething((err, result) => {
-    if (err) {
-      return console.log(err)
-    }
-    return console.log(result)
-  })
-  // after 2 seconds it will print the skills
-  // => ["HTML", "CSS", "JS"]
-
-  ```
-
-  ```js
-   // Promise
-    const doPromise = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    const skills = ['HTML', 'CSS', 'JS']
-    if (skills.length > 0) {
-      resolve(skills)
-    } else {
-      reject('Something wrong has happened')
-    }
-  }, 2000)
+doSomething((err, result) => {
+ if (err) {
+   return console.log(err)
+ }
+ return console.log(result)
 })
+// after 2 seconds it will print
+// => It didnt go well
+
+ const doSomething = callback => {
+ setTimeout(() => {
+   const skills = ['HTML', 'CSS', 'JS']
+   callback(false, skills)
+ }, 2000)
+}
+
+doSomething((err, result) => {
+ if (err) {
+   return console.log(err)
+ }
+ return console.log(result)
+})
+// after 2 seconds it will print the skills
+// => ["HTML", "CSS", "JS"]
+
+````
+
+```js
+// Promise
+const doPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const skills = ["HTML", "CSS", "JS"];
+    if (skills.length > 0) {
+      resolve(skills);
+    } else {
+      reject("Something wrong has happened");
+    }
+  }, 2000);
+});
 
 doPromise
-  .then(result => {
-    console.log(result)
+  .then((result) => {
+    console.log(result);
   })
-  .catch(error => console.log(error))
+  .catch((error) => console.log(error));
 
-const myPromise = n => {
+const myPromise = (n) => {
   return new Promise((resolve, reject) => {
     if (n) {
-      resolve(n * n)
+      resolve(n * n);
     } else {
-      reject('You need to pass an argument')
+      reject("You need to pass an argument");
     }
-  })
-}
+  });
+};
 
-const square = async n => {
-  let value = await myPromise(n)
-  return value
-}
+const square = async (n) => {
+  let value = await myPromise(n);
+  return value;
+};
 
 square()
-  .then(res => {
-    console.log(res)
+  .then((res) => {
+    console.log(res);
   })
-  .catch(err => console.log(err))
-console.log(square(10))
- ```
+  .catch((err) => console.log(err));
+console.log(square(10));
+```
 
 ## Async and Await
 
 ```js
-    const url = 'https://restcountries.eu/rest/v2/alll'
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-    })
-    .catch(error => console.log(error))
+const url = "https://restcountries.eu/rest/v2/alll";
+fetch(url)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => console.log(error));
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(url)
-      const countries = await response.json()
-      console.log(countries)
-    } catch (err) {
-      console.log(err)
-    }
+const fetchData = async () => {
+  try {
+    const response = await fetch(url);
+    const countries = await response.json();
+    console.log(countries);
+  } catch (err) {
+    console.log(err);
   }
-  console.log('===== async and await')
-  fetchData()
-  ```
+};
+console.log("===== async and await");
+fetchData();
+```
 
 ## localStorage
 
@@ -5831,47 +5842,47 @@ _setItem(), getItem(), removeItem(), clear(), key()_
 
 ### Setting item to the localStorage
 
-When we set data to be stored in a localStorage, it will be stored as a string.  If we are storing an array or an object, we should stringify it first to keep the format unless otherwise we lose the array structure or the object structure of the original data
+When we set data to be stored in a localStorage, it will be stored as a string. If we are storing an array or an object, we should stringify it first to keep the format unless otherwise we lose the array structure or the object structure of the original data
 
 ```js
-localStorage.setItem('name', 'Asabeneh');
-console.log(localStorage) //Storage {name: 'Asabeneh', length: 1}
-localStorage.setItem('age', 200);
-console.log(localStorage) //Storage {age: '200', name: 'Asabeneh', length: 2}
-const skills = ['HTML', 'CSS', 'JS', 'React'];
+localStorage.setItem("name", "Asabeneh");
+console.log(localStorage); //Storage {name: 'Asabeneh', length: 1}
+localStorage.setItem("age", 200);
+console.log(localStorage); //Storage {age: '200', name: 'Asabeneh', length: 2}
+const skills = ["HTML", "CSS", "JS", "React"];
 //Skills array has to be stringified first to keep the format.
-const skillsJSON = JSON.stringify(skills,undefined, 4)
-localStorage.setItem('skills', skillsJSON);
-console.log(localStorage) //Storage {age: '200', name: 'Asabeneh', skills: 'HTML,CSS,JS,React', length: 3}
+const skillsJSON = JSON.stringify(skills, undefined, 4);
+localStorage.setItem("skills", skillsJSON);
+console.log(localStorage); //Storage {age: '200', name: 'Asabeneh', skills: 'HTML,CSS,JS,React', length: 3}
 ```
 
 If we are storing an array, an object or object array, we should stringify the object first. See the example below.
 
 ```js
 let skills = [
-  { tech: 'HTML', level: 10 },
-  { tech: 'CSS', level: 9 },
-  { tech: 'JS', level: 8 },
-  { tech: 'React', level: 9 },
-  { tech: 'Redux', level: 10 },
-  { tech: 'Node', level: 8 },
-  { tech: 'MongoDB', level: 8 }
+  { tech: "HTML", level: 10 },
+  { tech: "CSS", level: 9 },
+  { tech: "JS", level: 8 },
+  { tech: "React", level: 9 },
+  { tech: "Redux", level: 10 },
+  { tech: "Node", level: 8 },
+  { tech: "MongoDB", level: 8 },
 ];
 
 let skillJSON = JSON.stringify(skills);
-localStorage.setItem('skills', skillJSON);
+localStorage.setItem("skills", skillJSON);
 ```
 
 ### Getting item from localStorage
 
 ```js
-let name = localStorage.getItem('name');
-let age = localStorage.getItem('age');
-let skills = localStorage.getItem('skills');
+let name = localStorage.getItem("name");
+let age = localStorage.getItem("age");
+let skills = localStorage.getItem("skills");
 
-console.log(name, age, skills) // 'Asabeneh', '200', '['HTML','CSS','JS','React']'
+console.log(name, age, skills); // 'Asabeneh', '200', '['HTML','CSS','JS','React']'
 
-let skillsObj = JSON.parse(localStorage.getItem('skills'), undefined, 4);
+let skillsObj = JSON.parse(localStorage.getItem("skills"), undefined, 4);
 console.log(skillsObj);
 ```
 
@@ -5900,5 +5911,5 @@ localStorage.clear();
 ### [JavaScript Test 3](https://github.com/Asabeneh/JavaScript-for-Everyone/wiki/JavaScript-Test-3)
 
 - [JavaScript Test 3: Solutions](https://github.com/Asabeneh/JavaScript-for-Everyone/blob/master/solutions/javascript-test-3.js)
-JavaScript-Test-4)
+  JavaScript-Test-4)
 - [JavaScript Test 4: Solutions](https://github.com/Asabeneh/JavaScript-for-Everyone/blob/master/solutions/javascript-test-4.js)

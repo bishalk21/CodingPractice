@@ -8,12 +8,6 @@
 
 <br>
 
-<a href="https://www.buymeacoffee.com/alok722" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="40" width="190" style="border-radius:8px" />
-
-## 🔗 [bit.ly/namaste-js](https://bit.ly/namaste-js)
-
-## 🏠 [Namaste Javascript Notes Website](https://alok722.github.io/namaste-javascript-notes/dist/lectures.html)
-
 ## 🚀 [PDF Version of Complete Notes](./dist/namaste-javascript-notes.pdf)
 
 <br>
@@ -57,20 +51,6 @@
 ### [Episode 18 : Higher-Order Functions ft. Functional Programming](./notes/lecture-18.md)
 
 ### [Episode 19 : map, filter & reduce](./notes/lecture-19.md)
-
-<br>
-
-## ✨ Testimonial
-
-From the creator of Namaste Javascript himself, 🙌
-![Testimonial](./assets/testimonial.png)
-
-## 👤 Author
-
-**alok raj (alokr417@gmail.com)**
-
-- website: https://alokraj.tech/
-- linkedin: [@alok722](https://linkedin.com/in/alok722)
 
 <br>
 

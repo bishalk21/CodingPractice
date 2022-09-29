@@ -1,9 +1,5 @@
 # How-javascript-works
 
-> Contributors: [@Troland] (https://github.com/troland/) [@>] (https://github.com/heaven2049).
-> Forecast
-> This article is the working principle of the translation introduction of JavaScript. The original text of this series is still being updated. See the original text [here] (https://blog.sessionStack.com/tagged/tutorial).
-
 ## Directory Structure
 
 -Chapter 1: [Language Engine, Overview of Calling Stack at Run] (Overview.md)
@@ -33,7 +29,3 @@ Reprinting without any form is allowed.
 Unless it is specified separately, all the contents of this project adopt [Knowledge Sharing Copy 4.0 International License Agreement] (http://creativecommons.org/licenses/by/4.0/) Sharing, by [Troland] (https:// github. com/true).
 
 Welcome to make suggestions through iSSUE or PULL Request.
-
-## Cup cup coffee
-
-[Sponsorship] (https://user-images.githubusercontent.com/1475173/39091700-c211409E-462C-11E8-8531C9A7B73.png))
