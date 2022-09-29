@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript Test</title>
+  </head>
+  <body>
+    <h1>JavaScript Test: 5</h1>
+    <script src="./melina.js"></script>
+    <script src="./michelle.js"></script>
+    <script>
+      /* 
+      =============================== QUESTION 1 ===========================================================
+        a) A weight of an object is different on different planet and it is calculated as w = mg.
+        Write a function which calculate the weight of an object. It takes mass and gravity as a parameter. 
+        If the gravity is not given assume it is earth and the the approximate gravity of the earth is 10 m/s2. 
+        A weight of a 100 kg object on different planets is as follows:
+
+        b) Write a function which takes mass of an object and name of a planet and it returns 
+        the weight of the object in the planet. Different gravities in m/s2:
+
+        sun: 274
+        Jupiter:25
+        Earth: 9.79
+        Venus: 8.87
+        Mars:3.71
+        Moon: 1.62
+      ========================================================================================================== 
+      */
+      // Q1. a
+      const weightQa = (m, g = 10) => (m * g).toFixed(2) + ' N';
+      console.log(weightQa(100)); //Earth
+      // 1000 N
+      console.log(weightQa(100, 25)); //Jupiter
+      // 2500 N
+      console.log(weightQa(100, 0.58)); //Pluto
+      // 58 N
+      console.log(weightQa(100, 1.62)); //Moon
+      // 162 N
+      // Q1. b
+      const weightOfObject = (m, planet) => {
+        let result;
+        switch (planet.toLowerCase()) {
+          case 'sun':
+            result = 274 * m;
+            break;
+          case 'jupiter':
+            result = 25 * m;
+            break;
+          case 'earth':
+            result = 9.79 * m;
+            break;
+          case 'venus':
+            result = 8.87 * m;
+            break;
+          case 'mars':
+            result = 3.7 * m;
+            break;
+          case 'moon':
+            result = 1.62 * m;
+            break;
+          default:
+            result = 'Not a valid input';
+        }
+        if (typeof result === 'number') return result.toFixed(2) + ' N';
+        else result;
+      };
+
+      console.log(weightOfObject(100, 'earth'));
+      console.log(weightOfObject(100, 'Earth'));
+      console.log(weightOfObject(100, 'Venus'));
+      console.log(weightOfObject(100, 'MOON'));
+
+      /* 
+=============================== QUESTION 2 ===========================================================
+  Write a function called cleanText. The function takes raw text as a parameter and returns the clean text.
+========================================================================================================== 
+*/
+      const sentence = `%I $am@% a %tea@cher%, &and& I lo%#ve %tea@ching%;. There $is nothing; &as& mo@re rewarding as educa@ting &and& @emp%o@wering peo@ple. ;I found tea@ching m%o@re interesting tha@n any other %jo@bs. %Do@es thi%s mo@tivate yo@u to be a tea@cher!?`;
+      const cleanText = rawText => rawText.replace(/[,;#%&@!$']/g, '');
+      console.log(cleanText(sentence));
+      /* 
+=============================== QUESTION 3 ===========================================================
+  After cleaning the text in the sentence from question number 2 you will get the following text. 
+  Count the number of words in this text. Don't include words with only one letter.
+========================================================================================================== 
+*/
+      const cleanedText = `I am a teacher and I love teaching. There is nothing as more rewarding as educating and empowering people. I found teaching more interesting than any other jobs. Does this motivate you to be a teacher?`;
+      const countWords = text => {
+        let count = 0;
+        const words = text.replace(/[,;#%&@!$'.?]/g, '').split(' ');
+        for (const word of words) {
+          if (word.length > 1) count++;
+        }
+
+        return count;
+      };
+      console.log(countWords(sentence));
+      /* 
+=============================== QUESTION 4 ===========================================================
+  How many words were used to construct the above sentence. Now, don't exclude one letter words.
+======================================================================================================
+*/
+      const countVarietyOfWords = sent => {
+        const words = sent.replace(/[,;#%&@!$'.?]/g, '').split(' ');
+        const newWords = new Set(words);
+        return newWords.size;
+      };
+      console.log(countVarietyOfWords(sentence));
+      /* 
+=============================== QUESTION 5 ======================================================
+  Create a function called countOnlyMainWords which count verbs which main importance in the sentence. 
+  The function return an object with keys words which is going to be array of main words and count,
+  the number of main words.
+========================================================================================================== 
+*/
+      const supportWords = [
+        'i',
+        'me',
+        'mine',
+        'my',
+        'myself',
+        'you',
+        'your',
+        'yours',
+        'yourself',
+        'he',
+        'him',
+        'his',
+        'himself',
+        'she',
+        'her',
+        'hers',
+        'herself',
+        'it',
+        'its',
+        'itself',
+        'we',
+        'us',
+        'our',
+        'ours',
+        'ouselves',
+        'they',
+        'them',
+        'themselves',
+        'be',
+        'been',
+        'being',
+        'am',
+        'is',
+        'was',
+        'are',
+        'were',
+        'do',
+        'does',
+        'did',
+        'done',
+        'has',
+        'have',
+        'had',
+        'will',
+        'would',
+        'can',
+        'could',
+        'may',
+        'might',
+        'shall',
+        'should',
+        'and',
+        'but',
+        'than',
+        'the',
+        'an',
+        'as',
+        'a',
+        'any',
+        'to',
+        'if',
+        'in',
+        'into',
+        'there',
+        'this',
+        'that',
+        'those',
+        'more',
+        'most',
+        'many',
+        'much',
+        'less',
+        'for',
+        'by',
+        'of',
+        'at',
+        'on',
+        'or',
+        'not',
+        'how',
+        'who',
+        'what',
+        'which',
+        'whose',
+        'when',
+        'why',
+        'where',
+        'so',
+        'also'
+      ];
+
+      const countOnlyMainWords = sent => {
+        let count = 0;
+        const words = sent.replace(/[,;#%&@!$'.?]/g, '').split(' ');
+        const newWords = [];
+        for (const word of words) {
+          if (word.length > 1 && supportWords.indexOf(word.toLowerCase()) < 0) {
+            newWords.push(word);
+            count++;
+          }
+        }
+        return { words: newWords, count };
+      };
+      console.log(countOnlyMainWords(sentence));
+
+      /* 
+=============================== QUESTION 6 =================================================================
+Write a function called headAndTail which find the head or tail of the array. 
+Head is the first five elements in the array and similarly tail is the last five elements in the array.
+First, check the array has more than five elements if not return the array itself. 
+And, also check if the parameter passed is an array if not return an appropriate feedback.
+============================================================================================================
+*/
+      const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+      const headAndTail = arr => {
+        const isArray = arr.constructor === Array; // to check if the parameter is an array;
+        if (isArray) {
+          // function to get the head of the array
+          const head = (() => {
+            if (arr.length > 5) {
+              return arr.slice(0, 5);
+            } else if (arr.length === 0) {
+              return 'Array must have a value';
+            } else {
+              return arr;
+            }
+          })();
+          // function to get the taill of the array
+          const tail = (() => {
+            if (arr.length > 5) {
+              return arr.slice(arr.length - 5);
+            } else if (arr.length === 0) {
+              return 'Array must have a value';
+            } else {
+              return arr;
+            }
+          })();
+          // returning the head and tail value as an object
+          return { head, tail };
+        } else {
+          return 'Parameter must be an array';
+        }
+      };
+
+      console.log(headAndTail(numbers).head);
+      console.log(headAndTail(numbers).tail);
+
+      /* 
+=============================== QUESTION 7 =================================================================
+Write a function which calculates mean, median, mode, standardard deviation variance from an array parameter
+============================================================================================================
+*/
+
+      const stat = arr => {
+        const mean = () => {
+          let sum = 0;
+          for (item of arr) {
+            sum += item;
+          }
+
+          return Math.round(sum / arr.length);
+        };
+        const median = () => {
+          const arrangedArray = [...arr].sort((a, b) => a - b);
+          const index = arrangedArray.length / 2;
+
+          if (arrangedArray.length % 2 === 0) {
+            const mid1 = arrangedArray[index - 1];
+            const mid2 = arrangedArray[index];
+            return mid1 + mid2 / 2;
+          } else {
+            let mid = Math.floor(index);
+            return arrangedArray[mid];
+          }
+        };
+        const range = () => {
+          const sortedArray = [...arr].sort((a, b) => a - b);
+          const lastIndex = sortedArray.length - 1;
+          return sortedArray[lastIndex] - sortedArray[0];
+        };
+        const mode = () => {
+          const map = new Map();
+          for (item of arr) {
+            if (!map.has(item)) {
+              map.set(item, 1);
+            } else {
+              map.set(item, map.get(item) + 1);
+            }
+          }
+
+          const sortItems = arr => {
+            let sortedArray = [...arr];
+            sortedArray.sort((a, b) => {
+              if (a[1] > b[1]) {
+                return -1;
+              } else if (a[1] < b[1]) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            return sortedArray;
+          };
+          // firstchange the Map to an array
+          return sortItems(Array.from(map))[0][0];
+        };
+
+        return {
+          mean: mean(),
+          median: median(),
+          range: range(),
+          mode: mode()
+        };
+      };
+
+      const scores = [
+        37,
+        34,
+        49,
+        57,
+        70.5,
+        61,
+        67.5,
+        90,
+        66.5,
+        70,
+        35.5,
+        44,
+        43,
+        29,
+        12.5,
+        95,
+        57,
+        36.5,
+        88,
+        33,
+        77.5,
+        82.5
+      ];
+      console.log('mean', stat(scores).mean);
+      console.log('median', stat(scores).median);
+      console.log('range', stat(scores).range);
+      console.log('mode', stat(scores).mode);
+
+      /* 
+=============================== QUESTION 8 =================================================================
+Write two functions which are called arrayOfRgbColors and arrayOfHexaColors which take positive integer as parameter. 
+a. arrayOfRgbColors:
+b. arrayOfHexaColors:
+============================================================================================================
+*/
+
+      // generate array of rgb colors numbers.
+
+      const arrayOfRgbColors = (n = 1) => {
+        let red, green, blue;
+        let rgb;
+        const rgbColors = [];
+        for (let i = 0; i < n; i++) {
+          red = Math.floor(Math.random() * 256);
+          green = Math.floor(Math.random() * 256);
+          blue = Math.floor(Math.random() * 256);
+          rgb = `rgb(${red}, ${green}, ${blue})`;
+          rgbColors.push(rgb);
+        }
+
+        return rgbColors;
+      };
+      console.log(arrayOfRgbColors());
+      console.log(arrayOfRgbColors(2));
+      console.log(arrayOfRgbColors(5));
+
+      // generate array of hexa colors numbers.
+      const arrayOfHexaColors = (n = 1) => {
+        const lettersNumbers = '0123456789abcdef';
+        let randIndex;
+        let hexaNumber = '';
+        let hexaColors = [];
+        for (let i = 0; i < n; i++) {
+          for (let i = 0; i < 6; i++) {
+            randIndex = Math.floor(Math.random() * lettersNumbers.length);
+            hexaNumber += lettersNumbers[randIndex];
+          }
+          hexaColors.push('#' + hexaNumber);
+          hexaNumber = '';
+        }
+
+        return hexaColors;
+      };
+      console.log(arrayOfHexaColors());
+      console.log(arrayOfHexaColors(2));
+      console.log(arrayOfHexaColors(5));
+
+      /* 
+=============================== QUESTION 9 =================================================================
+Write a function called arrayOfHexaOrRgb which generate an array of hexa or rgb colors:
+============================================================================================================
+*/
+
+      const arrayOfHexaOrRgb = (color = 'hexa', n = 1) => {
+        let colors;
+        const value = color.toLowerCase();
+        if ('hexa' === value || 'hex' === value || 'hexadecimal' === value) {
+          colors = arrayOfHexaColors(n);
+        } else if ('rgb' === value || 'RGB' === value) {
+          colors = arrayOfRgbColors(n);
+        }
+
+        return colors;
+      };
+      console.log(arrayOfHexaOrRgb());
+      //["#53aa1a"]
+      console.log(arrayOfHexaOrRgb('hexa'));
+      //["#ebca77"]
+      console.log(arrayOfHexaOrRgb('Hexa'));
+      // ["#1f90e4"]
+      console.log(arrayOfHexaOrRgb('Hexadecimal'));
+      // ["#2731e6"]
+      console.log(arrayOfHexaOrRgb('hexa', 5));
+      //["#5f3e30", "#1008f8", "#5913e2", "#ab94dd", "#87e790"]
+      console.log(arrayOfHexaOrRgb('rgb'));
+      //["rgb(120, 81, 84)"]
+      console.log(arrayOfHexaOrRgb('RGB'));
+      //["rgb(138, 191, 84)"]
+      console.log(arrayOfHexaOrRgb('rgb', 5));
+      //["rgb(214, 243, 237)", "rgb(214, 243, 237)", "rgb(214, 243, 237)", "rgb(214, 243, 237)", "rgb(214, 243, 237)"]
+
+      /* 
+=============================== QUESTION 10 =================================================================
+On this data folder there are two speech transcripts. Use the supportWords array to exclude which are not that much relevance for the message of the speech.
+a. Write a function which find the 10 most used words in the speech.
+b. Find the Melina's and Michele's 10 most frequently used words in their speech
+c. Do you think there is similarity between the speeches ?
+============================================================================================================
+*/
+      const removeRepeatedWords = arr => {
+        const set = new Set(arr);
+        return Array.from(set);
+      };
+
+      const mostTenRepeatedWords = words => {
+        const map = new Map();
+        for (word of words) {
+          if (!map.has(word)) {
+            map.set(word, 1);
+          } else {
+            map.set(word, map.get(word) + 1);
+          }
+        }
+
+        const sortItems = arr => {
+          let sortedArray = [...arr];
+          sortedArray.sort((a, b) => {
+            if (a[1] > b[1]) {
+              return -1;
+            } else if (a[1] < b[1]) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          return sortedArray;
+        };
+        return sortItems(Array.from(map)).slice(0, 10);
+      };
+      console.log(mostTenRepeatedWords(countOnlyMainWords(melina).words)); // melinas 10 most repeated words
+      console.log(mostTenRepeatedWords(countOnlyMainWords(michelle).words)); // michelle's 10 most repeated words
+      // console.log(countOnlyMainWords(melina));
+      // console.log(countOnlyMainWords(michelle));
+
+      console.log(removeRepeatedWords(countOnlyMainWords(melina).words).sort());
+      console.log(
+        removeRepeatedWords(countOnlyMainWords(michelle).words).sort()
+      );
+
+      const melinaWords = removeRepeatedWords(countOnlyMainWords(melina).words);
+      const michelleWords = removeRepeatedWords(
+        countOnlyMainWords(michelle).words
+      );
+
+      // common words
+      // check the similarity common words divided by their the total number of non repeated words
+      const checkSimilarity = (firstWords, secondWords) => {
+        const commonWords = [];
+        for (firstWord of firstWords) {
+          for (secondWord of secondWords) {
+            if (firstWord === secondWord) {
+              commonWords.push(firstWord);
+            }
+          }
+        }
+        return commonWords;
+      };
+      console.log(checkSimilarity(michelleWords, melinaWords));
+      const commonWords = checkSimilarity(michelleWords, melinaWords).length;
+      console.log(Math.round((100 * commonWords) / melinaWords.length)); // the similarity between the speech is so high
+      console.log(Math.round((100 * commonWords) / michelleWords.length));
+    </script>
+  </body>
+</html>
