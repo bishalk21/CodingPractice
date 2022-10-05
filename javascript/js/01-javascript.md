@@ -168,3 +168,25 @@ alert("let's learn javascript");
 - PascalCase: `MyName`
 - kebab-case: `my-name`
 - snake_case: `my_name`
+
+# JavaScript Comments
+
+- comments are used to explain code
+- comments are ignored by JavaScript
+- comments can make code more readable
+- comments can be used to prevent execution when testing alternative code
+
+## Single Line Comments
+
+```js
+// This is a single line comment
+```
+
+## Multi Line Comments
+
+```js
+/*
+This is a multi 
+  line comment
+*/
+```

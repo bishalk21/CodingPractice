@@ -1,5 +1,8 @@
 # Intro to Data Types
 
+- Data types are the classifications we give to the different kinds of data that we use in programming.
+- JavaScript stores data type of values in variables.
+
 - Primitive types
 
 What is a type?
@@ -10,10 +13,12 @@ you know what you need to do when you have an array
 
 **primitive types: not an object, has no methods, cannot be mutated**
 
-- `undefined`
-- `null`
-- String
+- `undefined`: a variable that has not been assigned a value is of type undefined or has not been declared
+- `null`: no value (empty value)
+- String : a sequence of characters used to represent text
 - Boolean
+- BigInt
+- Symbol
 - Number
 - `null`
   - Data type

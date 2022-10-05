@@ -4,6 +4,10 @@
 
 # How `var`, `let` and `const` keywords works in JavaScript
 
+| var             | let          | const        |
+| --------------- | ------------ | ------------ |
+| function scoped | block scoped | block scoped |
+
 Earlier, pre-ES6 era, only **var** keyword was introduced for declaration of variable. <br>
 With ES6, the **let** and **const** keyword introduced.
 
@@ -13,19 +17,34 @@ With ES6, the **let** and **const** keyword introduced.
 
 ```JavaScript
 // without keyword
-name = 'Jack';
+name = 'Bishal';
+
 
 // using var
 var price = 100;
 
 // using let
+- let is block scoped
+- let can be redeclared
+- let can be updated
+- let can be hoisted
+- let can be used before declaration
+- let is mutable
+
 let isPermanent = false;
 
 // using const
+- const is block scoped
+- const is immutable
+- const cannot be declared without initialization
 const publication = 'Article';
 
 console.log(name, price, isPermanent, publication); // Jack 100 false Article
 ```
+
+// why variables should be declared with keywords
+
+- without keyword, it is same as var and not allowed in 'strict' mode
 
 **We will discuss:**
 
@@ -42,7 +61,7 @@ A `block` is section of code inside { } <br>
 ```JavaScript
 // It has Block Scope
 {
-    let name = 'John Kabir';
+    let name = 'Bishal Karki';
 }
 ```
 
