@@ -8,7 +8,7 @@ Lexical is related to 'author' time
 
 Anti-pattern :)
 
-From James Churchill to Everyone: (03:14 PM) (^ referring to defining all of your variables globally)
+From James Churchill to Everyone: (03:14 PM)(^ referring to defining all of your variables globally)
 
 ### block scoping
 
