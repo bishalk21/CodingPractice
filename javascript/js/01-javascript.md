@@ -161,3 +161,10 @@ alert("let's learn javascript");
 - JavaScript code blocks are surrounded by curly braces
 - to output data to the screen, use the `document.write()` method
 - JavaScript is a loosely typed language
+
+# Naming Conventions
+
+- camelCase: `myName`
+- PascalCase: `MyName`
+- kebab-case: `my-name`
+- snake_case: `my_name`
