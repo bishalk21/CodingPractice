@@ -193,3 +193,19 @@ console.log(BMIMark, BMIJohn, markHigherBMI);
 */
 
 // =============== 05 - Strings and Template Literals ===============
+
+const firstName = "Bishal";
+const job = "programmer";
+const birthYear = 2001;
+
+const bishal =
+  "I'm " + firstName + ", a " + (2022 - birthYear) + " years old " + job + "!";
+
+console.log(bishal, typeof bishal);
+
+const bishalNew = `I'm ${firstName}, a ${2022 - birthYear} years old ${job}!`;
+
+// Multi-line strings
+console.log(`String with \n\
+multiple \n\
+lines`);
