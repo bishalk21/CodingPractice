@@ -62,21 +62,47 @@ HTML Divs and how to separate content for CSS styling and JavaScript. <br>
 - is a markup language used to create web pages
 - describes the structure of a Web page
 - is composed of HTML elements
-- is not case sensitive (i.e. <HTML> and <html> are the same)
+- is not case sensitive
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+  </head>
+  <body>
+    <p>lorem ipsum</p>
+  </body>
+</html>
+```
 
 # HyperText
 
-- text that have links to other text or data
+- a text that is displayed on a computer or other electronic device with references (hyperlinks) to other text that the reader can immediately access.
+
+```html
+<a href="https://www.w3schools.com">This is a link</a>
+```
 
 # Markup
 
-- means how to display the text
-- is a way to structure the text or annotations to the content like bold, italic, underline, etc.
+- A markup language is a computer language that defines the structure and presentation of raw text.
+- Markup languages are used to annotate a document in a way that is syntactically distinguishable from the text, and can assign semantic meaning to the text.
+
+```html
+<p>This is a paragraph.</p>
+```
 
 # HTML Elements
 
+- a tag and content between the tags is called an HTML element
+- a unit of content in an HTML document formed by a start tag, some content, and an end tag
 - HTML elements are the building blocks of HTML pages
 - HTML elements tell the browser how to display the content
+
+```html
+<p>This is a paragraph</p>
+```
 
 # Foundation of HTML Elements
 
@@ -84,41 +110,87 @@ HTML Divs and how to separate content for CSS styling and JavaScript. <br>
 - attributes
 - content
 
-# HTML Comment
+# Structure of an HTML Document
 
-- HTML comments are used to add a description to the HTML code
-- HTML comments are not displayed on the page, but they are read by the browser
-- <!---->
+- Html is organized as a collection of family tree relationships.
+- if an element is inside another element, it is a child of that element. The child element is nested inside of the parent element.
+- the relationship between elements and their children is called the DOM (Document Object Model).
+- the relationship between elements and their ancestors and descendant elements is known as hierarchical relationships or parent-child relationships.
 
-# Tags
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My First HTML Page</title>
+  </head>
+  <body>
+    <h1>This is my first HTML page</h1>
+    <p>This is my first paragraph.</p>
+  </body>
+</html>
+```
 
-- tags are used to create HTML elements
-- tags are always surrounded by a start and end tag
+# HTML Comment - HTML comments are used to add a description to the HTML
 
-# Attributes
+code - HTML comments are not displayed on the page, but they are read by the
+browser -
+
+<!---->
+
+# Tags - the HTML element name, surrounded by opening and closing angle brackets
+
+- tags are used to create HTML elements - tags are always surrounded by a start
+  and end tag
+
+```html
+<p>This is a paragraph</p>
+```
+
+# Opening Tag
+
+- first html tag used to start an element
+
+```html
+<p></p>
+```
+
+# Content
+
+- the information between the start and end tag
+- content is the text that is displayed within the HTML element
+
+```html
+<p>This is a paragraph</p>
+```
+
+# Closing Tag
+
+- the second html tag used to end an element
+- have a forward slash before the tag name
+
+````html
+```html
+<p></p>
+````
+
+# HTML Attributes
 
 - attributes specify the HTML element's properties
 - attributes are specified within the opening tag
 - attributes are separated from the tag by an equals sign (=)
+- made up of two parts: a name and a value, separated by an equals sign
+- the value is placed inside double quotes
 
-# Content
+```html
+<p style="color: red;">This is a paragraph</p>
+```
 
-- content is the text that is displayed within the HTML element
-
-# Structure of an HTML Document
-
-    <code>
-       <!DOCTYPE html>
-         <html>
-            <head>
-              <title>My First HTML Page</title>
-            </head>
-            <body>
-              <h1>This is my first HTML page</h1>
-              <p>This is my first paragraph.</p>
-            </body>
-            </html>
-    </code>
+| Attribute | Description                                                                                                 |
+| --------- | ----------------------------------------------------------------------------------------------------------- |
+| id        | Specifies a unique id for an HTML element (the value must be unique within the HTML document)               |
+| class     | Specifies one or more class names for an HTML element (refers to a class in a style sheet)                  |
+| style     | Specifies an inline CSS style for an HTML element                                                           |
+| title     | Specifies extra information about an element (displayed as a tooltip when the mouse moves over the element) |
 
 # Semantic HTML
 
@@ -139,11 +211,13 @@ HTML Divs and how to separate content for CSS styling and JavaScript. <br>
 
 # DOCTYPE - Declaration of the Document Type
 
+- instruction to the web browser what type of document to expect, along with the version of HTML the page is written in.
 - is used to inform the browser about the type of document or whether the page is following the HTML5 specification or not
 - defines the type of document
 
 # head
 
+- part of HTML metahor
 - contains the machine-readable tags that define the structure of the document like the title, the author, the description, the keywords, the stylesheets, the scripts, etc.
 - contains meta, link, script, and style elements, and the title element
 
@@ -187,27 +261,42 @@ https://encoding.spec.whatwg.org/#names-and-labels
 
 2. keywords for SEO
 
-- <meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript">
+```html
+<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />
+```
 
 3. description for SEO
 
-- <meta name="description" content="This is my first HTML page">
+```html
+<meta name="description" content="This is my first HTML page" />
+```
 
 4. author for SEO
 
-- <meta name="author" content="Bishal Karki">
+```html
+<meta name="author" content="Bishal Karki" />
+```
 
 5. viewport for SEO and different devices support or responsive design
 
-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> // width=device-width means that the page will be displayed in the same width as the device width // initial-scale=1.0 means that the page will be displayed in 100% of the width of the device
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /> //
+width=device-width means that the page will be displayed in the same width as
+the device width // initial-scale=1.0 means that the page will be displayed in
+100% of the width of the device
+```
 
 6. page refresh for SEO after certain time
 
-- <meta http-equiv="refresh" content="5;url=http://www.example.com/"> // 5
+```html
+<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
+```
 
 7. robots for SEO
 
-- <meta name="robots" content="index,follow noindex"> // index,follow
+```html
+<meta name="robots" content="index,follow noindex" /> // index,follow
+```
 
 | Value/Directive                        | Description                                                                                                                   |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -229,57 +318,75 @@ https://encoding.spec.whatwg.org/#names-and-labels
 
 8. Social Media Meta Tags for SEO
 
-- <!-- The style to be used for this article -->
-- <meta property="fb:article_style" content="myarticlestyle"> //facebook
-- <meta name="twitter:card" content="summary">
-- <meta name="twitter:site" content="@site_account">
-- <meta name="twitter:creator" content="@individual_account">
-   <meta name="twitter:card" content="summary">
-   <meta name="twitter:site" content="@site_account">
-   <meta name="twitter:creator" content="@individual_account">
-   <meta name="twitter:url" content="https://example.com/page.html">
-   <meta name="twitter:title" content="Content Title">
-   <meta name="twitter:description" content="Content description less than 200 characters">
-   <meta name="twitter:image" content="https://example.com/image.jpg">
-  <!-- Google+ / Schema.org -->
-     <link href="https://plus.google.com/+YourPage" rel="publisher">
-     <meta itemprop="name" content="Content Title">
-     <meta itemprop="description" content="Content description less than 200 characters">
-     <meta itemprop="image" content="https://example.com/image.jpg">
+```html
+<!-- The style to be used for this article -->
+<meta property="fb:article_style" content="myarticlestyle" /> //facebook
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@site_account" />
+<meta name="twitter:creator" content="@individual_account" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@site_account" />
+<meta name="twitter:creator" content="@individual_account" />
+<meta name="twitter:url" content="https://example.com/page.html" />
+<meta name="twitter:title" content="Content Title" />
+<meta
+  name="twitter:description"
+  content="Content description less than 200 characters"
+/>
+<meta name="twitter:image" content="https://example.com/image.jpg" />
+<!-- Google+ / Schema.org -->
+<link href="https://plus.google.com/+YourPage" rel="publisher" />
+<meta itemprop="name" content="Content Title" />
+<meta
+  itemprop="description"
+  content="Content description less than 200 characters"
+/>
+<meta itemprop="image" content="https://example.com/image.jpg" />
+```
 
 3. Mobile Layout for SEO
 
-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
 
-  | Attributes    | Description                                                                             |
-  | ------------- | --------------------------------------------------------------------------------------- |
-  | width         | The width of the viewport in device-independent pixels.                                 |
-  | initial-scale | The initial scale of the viewport.                                                      |
-  | shrink-to-fit | If true, the viewport width is dynamically determined based on the width of the device. |
-  | user-scalable | If true, the viewport width is dynamically determined based on the width of the device. |
-  | minimum-scale | The minimum scale of the viewport.                                                      |
-  | maximum-scale | The maximum scale of the viewport.                                                      |
+| Attributes    | Description                                                                             |
+| ------------- | --------------------------------------------------------------------------------------- |
+| width         | The width of the viewport in device-independent pixels.                                 |
+| initial-scale | The initial scale of the viewport.                                                      |
+| shrink-to-fit | If true, the viewport width is dynamically determined based on the width of the device. |
+| user-scalable | If true, the viewport width is dynamically determined based on the width of the device. |
+| minimum-scale | The minimum scale of the viewport.                                                      |
+| maximum-scale | The maximum scale of the viewport.                                                      |
 
 4. Automatic Refresh for SEO
 
-- <meta http-equiv="refresh" content="5;url=http://www.example.com/"> // 5
+```html
+<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
+```
 
 5. Phone Number for SEO
 
-- <meta name="phone" content="+1-800-555-1234">
+```html
+<meta name="phone" content="+1-800-555-1234" />
+```
 
 6. Automatic Redirection for SEO
 
-- <meta http-equiv="refresh" content="5;url=http://www.example.com/"> // 5
+```html
+<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
+```
 
 7. Web App
 
-- <meta name="apple-mobile-web-app-capable" content="yes">
-- <meta name="apple-mobile-web-app-status-bar-style" content="black">
-- <meta name="apple-mobile-web-app-title" content="Web App Title">
-- <meta name="apple-mobile-web-app-status-bar-style" content="black">
-- <meta name="mobile-web-app-capable" content="yes">
-- <meta name="theme-color" content="black">
+```html
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-title" content="Web App Title" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="black" />
+```
 
 8. content-type for SEO
 
@@ -288,7 +395,12 @@ https://encoding.spec.whatwg.org/#names-and-labels
 
 8. http-equiv metadata
 
-- Set content for <meta http-equiv="Content-Type" in HTML.
+- Set content for
+
+```html
+<meta http-equiv="Content-Type" in HTML.
+```
+
 - When present, it must be inside the head element near the top of the document.
 - meta http-equiv="Content-Type"
   content="text/html; charset=utf-8">
@@ -304,24 +416,85 @@ https://encoding.spec.whatwg.org/#names-and-labels
 
 # head element
 
-- viewport is used to specify the dimensions of the browser window: <meta name="viewport" content="width=device-width, initial-scale=1.0">
-- link is used to link to other documents: <link rel="stylesheet" href="style.css">
-- title is used to define the title of the document: <title>My First HTML Page</title>
-- style is used to define the style of the document: <style>p {color: red;}</style>
-- script is used to define the script of the document: <script>alert("Hello World!");</script>
-- base is used to define the base URL of the document or targets for all links or URLs in the document or to define the default target for all links in the document using the target or rel or href attribute: <base href="http://example.com/" target="_blank" rel="nofollow" />
-- target blank is used to open the linked document in a new window: <a href="http://example.com/" target="_blank">Example</a>
+- viewport is used to specify the dimensions of the browser window:
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+- link is used to link to other documents:
+
+```html
+<link rel="stylesheet" href="style.css" />
+```
+
+- title is used to define the title of the document:
+
+```html
+<title>My First HTML Page</title>
+```
+
+- style is used to define the style of the document:
+
+```html
+<style>
+  p {
+    color: red;
+  }
+</style>
+```
+
+- script is used to define the script of the document:
+
+```html
+<script>
+  alert("Hello World!");
+</script>
+```
+
+- base is used to define the base URL of the document or targets for all links or URLs in the document or to define the default target for all links in the document using the target or rel or href attribute:
+
+```html
+<base href="http://example.com/" target="_blank" rel="nofollow" />
+```
+
+- target blank is used to open the linked document in a new window:
+
+```html
+<a href="http://example.com/" target="_blank">Example</a>
+```
 
 # body
 
 - defines the content of the document
 - contains the main content of the document, that is displayed in the browser window
-- <body oncontextmenu="return false"> // oncontextmenu is used to prevent the right click menu from appearing on the page
+
+```html
+<body oncontextmenu="return false">
+  // oncontextmenu is used to prevent the right click menu from appearing on the
+  page
+</body>
+```
 
 # HTML Headings
 
+- used to describe the content, like the title of the document, the author, the date of creation, etc.
 - h1, h2, h3, h4, h5, h6 are used to define the heading of the document
 - headings are used mainly to define the content of the document as well as the structure of the document
+
+# Divs
+
+- short for division or a container that divides the document into sections
+
+# whitespace and identation
+
+- whitespace is the space between the tags. It is used to make the HTML code more readable.
+- identation is the space between the tags and the content. It makes parent-child relationships more clear.
+
+# Line Breaks
+
+- used to insert a line break in the document
+- modifying the spacing between lines of text
 
 # HTML Content Model
 
@@ -333,116 +506,267 @@ https://encoding.spec.whatwg.org/#names-and-labels
 - may contain other block level elements and inline elements
 - pushes next element to the next line
 - block elements group content into a single unit. They are used to create sections of content.
-- example: <p>, <div>, <header>, <footer>, <nav>, <main>, <article>, <section>, <aside>, <figure>, <figcaption>, <time>
+- example:
+
+| Html Block Elements | Description                                                                     |
+| ------------------- | ------------------------------------------------------------------------------- |
+| address             | Defines contact information for the author or owner of a document or an article |
+| article             | Defines an article                                                              |
+| aside               | Defines content aside from the page content                                     |
+| blockquote          | Defines a section that is quoted from another source                            |
+| canvas              | Used to draw graphics, on the fly, via scripting (usually JavaScript)           |
+| p                   | Defines a paragraph                                                             |
+| div                 | Defines a section in a document                                                 |
+| header              | Defines a header for a document or section                                      |
+| footer              | Defines a footer for a document or section                                      |
+| nav                 | Defines navigation links                                                        |
+| section             | Defines a section in a document                                                 |
+| details             | Defines additional details that the user can view or hide                       |
+| main                | Specifies the main content of a document                                        |
+| summary             | Defines a visible heading for a details element                                 |
+| figure              | Specifies self-contained content                                                |
+| figcaption          | Defines a caption for a figure element                                          |
+| hr                  | Defines a thematic change in the content                                        |
+| pre                 | Defines preformatted text                                                       |
+| time                | Defines a date/time                                                             |
 
 # inline level elements
 
 - render to stay on the same line (by default)
 - cannot have block elements
 - inline elements are used to group content that is not part of a block element.
-- example: <a>, <span>, <b>, <i>, <em>, <strong>, <small>, <big>, <sub>, <sup>, <q>, <cite>, <time>
+- example:
+
+| Html Inline Elements | Description                                                              |
+| -------------------- | ------------------------------------------------------------------------ |
+| a                    | Defines a hyperlink                                                      |
+| abbr                 | Defines an abbreviation or an acronym                                    |
+| b                    | Defines bold text                                                        |
+| bdi                  | Isolates a part of text that might be formatted in a different direction |
+| bdo                  | Overrides the current text direction                                     |
+| br                   | Defines a single line break                                              |
+| cite                 | Defines the title of a work                                              |
+| span                 | Defines a section in a document                                          |
+| code                 | Defines a piece of computer code                                         |
+| cite                 | Defines the title of a work                                              |
+| data                 | Links the given content with a machine-readable translation              |
+| dfn                  | Indicates the defining instance of a term                                |
+| i                    | Defines a part of text in an alternate voice or mood                     |
+| kbd                  | Defines keyboard input                                                   |
+| em                   | Defines emphasized text                                                  |
+| mark                 | Defines marked/highlighted text                                          |
+| small                | Defines smaller text                                                     |
+| strong               | Defines important text                                                   |
+| sub                  | Defines subscripted text                                                 |
+| sup                  | Defines superscripted text                                               |
+| u                    | Defines text that should be stylistically different from normal text     |
+| big                  | Not supported in HTML5. Use CSS instead.                                 |
+| del                  | Defines text that has been deleted from a document                       |
+| q                    | Defines a short quotation                                                |
 
 # nested elements
 
 - nested elements are used to group content that is part of a block element.
-- example: <ul>, <ol>, <li>, <dl>, <dt>, <dd>, <table>, <tr>, <th>, <td>, <thead>, <tbody>, <tfoot>, <colgroup>, <col>
+- example:
+
+| Html Nested Elements | Description                                                                    |
+| -------------------- | ------------------------------------------------------------------------------ |
+| ul                   | Defines an unordered list                                                      |
+| ol                   | Defines an ordered list                                                        |
+| li                   | Defines a list item                                                            |
+| dl                   | Defines a description list                                                     |
+| dt                   | Defines a term/name in a description list                                      |
+| dd                   | Defines a description of a term/name in a description list                     |
+| table                | Defines a table                                                                |
+| tr                   | Defines a row in a table                                                       |
+| th                   | Defines a header cell in a table                                               |
+| td                   | Defines a cell in a table                                                      |
+| caption              | Defines a table caption                                                        |
+| col                  | Specifies column properties for each column within a colgroup element          |
+| colgroup             | Specifies a group of one or more columns in a table for formatting             |
+| thead                | Groups the header content in a table                                           |
+| tbody                | Groups the body content in a table                                             |
+| tfoot                | Groups the footer content in a table                                           |
+| form                 | Defines an HTML form for user input                                            |
+| input                | Defines an input control                                                       |
+| textarea             | Defines a multiline input control (text area)                                  |
+| button               | Defines a clickable button                                                     |
+| select               | Defines a drop-down list                                                       |
+| optgroup             | Defines a group of related options in a drop-down list                         |
+| option               | Defines an option in a drop-down list                                          |
+| label                | Defines a label for an input element                                           |
+| fieldset             | Groups related elements in a form                                              |
+| legend               | Defines a caption for a fieldset element                                       |
+| iframe               | Defines an inline frame                                                        |
+| img                  | Defines an image                                                               |
+| map                  | Defines a client-side image-map                                                |
+| area                 | Defines an area inside an image-map                                            |
+| audio                | Defines sound content                                                          |
+| video                | Defines a video or movie                                                       |
+| embed                | Defines a container for an external (non-HTML) application                     |
+| object               | Defines an embedded object                                                     |
+| param                | Defines a parameter for an object                                              |
+| source               | Defines multiple media resources for media elements                            |
+| track                | Defines text tracks for media elements                                         |
+| canvas               | Used to draw graphics, on the fly, via scripting (usually JavaScript)          |
+| script               | Defines a client-side script                                                   |
+| noscript             | Defines an alternate content for users that do not support client-side scripts |
+| del                  | Defines text that has been deleted from a document                             |
+| ins                  | Defines a text that has been inserted into a document                          |
+| style                | Defines style information for a document                                       |
 
 # HTML Links or Hyperlinks or anchors
 
-- links have two attributes: href and rel: <a href="http://example.com/" rel="nofollow">Example</a>
+- anchor tag is used to create a link to another document or to another part of the same document
+- href is the attribute of anchor tag which is used to specify the link. href stands for hyperlink reference. it is used to link to the path or the address to where the file is located.
+- links have two attributes: href and rel:
+
+```html
+<a href="http://example.com/" rel="nofollow">Example</a>
+```
+
 - links are used to link to other documents
-- <a> is used to create a link
-- <a href=""></a> is used to define the link of the documents
 
 # Links
 
-- target specifies where to open the linked document: <a href="http://example.com/" target="_blank">Example</a>
-- target is used to define the ta2rget of the link. It can be \_blank, \_self, \_parent, \_top, or a frame name.
-- <a href="" target="_self"> </a>: opens the page in same browser window
+- target specifies how or where to open the linked document:
+
+```html
+<a href="http://example.com/" target="_blank">Example</a>
+```
+
+- target is used to define the target of the link. It can be
+  - \_blank: open in a new window or tab
+  - \_self: open in the same frame as it was clicked
+  - \_parent: open in the parent frame
+  - \_top: open in the full body of the window
+  - framename: open in a named frame
+
+```html
+<a href="" target="_self"> </a>
+<p>opens the page in same browser window or tab</p>
+```
+
 - rel is used to define the relationship of the link. rel defines the relationship between document and external resource.
 - noopener is used to prevent the browser from opening a new window when the link is clicked and
 - noreferrer is used to prevent the browser from sending a referrer header when the link is clicked.
 - mailto is used to create a link to an email address
-- <a href="mailto:"></a> is used to define the email address and the subject of the email
-- <a href="tel:"></a> is used to define the phone number of the link
-- <a name=""></a> is used to define a name for the link
+
+```html
+<a href="mailto:"></a>
+<p>to define the email address and the subject of the email message</p>
+```
+
+```html
+<a href="tel:"></a>
+<p>to define a link to a telephone number</p>
+```
+
+```html
+- <a name=""></a>
+<p>to define a bookmark in a page</p>
+```
 
 # Absolute Link
 
+- absolute link is a link that contains the full URL of the page you want to link to. it is also called as full link.
 - are also called external links and are for links to other websites
-- <a href="http://example.com/"></a> is used to define the absolute link of the documents
+
+```html
+<a href="http://example.com/"></a>
+<p>to define the absolute link of the documents</p>
+```
 
 # Relative Link
 
+- if the files are stored in the same folder, you can use the file name to link to the file
 - are also called internal links and are links which are giving local pages from same website
 
 # HTML Images
 
 - images are used to display images
-- <img> is used to create an image
-- <img src=""> is used to define the image
 - alt is used to define the alternative text of the image
+- the value of src must be a valid URL or Uniform Resource Locator of an image.(absolute or relative)
+
+```html
+<img src="image.jpg" alt="Image" />
+<p>
+  img tag is used to display images. alt attribute is used to define the
+  alternative text of the image. src attribute is used to define the source of
+  the image.
+</p>
+```
+
+# URL
+
+- Uniform Resource Locator is a string of characters used to identify a name or a web resource.
+- URL is used to define the location of a resource on the Internet.
+- is the web address or local address where file is stored.
 
 # Multimedia
 
-- <audio> is used to create an audio element
-- <track> is used to create a track element. It is used to define the track of the audio element.
+| Multimedia | Description                                                 |
+| ---------- | ----------------------------------------------------------- |
+| audio      | audio tag is used to display audio files.                   |
+| video      | video tag is used to display video files.                   |
+| track      | track tag is used to define text tracks for media elements. |
 
-- <br>,
+# HTML Video
 
-# Text Content
+- video is used to display video files
 
-- blockquote is used to create a blockquote
-- <q> is used to create a quotation mark // <q> is an inline element
-- <cite> is used to create a citation mark (e.g. "John Doe")
-- dd is used to create a definition description
-- dt is used to create a definition term
-- figcaption is used to create a figure caption // <figcaption> is an inline element
-- figure is used to create a figure // <figure> is a block element
-- pre is used to create a preformatted text // <pre></pre> helps in solving poetry problems
-- p is used to create a paragraph // <p> is a block element
-- ul is used to create an unordered list // <ul> is a block element
-- ol is used to create an ordered list // <ol> is a block element
-- li is used to create a list item // <li> is an inline element
-- hr is used to create a horizontal rule // <hr> is a block element
+````html
+<video src="video.mp4" controls></video>
+<p>
+  video tag is used to display video files. src attribute is used to define the
+  source of the video. controls attribute is used to display the video controls
+  such as play, pause, etc.
+</p>
 
-# Inline Text Semantics
-
-- a is used to create a link // <a> is an inline element
-- abbr is used to create an abbreviation // <abbr> is an inline element
-- br is used to create a line break // <br> is an inline element
-- cite is used for refrencing cited creative works // <cite> is an inline element
-- code is used to create a code sample //
-- em is used to create an emphasized text // <em> is an inline element
-- mark is used to create a marked text // <mark> is an inline element
-- small is used to create a small text // <small> is an inline element
-- span is used to create a span // <span> is an inline element for phrasing content
-- strong is used to create a strong text // <strong> is an inline element
-- time is used to create a time stamp // <time> is an inline element
-
-# formatting the text inside paragraphs or other elements
-
-- <b>: bold text
-- <i>: italic text
-- <u>: underlined text
-- <code><s></s></code>: strikethrough text
-- <sub>: subscript text
-- <sup>: superscript text
-- <q>: quotation text
-- <cite>: citation text
-- <mark>: marked text
-- <small>: small text
-- <span>: span text
-- <strong>: strong text
-- <time>: time stamp text
-- <em>: emphasized text
-- <ins>: inserted text
-
-# Scripting
-
-- script is used to create a script // <script> is a block element
-- <script src=""></script> is used to define the script
-- <script type="text/javascript" src="./javascript.js"></script> is used to define the script
+# Displaying Text | HTML Element | Description | | ------------ |
+----------------------------------------------------------------------- | | p |
+paragraph | | span | to group inline elements and separate the smaller parts of
+the document | # Text Content | HTML Element | Description | type | |
+------------ | ---------------------------------- | ------ | | h1 | heading 1 |
+block | | blockquote | blockquote | block | | q | to create a short quotation |
+inline | | cite | to create a citation | inline | | dd | to create a definition
+description | block | | dt | to create a definition term | block | | figcaption
+| to create a figure caption | block | | figure | to create a figure | block | |
+pre | to create a preformatted text | block | | p | to create a paragraph |
+block | | ul | to create an unordered list | block | | ol | to create an ordered
+list | block | | li | to create a list item | block | | dl | to create a
+definition list | block | | div | to create a division | block | # Inline Text
+Semantics | HTML Element | Description | | ------------ |
+--------------------------------------------- | | a | anchor or to create a link
+| | abbr | abbreviation | | br | line break | | cite | for referencing a
+citation or a piece of work | | code | for displaying computer code | | em | for
+emphasizing text | | mark | for highlighting text | | small | for displaying
+side comments | | strong | for emphasizing text | | span | for grouping inline
+elements | | time | for displaying a date or time | # Styling Text | HTML
+Element | Description | | ------------ |
+----------------------------------------------------------------------- | | b |
+bold | | i | italic | | u | underline | | s | strike through | | del | deleted
+text | | ins | inserted text | | sub | subscript | | sup | superscript | | small
+| small text | | strong | strong text | | em | emphasized text | | mark | marked
+text | | code | code sample | | q | quotation mark | | cite | citation mark | |
+abbr | abbreviation | | dfn | definition | | var | variable | | samp | sample
+output | | kbd | keyboard input | | bdi | bidirectional isolation | | bdo |
+bidirectional override | | span | to group inline elements and separate the
+smaller parts of the document | | br | line break | | wbr | line break
+opportunity | | hr | horizontal rule | | a | link | # formatting the text inside
+paragraphs or other elements | HTML Element | Description | | ------------ |
+--------------- | | b | bold | | i | italic | | u | underline | | s | strike
+through | | del | deleted text | | ins | inserted text | | sub | subscript | |
+sup | superscript | | small | small text | | strong | strong text | | em |
+emphasized text | | mark | marked text | | code | code sample | | q | quotation
+mark | | cite | citation mark | | abbr | abbreviation | | time | time stamp | #
+Scripting - script is used to create a script ```html
+<script src=""></script>
+<p>script tag is used to create a script</p>
+OR
+<script type="text/javascript" src="./javascript.js"></script>
+<p>script tag is used to create a script</p>
+````
 
 # Demarcating Edits
 
@@ -452,18 +776,59 @@ https://encoding.spec.whatwg.org/#names-and-labels
 
 # HTML Table
 
-- <table> is used to create a table // <table> is a block element
-- <caption> is used to create a table caption // <caption> is a block element
-- <thead> is used to create a table header // <thead> is a block element
-- <tbody> is used to create a table body // <tbody> is a block element
-- <tfoot> is used to create a table footer // <tfoot> is a block element
-- <tr> is used to create a table row // <tr> is a block element
-- <th> is used to create a table header cell // <th> is a block element
-- <td> is used to create a table data cell // <td> is a block element
-- <col> is used to create a table column // <col> is a block element
-- <colgroup> is used to create a table column group // <colgroup> is a block element
-- <colspan> is used to create a table column span // <colspan> is an inline element
-- <rowspan> is used to create a table row span // <rowspan> is an inline element
+| HTML Table | Description                                                                   |
+| ---------- | ----------------------------------------------------------------------------- |
+| table      | table tag is used to create a table.                                          |
+| tr         | tr tag is used to create a table row.                                         |
+| th         | th tag is used to create a table header.                                      |
+| td         | td tag is used to create a table data.                                        |
+| caption    | caption tag is used to create a table caption.                                |
+| thead      | thead tag is used to create a table header.                                   |
+| tbody      | tbody tag is used to create a table body.                                     |
+| tfoot      | tfoot tag is used to create a table footer.                                   |
+| col        | col tag is used to create a table column.                                     |
+| colgroup   | colgroup tag is used to create a table column group.                          |
+| colspan    | colspan attribute is used to define the number of columns a cell should span. |
+| rowspan    | rowspan attribute is used to define the number of rows a cell should span.    |
+
+```html
+<table>
+  <caption>
+    Table Caption
+  </caption>
+  <thead>
+    <tr>
+      <th>Table Header 1</th>
+      <th>Table Header 2</th>
+      <th>Table Header 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table Data 1</td>
+      <td>Table Data 2</td>
+      <td>Table Data 3</td>
+    </tr>
+    <tr>
+      <td>Table Data 1</td>
+      <td>Table Data 2</td>
+      <td>Table Data 3</td>
+    </tr>
+    <tr>
+      <td>Table Data 1</td>
+      <td>Table Data 2</td>
+      <td>Table Data 3</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Table Footer 1</td>
+      <td>Table Footer 2</td>
+      <td>Table Footer 3</td>
+    </tr>
+  </tfoot>
+</table>
+```
 
 # HTML Forms
 
@@ -527,33 +892,43 @@ https://encoding.spec.whatwg.org/#names-and-labels
 # HTML Lists
 
 - lists are used to create lists
-- <ul> is used to create an unordered list
-- <ol> is used to create an ordered list
-- <li> is used to create a list item
-- <dl> is used to create a definition list
-- <dt> is used to create a definition term
-- <dd> is used to create a definition description
+
+| HTMl List element | Description                                       |
+| ----------------- | ------------------------------------------------- |
+| ul                | unordered list or outlines list item with bullets |
+| ol                | ordered list or outlines list item with numbers   |
+| li                | list item                                         |
+| dl                | definition list or outlines list item with terms  |
+| dt                | definition term or outlines list item term        |
+| dd                | definition description or outlines list item      |
 
 # HTML List attributes
 
-- <li start=""> is used to create a list item with a start attribute
-- <li type=""> is used to create a list item with a type
-- <li value=""> is used to create a list item with a value
-- <li class=""> is used to create a list item with a class
-- <li id=""> is used to create a list item with an id
-- <li data-*=""> is used to create a list item with a data attribute
-- <li style=""> is used to create a list item with a style
-- <li title=""> is used to create a list item with a title
-- <li lang=""> is used to create a list item with a language
-- <li dir=""> is used to create a list item with a direction
-- <li onclick=""> is used to create a list item with an onclick event
-- <li ondblclick=""> is used to create a list item with an ondblclick event
-- <li onmousedown=""> is used to create a list item with an onmousedown event
-- <li onmouseup=""> is used to create a list item with an onmouseup event
-- <li onmouseover=""> is used to create a list item with an onmouseover event
-- <li onmousemove=""> is used to create a list item with an onmousemove event
-- <li onmouseout=""> is used to create a list item with an onmouseout event
-- <li onmouseenter=""> is used to create a list item with an onmouseenter event
+| HTML List attribute | Description                                                                             |
+| ------------------- | --------------------------------------------------------------------------------------- |
+| type                | type is used to define the type of list: type="1" or type="a" or type="A"               |
+| start               | start is used to define the starting number of the list: start="number"                 |
+| value               | value is used to define the value of the list item: value="value"                       |
+| class               | class is used to define the class of the list: class="class"                            |
+| id                  | id is used to define the id of the list: id="id"                                        |
+| data-\*             | data-_ is used to define custom attributes: data-_="data-\*"                            |
+| style               | style is used to define the style of the list: style="style"                            |
+| title               | title is used to define the title of the list: title="title"                            |
+| lang                | lang is used to define the language of the list: lang="lang"                            |
+| dir                 | dir is used to define the direction of the list: dir="dir"                              |
+| hidden              | hidden is used to define whether the list is hidden: hidden="hidden"                    |
+| onclick             | onclick is used to define the onclick event of the list: onclick="event"                |
+| ondblclick          | ondblclick is used to define the ondblclick event of the list: ondblclick="event"       |
+| onmousedown         | onmousedown is used to define the onmousedown event of the list: onmousedown="event"    |
+| onmouseup           | onmouseup is used to define the onmouseup event of the list: onmouseup="event"          |
+| onmouseover         | onmouseover is used to define the onmouseover event of the list: onmouseover="event"    |
+| onmousemove         | onmousemove is used to define the onmousemove event of the list: onmousemove="event"    |
+| onmouseout          | onmouseout is used to define the onmouseout event of the list: onmouseout="event"       |
+| onkeypress          | onkeypress is used to define the onkeypress event of the list: onkeypress="event"       |
+| onkeydown           | onkeydown is used to define the onkeydown event of the list: onkeydown="event"          |
+| onkeyup             | onkeyup is used to define the onkeyup event of the list: onkeyup="event"                |
+| onmouseenter        | onmouseenter is used to define the onmouseenter event of the list: onmouseenter="event" |
+| onmouseleave        | onmouseleave is used to define the onmouseleave event of the list: onmouseleave="event" |
 
 # Interactive Elements
 
@@ -763,19 +1138,20 @@ https://encoding.spec.whatwg.org/#names-and-labels
 
 # Linking Resources
 
-| Attribute | Details |
-| charset | Specifies the character encoding of the linked document |
-| href | Specifies the URL of the linked document |
-| hreflang | Specifies the language of the linked document |
-| media | Specifies the media type of the linked document |
-| rel | Specifies the relationship between the current document and the linked document |
-| sizes | Specifies the size of the linked document |
-| type | Specifies the media type of the linked document |
-| target | Specifies where to open the linked document |
-| rev | Specifies the relationship between the current document and the linked document |
-| ping | Specifies the URL of the linked document |
-| integrity | Specifies a base64 encoded hash (sha256, sha384, or sha512) of the linked resource allowing the
-browser to verify its legitimacy|
+| Attribute                        | Details                                                                                         |
+| -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| charset                          | Specifies the character encoding of the linked document                                         |
+| href                             | Specifies the URL of the linked document                                                        |
+| hreflang                         | Specifies the language of the linked document                                                   |
+| media                            | Specifies the media type of the linked document                                                 |
+| rel                              | Specifies the relationship between the current document and the linked document                 |
+| sizes                            | Specifies the size of the linked document                                                       |
+| type                             | Specifies the media type of the linked document                                                 |
+| target                           | Specifies where to open the linked document                                                     |
+| rev                              | Specifies the relationship between the current document and the linked document                 |
+| ping                             | Specifies the URL of the linked document                                                        |
+| integrity                        | Specifies a base64 encoded hash (sha256, sha384, or sha512) of the linked resource allowing the |
+| browser to verify its legitimacy |
 
 # linking to CSS
 
@@ -1377,3 +1753,15 @@ Browsers functionality can be classified into four major sections and these incl
 - Process
 - Display
 - Storage
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
