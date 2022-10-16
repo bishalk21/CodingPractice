@@ -1264,6 +1264,15 @@ Q. How Forms work?
 - provides characters that are not available in keyboard layouts
 - safeguard against XSS attacks and more limited character encodings
 - symbols that are not available in keyboard layouts
+
+| Entity Reference    | Description   |
+| ------------------- | ------------- |
+| <code>&amp;</code>  | ampersand     |
+| <code>&lt;</code>   | less than     |
+| <code>&gt;</code>   | greater than  |
+| <code>&quot;</code> | double quotes |
+| <code>&apos;</code> | single quotes |
+
 - &larr;: left arrow: &#8592;
 - &uarr;: up arrow: &#8593;
 - &rarr;: right arrow: &#8594;
@@ -1381,9 +1390,13 @@ Q. How Forms work?
 - we can use media queries to control the layout of our site.
 - different screen sizes have different layout.
 - screen modes (mobile, tablet, desktop, portrait, landscape)
-- syntax: @media (conditions) and|or (conditions) {
+
+```css
+ syntax: @media (conditions) and|or (conditions) {
   rules
   }
+```
+
 - conditions are width, height, orientation, and type of device.
 
 # Breakpoint Overlapping
@@ -1397,52 +1410,69 @@ Q. How Forms work?
 
 # Abbreviations
 
-- <abbr title="attribute">: creates an abbreviation
+```html
+<abbr title="attribute">: creates an abbreviation</abbr>
+```
 
 # 12 Column Grid Responsive Design or layout
 
 - screen size or screen resolution is the basis of the layout or is divided into 12 columns because of the grid system.
 - grid system is a system that divides the screen into 12 columns. Each column has a width of 1/12 of the screen.
-  @media (min-width: 768px) {
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
-  float: left;
+
+```css
+@media (min-width: 768px) {
+  .col-md-1,
+  .col-md-2,
+  .col-md-3,
+  .col-md-4,
+  .col-md-5,
+  .col-md-6,
+  .col-md-7,
+  .col-md-8,
+  .col-md-9,
+  .col-md-10,
+  .col-md-11,
+  .col-md-12 {
+    float: left;
   }
   .col-md-12 {
-  width: 100%;
+    width: 100%;
   }
   .col-md-11 {
-  width: 91.66666667%;
+    width: 91.66666667%;
   }
   .col-md-10 {
-  width: 83.33333333%;
+    width: 83.33333333%;
   }
   .col-md-9 {
-  width: 75%;
+    width: 75%;
   }
   .col-md-8 {
-  width: 66.66666667%;
+    width: 66.66666667%;
   }
   .col-md-7 {
-  width: 58.33333333%;
+    width: 58.33333333%;
   }
   .col-md-6 {
-  width: 50%;
+    width: 50%;
   }
   .col-md-5 {
-  width: 41.66666667%;
+    width: 41.66666667%;
   }
   .col-md-4 {
-  width: 33.33333333%;
+    width: 33.33333333%;
   }
   .col-md-3 {
-  width: 25%;
+    width: 25%;
   }
   .col-md-2 {
-  width: 16.66666667%;
+    width: 16.66666667%;
   }
   .col-md-1 {
-  width: 8.33333333%;
+    width: 8.33333333%;
   }
+}
+```
 
 # Classes
 
@@ -1474,15 +1504,16 @@ Q. How Forms work?
 
 # linking to CSS
 
-- external CSS files are linked to using the <link> element.
-- internal CSS files are linked to using the <style> element.
-- <link> element is used to link to external CSS files.
-- <style> element is used to link to internal CSS files.
+- external CSS files are linked to using the link element.
+- internal CSS files are linked to using the style element.
 
 # Favicon
 
 - favicon is a small image that is displayed next to the web page's title in the browser's address bar.
-- <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+```html
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+```
 
 # Resource Hint: dns-prefetch, prefetch, prerender
 
@@ -1491,53 +1522,84 @@ Q. How Forms work?
 - Preconnect: tells the browser to connect to a server before the page is loaded. It will also make the
   TCP handshake, and optional TLS negotiation.
 - Preconnect is used to preload resources that are needed for the page to load quickly.
-  <link rel="preconnect" href="URL">
+  ```html
+  <link rel="preconnect" href="URL" />
+  ```
 
 ## dns-prefetch
 
 - dns-prefetch: tells the browser to preload the DNS records for the domain name of the linked resource.
 - Informs browsers to resolve the DNS for a URL, so that all assets from that URL load faster
-  <link rel="dns-prefetch" href="URL">
+  ```html
+  <link rel="dns-prefetch" href="URL" />
+  ```
 
 ## prefetch
 
 - Informs the browsers that a given resource should be prefetched so it can be loaded more quickly.
 - DNS-Prefetch resolves only the domain name whereas prefetch downloads/stores the specified resources.
-  s<link rel="prefetch" href="URL">
+  ```html
+  <link rel="prefetch" href="URL" />
+  ```
 
 ## Prerender
 
 - Informs browsers to fetch and render the URL in the background, so that they can be delivered to the user
   instantaneously as the user navigates to that URL
-  <link rel="prerender" href="URL">
+  ```html
+  <link rel="prerender" href="URL" />
+  ```
 
 # HTML Images
 
-- <img>: creates an image
-- Responsive image using the srcset attribute: <img srcset="URL" sizes="100vw">
-  <img src="https://picsum.photos/200/300"
-        srcset="https://picsum.photos/400/600 400w, https://picsum.photos/800/1200 800w" alt="This is a image">
+- img tag creates an image
+- Responsive image using the srcset attribute:
+
+```html
+<img srcset="URL" sizes="100vw" />
+```
+
+```html
+<img
+  src="https://picsum.photos/200/300"
+  srcset="
+    https://picsum.photos/400/600  400w,
+    https://picsum.photos/800/1200 800w
+  "
+  alt="This is a image"
+/>
+```
 
 # HTML Pictures
 
-- <picture>: creates a picture
+```html
+<picture
+  >: creates a picture
   <picture>
-    <source srcset="URL" media="(min-width: 600px)">
-    <source srcset="URL" media="(min-width: 960px)">
-    <img srcset="URL" sizes="100vw">
-  </picture>
+    <source srcset="URL" media="(min-width: 600px)" />
+    <source srcset="URL" media="(min-width: 960px)" />
+    <img srcset="URL" sizes="100vw" /> </picture
+></picture>
+```
 
 # HTML Image Maps
 
-- <img usemap="#mapname">: creates an image map
-  <img src="URL" usemap="#mapname">
-  <map name="mapname">
-  <area shape="rect" coords="0,0,100,100" href="URL">
-  </map>
+```html
+<img usemap="#mapname" />: creates an image map
+<img src="URL" usemap="#mapname" />
+<map name="mapname">
+  <area shape="rect" coords="0,0,100,100" href="URL" />
+</map>
 
-- <map name="map">
-       <area shape="rect" coords="0,0,100,100" href="https://www.google.com" alt="This is a area">
-   </map>
+<map name="map">
+  <area
+    shape="rect"
+    coords="0,0,100,100"
+    href="https://www.google.com"
+    alt="This is a area"
+  />
+</map>
+```
 
 | Attribute | value | Details                                        |
 | --------- | ----- | ---------------------------------------------- |
@@ -1551,8 +1613,12 @@ Q. How Forms work?
 # HTML Label Elements
 
 - label elements are used to label form controls.
-- <label for="name">This is a label</label>
-- <label for="name" class="classname">This is a label</label>
+
+```html
+<label for="name">This is a label</label>
+<label for="name" class="classname">This is a label</label>
+<label for="name" style="color: red;">This is a label</label>
+```
 
 # Selection Menu Controls
 
@@ -1561,8 +1627,17 @@ Q. How Forms work?
 # HTML Embed
 
 - Embed: embeds an object in the page.
-  <embed src="URL" type="type" name="name" width="width" height="height"
-         pluginspage="URL">
+
+```html
+<embed
+  src="URL"
+  type="type"
+  name="name"
+  width="width"
+  height="height"
+  pluginspage="URL"
+/>
+```
 
 # HTML iframe
 
@@ -1699,44 +1774,73 @@ Q. How Forms work?
 # Embedding external SVG files in HTML
 
 - using image element
-  <img src="attention.svg" width="50" height="50">
+
+```html
+<img src="attention.svg" width="50" height="50" />
+```
+
 - using object element
-  <object data="attention.svg" type="image/svg+xml" width="50" height="50">
+
+```html
+<object
+  data="attention.svg"
+  type="image/svg+xml"
+  width="50"
+  height="50"
+></object>
+```
 
 # Canvas
 
 - canvas is used to draw amazing stuff like shapes, graphs, manipulate images, create engaging
   games etc. with JavaScript.
-  <canvas width="width" height="height" id="id" style="style">
-  </canvas>
-  | attribute | value | details |
-  | --------- | ----- | ------- |
-  | width | value | Specifies the width of the canvas |
+
+  ```html
+  <canvas width="width" height="height" id="id" style="style"> </canvas>
+  ```
+
+  | attribute | value | details                           |
+  | --------- | ----- | --------------------------------- |
+  | width     | value | Specifies the width of the canvas |
 
 # Marking up computer code
 
 - if e formatting (white space, new lines, indentation) of the code matters, use pre element
-  <pre>
+
+```html
+<pre>
  <code>
  x = 42
  if x == 42:
  print "x is … … 42"
  </code>
 </pre>
+```
 
 # Inline with <code>
 
-- <p>The <code>a</code> element creates a hyperlink.</p> <br>
+```html
+<p>The <code>a</code> element creates a hyperlink.</p>
+<br />
+```
 
 # HTML ComputerCode
 
-- <kbd>The <code>a</code> element creates a hyperlink.</kbd> <br>
+```html
+<kbd>The <code>a</code> element creates a hyperlink.</kbd> <br />
+```
 
 # Tabindex
 
-- <div tabindex="0">Some button</div>
+```html
+<div tabindex="0">This div is focusable, but not in the tabbing order</div>
+```
+
 - Remove an element from the tabbing order by setting the tabindex attribute to -1.
-  <button tabindex="-1">This button will not be reachable by tab</button>
+
+```html
+<button tabindex="-1">This button will not be reachable by tab</button>
+```
 
 # Global Attributes
 
@@ -1772,31 +1876,36 @@ Q. How Forms work?
 
 - Cache is a mechanism for storing data in the browser for later use.
 - we will create a cache with the following code:
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8" manifest="index.appcache">>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" manifest="index.appcache" />
+    >
     <title>Document</title>
-    </head>
-    <body>
+  </head>
+  <body>
     <script>
-    var cache = {};
-    function getData(url, callback) {
-    if (cache[url]) {
-    callback(cache[url]);
-    } else {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.onload = function() {
-    cache[url] = JSON.parse(xhr.responseText);
-    callback(cache[url]);
-    };
-    xhr.send();
-    }
-    }
+      var cache = {};
+      function getData(url, callback) {
+        if (cache[url]) {
+          callback(cache[url]);
+        } else {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+          xhr.onload = function () {
+            cache[url] = JSON.parse(xhr.responseText);
+            callback(cache[url]);
+          };
+          xhr.send();
+        }
+      }
     </script>
-    </body>
-    </html>
+  </body>
+</html>
+```
+
 - then we will create index.appcache file with below codes
 - CACHE MANIFEST, index.html
 - The two files must be in the same folder in this example
