@@ -1,2585 +1,2171 @@
-# HTML5 Interview Questions
-
-_Click <img src="assets/images/star.png" width="18" height="18" align="absmiddle" title="Star" /> if you like the project. Pull Request are highly appreciated._
-
-## Table of Contents
-
-- _[HTML5 Events List](html5-events.md)_
-- _[HTML5 Tags](html5-tags.md)_
-
-<br/>
-
-| Sl.No | Questions                                                                                                                                                                                                                                                                                                                                              |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 01.   | [What is difference between HTML and XHTML?](#q-what-is-difference-between-html-and-xhtml)                                                                                                                                                                                                                                                             |
-| 02.   | [What are the building blocks of HTML5?](#q-what-are-the-building-blocks-of-html5)                                                                                                                                                                                                                                                                     |
-| 03.   | [What are the semantic tags available in html5?](#q-what-are-the-semantic-tags-available-in-html5)                                                                                                                                                                                                                                                     |
-| 04.   | [Why you would like to use semantic tag?](#q-why-you-would-like-to-use-semantic-tag)                                                                                                                                                                                                                                                                   |
-| 05.   | [What does a `<DOCTYPE html>` do?](#q-what-does-a-doctype-html-do)                                                                                                                                                                                                                                                                                     |
-| 06.   | [What happens when DOCTYPE is not given?](#q-what-happens-when-doctype-is-not-given)                                                                                                                                                                                                                                                                   |
-| 07.   | [What are the new form elements in HTML5?](#q-what-are-the-new-form-elements-in-html5)                                                                                                                                                                                                                                                                 |
-| 08.   | [How many new form elements are introduced in html5?](#q-how-many-new-form-elements-are-introduced-in-html5)                                                                                                                                                                                                                                           |
-| 09.   | [What is difference between `span` tag and `div` tag?](#q-what-is-difference-between-span-tag-and-div-tag)                                                                                                                                                                                                                                             |
-| 10.   | [What are optional closing tag?](#q-what-are-optional-closing-tag)                                                                                                                                                                                                                                                                                     |
-| 11.   | [What is a self closing tag?](#q-what-is-a-self-closing-tag)                                                                                                                                                                                                                                                                                           |
-| 12.   | [Explain the difference between block elements and inline elements?](#q-explain-the-difference-between-block-elements-and-inline-elements)                                                                                                                                                                                                             |
-| 13.   | [What are semantic and non-semantic elements?](#q-what-are-semantic-and-non-semantic-elements)                                                                                                                                                                                                                                                         |
-| 14.   | [What is the purpose of `main` element?](#q-what-is-the-purpose-of-main-element)                                                                                                                                                                                                                                                                       |
-| 15.   | [Define semantic markup. What are the semantic meanings for `<section>, <article>, <aside>, <nav>, <header>, <footer>` and when/how should each be used in structuring html markup?](#q-define-semantic-markup-what-are-the-semantic-meanings-for-section-article-aside-nav-header-footer-and-when-how-should-each-be-used-in-structuring-html-markup) |
-| 16.   | [When should you use `section`, `div` or `article`?](#q-when-should-you-use-section-div-or-article)                                                                                                                                                                                                                                                    |
-| 17.   | [Can a web page contain multiple `<header>` elements? What about `<footer>` elements?](#q-can-a-web-page-contain-multiple-header-elements-what-about-footer-elements)                                                                                                                                                                                  |
-| 18.   | [What is Character Encoding?](#q-what-is-character-encoding)                                                                                                                                                                                                                                                                                           |
-| 19.   | [What is the purpose of meta tags?](#q-what-is-the-purpose-of-meta-tags)                                                                                                                                                                                                                                                                               |
-| 20.   | [What does async and defer refer in script tag? Describe the difference between `<script>`, `<script async>` and `<script defer>`](#q-what-does-async-and-defer-refer-in-script-tag-describe-the-difference-between-script-script-async-and-script-defer)                                                                                              |
-| 21.   | [Describe the difference between a `cookie`, `sessionStorage` and `localStorage`?](#q-describe-the-difference-between-a-cookie-sessionstorage-and-localstorage)                                                                                                                                                                                        |
-| 22.   | [Does localStorage throw error after reaches maximum limits?](#q-does-localstorage-throw-error-after-reaches-maximum-limits)                                                                                                                                                                                                                           |
-| 23.   | [Why to use IndexedDB instead of WebSQL in HTML5?](#q-why-to-use-indexeddb-instead-of-websql-in-html5)                                                                                                                                                                                                                                                 |
-| 24.   | [Explain Application Cache in HTML5. OR What is a manifest file in HTML?](#q-explain-application-cache-in-html5-or-what-is-a-manifest-file-in-html)                                                                                                                                                                                                    |
-| 25.   | [What is the purpose of cache busting and how can you achieve it?](#q-what-is-the-purpose-of-cache-busting-and-how-can-you-achieve-it)                                                                                                                                                                                                                 |
-| 26.   | [What ARIA and screenreaders are, and how to make a website accessible?](#q-what-aria-and-screenreaders-are-and-how-to-make-a-website-accessible)                                                                                                                                                                                                      |
-| 27.   | [What is the purpose of the `alt` attribute on images?](#q-what-is-the-purpose-of-the-alt-attribute-on-images)                                                                                                                                                                                                                                         |
-| 28.   | [What does `enctype='multipart/form-data'` mean?](#q-what-does-enctype-multipart-form-data-mean)                                                                                                                                                                                                                                                       |
-| 29.   | [What is difference between Select and Datalist?](#q-what-is-difference-between-select-and-datalist)                                                                                                                                                                                                                                                   |
-| 30.   | [Explain some of the pros and cons for CSS animations versus JavaScript animations?](#q-explain-some-of-the-pros-and-cons-for-css-animations-versus-javascript-animations)                                                                                                                                                                             |
-| 31.   | [What does CORS stand for and what issue does it address?](#q-what-does-cors-stand-for-and-what-issue-does-it-address)                                                                                                                                                                                                                                 |
-| 32.   | [Can you describe the difference between progressive enhancement and graceful degradation?](#q-can-you-describe-the-difference-between-progressive-enhancement-and-graceful-degradation)                                                                                                                                                               |
-| 33.   | [What is the DOM? How does the DOM work?](#q-what-is-the-dom-how-does-the-dom-work)                                                                                                                                                                                                                                                                    |
-| 34.   | [How does the browser rendering engine work?](#q-how-does-the-browser-rendering-engine-work)                                                                                                                                                                                                                                                           |
-| 35.   | [What is the difference between standards mode and quirks mode?](#q-what-is-the-difference-between-standards-mode-and-quirks-mode)                                                                                                                                                                                                                     |
-| 36.   | [What is Critical Rendering Path?](#q-what-is-critical-rendering-path)                                                                                                                                                                                                                                                                                 |
-| 37.   | [What are the Benefits of Server Side Rendering (SSR) Over Client Side Rendering (CSR)?](#q-what-are-the-benefits-of-server-side-rendering-ssr-over-client-side-rendering-csr)                                                                                                                                                                         |
-| 38.   | [Name 3 ways to decrease page load?](#q-name-3-ways-to-decrease-page-load)                                                                                                                                                                                                                                                                             |
-| 39.   | [Ways to improve website performance](#q-ways-to-improve-website-performance)                                                                                                                                                                                                                                                                          |
-| 40.   | [Comparison of browsers engines like Chrome, Firefox, Internet explorer, Safari?](#q-comparison-of-browsers-engines-like-chrome-firefox-internet-explorer-safari)                                                                                                                                                                                      |
-| 41.   | [What does the lang attribute in html do?](#q-what-does-the-lang-attribute-in-html-do)                                                                                                                                                                                                                                                                 |
-| 42.   | [What is desktop first and mobile first design approach?](#q-what-is-desktop-first-and-mobile-first-design-approach)                                                                                                                                                                                                                                   |
-| 43.   | [What are `data-` attributes good for?](#q-what-are-data-attributes-good-for)                                                                                                                                                                                                                                                                          |
-| 44.   | [Explain the difference between layout, painting and compositing?](#q-explain-the-difference-between-layout-painting-and-compositing)                                                                                                                                                                                                                  |
-| 45.   | [Explain about HTML Layout Engines used by browsers?](#q-explain-about-html-layout-engines-used-by-browsers)                                                                                                                                                                                                                                           |
-| 46.   | [How to make page responsive?](#q-how-to-make-page-responsive)                                                                                                                                                                                                                                                                                         |
-| 47.   | [Does the following trigger http request at the time of page load?](#q-does-the-following-trigger-http-request-at-the-time-of-page-load)                                                                                                                                                                                                               |
-| 48.   | [List the API available in HTML5?](#q-list-the-api-available-in-html5)                                                                                                                                                                                                                                                                                 |
-| 49.   | [How geolocation api works in html5?](#q-how-geolocation-api-works-in-html5)                                                                                                                                                                                                                                                                           |
-| 50.   | [What is the use of WebSocket API?](#q-what-is-the-use-of-websocket-api)                                                                                                                                                                                                                                                                               |
-| 51.   | [Explain about HTML Canvas?](#q-explain-about-html-canvas)                                                                                                                                                                                                                                                                                             |
-| 53.   | [What is difference between SVG and Canvas?](#q-what-is-difference-between-svg-and-canvas)                                                                                                                                                                                                                                                             |
-| 54.   | [Explain Drag and Drop in HTML5?](#q-explain-drag-and-drop-in-html5)                                                                                                                                                                                                                                                                                   |
-| 55.   | [Explain Microdata in HTML5?](#q-explain-microdata-in-html5)                                                                                                                                                                                                                                                                                           |
-| 56.   | [What are the HTML tags which deprecated in HTML5?](#q-what-are-the-html-tags-which-deprecated-in-html5)                                                                                                                                                                                                                                               |
-| 57.   | [How you can Use Modernizr in HTML5?](#q-how-you-can-use-modernizr-in-html5)                                                                                                                                                                                                                                                                           |
-| 58.   | [What is progressive rendering?](#q-what-is-progressive-rendering)                                                                                                                                                                                                                                                                                     |
-| 59.   | [What is an iframe and how it works?](#q-what-is-an-iframe-and-how-it-works)                                                                                                                                                                                                                                                                           |
-| 60.   | [Explain the use of rel="nofollow", rel="noreferrer", rel="noopener" attribute?](#q-explain-the-use-of-rel-nofollow-rel-noreferrer-rel-noopener-attribute)                                                                                                                                                                                             |
-| 61.   | [How can you highlight text in HTML?](#q-how-can-you-highlight-text-in-html)                                                                                                                                                                                                                                                                           |
-| 62.   | [How can I get indexed better by search engines?](#q-how-can-i-get-indexed-better-by-search-engines)                                                                                                                                                                                                                                                   |
-| 63.   | [What is the difference between an "attribute" and a "property" in HTML?](#q-what-is-the-difference-between-an-attribute-and-a-property-in-html)                                                                                                                                                                                                       |
-| 64.   | [How do you set IE compatibility mode?](#q-how-do-you-set-ie-compatibility-mode)                                                                                                                                                                                                                                                                       |
-| 65.   | [What is an optional tag?](#q-what-is-an-optional-tag)                                                                                                                                                                                                                                                                                                 |
-| 66.   | [What is an HTML preprocessor? Have you used different HTML templating languages before?](#q-what-is-an-html-preprocessor-have-you-used-different-html-templating-languages-before)                                                                                                                                                                    |
-| 67.   | [How do you change the direction of html text?](#q-how-do-you-change-the-direction-of-html-text)                                                                                                                                                                                                                                                       |
-| 68.   | [When is it appropriate to use the small element?](#q-when-is-it-appropriate-to-use-the-small-element)                                                                                                                                                                                                                                                 |
-| 79.   | [How do you serve a page with content in multiple languages?](#q-how-do-you-serve-a-page-with-content-in-multiple-languages)                                                                                                                                                                                                                           |
-| 70.   | [What is the difference between `<section>` and `<div>`?](#q-what-is-the-difference-between-section-and-div)                                                                                                                                                                                                                                           |
-| 71.   | [Discuss the differences between an HTML specification and a browser\'s implementation thereof.](#q-discuss-the-differences-between-an-html-specification-and-a-browser-s-implementation-thereof)                                                                                                                                                      |
-| 72.   | [Why you would use a srcset attribute in an image tag? Explain the process the browser used when evaluating the content of this attribute.](#q-why-you-would-use-a-srcset-attribute-in-an-image-tag-explain-the-process-the-browser-used-when-evaluating-the-content-of-this-attribute)                                                                |
-| 73.   | [What is accessibility & ARIA role means in a web application?](#q-what-is-accessibility-aria-role-means-in-a-web-application)                                                                                                                                                                                                                         |
-| 74.   | [What is href and src attribute in HTML](#q-what-is-href-and-src-attribute-in-html)                                                                                                                                                                                                                                                                    |
-
-<br/>
-
-## Q. What is difference between HTML and XHTML?
-
-The Extensible Hypertext Markup Language, or XHTML, has two important notes for front end developers.
-
-1. It needs to be well formed, meaning all elements need to be closed and nested correctly or you will return errors.
-2. Since it is more strict than HTML is requires less pre-processing by the browser, which may improve your sites performance.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are the building blocks of HTML5?
-
-- **Semantics**: allowing you to describe more precisely what your content is.
-- **Connectivity**: allowing you to communicate with the server in new and innovative ways.
-- **Offline and storage**: allowing webpages to store data on the client-side locally and operate offline more efficiently.
-- **Multimedia**: making video and audio first-class citizens in the Open Web.
-- **2D/3D graphics and effects**: allowing a much more diverse range of presentation options.
-- **Performance and integration**: providing greater speed optimization and better usage of computer hardware.
-- **Device access**: allowing for the usage of various input and output devices.
-- **Styling**: letting authors write more sophisticated themes.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are the semantic tags available in html5?
-
-HTML5 semantic tags define the function and the category of your text, simplifying the work for browsers and search engines, as well as developers.
-
-HTML5 offers new semantic elements to define different parts of a web page:
-
-- `<article>`
-- `<aside>`
-- `<details>`
-- `<figcaption>`
-- `<figure>`
-- `<footer>`
-- `<header>`
-- `<main>`
-- `<mark>`
-- `<nav>`
-- `<section>`
-- `<summary>`
-- `<time>`
-
-**Syntax:**
-
-```html
-<!DOCTYPE html>
-
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>...</title>
-  </head>
-
-  <body>
-    <header>...</header>
-    <nav>...</nav>
-
-    <article>
-      <section>...</section>
-    </article>
-    <aside>...</aside>
-
-    <footer>...</footer>
-  </body>
-</html>
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Why you would like to use semantic tag?
-
-- Search Engine Optimization, accessibility, repurposing, light code.
-- Many visually impaired person rely on browser speech and semantic tag helps to interpret page content clearly.
-- Search engine needs to understand page content to rank and semantic tag helps.
-- Semantic code aids accessibility. Specially, many people whose eyes are not good rely on speech browsers to read pages to them. These programs cannot interpret pages very well unless they are clearly explained.
-- Help Search engines to better understand pages. Search engine need to understand what your content is about when rank you properly on search engines. Semantic code tends to improve your placement on search engines, as it is easier for the "search engine spiders" to understand.
-- It\'s easier to read and edit, which saves time and money during maintenance.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What does a `<DOCTYPE html>` do?
-
-A DOCTYPE is always associated to a `DTD` ( **Document Type Definition** ). A DTD defines how documents of a certain type should be structured (i.e. a `button` can contain a `span` but not a `div`), whereas a DOCTYPE declares what DTD a document supposedly respects (i.e. this document respects the HTML DTD). For webpages, the DOCTYPE declaration is required. It is used to tell user agents what version of the HTML specifications your document respects.
-
-Once a user agent has recognized a correct DOCTYPE, it will trigger the `no-quirks mode` matching this DOCTYPE forreading the document. If a user agent doesn't recognize a correct DOCTYPE, it will trigger the `quirks mode`.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What happens when DOCTYPE is not given?
-
-The web page is rendered in quirks mode. The web browsers engines use quirks mode to support older browsers which does not follow the **W3C specifications**. In quirks mode CSS class and id names are case insensitive. In standards mode they are case sensitive.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are the new form elements in HTML5?
-
-There are five new form elements in the HTML5 forms specification: `<datalist>`, `<output>`, `<progress>`, and `<meter>`.
-
-### **1. Datalist Tag**
-
-Allows to attach a list of suggestions to a text input element. As soon as the user begins to type in the text field, the list of suggestions appears and the user can choose from the suggestions with the mouse.
-
-```html
-<p>Enter your favorite browser name:</p>
-<input type="text" list="browsers" name="favorite_browser" />
-<datalist id="browsers">
-  <option value="Firefox"></option>
-  <option value="Chrome"></option>
-  <option value="Internet Explorer"></option>
-  <option value="Opera"></option>
-  <option value="Safari"></option>
-</datalist>
-```
-
-### **2. Meter Tag**
-
-Indicates a numeric value that falls within a range. The tag supports a number of attributes:
-value: If you don\'t specify a value, the first numeric value inside the `<meter></meter>` pair becomes the value.
-
-- **max**: The maximum possible value of the item.
-- **min**: The minimum possible value of the item.
-- **high**: If the value can be defined as a range, this is the high end of the range.
-- **low**: If the value can defined as a range, this is the low end of that range.
-- **optimum**: The optimal value of the element.
-
-```html
-<p>Disk Usage: <meter value="0.2">20%</meter></p>
-
-<p>Total Score: <meter value="6" min="0" max="10">6 out of 10</meter></p>
-
-<p>
-  Pollution Level:
-  <meter low="60" high="80" max="100" value="85">Very High</meter>
-</p>
-```
-
-### **3. Output Tag**
-
-It indicates a section of the page that can be modified by a script (usually JavaScript).
-
-```html
-<form oninput="result.value=parseInt(a.value)+parseInt(b.value)">
-  <input type="range" id="a" value="50" /> +
-  <input type="number" id="b" value="100" /> =
-  <output name="result" for="a b"></output>
-</form>
-```
-
-### **4. Progress Tag**
-
-Indicates how much of a task has been completed (often marked as a percentage). It is expected to be modified through JavaScript code.
-
-```html
-<p>
-  Progress: <progress id="bar" value="0" max="100"><span>0</span>%</progress>
-</p>
-
-<script type="text/javascript">
-  var i = 0;
-  var progressBar = document.getElementById("bar");
-
-  function countNumbers() {
-    if (i < 100) {
-      i = i + 1;
-      progressBar.value = i;
-      // For browsers that don't support progress tag
-      progressBar.getElementsByTagName("span")[0].textContent = i;
-    }
-
-    // Wait for sometime before running this script again
-    setTimeout("countNumbers()", 100);
-  }
-  countNumbers();
-</script>
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. How many new form elements are introduced in html5?
-
-| Sl.No | Element        | Description                                                           |
-| ----- | -------------- | --------------------------------------------------------------------- |
-| 01.   | color          | Gives the end user a native color picker to choose a color.           |
-| 02.   | date           | Offers a datepicker.                                                  |
-| 03.   | datetime       | An element to choose both date and time.                              |
-| 04.   | datetime-local | An element to choose both date and time, with local settings support. |
-| 05.   | email          | A field for entering e-mail address(es).                              |
-| 06.   | month          | Choose a full month.                                                  |
-| 07.   | number         | Picking a number.                                                     |
-| 08.   | range          | Offers a slider to set to a certain value/position.                   |
-| 09.   | search         | A field for search queries.                                           |
-| 10.   | tel            | Choosing a telephone number.                                          |
-| 11.   | time           | Input a certain time.                                                 |
-| 12.   | url            | Entering a URL.                                                       |
-| 13.   | week           | Picking a specific week.                                              |
-
-**Example:**
-
-```html
-<input type="color" value="#b97a57" />
-
-<input type="date" value="2020-06-08" />
-
-<input type="datetime" value="2020-06-09T20:35:34.32" />
-
-<input type="datetime-local" value="2020-06-09T22:41" />
-
-<input type="email" value="robert@robertnyman.com" />
-
-<input type="month" value="2020-06" />
-
-<input type="number" value="4" />
-
-<input type="range" value="15" />
-
-<!-- Note: If not set, default attribute values are min="0", max="100", step="1". -->
-
-<input type="search" value="[Any search text]" />
-
-<input type="tel" value="[Any numeric value]" />
-
-<!-- Note: Most web browsers seem to let through any value at this time. -->
-
-<input type="time" value="22:38" />
-
-<input type="url" value="https://www.google.com/" />
-
-<!-- Note: requires a protocol like http://, ftp:// etc in the beginning. -->
-
-<input type="week" value="2020-W24" />
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is difference between `span` tag and `div` tag?
-
-The primary difference between div and span tag is their default behavior. By default, a `<div>` is a **block-level-element** and a `<span>` is an **inline element**.
-
-- `<div>` is a block level element which means it will render it on it\'s own line with a width of a 100% of the parent element.
-- `<span>` is an inline element which means it will render on the same line as the previous element, if it is also an inline element, and it's width will be determined by it\'s content.
-
-```html
-<div>Demo Text, with <span>some other</span> text.</div>
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are optional closing tag?
-
-`<p>, <li>, <td>, <tr>, <th>, <html>, <body>`, etc. don\'t have to provide end tag. Whenever browser hits a new tag it automatically ends the previous tag.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is a self closing tag?
-
-In HTML5 it is not strictly necessary to close certain HTML tags. The tags that aren\'t required to have specific closing tags are called “self closing” tags.
-
-An example of a self closing tag is something like a line break (`<br />`) or the meta tag (`<meta>`). This means that the following are both acceptable:
-
-```html
-<meta charset="UTF-8" />
-...
-<meta charset="UTF-8" />
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain the difference between block elements and inline elements?
-
-- block elements `<h1>, <p>, <ul>, <ol>, <li>`,
-- inline elements `<span>, <a>, <strong>, <i>, <img>`
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are semantic and non-semantic elements?
-
-- **Semantic elements**: clearly describes its meaning to both the browser and the developer.
-  For example: `<form>`, `<table>`, `<article>`, `<aside>`, `<details>`, `<figcaption>`, `<figure>`, `<footer>`, `<header>`, `<main>`, `<mark>`, `<nav>`, `<section>`, `<summary>`, `<time>` clearly defines its content.
-- **Non-semantic elements**: `<div>` and `<span>` tells nothing about its content.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the purpose of `main` element?
-
-The HTML `<main>` element represents the dominant content of the `<body>` of a document. The main content area consists of content that is directly related to or expands upon the central topic of a document, or the central functionality of an application.
-
-```html
-<main role="main">
-  <p>
-    Geckos are a group of usually small, usually nocturnal lizards. They are
-    found on every continent except Australia.
-  </p>
-  <p>
-    Many species of gecko have adhesive toe pads which enable them to climb
-    walls and even windows.
-  </p>
-</main>
-```
-
-_Note: A document mustn\'t have more than one `<main>` element that doesn't have the hidden attribute specified._
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are the semantic meanings for `<section>, <article>, <aside>, <nav>, <header>, <footer>` and how should each be used in structuring html markup?
-
-- `<header>` is used to contain introductory and navigational information about a section of the page. This can include the section heading, the author\'s name, time and date of publication, table of contents, or other navigational information.
-
-- `<article>` is meant to house a self-contained composition that can logically be independently recreated outside of the page without losing it\'s meaining. Individual blog posts or news stories are good examples.
-
-- `<section>` is a flexible container for holding content that shares a common informational theme or purpose.
-
-- `<footer>` is used to hold information that should appear at the end of a section of content and contain additional information about the section. Author\'s name, copyright information, and related links are typical examples of such content.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. When should you use `section`, `div` or `article`?
-
-- `<section>`, group of content inside is related to a single theme, and should appear as an entry in an outline of the page. It\'s a chunk of related content, like a subsection of a long article, a major part of the page (eg the news section on the homepage), or a page in a webapp\'s tabbed interface. A section normally has a heading (title) and maybe a footer too.
-
-- `<article>`, represents a complete, or self-contained, composition in a document, page, application, or site and that is, in principle, independently distributable or reusable, e.g. in syndication. This could be a forum post, a magazine or newspaper article, a blog entry, a user-submitted comment, an interactive widget or gadget, or any other independent item of content.
-
-- `<div>`, on the other hand, does not convey any meaning, aside from any found in its class, lang and title attributes.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Can a web page contain multiple `<header>` elements? What about `<footer>` elements?
-
-Yes, header elements can be used multiple times in documents. A `<header>` tag must be present for all articles, sections, and pages, although a `<footer>` tag is not necessary.
-
-**From W3C standards**
-
-```html
-A header element is intended to usually contain the section's heading (an h1–h6
-element or an hgroup element), but this is not required. The header element can
-also be used to wrap a section's table of contents, a search form, or any
-relevant logos.
-```
-
-```html
-The footer element represents a footer for its nearest ancestor sectioning
-content or sectioning root element. A footer typically contains information
-about its section such as who wrote it, links to related documents, copyright
-data, and the like.
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is a physical tag and logical tag in HTML?
-
-_ToDo_
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is Character Encoding?
-
-Character encoding is a method of converting bytes into characters. To validate or display an HTML document properly, a program must choose a proper character encoding. This is specified in the tag:
-
-```html
-<meta charset="utf-8" />
-```
-
-- **UTF-8**: A Unicode Translation Format that comes in 8-bit units that is, it comes in bytes. A character in UTF8 can be from 1 to 4 bytes long, making UTF8 variable width.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the purpose of meta tags?
-
-The META elements can be used to include name/value pairs describing properties of the HTML document, such as author, expiry date, a list of keywords, document author etc.
+# Internet and HTML
+
+[DNS](#dns) <br>
+[IP Addresses](#ip-addresses) <br>
+[Understand how the browser works](#understand-how-the-browser-works) <br>
+[Rendering](#rendering) <br>
+[Browsers](#browser) <br>
+[Parsing](#parsing) <br>
+[Rendering](#rendering) <br>
+[HTML](###html) <br>
+[HyperText](#hypertext) <br>
+[Markup](#markup) <br>
+[SEO](#seo) <br>
+[Meta](#meta) <br>
+[HTML Elements](#html-elements) <br>
+[Semantic HTML](#semantic-html) <br>
+[HTML Comment](#html-comment) <br>
+[IDS](#ids)<br>
+[Favicon](#favicon)<br>
+[Resource Hint: dns-prefetch, prefetch, prerender](#resource-hint-dns-prefetch-prefetch-prerender)<br>
+[HTML Input Control Elements](#html-input-control-elements)<br>
+[SVG](#svg)<br>
+[Canvas](#canvas)<br>
+[Marking up computer code](#marking-up-computer-code)<br>
+[Tabindex](#tabindex)<br>
+[Global Attributes](#global-attributes)<br>
+[HTML 5 Cache](#html-5-cache)<br>
+[HTML Event Attributes](#html-event-attributes)<br>
+[HTML Table](#html-table)<br>
+[HTML Form](#html-form)<br>
+[HTML Form Events](##html-form-events)<br>
+[HTML Keyboard Events](##html-keyboard-events)<br>
+[ARIA Attributes](#aria)<br>
+[12 Column Grid Responsive Design or layout](#12-column-grid-responsive-design-or-layout)<br>
+[HTML URL Encode](#html-url-encode)<br>
+[HTML URL Decode](#html-url-decode)<br>
+
+Learn the anatomy of HTML syntax to structure your websites. <br>
+Understand the HTML boilerplate and HTML doctypes. <br>
+How to structure text in HTML. <br>
+How to structure HTML lists to create unordered and ordered lists. <br>
+How to insert images using HTML and how to use the HTML image tag. <br>
+How to create hyperlinks using anchor tags. <br>
+Understand how to use HTML tables for content. <br>
+How to use tables for layout. <br>
+Learn HTML best practices. <br>
+Understand about HTML forms and create a simple contact me form. <br>
+HTML Divs and how to separate content for CSS styling and JavaScript. <br>
+
+### HTML
+
+- Best Practice - URL=https://htmlcheatsheet.com/
+- https://htmlcheatsheet.com/
+- https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf
+- https://docs.emmet.io/cheat-sheet/
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form
+- https://codepen.io/
+- https://archive.org/web/
+- https://www.fileformat.info/info/charset/UTF-8/list.htm
+- https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
+
+# What is HTML?
+
+- stands for HyperText Markup Language
+- is a markup language used to create web pages
+- describes the structure of a Web page
+- is composed of HTML elements
+- is not case sensitive
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
-    <!--Recommended Meta Tags-->
-    <meta charset="utf-8" />
-    <meta name="language" content="english" />
-    <meta http-equiv="content-type" content="text/html" />
-    <meta name="author" content="Author Name" />
-    <meta name="designer" content="Designer Name" />
-    <meta name="publisher" content="Publisher Name" />
-    <meta name="no-email-collection" content="name@email.com" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <!--Search Engine Optimization Meta Tags-->
-    <meta name="description" content="Project Description" />
-    <meta
-      name="keywords"
-      content="Software Engineer,Product Manager,Project Manager,Data Scientist"
-    />
-    <meta name="robots" content="index,follow" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="distribution" content="web" />
-    <meta name="robots" content="noodp" />
-
-    <!--Optional Meta Tags-->
-    <meta name="distribution" content="web" />
-    <meta name="web_author" content="" />
-    <meta name="rating" content="" />
-    <meta name="subject" content="Personal" />
-    <meta name="title" content=" - Official Website." />
-    <meta name="copyright" content="Copyright 2020" />
-    <meta name="reply-to" content="" />
-    <meta name="abstract" content="" />
-    <meta name="city" content="Bangalore" />
-    <meta name="country" content="INDIA" />
-    <meta name="distribution" content="" />
-    <meta name="classification" content="" />
-
-    <!--Meta Tags for HTML pages on Mobile-->
-    <meta name="format-detection" content="telephone=yes" />
-    <meta name="HandheldFriendly" content="true" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-
-    <!--http-equiv Tags-->
-    <meta http-equiv="Content-Style-Type" content="text/css" />
-    <meta http-equiv="Content-Script-Type" content="text/javascript" />
-
-    <title>HTML5 Meta Tags</title>
+    <title>Page Title</title>
   </head>
   <body>
-    ...
+    <p>lorem ipsum</p>
   </body>
 </html>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# HyperText
 
-## Q. What does async and defer refer in script tag?
-
-**1. Async:**
-
-Downloads the script file during HTML parsing and will pause the HTML parser to execute it when it has finished downloading.
-
-**Example:**
+- a text that is displayed on a computer or other electronic device with references (hyperlinks) to other text that the reader can immediately access.
 
 ```html
-<!-- 
-    With async (asynchronous), browser will continue to load the HTML 
-    page and render it while the browser load and execute the script at the same time. 
--->
-<!-- Google Analytics is usually added like this -->
-<script async src="https://google-analytics.com/analytics.js"></script>
+<a href="https://www.w3schools.com">This is a link</a>
 ```
 
-**2. Defer:**
+# Markup
 
-Defer downloads the script file during HTML parsing and will only execute it after the HTML parser has completed. Not all browsers support this.
-
-**Example:**
+- A markup language is a computer language that defines the structure and presentation of raw text.
+- Markup languages are used to annotate a document in a way that is syntactically distinguishable from the text, and can assign semantic meaning to the text.
 
 ```html
-<!-- 
-    With defer, browser will run your script when the page finished parsing. 
-    (not necessary finishing downloading all image files. This is good.) 
--->
-<script defer src="myscript.js"></script>
+<p>This is a paragraph.</p>
 ```
 
-The async attribute is used to indicate to the browser that the script file can be executed asynchronously. The HTML parser does not need to pause at the point it reaches the script tag to fetch and execute, the execution can happen whenever the script becomes ready after being fetched in parallel with the document parsing.
+# HTML Elements
 
-The defer attribute tells the browser to only execute the script file once the HTML document has been fully parsed.
-
-**Example:**
+- a tag and content between the tags is called an HTML element
+- a unit of content in an HTML document formed by a start tag, some content, and an end tag
+- HTML elements are the building blocks of HTML pages
+- HTML elements tell the browser how to display the content
 
 ```html
-<!-- 
-    Without async or defer, browser will run your script immediately, 
-    before rendering the elements. 
--->
-<script src="myscript.js"></script>
+<p>This is a paragraph</p>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# Foundation of HTML Elements
 
-## Q. Describe the difference between a cookie, sessionStorage and localStorage?
+- tags
+- attributes
+- content
 
-**1. cookie:** A text file saved on the users computer to store and retrieve data
+# Structure of an HTML Document
 
-**2. sessionStorage:** Is memory space in a browser to save temporary data until the window or tab is closed.
-
-**3. localStorage:** Like cookie, where data can be saved and retrieved after browser sessions, but stored in memory like sessionStorage. Data is stored as plain key value pairs and can be stored as Json objects.
-
-|                                        | `cookie`                                                 | `localStorage` | `sessionStorage` |
-| -------------------------------------- | -------------------------------------------------------- | -------------- | ---------------- |
-| Initiator                              | Client or server. Server can use `Set-Cookie` header     | Client         | Client           |
-| Expiry                                 | Manually set                                             | Forever        | On tab close     |
-| Persistent across browser sessions     | Depends on whether expiration is set                     | Yes            | No               |
-| Sent to server with every HTTP request | Cookies are automatically being sent via `Cookie` header | No             | No               |
-| Capacity (per domain)                  | 4kb                                                      | 5MB            | 5MB              |
-| Accessibility                          | Any window                                               | Any window     | Same tab         |
-
-_Note: If the user decides to clear browsing data via whatever mechanism provided by the browser, this will clear out any `cookie`, `localStorage`, or `sessionStorage` stored. It\'s important to keep this in mind when designing for local persistance, especially when comparing to alternatives such as server side storing in a database or similar (which of course will persist despite user actions)._
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Does localStorage throw error after reaches maximum limits?
-
-Yes
-
-_Example:_
+- Html is organized as a collection of family tree relationships.
+- if an element is inside another element, it is a child of that element. The child element is nested inside of the parent element.
+- the relationship between elements and their children is called the DOM (Document Object Model).
+- the relationship between elements and their ancestors and descendant elements is known as hierarchical relationships or parent-child relationships.
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HTML5 localStorage</title>
+    <title>My First HTML Page</title>
   </head>
   <body>
-    <script type="text/javascript">
-      try {
-        if (window.localStorage) {
-          // Check if the localStorage object exists
-
-          var result = "";
-          var characters =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-          var charactersLength = characters.length;
-          for (var i = 0; i < 10000; i++) {
-            result += characters.charAt(
-              Math.floor(Math.random() * charactersLength)
-            );
-            localStorage.setItem("key" + i, result);
-          }
-        } else {
-          alert("Sorry, your browser do not support localStorage.");
-        }
-      } catch (e) {
-        console.log("Exception: " + e);
-      }
-    </script>
+    <h1>This is my first HTML page</h1>
+    <p>This is my first paragraph.</p>
   </body>
 </html>
 ```
 
-Output
+# HTML Comment - HTML comments are used to add a description to the HTML
 
-```js
-Exception: QuotaExceededError: Failed to execute 'setItem' on 'Storage':
-           Setting the value of 'key3230' exceeded the quota.
-```
+code - HTML comments are not displayed on the page, but they are read by the
+browser -
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+<!---->
 
-## Q. Why to use IndexedDB instead of WebSQL in HTML5?
+# Tags - the HTML element name, surrounded by opening and closing angle brackets
 
-### **1. WebSQL**
-
-It is an API that is only supported in Chrome and Safari (and Android and iOS by extension). It provides an asynchronous, transactional interface to SQLite. Since 2010, it has been deprecated in favor of IndexedDB.
-
-**Advantages**
-
-- Supported on major mobile browsers (Android Browser, Mobile Safari, Opera Mobile) as well as several desktop browsers (Chrome, Safari, Opera).
-- Good performance generally, being an asynchronous API. Database interaction won't lock up the user interface. (Synchronous API is also available for WebWorkers.)
-- Good search performance, since data can be indexed according to search keys.
-- Robust, since it supports a transactional database model.
-- Easier to maintain integrity of data, due to rigid data structure.
-
-**Disadvantages**
-
-- Deprecated. Will not be supported on IE or Firefox, and will probably be phased out from the other browsers at some stage.
-- Steep learning curve, requiring knowledge of relational databases and SQL.
-- Suffers from object-relational impedance mismatch.
-- Diminishes agility, as database schema must be defined upfront, with all records in a table matching the same structure.
-
-### **2. IndexedDB**
-
-It is the successor to both LocalStorage and WebSQL, designed to replace them as the “one true” browser database. It exposes an asynchronous API that supposedly avoids blocking the DOM, but as we\'ll see below, it doesn\'t necessarily live up to the hype. Browser support is extremely spotty, with only Chrome and Firefox having fully usable implementations.
-
-**Advantages**
-
-- Good performance generally, being an asynchronous API. Database interaction won't lock up the user interface. (Synchronous API is also available for WebWorkers.)
-- Good search performance, since data can be indexed according to search keys.
-- Supports versioning.
-- Robust, since it supports a transactional database model.
-- Fairly easy learning curve, due to a simple data model.
-- Decent browser support: Chrome, Firefox, mobile FF, IE10.
-
-**Disadvantages**
-
-- Very complex API resulting in large amounts of nested callbacks.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain Application Cache in HTML5. OR What is a manifest file in HTML?
-
-HTML5 provides an application caching mechanism that lets web-based applications run offline. Developers can use the Application Cache (AppCache) interface to specify resources that the browser should cache and make available to offline users. Applications that are cached load and work correctly even if users click the refresh button when they are offline.
-
-Using an application cache gives an application the following benefits:
-
-- **Offline browsing**: users can navigate a site even when they are offline.
-- **Speed**: cached resources are local, and therefore load faster.
-- **Reduced server load**: the browser only downloads resources that have changed from the server.
-
-Syntax:
+- tags are used to create HTML elements - tags are always surrounded by a start
+  and end tag
 
 ```html
-<html manifest="example.appcache">
-  ...
-</html>
+<p>This is a paragraph</p>
 ```
 
-_Note: Using the application caching feature described here is at this point highly discouraged; it\'s in the process of being removed from the Web platform. Use **Service Workers** instead. In fact as of Firefox 44, when AppCache is used to provide offline support for a page a warning message is now displayed in the console advising developers to use Service workers instead (bug 1204581)._
+# Opening Tag
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the purpose of cache busting and how can you achieve it?
-
-Browsers have a cache to temporarily store files on websites so they don\'t need to be re-downloaded again when switching between pages or reloading the same page. The server is set up to send headers that tell the browser to store the file for a given amount of time. This greatly increases website speed and preserves bandwidth.
-
-However, it can cause problems when the website has been changed by developers because the user's cache still references old files. This can either leave them with old functionality or break a website if the cached CSS and JavaScript files are referencing elements that no longer exist, have moved or have been renamed.
-
-**Cache busting** is the process of forcing the browser to download the new files. This is done by naming the file something different to the old file.
-
-A common technique to force the browser to re-download the file is to append a query string to the end of the file.
+- first html tag used to start an element
 
 ```html
-<!-- src="js/script.js" => src="js/script.js?v=2" -->
-<script src="js/script.js?v=2"></script>
+<p></p>
 ```
 
-The browser considers it a different file but prevents the need to change the file name.
+# Content
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What ARIA and screenreaders are, and how to make a website accessible?
-
-Screen readers are software programs that provide assistive technologies that allow people with disabilities (such as no sight, sound or mouse-ing ability) to use web applications. You can make your sites more accessible by following ARIA standards such as semantic HTML, alt attributes and using [role=button] in the expected ways
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. How to use data- attribute in html5
-
-_ToDo_
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the purpose of the `alt` attribute on images?
-
-The `alt` attribute provides alternative information for an image if a user cannot view it. The `alt` attribute should be used to describe any images except those which only serve a decorative purposes, in which case it should be left empty.
+- the information between the start and end tag
+- content is the text that is displayed within the HTML element
 
 ```html
-<img src="pancakes.png" alt="Stack of blueberry pancakes with powdered sugar" />
+<p>This is a paragraph</p>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# Closing Tag
 
-## Q. What does `enctype='multipart/form-data'` mean?
+- the second html tag used to end an element
+- have a forward slash before the tag name
 
-The enctype attribute specifies how the form-data should be encoded when submitting it to the server.
+````html
+```html
+<p></p>
+````
 
-_Example:_ 01
+# HTML Attributes
+
+- attributes specify the HTML element's properties
+- attributes are specified within the opening tag
+- attributes are separated from the tag by an equals sign (=)
+- made up of two parts: a name and a value, separated by an equals sign
+- the value is placed inside double quotes
 
 ```html
-<form action="fileupload.php" method="post" enctype="multipart/form-data">
-  <p>Please select the file you would like to upload.</p>
-  <input type="file" name="upload" />
-  <br />
-  <input type="submit" value="Upload File" />
-</form>
+<p style="color: red;">This is a paragraph</p>
 ```
 
-_Example:_ 02
+| Attribute | Description                                                                                                 |
+| --------- | ----------------------------------------------------------------------------------------------------------- |
+| id        | Specifies a unique id for an HTML element (the value must be unique within the HTML document)               |
+| class     | Specifies one or more class names for an HTML element (refers to a class in a style sheet)                  |
+| style     | Specifies an inline CSS style for an HTML element                                                           |
+| title     | Specifies extra information about an element (displayed as a tooltip when the mouse moves over the element) |
+
+# Semantic HTML
+
+- relating to meaning in language or logic
+- semantic elements clearly describes its meaning to the developer and browser
+- Semantic HTML elements are easy to read and understand
+- address element indicates that the content is a contact information
+
+| Semantic Element | Description                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------- |
+| address          | Specifies contact information for the author/owner of a document or an article              |
+| article          | Specifies independent, self-contained content                                               |
+| aside            | Specifies content aside from the page content                                               |
+| details          | Specifies additional details that the user can view or hide                                 |
+| dialog           | Specifies a dialog box or window                                                            |
+| figcaption       | Specifies a caption for a figure element                                                    |
+| figure           | Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc. |
+| footer           | Specifies a footer for a document or section                                                |
+| header           | Specifies a header for a document or section                                                |
+| main             | Specifies the main content of a document                                                    |
+| mark             | Specifies marked/highlighted text                                                           |
+| menuitem         | Defines a command/menu item that the user can invoke from a popup menu                      |
+| nav              | Specifies navigation links                                                                  |
+| section          | Specifies a section in a document                                                           |
+| summary          | Defines a visible heading for a details element                                             |
+
+Q. Why is Semantic HTML important?
+
+- Accessibility: screen readers can use semantic HTML to determine the structure of a page
+- SEO: search engines can use semantic HTML to determine the structure of a page
+- Readability: semantic HTML is easier to read and understand
+
+* For indexing the structure and content of your web pages, search engines use semantic HTML and HTML elements that are meaningful.
+
+# SEO
+
+# What is SEO?
+
+- Search Engine Optimization
+- Search Engine Optimization is the process of making sure that your website is indexed by search engines and that it is displayed on the top of search results.
+- process of optimizing the content of a website for search engines
+
+# DOCTYPE - Declaration of the Document Type
+
+- instruction to the web browser what type of document to expect, along with the version of HTML the page is written in.
+- is used to inform the browser about the type of document or whether the page is following the HTML5 specification or not
+- defines the type of document
+
+# head
+
+- part of HTML metahor
+- contains the machine-readable tags that define the structure of the document like the title, the author, the description, the keywords, the stylesheets, the scripts, etc.
+- contains meta, link, script, and style elements, and the title element
+
+# meta
+
+- defines metadata about the document (e.g. author, description, keywords)
+- meta elements are used to specify the content type of the document
+- not displayed on the page, but they are read by the browser, search engines, and other web browsers or services
+
+1. Character sets and encodings
+
+- meta charset="utf-8":
+- An HTML attribute that defines the character encoding for your browser to use when displaying the website content.
+- UTF-8 is the most common character encoding, which is used in the HTML5 specification
+
+## Why is character encoding important?
+
+- Most websites these days have to display characters that are not traditional ASCII characters.
+- When receiving such characters in an HTML source, browsers should be able to handle those properly.
+
+## Various Character Encodings
+
+HTML Standards has listed many encodings along with UTF-8 with reference to "Encoding Standards."
+
+Examples:
+
+❍ UTF-8
+❍ ISO-8859-2
+❍ windows-1251
+❍ windows-1252
+❍ GBK
+❍ UTF-16BE
+
+Find the full list:
+https://encoding.spec.whatwg.org/#names-and-labels
+
+## Why should we use UTF-8?
+
+⬘ The HTML5 specification encourages web developers to use the UTF-8 character set.
+⬙ Why? Because it covers almost all of the characters and symbols in the world.
+
+2. keywords for SEO
 
 ```html
-<form
-  action="/urlencoded?token=A87412B"
-  method="POST"
-  enctype="application/x-www-form-urlencoded"
->
-  <input type="text" name="username" value="" />
-  <input type="text" name="password" value="" />
-  <input type="submit" value="Submit" />
-</form>
+<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />
 ```
 
-_Example:_ 03
+3. description for SEO
 
 ```html
-<form action="action.do" method="get" enctype="text/plain">
-  Name: <input type="text" name="name" /> Phone:
-  <input type="number" name="phone" />
-  <input type="submit" value="Submit" />
-</form>
+<meta name="description" content="This is my first HTML page" />
 ```
 
-| Sl.No | Value                             | Description                                                                                                                                     |
-| ----- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| 01.   | application/x-www-form-urlencoded | Default. All characters are encoded before sent (spaces are converted to "+" symbols, and special characters are converted to ASCII HEX values) |
-| 02.   | multipart/form-data               | No characters are encoded. This value is required when you are using forms that have a file upload control                                      |
-| 03.   | text/plain                        | Spaces are converted to "+" symbols, but no special characters are encoded                                                                      |
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is difference between Select and Datalist?
-
-For the select element, the user is required to select one of the options you\'ve given. For the datalist element, it is suggested that the user select one of the options you\'ve given, but he can actually enter anything he wants in the input.
-
-### **Select**
+4. author for SEO
 
 ```html
-<select name="browser">
-  <option value="firefox">Firefox</option>
-  <option value="ie">IE</option>
-  <option value="chrome">Chrome</option>
-  <option value="opera">Opera</option>
-  <option value="safari">Safari</option>
-</select>
+<meta name="author" content="Bishal Karki" />
 ```
 
-### **Datalist**
+5. viewport for SEO and different devices support or responsive design
 
 ```html
-<input type="text" list="browsers" />
-<datalist id="browsers">
-  <option value="Firefox"></option>
-  <option value="IE"></option>
-  <option value="Chrome"></option>
-  <option value="Opera"></option>
-  <option value="Safari"></option>
-</datalist>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /> //
+width=device-width means that the page will be displayed in the same width as
+the device width // initial-scale=1.0 means that the page will be displayed in
+100% of the width of the device
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain some of the pros and cons for CSS animations versus JavaScript animations?
-
-Regarding optimization and responsiveness the debate bounces back and forth but, the concept is:
-
-- CSS animations allows the browser to choose where the animation processing is done, CPU or the GPU. (Central or Graphics Processing Unit)
-
-- That said, adding many layers to a document will eventually have a performance hit.
-
-- JS animation means more code for the user to download and for the developer to maintain.
-
-- Applying multiple animation types on an element is harder with CSS since all transforming power is in one property transform
-
-- CSS animations being declarative are not programmable therefore limited in capability.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What does CORS stand for and what issue does it address?
-
-Cross-Origin Resource Sharing (CORS) is a W3C spec that allows cross-domain communication from the browser. By building on top of the XMLHttpRequest object, CORS allows developers to work with the same idioms as same-domain requests. CORS gives web servers cross-domain access controls, which enable secure cross-domain data transfers.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Can you describe the difference between progressive enhancement and graceful degradation?
-
-- Graceful degradation is when you initially serve the best possible user experience, with all modern functionality, but use feature detection to “gracefully degrade” parts of your application with a fallback or polyfill.
-
-- Progressive enhancement ensures a page works at the lowest expected abilities of browsers. So if you have a JavaScript web application that enhances a persons ability to send information to a database with features like ajax – at the very least you need to provide the ability for a person to send that same information without JavaScript enabled. In this case a simple form with full-page refresh will do what you need.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the DOM? How does the DOM work?
-
-The DOM (Document Object Model) is a cross-platform API that treats HTML documents as a tree structure consisting of nodes. These nodes (such as elements and text nodes) are objects that can be programmatically manipulated and any visible changes made to them are reflected live in the document. In a browser, this API is available to JavaScript where DOM nodes can be manipulated to change their styles, contents, placement in the document, or interacted with through event listeners.
-
-- The DOM was designed to be independent of any particular programming language, making the structural representation of the document available from a single, consistent API.
-
-- document.getElementById() and document.querySelector() are common functions for selecting DOM nodes.
-
-- Setting the innerHTML property to a new value runs the string through the HTML parser, offering an easy way to append dynamic HTML content to a node.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. How does the browser rendering engine work?
-
-In order to render content the browser has to go through a series of steps:
-
-- Document Object Model(DOM)
-- CSS object model(CSSOM)
-- Render Tree
-- Layout
-- Paint
-
-<p align="center">
-    <img src="assets/images/layers.png" alt="Browser Rendering Engine" />
-</p>
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the difference between standards mode and quirks mode?
-
-In **Quirks mode**, layout emulates nonstandard behavior in Navigator 4 and Internet Explorer 5. This is essential in order to support websites that were built before the widespread adoption of web standards. In **Standards mode**, the behavior is described by the HTML and CSS specifications.
-
-For HTML documents, browsers use a `<!DOCTYPE html>` in the beginning of the document to decide whether to handle it in quirks mode or standards mode.
+6. page refresh for SEO after certain time
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World!</title>
-  </head>
-  <body></body>
-</html>
+<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is Critical Rendering Path?
-
-- Constructing the DOM Tree
-- Constructing the CSSOM Tree
-- Running JavaScript - parser blocking resource
-- Creating the Render Tree
-- Generating the Layout
-- Painting
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are the Benefits of Server Side Rendering (SSR) Over Client Side Rendering (CSR)?
-
-- We are using server side rendering for two reasons:
-
-  - performance benefit for our customers
-  - Consistent SEO performance
-
-- The main difference is that for SSR your server\'s response to the browser is the HTML of your page that is ready to be rendered, while for CSR the browser gets a pretty empty document with links to your javascript. That means for SSR your browser will start rendering the HTML from your server without having to wait for all the JavaScript to be downloaded and executed.
-- for SSR, the user can start viewing the page while all of that is happening. For the CSR world, you need to wait for all of the above to happen and then have the virtual dom moved to the browser dom for the page to be viewable.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Name 3 ways to decrease page load?
-
-1. LocalStorage
-1. Caching resources
-1. DNS-prefetch (sample below)
-1. Keep resources on a CDN
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Ways to improve website performance
-
-- Minimize HTTP Requests
-
-  - Sites are mainly slow because of too many (or too large) HTTP requests. We can eliminate unnecessary request;
-    - combined files: js to a file, css to a file
-    - CSS sprites: CSS Sprites are the preferred method for reducing the number of image requests. Combine your background images into a single image and use the CSS background-image and background-position properties to display the desired image segment.
-
-- Use a Content Delivery Network CDN
-
-  - A CDN is essentially many optimized servers around the world that deliver web content to users based on their geographic location. This means big performance improvements for site users. Because, say, if a person accessing your site in India, they will be retrieving web content from a server nearby
-
-- Optimize Images:
-
-  - image sizes make a huge difference to site speed. The larger content/images, the slower the site. we could:
-    - Changing the resolution: reducing the “quality” of the image (and thereby the file size)
-    - Compressing the picture: increasing the efficiency of image data storage
-    - Cropping the picture: when cropping, you are cutting out unneeded areas and thus making the image smaller in size
-
-- Put Scripts at the Bottom:
-
-  - Javascript files can load after the rest of your page. The simplest solution is to place your external Javascript files at the bottom of your page, just before the close of your body tag. Now more of your site can load before your scripts. Another method that allows even more control is to use the defer or async attributes when placing external .js files on your site.
-
-    - Async tags load the scripts while the rest of the page loads, but this means scripts can be loaded out of order. Basically, lighter files load first. This might be fine for some scripts, but can be disastrous for others.
-
-    - The defer attribute loads your scripts after your content has finished loading. It also runs the scripts in order. Just make sure your scripts run so late without breaking your site.
-
-- Add an Expires or a Cache-Control Header
-
-  - Web page designs are getting richer and richer, which means more scripts, stylesheets, images, and Flash in the page. A first-time visitor to your page may have to make several HTTP requests, but by using the Expires header you make those components cacheable. This avoids unnecessary HTTP requests on subsequent page views. Expires headers are most often used with images, but they should be used on all components including scripts, stylesheets, and Flash components.
-
-- Gzip Components
-
-  - Compression reduces response times by reducing the size of the HTTP response. Gzipping generally reduces the response size by about 70%.
-
-- Put Stylesheets at the Top:
-
-  - This is because putting stylesheets in the HEAD allows the page to render progressively.
-
-- Avoid CSS Expressions
-
-- Use GET for AJAX Requests:
-
-  - Ajax is that it provides instantaneous feedback to the user because it requests information asynchronously from the backend web server
-
-- Make JavaScript and CSS External:
-
-  - Using external files in the real world generally produces faster pages because the JavaScript and CSS files are cached by the browser. JavaScript and CSS that are inlined in HTML documents get downloaded every time the HTML document is requested. This reduces the number of HTTP requests that are needed, but increases the size of the HTML document. On the other hand, if the JavaScript and CSS are in external files cached by the browser, the size of the HTML document is reduced without increasing the number of HTTP requests.
-
-- Use get to ajax request:
-
-  - POST is implemented in the browsers as a two-step process: sending the headers first, then sending data. So it's best to use GET, which only takes one TCP packet to send (unless you have a lot of cookies).
-
-- No 404s:
-
-  - HTTP requests are expensive so making an HTTP request and getting a useless response (i.e. 404 Not Found) is totally unnecessary and will slow down the user experience without any benefit.
-
-- Reduce Cookie Size:
-
-  - HTTP cookies are used for a variety of reasons such as authentication and personalization. Information about cookies is exchanged in the HTTP headers between web servers and browsers. It's important to keep the size of cookies as low as possible to minimize the impact on the user's response time.
-
-- Reduce DNS Lookups
-- Minify JavaScript and CSS
-- Avoid Redirects
-- Remove Duplicate Scripts
-- Configure Etags
-- Make Ajax Cacheable
-- Post-load Components
-- Preload Components
-- Reduce the Number of DOM Elements
-- Minimize the Number of iframes
-- Minimize DOM Access
-- Optimize CSS Sprites
-- Don't Scale Images in HTML
-- Make favicon.ico Small and Cacheable
-- Avoid Empty Image src
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Comparison of browsers engines like Chrome, Firefox, Internet explorer, Safari?
-
-- Chrome:
-
-  - Layout rendering engine **Webkit**.
-  - JavaScript engine **V8**
-
-- Firefox:
-  - Layout rendering engine **Gecko**.
-  - JavaScript engine **Spider monkey**
-- Internet explorer:
-  - Layout rendering engine **Trident**.
-  - JavaScript engine **Chakra**
-- Safari:
-  - Layout rendering engine **Webkit**.
-  - JavaScript engine JavascriptCore i.e **Nitro**
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What does the lang attribute in html do?
-
-- Helps in styling pages by using them in css `:lang()` pseudo class Spelling and grammar checkers Languade detection by search engines
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is desktop first and mobile first design approach?
-
-- Desktop first :
-  General selectors and styles designed to make the site look good on DESKTOP screens defined globally. But they affect all devices, and must be overridden by max-width media queries targeting minimum screen size
-
-- Mobile First :
-  General selectors and styles designed to make the site look good on small MOBILE screens go here. But they affect all devices, and must be overridden by min-width media queries targeting maximum scrren size
-  In desktop first approach the media queries will be written with respect to max-width whereas in mobile first approach media queries will be written with respect to min-width
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What are `data-` attributes good for?
-
-- The HTML5 data attribute lets you assign custom data to an element. When we want to store more information/data about the element when no suitable HTML5 element or attribute exists
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain the difference between layout, painting and compositing?
-
-<img src="lib/img/frame-full.jpg" alt="Browser Engine" />
-
-- **JavaScript**: Typically JavaScript is used to handle work that will result in visual changes, whether it\'s jQuery\'s animate function, sorting a data set, or adding DOM elements to the page. It doesn\'t have to be JavaScript that triggers a visual change, though: CSS Animations, Transitions, and the Web Animations API are also commonly used.
-
-- **Style calculations**: This is the process of figuring out which CSS rules apply to which elements based on matching selectors, for example, .headline or .nav > .nav\_\_item. From there, once rules are known, they are applied and the final styles for each element are calculated.
-
-- **Layout**: Once the browser knows which rules apply to an element it can begin to calculate how much space it takes up and where it is on screen. The web\'s layout model means that one element can affect others, for example the width of the `<body>` element typically affects its children\'s widths and so on all the way up and down the tree, so the process can be quite involved for the browser.
-
-- **Paint**: Painting is the process of filling in pixels. It involves drawing out text, colors, images, borders, and shadows, essentially every visual part of the elements. The drawing is typically done onto multiple surfaces, often called layers.
-
-- **Compositing**: Since the parts of the page were drawn into potentially multiple layers they need to be drawn to the screen in the correct order so that the page renders correctly. This is especially important for elements that overlap another, since a mistake could result in one element appearing over the top of another incorrectly.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain about HTML Layout Engines used by browsers?
-
-| Engine   | Status       | Embedded in                                                                          |
-| -------- | ------------ | ------------------------------------------------------------------------------------ |
-| WebKit   | Active       | Safari browser, plus all browsers hosted on the iOS App Store                        |
-| Blink    | Active       | Google Chrome and all other Chromium-based browsers like Opera and Microsoft Edge    |
-| Gecko    | Active       | Firefox browser and Thunderbird email client, plus forks like SeaMonkey and Waterfox |
-| KHTML    | Discontinued | Konqueror browser                                                                    |
-| Presto   | Discontinued | formerly in the Opera browser                                                        |
-| EdgeHTML | Discontinued | formerly in the Microsoft Edge browser                                               |
-| Trident  | Discontinued | Internet Explorer browser and Microsoft Outlook email client                         |
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. How to make page responsive?
-
-Responsive Web Design is about using HTML and CSS to automatically resize, hide, shrink, or enlarge, a website, to make it look good on all devices (desktops, tablets, and phones).
-
-### **1. Setting the viewport**
+7. robots for SEO
+
+```html
+<meta name="robots" content="index,follow noindex" /> // index,follow
+```
+
+| Value/Directive                        | Description                                                                                                                   |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| index                                  | tells search engines to index this page                                                                                       |
+| all                                    | default value or tells search engines to index this page                                                                      |
+| follow                                 | tells search engines to follow links on this page                                                                             |
+| nofollow                               | tells search engines to not follow links on this page                                                                         |
+| none                                   | tells search engines to not index this page                                                                                   |
+| noindex                                | tells search engines to not follow links on this page                                                                         |
+| noarchive                              | tells search engines to not archive this page                                                                                 |
+| nosnippet                              | tells search engines to not display a snippet of this page                                                                    |
+| noodp                                  | tells search engines to not use the Open Directory Project                                                                    |
+| notranslate                            | tells search engines to not translate this page                                                                               |
+| nocache                                | tells search engines to not cache this page                                                                                   |
+| noimageindex                           | tells search engines to not index images on this page                                                                         |
+| unavailabl                             | tells search engines to mark this page as unavailable                                                                         |
+| unavailableafter                       | tells search engines to mark this page as unavailable after                                                                   |
+| unavailable_after [RFC--850-date/time] | Do not show this page in search results after the specified date/time. The date/time must be specified in the RFC 850 format. |
+
+8. Social Media Meta Tags for SEO
+
+```html
+<!-- The style to be used for this article -->
+<meta property="fb:article_style" content="myarticlestyle" /> //facebook
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@site_account" />
+<meta name="twitter:creator" content="@individual_account" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@site_account" />
+<meta name="twitter:creator" content="@individual_account" />
+<meta name="twitter:url" content="https://example.com/page.html" />
+<meta name="twitter:title" content="Content Title" />
+<meta
+  name="twitter:description"
+  content="Content description less than 200 characters"
+/>
+<meta name="twitter:image" content="https://example.com/image.jpg" />
+<!-- Google+ / Schema.org -->
+<link href="https://plus.google.com/+YourPage" rel="publisher" />
+<meta itemprop="name" content="Content Title" />
+<meta
+  itemprop="description"
+  content="Content description less than 200 characters"
+/>
+<meta itemprop="image" content="https://example.com/image.jpg" />
+```
+
+3. Mobile Layout for SEO
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 ```
 
-### **2. Responsive Images**
+| Attributes    | Description                                                                             |
+| ------------- | --------------------------------------------------------------------------------------- |
+| width         | The width of the viewport in device-independent pixels.                                 |
+| initial-scale | The initial scale of the viewport.                                                      |
+| shrink-to-fit | If true, the viewport width is dynamically determined based on the width of the device. |
+| user-scalable | If true, the viewport width is dynamically determined based on the width of the device. |
+| minimum-scale | The minimum scale of the viewport.                                                      |
+| maximum-scale | The maximum scale of the viewport.                                                      |
 
-If the CSS width property is set to 100%, the image will be responsive and scale up and down
-
-```html
-<img src="img.png" style="width:100%;" />
-```
-
-### **3. Show different Images depending on Browser Width**
-
-The HTML `<picture>` element allows you to define different images for different browser window sizes.
-
-```html
-<picture>
-  <source srcset="img_small.jpg" media="(max-width: 600px)" />
-  <source srcset="img_large.jpg" media="(max-width: 1500px)" />
-  <source srcset="img.jpg" />
-  <img src="img_small.jpg" alt="Image" />
-</picture>
-```
-
-### **4. Responsive Text Size**
-
-The text size can be set with a "vw" unit, which means the "viewport width". That way the text size will follow the size of the browser window.
+4. Automatic Refresh for SEO
 
 ```html
-<h1 style="font-size:10vw">Hello World</h1>
+<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
 ```
 
-### **5. Media Queries**
+5. Phone Number for SEO
 
-Using media queries you can define completely different styles for different browser sizes.
+```html
+<meta name="phone" content="+1-800-555-1234" />
+```
 
-```css
-/* Use a media query to add a breakpoint at 800px: */
-@media screen and (max-width: 800px) {
-  .left,
-  .main,
-  .right {
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+6. Automatic Redirection for SEO
+
+```html
+<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
+```
+
+7. Web App
+
+```html
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-title" content="Web App Title" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="black" />
+```
+
+8. content-type for SEO
+
+- Allow the webserver to include the Content-Type header in the response coming to the browser.
+- Content-Type: text/html; charset=utf-8
+
+8. http-equiv metadata
+
+- Set content for
+
+```html
+<meta http-equiv="Content-Type" in HTML.
+```
+
+- When present, it must be inside the head element near the top of the document.
+- meta http-equiv="Content-Type"
+  content="text/html; charset=utf-8">
+
+  9. BOM
+
+- BOM (Byte-Order-Mark) is the usage of a special Unicode character U+FEFF.
+- It should be placed within the first 3 bytes of the document.
+
+10. HTML Entities
+
+- A fallback is that HTML has to display all UTF-8 characters properly by using HTML entities.
+
+# head element
+
+- viewport is used to specify the dimensions of the browser window:
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+- link is used to link to other documents:
+
+```html
+<link rel="stylesheet" href="style.css" />
+```
+
+- title is used to define the title of the document:
+
+```html
+<title>My First HTML Page</title>
+```
+
+- style is used to define the style of the document:
+
+```html
+<style>
+  p {
+    color: red;
   }
-}
+</style>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Does the following trigger http request at the time of page load?
+- script is used to define the script of the document:
 
 ```html
-<img src="mypic.jpg" style="visibility: hidden" alt="My photo" />
-
-<div style="display: none;">
-  <img src="mypic.jpg" alt="My photo" />
-</div>
+<script>
+  alert("Hello World!");
+</script>
 ```
 
-- Yes
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. List the API available in HTML5?
-
-### **1. High Resolution Time API**
-
-The High Resolution Time API provides the current time in sub-millisecond resolution and such that it is not subject to system clock skew or adjustments.
-
-It exposes only one method, that belongs to the `window.performance` object, called `now()`. It returns a `DOMHighResTimeStamp` representing the current time in milliseconds. The timestamp is very accurate, with precision to a thousandth of a millisecond, allowing for accurate tests of the performance of our code.
-
-```javascript
-var time = performance.now();
-```
-
-### **2. User Timing API**
-
-It allows us to accurately measure and report the performance of a section of JavaScript code. It deals with two main concepts: mark and measure. The former represents an instant (timestamp), while the latter represents the time elapsed between two marks.
-
-```javascript
-performance.mark("startFoo");
-// A time consuming function
-foo();
-performance.mark("endFoo");
-
-performance.measure("durationFoo", "startFoo", "endFoo");
-```
-
-### **3. Network Information API**
-
-This API belongs to the connection property of the `window.navigator` object. It exposes two read-only properties: `bandwidth` and `metered`. The former is a number representing an estimation of the current bandwidth, while the latter is a Boolean whose value is true if the user\'s connection is subject to limitation and bandwidth usage, and false otherwise.
-
-| Sl.No | API                                | Description                                                                               |
-| ----- | ---------------------------------- | ----------------------------------------------------------------------------------------- |
-| 01.   | navigator.connection.type          | Network Type                                                                              |
-| 02.   | navigator.connection.downlink      | Effective bandwidth estimate ( downlink )                                                 |
-| 03.   | navigator.connection.rtt           | Effective round-trip time estimate ( rtt )                                                |
-| 04.   | navigator.connection.downlinkMax   | Upper bound on the downlink speed of the first network hop ( downlinkMax )                |
-| 05.   | navigator.connection.effectiveType | Effective connection type                                                                 |
-| 06.   | navigator.connection.saveData      | True if the user has requested a reduced data usage mode from the user agent ( saveData ) |
-
-### **4.) Vibration API**
-
-It exposes only one method, `vibrate()`, that belongs to the `window.navigator` object. This method accepts one parameter specifying the duration of the vibration in milliseconds. The parameter can be either an integer or an array of integers. In the second case, it\'s interpreted as alternating vibration times and pauses.
-
-```javascript
-// Vibrate once for 2 seconds
-navigator.vibrate(2000);
-```
-
-### **5.) Battery Status API**
-
-The Battery Status API exposes four properties (`charging`, `chargingTime`, `discharingTime`, and `level`) and four events. The properties specify if the battery is in charge, the seconds remaining until the battery is fully charged, the seconds remaining until the battery is fully discharged, and the current level of the battery. These properties belongs to the `battery` property of the `window.navigator` object.
-
-```javascript
-// Retrieves the percentage of the current level of the device's battery
-var percentageLevel = navigator.battery.level * 100;
-```
-
-### **6.) Page Visibility API**
-
-The Page Visibility API enables us to determine the current visibility state of the page. The Page Visibility API is especially useful for saving resources and improving performance by letting a page avoid performing unnecessary tasks when the document isn\'t visible.
-
-```javascript
-//document.hidden retuns true if page is not visible.
-console.log("Page Visibility: " + document.hidden);
-```
-
-### **7.) Fullscreen API**
-
-The Fullscreen API provides a way to request fullscreen display from the user, and exit this mode when desired. This API exposes two methods, `requestFullscreen()` and `exitFullscreen()`, allowing us to request an element to become fullscreen and to exit fullscreen.
-
-```javascript
-document.addEventListener(
-  "keypress",
-  function (e) {
-    if (e.keyCode === 13) {
-      // Enter Key
-      toggleFullScreen();
-    }
-  },
-  false
-);
-
-function toggleFullScreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-  }
-}
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. How geolocation api works in html5?
-
-The Geolocation API allows the user to provide their location to web applications if they so desire. For privacy reasons, the user is asked for permission to report location information.
-
-The Geolocation API is published through the `navigator.geolocation` object.
-
-```javascript
-if ("geolocation" in navigator) {
-  /* geolocation is available */
-} else {
-  /* geolocation IS NOT available */
-}
-```
-
-**Example**
+- base is used to define the base URL of the document or targets for all links or URLs in the document or to define the default target for all links in the document using the target or rel or href attribute:
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Geolocation</title>
-  </head>
-  <body>
-    <p><button onclick="geoFindMe()">Show my location</button></p>
-    <div id="out"></div>
-  </body>
-
-  <script type="text/javascript">
-    /**
-        The Geolocation API allows the user to provide their location to web applications 
-        if they so desire. For privacy reasons, the user is asked for permission to report 
-        location information.
-    **/
-    function geoFindMe() {
-      var output = document.getElementById("out");
-
-      if (!navigator.geolocation) {
-        output.innerHTML =
-          "<p>Geolocation is not supported by your browser</p>";
-        return;
-      }
-
-      function success(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-
-        output.innerHTML =
-          "<p>Latitude is " +
-          latitude +
-          "° <br>Longitude is " +
-          longitude +
-          "°</p>";
-
-        var img = new Image();
-        img.src =
-          "https://maps.googleapis.com/maps/api/staticmap?center=" +
-          latitude +
-          "," +
-          longitude +
-          "&zoom=13&size=300x300&sensor=false";
-
-        output.appendChild(img);
-      }
-
-      function error() {
-        output.innerHTML = "Unable to retrieve your location";
-      }
-
-      output.innerHTML = "<p>Locating…</p>";
-
-      navigator.geolocation.getCurrentPosition(success, error); //function to get the current position of the device
-    }
-  </script>
-</html>
+<base href="http://example.com/" target="_blank" rel="nofollow" />
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the use of WebSocket API?
-
-The **WebSocket API** is an advanced technology that makes it possible to open a two-way interactive communication session between the user\'s browser and a server. With this API, you can send messages to a server and receive event-driven responses without having to poll the server for a reply.
-
-**Interfaces**
-
-| Sl.No | API          | Description                                                                                                       |
-| ----- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| 01.   | WebSocket    | The primary interface for connecting to a WebSocket server and then sending and receiving data on the connection. |
-| 02.   | CloseEvent   | The event sent by the WebSocket object when the connection closes.                                                |
-| 03.   | MessageEvent | The event sent by the WebSocket object when a message is received from the server.                                |
-
-Example
-
-```javascript
-// Create WebSocket connection.
-const socket = new WebSocket("ws://localhost:8080/");
-
-// Connection opened
-socket.addEventListener("open", function (event) {
-  socket.send("Hello Server!");
-});
-
-// Listen for messages
-socket.addEventListener("message", function (event) {
-  console.log("Message from server ", event.data);
-});
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain about HTML Canvas?
-
-**canvas** is an HTML element which can be used to draw graphics via JavaScript. This can, for instance, be used to draw graphs, combine photos, or create animations.
-
-**Colors, Styles, and Shadows**
-
-| Property      | Description                                                              |
-| ------------- | ------------------------------------------------------------------------ |
-| fillStyle     | Sets or returns the color, gradient, or pattern used to fill the drawing |
-| strokeStyle   | Sets or returns the color, gradient, or pattern used for strokes         |
-| shadowColor   | Sets or returns the color to use for shadows                             |
-| shadowBlur    | Sets or returns the blur level for shadows                               |
-| shadowOffsetX | Sets or returns the horizontal distance of the shadow from the shape     |
-| shadowOffsetY | Sets or returns the vertical distance of the shadow from the shape       |
-
-**Line Styles**
-
-| Property   | Description                                                     |
-| ---------- | --------------------------------------------------------------- |
-| lineCap    | Sets or returns the style of the end caps for a line            |
-| lineJoin   | Sets or returns the type of corner created, when two lines meet |
-| lineWidth  | Sets or returns the current line width                          |
-| miterLimit | Sets or returns the maximum miter length                        |
-
-**Rectangles**
-
-| Method       | Description                                          |
-| ------------ | ---------------------------------------------------- |
-| rect()       | Creates a rectangle                                  |
-| fillRect()   | Draws a "filled" rectangle                           |
-| strokeRect() | Draws a rectangle (no fill)                          |
-| clearRect()  | Clears the specified pixels within a given rectangle |
-
-**Paths**
-
-| Method      | Description                                                                                   |
-| ----------- | --------------------------------------------------------------------------------------------- |
-| fill()      | Fills the current drawing (path)                                                              |
-| stroke()    | Actually draws the path you have defined                                                      |
-| beginPath() | Begins a path, or resets the current path                                                     |
-| moveTo()    | Moves the path to the specified point in the canvas, without creating a line                  |
-| closePath() | Creates a path from the current point back to the starting point                              |
-| lineTo()    | Adds a new point and creates a line to that point from the last specified point in the canvas |
-| clip()      | Clips a region of any shape and size from the original canvas                                 |
-| arc()       | Creates an arc/curve (used to create circles, or parts of circles)                            |
-| arcTo()     | Creates an arc/curve between two tangents                                                     |
-
-**Transformations**
-
-| Method         | Description                                                                |
-| -------------- | -------------------------------------------------------------------------- |
-| scale()        | Scales the current drawing bigger or smaller                               |
-| rotate()       | Rotates the current drawing                                                |
-| translate()    | Remaps the (0,0) position on the canvas                                    |
-| transform()    | Replaces the current transformation matrix for the drawing                 |
-| setTransform() | Resets the current transform to the identity matrix. Then runs transform() |
-
-**Text**
-
-| Property      | Description                                                      |
-| ------------- | ---------------------------------------------------------------- |
-| font          | Sets or returns the current font properties for text content     |
-| textAlign     | Sets or returns the current alignment for text content           |
-| textBaseline  | Sets or returns the current text baseline used when drawing text |
-| fillText()    | Draws "filled" text on the canvas                                |
-| strokeText()  | Draws text on the canvas (no fill)                               |
-| measureText() | Returns an object that contains the width of the specified text  |
+- target blank is used to open the linked document in a new window:
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>HTML5 Canvas</title>
-  </head>
-  <body>
-    <div><b>Text</b></div>
-    <canvas id="text" width="200" height="100"></canvas><br /><br />
-
-    <div><b>Straight Line</b></div>
-    <canvas
-      id="line"
-      width="300"
-      height="0"
-      style="border: 1px solid #333;"
-    ></canvas
-    ><br /><br />
-
-    <div><b>Rectangle</b></div>
-    <canvas
-      id="rectangle"
-      width="300"
-      height="200"
-      style="border: 1px solid #999;"
-    ></canvas
-    ><br /><br />
-
-    <div><b>Rectangle with Style</b></div>
-    <canvas id="rect">This browser does not support Canvas!</canvas><br /><br />
-
-    <div><b>Circle</b></div>
-    <canvas id="circle">This browser does not support Canvas!</canvas
-    ><br /><br />
-
-    <script type="text/javascript">
-      // Text with style
-      var canvas = document.getElementById("text");
-      var context = canvas.getContext("2d");
-      context.font = "20pt Calibri";
-      context.fillStyle = "blue";
-      context.fillText("Hello World!", 50, 50);
-
-      // Straight Line
-      var canvas = document.getElementById("line");
-      var context = canvas.getContext("2d");
-      context.moveTo(50, 150);
-      context.lineTo(250, 50);
-      context.stroke();
-
-      // Rectange with style
-      var canvas = document.getElementById("rect");
-      var context = canvas.getContext("2d");
-      context.fillStyle = "#FF0000";
-      context.fillRect(0, 0, 300, 200);
-
-      // Circle
-      var canvas = document.getElementById("circle");
-      var context = canvas.getContext("2d");
-      context.beginPath();
-      context.arc(95, 50, 40, 0, 2 * Math.PI);
-      context.stroke();
-    </script>
-  </body>
-</html>
+<a href="http://example.com/" target="_blank">Example</a>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# body
 
-## Q. What is difference between SVG and Canvas?
-
-### **SVG**
-
-The Scalable Vector Graphics (SVG) is an XML-based image format that is used to define two-dimensional vector based graphics for the web. Unlike raster image (e.g. .jpg, .gif, .png, etc.), a vector image can be scaled up or down to any extent without losing the image quality.
-
-There are following advantages of using SVG over other image formats like JPEG, GIF, PNG, etc.
-
-- SVG images can be searched, indexed, scripted, and compressed.
-- SVG images can be created and modified using JavaScript in real time.
-- SVG images can be printed with high quality at any resolution.
-- SVG content can be animated using the built-in animation elements.
-- SVG images can contain hyperlinks to other documents.
-
-**Example:**
+- defines the content of the document
+- contains the main content of the document, that is displayed in the browser window
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      #svgelem {
-        position: relative;
-        left: 50%;
-        -webkit-transform: translateX(-20%);
-        -ms-transform: translateX(-20%);
-        transform: translateX(-20%);
-      }
-    </style>
-    <title>HTML5 SVG</title>
-  </head>
-  <body>
-    <h2 align="center">HTML5 SVG Circle</h2>
-    <svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
-      <circle id="bluecircle" cx="60" cy="60" r="50" fill="blue" />
-    </svg>
-  </body>
-</html>
+<body oncontextmenu="return false">
+  // oncontextmenu is used to prevent the right click menu from appearing on the
+  page
+</body>
 ```
 
-### **Canvas**
+# HTML Headings
 
-Canvas is a HTML element is used to draw graphics on a web page. It is a bitmap with an “immediate mode” graphics application programming interface (API) for drawing on it. The `<canvas>` element is only a container for graphics. In order to draw the graphics, you are supposed to use a script. Canvas has several strategies when it comes to drawing paths, boxes, circles, text & adding images.
+- used to describe the content, like the title of the document, the author, the date of creation, etc.
+- h1, h2, h3, h4, h5, h6 are used to define the heading of the document
+- headings are used mainly to define the content of the document as well as the structure of the document
 
-_Example:_
+# Divs
+
+- short for division or a container that divides the document into sections
+
+# whitespace and identation
+
+- whitespace is the space between the tags. It is used to make the HTML code more readable.
+- identation is the space between the tags and the content. It makes parent-child relationships more clear.
+
+# Line Breaks
+
+- used to insert a line break in the document
+- modifying the spacing between lines of text
+
+# HTML Content Model
+
+- HTML content model is the structure of the document
+
+# block level elements
+
+- render to begin a new line (by default)
+- may contain other block level elements and inline elements
+- pushes next element to the next line
+- block elements group content into a single unit. They are used to create sections of content.
+- example:
+
+| Html Block Elements | Description                                                                     |
+| ------------------- | ------------------------------------------------------------------------------- |
+| address             | Defines contact information for the author or owner of a document or an article |
+| article             | Defines an article                                                              |
+| aside               | Defines content aside from the page content                                     |
+| blockquote          | Defines a section that is quoted from another source                            |
+| canvas              | Used to draw graphics, on the fly, via scripting (usually JavaScript)           |
+| p                   | Defines a paragraph                                                             |
+| div                 | Defines a section in a document                                                 |
+| header              | Defines a header for a document or section                                      |
+| footer              | Defines a footer for a document or section                                      |
+| nav                 | Defines navigation links                                                        |
+| section             | Defines a section in a document                                                 |
+| details             | Defines additional details that the user can view or hide                       |
+| main                | Specifies the main content of a document                                        |
+| summary             | Defines a visible heading for a details element                                 |
+| figure              | Specifies self-contained content                                                |
+| figcaption          | Defines a caption for a figure element                                          |
+| hr                  | Defines a thematic change in the content                                        |
+| pre                 | Defines preformatted text                                                       |
+| time                | Defines a date/time                                                             |
+
+# inline level elements
+
+- render to stay on the same line (by default)
+- cannot have block elements
+- inline elements are used to group content that is not part of a block element.
+- example:
+
+| Html Inline Elements | Description                                                              |
+| -------------------- | ------------------------------------------------------------------------ |
+| a                    | Defines a hyperlink                                                      |
+| abbr                 | Defines an abbreviation or an acronym                                    |
+| b                    | Defines bold text                                                        |
+| bdi                  | Isolates a part of text that might be formatted in a different direction |
+| bdo                  | Overrides the current text direction                                     |
+| br                   | Defines a single line break                                              |
+| cite                 | Defines the title of a work                                              |
+| span                 | Defines a section in a document                                          |
+| code                 | Defines a piece of computer code                                         |
+| cite                 | Defines the title of a work                                              |
+| data                 | Links the given content with a machine-readable translation              |
+| dfn                  | Indicates the defining instance of a term                                |
+| i                    | Defines a part of text in an alternate voice or mood                     |
+| kbd                  | Defines keyboard input                                                   |
+| em                   | Defines emphasized text                                                  |
+| mark                 | Defines marked/highlighted text                                          |
+| small                | Defines smaller text                                                     |
+| strong               | Defines important text                                                   |
+| sub                  | Defines subscripted text                                                 |
+| sup                  | Defines superscripted text                                               |
+| u                    | Defines text that should be stylistically different from normal text     |
+| big                  | Not supported in HTML5. Use CSS instead.                                 |
+| del                  | Defines text that has been deleted from a document                       |
+| q                    | Defines a short quotation                                                |
+
+# nested elements
+
+- nested elements are used to group content that is part of a block element.
+- example:
+
+| Html Nested Elements | Description                                                                    |
+| -------------------- | ------------------------------------------------------------------------------ |
+| ul                   | Defines an unordered list                                                      |
+| ol                   | Defines an ordered list                                                        |
+| li                   | Defines a list item                                                            |
+| dl                   | Defines a description list                                                     |
+| dt                   | Defines a term/name in a description list                                      |
+| dd                   | Defines a description of a term/name in a description list                     |
+| table                | Defines a table                                                                |
+| tr                   | Defines a row in a table                                                       |
+| th                   | Defines a header cell in a table                                               |
+| td                   | Defines a cell in a table                                                      |
+| caption              | Defines a table caption                                                        |
+| col                  | Specifies column properties for each column within a colgroup element          |
+| colgroup             | Specifies a group of one or more columns in a table for formatting             |
+| thead                | Groups the header content in a table                                           |
+| tbody                | Groups the body content in a table                                             |
+| tfoot                | Groups the footer content in a table                                           |
+| form                 | Defines an HTML form for user input                                            |
+| input                | Defines an input control                                                       |
+| textarea             | Defines a multiline input control (text area)                                  |
+| button               | Defines a clickable button                                                     |
+| select               | Defines a drop-down list                                                       |
+| optgroup             | Defines a group of related options in a drop-down list                         |
+| option               | Defines an option in a drop-down list                                          |
+| label                | Defines a label for an input element                                           |
+| fieldset             | Groups related elements in a form                                              |
+| legend               | Defines a caption for a fieldset element                                       |
+| iframe               | Defines an inline frame                                                        |
+| img                  | Defines an image                                                               |
+| map                  | Defines a client-side image-map                                                |
+| area                 | Defines an area inside an image-map                                            |
+| audio                | Defines sound content                                                          |
+| video                | Defines a video or movie                                                       |
+| embed                | Defines a container for an external (non-HTML) application                     |
+| object               | Defines an embedded object                                                     |
+| param                | Defines a parameter for an object                                              |
+| source               | Defines multiple media resources for media elements                            |
+| track                | Defines text tracks for media elements                                         |
+| canvas               | Used to draw graphics, on the fly, via scripting (usually JavaScript)          |
+| script               | Defines a client-side script                                                   |
+| noscript             | Defines an alternate content for users that do not support client-side scripts |
+| del                  | Defines text that has been deleted from a document                             |
+| ins                  | Defines a text that has been inserted into a document                          |
+| style                | Defines style information for a document                                       |
+
+# HTML Links or Hyperlinks or anchors
+
+- anchor tag is used to create a link to another document or to another part of the same document
+- href is the attribute of anchor tag which is used to specify the link. href stands for hyperlink reference. it is used to link to the path or the address to where the file is located.
+- links have two attributes: href and rel:
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>HTML5 Canvas Tag</title>
-  </head>
-  <body>
-    <canvas
-      id="newCanvas"
-      width="200"
-      height="100"
-      style="border:1px solid #000000;"
-    ></canvas>
-    <script>
-      var c = document.getElementById("newCanvas");
-      var ctx = c.getContext("2d");
-      ctx.fillStyle = "#7cce2b";
-      ctx.fillRect(0, 0, 300, 100);
-    </script>
-  </body>
-</html>
+<a href="http://example.com/" rel="nofollow">Example</a>
 ```
 
-**Differences between SVG and Canvas:**
+- links are used to link to other documents
 
-| SVG                                                                                               | Canvas                                                                                        |
-| ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Vector based (composed of shapes)                                                                 | Raster based (composed of pixel)                                                              |
-| Multiple graphical elements, which become the part of the page's DOM tree                         | Single element similar to <img> in behavior. Canvas diagram can be saved to PNG or JPG format |
-| Modified through script and CSS                                                                   | Modified through script only                                                                  |
-| Good text rendering capabilities                                                                  | Poor text rendering capabilities                                                              |
-| Give better performance with smaller number of objects or larger surface, or both                 | Give better performance with larger number of objects or smaller surface, or both             |
-| Better scalability. Can be printed with high quality at any resolution. Pixelation does not occur | Poor scalability. Not suitable for printing on higher resolution. Pixelation may occur        |
+# Links
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain Drag and Drop in HTML5?
-
-HTML5 drag-and-drop uses the `DOM event model` and `drag events` inherited from `mouse events`. A typical drag operation begins when a user selects a draggable element, drags the element to a droppable element, and then releases the dragged element.
-
-| Event     | Description                                                                    |
-| --------- | ------------------------------------------------------------------------------ |
-| Drag      | It fires every time when the mouse is moved while the object is being dragged. |
-| Dragstart | It is a very initial stage. It fires when the user starts dragging object.     |
-| Dragenter | It fires when the user moves his/her mouse cursur over the target element.     |
-| Dragover  | This event is fired when the mouse moves over an element.                      |
-| Dragleave | This event is fired when the mouse leaves an element.                          |
-| Drop      | Drop It fires at the end of the drag operation.                                |
-| Dragend   | It fires when user releases the mouse button to complete the drag operation.   |
-
-Example
+- target specifies how or where to open the linked document:
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <script>
-      function allowDrop(ev) {
-        ev.preventDefault();
-      }
-
-      function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-      }
-
-      function drop(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
-      }
-    </script>
-  </head>
-  <body>
-    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <img
-      id="drag1"
-      src="img_logo.gif"
-      draggable="true"
-      ondragstart="drag(event)"
-      width="336"
-      height="69"
-    />
-  </body>
-</html>
+<a href="http://example.com/" target="_blank">Example</a>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. Explain Microdata in HTML5?
-
-Microdata is a standardized way to provide additional semantics in web pages. Microdata lets you define your own customized elements and start embedding custom properties in your web pages. At a high level, microdata consists of a group of name-value pairs.
-
-The groups are called **items**, and each name-value pair is a **property**. Items and properties are represented by regular elements. Search engines benefit greatly from direct access to this structured data because it allows search engines to understand the information on web pages and provide more
-relevant results to users.
-
-At a high level, microdata consists of a group of name-value pairs
-
-- **itemscope**:- To create an item
-- **itemprop**:- To add a property to an item
-
-Example
+- target is used to define the target of the link. It can be
+  - \_blank: open in a new window or tab
+  - \_self: open in the same frame as it was clicked
+  - \_parent: open in the parent frame
+  - \_top: open in the full body of the window
+  - framename: open in a named frame
 
 ```html
-<div itemscope>
-  <p>My name is <span itemprop="name">Elizabeth</span>.</p>
-</div>
-
-<div itemscope>
-  <p>My name is <span itemprop="name">Daniel</span>.</p>
-</div>
+<a href="" target="_self"> </a>
+<p>opens the page in same browser window or tab</p>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+- rel is used to define the relationship of the link. rel defines the relationship between document and external resource.
+- noopener is used to prevent the browser from opening a new window when the link is clicked and
+- noreferrer is used to prevent the browser from sending a referrer header when the link is clicked.
+- mailto is used to create a link to an email address
 
-## Q. What are the HTML tags which deprecated in HTML5?
-
-### **Deprecated Tags**
-
-The following elements are not available in HTML5 anymore and their function is better handled by CSS.
-
-| Sl.No | Tags (Elements) | Description                        |
-| ----- | --------------- | ---------------------------------- |
-| 01.   | `<acronym>`     | Defines an acronym                 |
-| 02.   | `<applet>`      | Defines an applet                  |
-| 03.   | `<basefont>`    | Defines an base font for the page. |
-| 04.   | `<big>`         | Defines big text                   |
-| 05.   | `<center>`      | Defines centered text              |
-| 06.   | `<dir>`         | Defines a directory list           |
-| 07.   | `<font>`        | Defines text font, size, and color |
-| 08.   | `<frame>`       | Defines a frame                    |
-| 08.   | `<frameset>`    | Defines a set of frames            |
-| 10.   | `<isindex>`     | Defines a single-line input field  |
-| 11.   | `<noframes>`    | Defines a noframe section          |
-| 12.   | `<s>`           | Defines strikethrough text         |
-| 13.   | `<strike>`      | Defines strikethrough text         |
-| 14.   | `<tt>`          | Defines teletype text              |
-| 15.   | `<u>`           | Defines underlined text            |
-
-### **Deprecated Attributes**
-
-| Removed Attributes | From the Elements                                                                                                                          |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| rev                | link, a                                                                                                                                    |
-| charset            | link and a                                                                                                                                 |
-| shape              | a                                                                                                                                          |
-| coords             | a                                                                                                                                          |
-| longdesc           | img and iframe.                                                                                                                            |
-| target             | link                                                                                                                                       |
-| nohref             | area                                                                                                                                       |
-| profile            | head                                                                                                                                       |
-| version            | html                                                                                                                                       |
-| name               | img                                                                                                                                        |
-| scheme             | meta                                                                                                                                       |
-| archive            | object                                                                                                                                     |
-| classid            | object                                                                                                                                     |
-| codebase           | object                                                                                                                                     |
-| codetype           | object                                                                                                                                     |
-| declare            | object                                                                                                                                     |
-| standby            | object                                                                                                                                     |
-| valuetype          | param                                                                                                                                      |
-| type               | param                                                                                                                                      |
-| axis               | td and t                                                                                                                                   |
-| abbr               | td and t                                                                                                                                   |
-| scope              | td                                                                                                                                         |
-| align              | caption, iframe, img, input, object, legend, table, hr, div, h1, h2, h3, h4, h5, h6, p, col, colgroup, tbody, td, tfoot, th, thead and tr. |
-| alink              | body                                                                                                                                       |
-| link               | body                                                                                                                                       |
-| vlink              | body                                                                                                                                       |
-| text               | body                                                                                                                                       |
-| background         | body                                                                                                                                       |
-| bgcolor            | table, tr, td, th and body.                                                                                                                |
-| border             | table and object.                                                                                                                          |
-| cellpadding        | table                                                                                                                                      |
-| cellspacing        | table                                                                                                                                      |
-| char               | col, colgroup, tbody, td, tfoot, th, thead and tr.                                                                                         |
-| charoff            | col, colgroup, tbody, td, tfoot, th, thead and tr.                                                                                         |
-| clear              | br                                                                                                                                         |
-| compact            | dl, menu, ol and ul.                                                                                                                       |
-| frame              | table                                                                                                                                      |
-| compact            | dl, menu, ol and ul.                                                                                                                       |
-| frame              | table                                                                                                                                      |
-| frameborder        | iframe                                                                                                                                     |
-| hspace             | img and object.                                                                                                                            |
-| vspace             | img and object.                                                                                                                            |
-| marginheight       | iframe                                                                                                                                     |
-| marginwidth        | iframe                                                                                                                                     |
-| noshade            | hr                                                                                                                                         |
-| nowrap             | td and th                                                                                                                                  |
-| rules              | table                                                                                                                                      |
-| scrolling          | iframe                                                                                                                                     |
-| size               | hr                                                                                                                                         |
-| type               | li, ol and ul.                                                                                                                             |
-| valign             | col, colgroup, tbody, td, tfoot, th, thead and tr                                                                                          |
-| width              | hr, table, td, th, col, colgroup and pre.                                                                                                  |
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. How you can Use Modernizr in HTML5?
-
-Modernizr is a JavaScript library that detects which HTML5 and CSS3 features visitor\'s browser supports. In detecting feature support, it allows developers to test for some of the new technologies and then provide fallbacks for browsers that do not support them. This is called **feature detection** and is much more efficient than browser sniffing.
-
-### **Using Modernizr with CSS**
-
-By default, Modernizr sets classes for all of your tests on the root element (`<html>` for websites). This means adding the class for each feature when it is supported, and adding it with a no- prefix when it is not (e.g. `.feature` or `.no-feature`).
-
-```css
-.no-cssgradients .header {
-  background: url("images/glossybutton.png");
-}
-
-.cssgradients .header {
-  background-image: linear-gradient(cornflowerblue, rebeccapurple);
-}
+```html
+<a href="mailto:"></a>
+<p>to define the email address and the subject of the email message</p>
 ```
 
-### **Using Modernizr with JavaScript**
-
-Modernizr keeps track of the results of all of it\'s feature detections via the `Modernizr` object.
-
-```javascript
-if (Modernizr.canvas) {
-  alert("This browser supports HTML5 canvas!");
-} else {
-  alert("no canvas :(");
-}
+```html
+<a href="tel:"></a>
+<p>to define a link to a telephone number</p>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+```html
+- <a name=""></a>
+<p>to define a bookmark in a page</p>
+```
 
-## Q. What is progressive rendering?
+# Absolute Link
 
-Progressive Rendering is the technique of sequentially rendering portions of a webpage in the server and streaming it to the client in parts without waiting for the whole page to rendered.
+- absolute link is a link that contains the full URL of the page you want to link to. it is also called as full link.
+- are also called external links and are for links to other websites
 
-It implies that once the important material is produced on the server, you may stream it to the client without having to wait for non-critical stuff to be displayed. It combines the advantages of both CSR (Client Side Rendering) and SSR (Server Side Rendering) (Server Side Rendering).
+```html
+<a href="http://example.com/"></a>
+<p>to define the absolute link of the documents</p>
+```
 
-### **Client Side Rendering**
+# Relative Link
 
-Client Side Rendering (CSR) is a technique in which content is rendered in the browser using JavaScript. Instead of getting all the content from the HTML file itself, the server sends HTML with an empty body and script tags that contain links to JavaScript bundles that the browser will use to render the content.
+- if the files are stored in the same folder, you can use the file name to link to the file
+- are also called internal links and are links which are giving local pages from same website
 
-Typical page load behaviour in CSR —
+# HTML Images
 
-- Browser requests the server for HTML
-- Server sends HTML with script tags in head and no content in body
-- Browser parses the HTML and makes http requests to load the scripts
-- Once the scripts are loaded, the browser parses them and makes API requests and loads all the content asynchronously
+- images are used to display images
+- alt is used to define the alternative text of the image
+- the value of src must be a valid URL or Uniform Resource Locator of an image.(absolute or relative)
 
-Since the all the content starts loading only after loading the initial JavaScript, it takes a longer time to show any content on the page. If the user is on a slow network, the content is blocked for an even longer time due to lower bandwidth and higher latency.
-
-### **Server Side Rendering**
-
-When rendering on the server side, the HTML is rendered on the server and sent to the client. The content that we need to display on the screen becomes available immediately after the HTML is parsed; hence, primary rendering of content is faster than CSR.
-
-Typical page load behaviour in SSR —
-
-- Browser requests the server for HTML.
-- Server makes API requests (usually co-located) and renders the content in the server.
-- Once the page is ready, the server sends it to the browser.
-- The browser loads and parses the HTML and paints the content on the screen without waiting for the JavaScript bundle(s) to load.
-- Once the JavaScript bundle(s) are loaded, the browser hydrates interactivity to DOM elements, which is usually attaching event handlers and other interactive behaviours.
-
-Since the APIs are usually co-located with the server, the content is loaded super fast (faster than CSR) and the HTML is sent to the browser. Initial JavaScript load doesn\'t block content load as the HTML sent by the server already has the content.
-
-<p align="center">
-    <img src="assets/images/progressive-rendering.png" alt="Progressive Rendering" width="500px" />
+```html
+<img src="image.jpg" alt="Image" />
+<p>
+  img tag is used to display images. alt attribute is used to define the
+  alternative text of the image. src attribute is used to define the source of
+  the image.
 </p>
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is an iframe and how it works?
-
-The `<iframe>` HTML element represents a nested browsing context, embedding another HTML page into the current one. Each embedded browsing context has its own **session history** and **document**. The browsing context that embeds the others is called the parent browsing context. The topmost browsing context — the one with no parent — is usually the browser window, represented by the **Window** object.
-
-**Example**
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>HTML5 iframe</title>
-  </head>
-  <style type="text/css">
-    iframe {
-      border: 1px solid #333;
-      width: 50%;
-    }
-    .output {
-      background: #eee;
-    }
-  </style>
-  <body>
-    <p>The Inline iFrame Example</p>
-    <iframe
-      id="inlineFrameId"
-      title="Inline iFrame Example"
-      width="300"
-      height="200"
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik"
-    >
-      Sorry your browser does not support inline frames.
-    </iframe>
-  </body>
-</html>
 ```
 
-### **The Iframe Tag Attributes**
+# URL
 
-| Attribute       | Description                                                                              |
-| --------------- | ---------------------------------------------------------------------------------------- |
-| allow           | indicates what features the iframe is allowed to use (e.g. fullscreen, camera, autoplay) |
-| allowfullscreen | grants or denies permission for the iframe to appear in full-screen mode                 |
-| height          | sets the height of the iframe (if not specified, the default height is 150 pixels)       |
-| loading         | sets lazy loading or eager loading for the iframe                                        |
-| referrerpolicy  | sets what referrer information should be sent in the request for the iframe              |
-| src             | the address of the resource included in the iframe                                       |
-| width           | sets the width of the iframe (if not specified, the default width is 300 pixels)         |
+- Uniform Resource Locator is a string of characters used to identify a name or a web resource.
+- URL is used to define the location of a resource on the Internet.
+- is the web address or local address where file is stored.
 
-_Note: Because each browsing context is a complete document environment, every `<iframe>` in a page requires increased memory and other computing resources._
+# Multimedia
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+| Multimedia | Description                                                 |
+| ---------- | ----------------------------------------------------------- |
+| audio      | audio tag is used to display audio files.                   |
+| video      | video tag is used to display video files.                   |
+| track      | track tag is used to define text tracks for media elements. |
 
-## Q. Explain the use of rel="nofollow", rel="noreferrer", rel="noopener" attribute?
+# HTML Video
 
-### **1. rel="nofollow"**
-
-When `rel="nofollow"` tag is used, it instruct the search engines not to pass any PageRank from one page to the other. It does not allow it to pass the authority to the specific website. The main advantage of using this attribute is to control the spam attack.
-
-There may be times, when you do not have control over what people publish on your websites, for example some blog comments and some kind of forum posting.
-
-**Example**
+- video is used to display video files
 
 ```html
-<a href="https://www.website.com" rel="nofollow">Link to yoursite.com</a>
+<video src="video.mp4" controls></video>
+<p>
+  video tag is used to display video files. src attribute is used to define the
+  source of the video. controls attribute is used to display the video controls
+  such as play, pause, etc.
+</p>
 ```
 
-### **2. rel="noreferrer"**
+# Displaying Text
 
-Noreferrer is related to analytics and tracking. The referrer value shows the previous page where a user came from. By using the noreferrer attribute on a link, you are preventing other pages from seeing that traffic came from a click on your link.
+| HTML Element | Description                                                             |
+| ------------ | ----------------------------------------------------------------------- |
+| p            | paragraph                                                               |
+| span         | to group inline elements and separate the smaller parts of the document |
 
-**Example**
+# Text Content
+
+| HTML Element | Description                        | type   |
+| ------------ | ---------------------------------- | ------ |
+| h1           | heading 1                          | block  |
+| blockquote   | blockquote                         | block  |
+| q            | to create a short quotation        | inline |
+| cite         | to create a citation               | inline |
+| dd           | to create a definition description | block  |
+| dt           | to create a definition term        | block  |
+| figcaption   | to create a figure caption         | block  |
+| figure       | to create a figure                 | block  |
+| pre          | to create a preformatted text      | block  |
+| p            | to create a paragraph              | block  |
+| ul           | to create an unordered list        | block  |
+| ol           | to create an ordered list          | block  |
+| li           | to create a list item              | block  |
+| dl           | to create a definition list        | block  |
+| div          | to create a division               | block  |
+
+# Inline TextSemantics
+
+| HTML Element | Description                                   |
+| ------------ | --------------------------------------------- |
+| a            | anchor or to create a link                    |
+| abbr         | abbreviation                                  |
+| br           | line break                                    |
+| cite         | for referencing a citation or a piece of work |
+| code         | for displaying computer code                  |
+| em           | for emphasizing text                          |
+| mark         | for highlighting text                         |
+| small        | for displaying side comments                  |
+| strong       | for emphasizing text                          |
+| span         | for grouping inline elements                  |
+| time         | for displaying a date or time                 |
+
+# Styling Text
+
+| HTML Element | Description                                                             |
+| ------------ | ----------------------------------------------------------------------- |
+| b            | bold                                                                    |
+| i            | italic                                                                  |
+| u            | underline                                                               |
+| s            | strike through                                                          |
+| del          | deleted text                                                            |
+| ins          | inserted text                                                           |
+| sub          | subscript                                                               |
+| sup          | superscript                                                             |
+| small        | small text                                                              |
+| strong       | strong text                                                             |
+| em           | emphasized text                                                         |
+| mark         | marked text                                                             |
+| code         | code sample                                                             |
+| q            | quotation mark                                                          |
+| cite         | citation mark                                                           |
+| abbr         | abbreviation                                                            |
+| dfn          | definition                                                              |
+| var          | variable                                                                |
+| samp         | sample output                                                           |
+| kbd          | keyboard input                                                          |
+| bdi          | bidirectional isolation                                                 |
+| bdo          | bidirectional override                                                  |
+| span         | to group inline elements and separate the smaller parts of the document |
+| br           | line break                                                              |
+| wbr          | line break opportunity                                                  |
+| hr           | horizontal rule                                                         |
+| a            | link                                                                    |
+
+# formatting the text inside paragraphs or other elements
+
+| HTML Element | Description     |
+| ------------ | --------------- |
+| b            | bold            |
+| i            | italic          |
+| u            | underline       |
+| s            | strike through  |
+| del          | deleted text    |
+| ins          | inserted text   |
+| sub          | subscript       |
+| sup          | superscript     |
+| small        | small text      |
+| strong       | strong text     |
+| em           | emphasized text |
+| mark         | marked text     |
+| code         | code sample     |
+| q            | quotation       |
+| mark         | marked text     |
+| cite         | citation mark   |
+| abbr         | abbreviation    |
+| time         | time stamp      |
+
+# Scripting
+
+- script is used to create a script ```html
+
+<script src=""></script>
+<p>script tag is used to create a script</p>
+OR
+<script type="text/javascript" src="./javascript.js"></script>
+<p>script tag is used to create a script</p>
+````
+
+# Demarcating Edits
+
+- demarcating edits is used to indicate that a change has been made to a document
+- <del> is used to create a deleted text // <del> is an inline element
+- <ins> is used to create an inserted text // <ins> is an inline element
+
+# HTML Table
+
+| HTML Table | Description                                                                                     |
+| ---------- | ----------------------------------------------------------------------------------------------- |
+| table      | table tag is used to create a table.                                                            |
+| tr         | tr tag is used to create a table row.                                                           |
+| th         | th tag is used to create a table header. Table headings clearify the meaning of the table data. |
+| td         | td tag is used to create a table data.                                                          |
+| caption    | caption tag is used to create a table caption.                                                  |
+| thead      | thead tag is used to create a table header.                                                     |
+| tbody      | tbody tag is used to create a table body.                                                       |
+| tfoot      | tfoot tag is used to create a table footer.                                                     |
+| col        | col tag is used to create a table column.                                                       |
+| colgroup   | colgroup tag is used to create a table column group.                                            |
+| colspan    | colspan attribute is used to define the number of columns a cell should span.                   |
+| rowspan    | rowspan attribute is used to define the number of rows a cell should span.                      |
+
+## HTML Table Attributes
+
+| Attribute   | Description                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| align       | align attribute is used to align the table.                                                     |
+| bgcolor     | bgcolor attribute is used to define the background color of the table.                          |
+| border      | border attribute is used to define the width of the border of the table.                        |
+| cellpadding | cellpadding attribute is used to define the space between the cell content and the cell border. |
+| cellspacing | cellspacing attribute is used to define the space between the cells.                            |
+| height      | height attribute is used to define the height of the table.                                     |
+| width       | width attribute is used to define the width of the table.                                       |
+| scope       | scope attribute is used to define the scope of the header cell.                                 |
+| summary     | summary attribute is used to define a summary of the table.                                     |
+| valign      | valign attribute is used to define the vertical alignment of the table.                         |
+| colspan     | colspan attribute is used to define the number of columns a cell should span.                   |
+| rowspan     | rowspan attribute is used to define the number of rows a cell should span.                      |
 
 ```html
-<a href="https://www.website.com" rel="noreferrer">Link to yoursite.com</a>
+<table>
+  <caption>
+    Table Caption
+  </caption>
+  <thead>
+    <tr>
+      <th>Table Header 1</th>
+      <th>Table Header 2</th>
+      <th>Table Header 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table Data 1</td>
+      <td>Table Data 2</td>
+      <td>Table Data 3</td>
+    </tr>
+    <tr>
+      <td>Table Data 1</td>
+      <td>Table Data 2</td>
+      <td>Table Data 3</td>
+    </tr>
+    <tr>
+      <td>Table Data 1</td>
+      <td>Table Data 2</td>
+      <td>Table Data 3</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Table Footer 1</td>
+      <td>Table Footer 2</td>
+      <td>Table Footer 3</td>
+    </tr>
+  </tfoot>
+</table>
 ```
 
-### **3. rel="noopener"**
+# HTML Form
 
-It prevents the new page from being able to access the `window.opener` property and will make it run in a separate process. noopener tag works as a security fix which prevents malicious links to take control over an opened tab.
+- form tag is used to create a form
+- Forms are used to collect user input and send it to a server.
 
-**Example**
+Q. How Forms work?
+
+- A internet is a network of networks. It is a network of computers that are connected to each other. When you send a form to a server, the form data is sent to the server as name/value pairs. The server processes the form data using a programming language such as PHP, C#, VB.NET, Java, Perl, Python, etc. The server then creates a new page to send back to the browser based on the information received.
+- Computer needs an HTTP protocol to send and receive data.
+
+## HTTP (Hyper Text Transfer Protocol)
+
+- HTTP is a protocol that is used to send and receive data over the internet. HTTP is a stateless protocol, which means that the server does not remember anything about the user. The server only remembers the current request. When the server receives a new request, it forgets everything about the previous request. This is why the server needs to know which page to send back to the browser. This is done with the help of HTML forms.
+
+| HTML Form element | Description                                 |
+| ----------------- | ------------------------------------------- |
+| form              | form tag is used to create a form.          |
+| input             | input tag is used to create an input field. |
+| textarea          | textarea tag is used to create a text area. |
+| select            | select tag is used to create a drop-down.   |
+| option            | option tag is used to create a drop-down.   |
+| button            | button tag is used to create a button.      |
+| label             | label tag is used to create a label.        |
+| fieldset          | fieldset tag is used to create a fieldset.  |
+| legend            | legend tag is used to create a legend.      |
+| datalist          | datalist tag is used to create a datalist.  |
+| output            | output tag is used to create a output.      |
+| optgroup          | optgroup tag is used to create a optgroup.  |
 
 ```html
-<a href="https://www.website.com" target="_blank" rel="noopener"
-  >Link to yoursite.com</a
->
+<form action="https://www.google.com/search" method="GET">
+  <input type="text" name="q" />
+  <input type="submit" value="Search" />
+  <input type="checkbox'" name="q" />
+  <input type="radio" name="q" />
+  <input type="file" name="q" />
+  <input type="password" name="q" />
+  <input type="email" name="q" />
+  <input type="number" name="q" />
+  <input type="date" name="q" />
+  <input type="color" name="q" />
+  <input type="range" name="q" />
+  <input type="tel" name="q" />
+  <input type="url" name="q" />
+  <input type="search" name="q" />
+  <input type="time" name="q" />
+  <input type="week" name="q" />
+  <input type="month" name="q" />
+  <input type="datetime-local" name="q" />
+  <input type="hidden" name="q" />
+  <input type="image" name="q" />
+  <input type="reset" name="q" />
+  <input type="button" name="q" />
+  <input type="submit" name="q" />
+    <button type="submit">Search</button>
+
+  <textarea name="q" cols="30" rows="10"></textarea>
+  <select name="q">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+
+    <optgroup label="Group 1">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+
+      <optgroup label="Group 2">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+
+        <datalist id="q">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+
+          <output name="q" for="q"></output>
+        </datalist>
+      </optgroup>
+    </optgroup>
+  </select>
+</form>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# HTML Forms Attributes
 
-## Q. How can you highlight text in HTML?
+| Attribute      | Description                                                                                                                                         |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| action         | determines where to send the form-data when a form is submitted.                                                                                    |
+| method         | determines how to send the form-data (the form-data is sent to the page specified in the action attribute). is assigned with HTTP verb GET or POST. |
+| name           | specifies the name of an element (the name is submitted with the form-data).                                                                        |
+| value          | specifies the value of an element (the value is submitted with the form-data).                                                                      |
+| type           | specifies the type of an input element.                                                                                                             |
+| placeholder    | specifies a short hint that describes the expected value of an input field.                                                                         |
+| required       | specifies that an input field must be filled out before submitting the form.                                                                        |
+| autofocus      | specifies that an input field should automatically get focus when the page loads.                                                                   |
+| disabled       | specifies that an input field should be disabled.                                                                                                   |
+| readonly       | specifies that an input field is read-only.                                                                                                         |
+| maxlength      | specifies the maximum number of characters allowed in an input field.                                                                               |
+| minlength      | specifies the minimum number of characters allowed in an input field.                                                                               |
+| pattern        | specifies a regular expression that an input element's value is checked against.                                                                    |
+| size           | specifies the width, in characters, of an input field.                                                                                              |
+| src            | specifies the URL of the image to use as a submit button.                                                                                           |
+| alt            | specifies an alternate text for images, if the image for some reason cannot be displayed.                                                           |
+| height         | specifies the height of an image in pixels.                                                                                                         |
+| width          | specifies the width of an image in pixels.                                                                                                          |
+| checked        | specifies that an option should be pre-selected when the page loads.                                                                                |
+| selected       | specifies that an option should be pre-selected when the page loads.                                                                                |
+| multiple       | specifies that a user can enter more than one value in an input field.                                                                              |
+| rows           | specifies the visible number of lines in a text area.                                                                                               |
+| cols           | specifies the visible width of a text area.                                                                                                         |
+| wrap           | specifies how the text in a text area is to be wrapped when submitted in a form.                                                                    |
+| form           | specifies one or more forms the <input> element belongs to.                                                                                         |
+| formaction     | specifies where to send the form-data when a form is submitted.                                                                                     |
+| formenctype    | specifies how form-data should be encoded before sending it to a server.                                                                            |
+| formmethod     | specifies how to send the form-data (which HTTP method to use).                                                                                     |
+| formnovalidate | specifies that the form-data should not be validated on submission.                                                                                 |
+| formtarget     | specifies where to display the response that is received after submitting the form.                                                                 |
+| list           | specifies a list of pre-defined options for input controls.                                                                                         |
+| max            | specifies the maximum value for an input field.                                                                                                     |
+| min            | specifies the minimum value for an input field.                                                                                                     |
+| minlength      | specifies the minimum number of characters allowed in an input field.                                                                               |
+| maxlength      | specifies the maximum number of characters allowed in an input field.                                                                               |
+| step           | specifies the legal number intervals for an input field.                                                                                            |
+| accept         | specifies the types of files that the server accepts (only for type="file").                                                                        |
+| autocomplete   | specifies whether a form should have autocomplete on or off.                                                                                        |
+| autofocus      | specifies that a form should automatically get focus when the page loads.                                                                           |
+| novalidate     | specifies that the form-data should not be validated on submission.                                                                                 |
+| target         | specifies where to display the response that is received after submitting the form.                                                                 |
+| enctype        | specifies how the form-data should be encoded when submitting it to the server (only for method="post").                                            |
+| method         | specifies how to send form-data (which HTTP method to use).                                                                                         |
+| accept-charset | specifies the character encodings that are to be used for the form submission.                                                                      |
+| action         | specifies where to send the form-data when a form is submitted.                                                                                     |
+| accept         | specifies the types of files that the server accepts (only for type="file").                                                                        |
 
-The `<mark>` HTML element represents text which is marked or highlighted for reference or notation purposes, due to the marked passage\'s relevance or importance in the enclosing context.
+# HTML Input Types
 
-**Example**
+| Type        | Description                                                                                        |
+| ----------- | -------------------------------------------------------------------------------------------------- |
+| text        | Defines a single-line text input field                                                             |
+| password    | Defines a password field (characters are masked)                                                   |
+| radio       | Defines a radio button                                                                             |
+| checkbox    | Defines a checkbox                                                                                 |
+| submit      | Defines a submit button (for submitting the form)                                                  |
+| reset       | Defines a reset button (resets all form values to default)                                         |
+| button      | Defines a clickable button (mostly used with a JavaScript to activate a script)                    |
+| hidden      | Defines a hidden input field                                                                       |
+| image       | Defines an image as the submit button                                                              |
+| email       | Defines a field for an e-mail address                                                              |
+| url         | Defines a field for an URL                                                                         |
+| search      | Defines a text field for entering a search string                                                  |
+| tel         | Defines a field for entering a telephone number                                                    |
+| number      | Defines a field for entering a number                                                              |
+| range       | Defines a control for entering a number whose exact value is not important (like a slider control) |
+| color       | Defines a control for entering a color                                                             |
+| date        | Defines a control for entering a date                                                              |
+| datetime    | Defines a control for entering a date and time                                                     |
+| datetime-   | Defines a control for entering a date and time (local date and time)                               |
+| month       | Defines a control for entering a month and year                                                    |
+| week        | Defines a control for entering a week and year                                                     |
+| time        | Defines a control for entering a time (no time zone)                                               |
+| file        | Defines a file-select field and a "Browse..." button (for file uploads)                            |
+| readonly    | Specifies that an input field is read-only                                                         |
+| disabled    | Specifies that an input field should be disabled                                                   |
+| required    | Specifies that an input field must be filled out before submitting the form                        |
+| autofocus   | Specifies that an input field should automatically get focus when the page loads                   |
+| placeholder | Specifies a short hint that describes the expected value of an input field                         |
+| multiple    | Specifies that a user can enter more than one value in an input field                              |
+| pattern     | Specifies a regular expression that an input element's value is checked against                    |
+| min         | Specifies the minimum value for an input field                                                     |
+| max         | Specifies the maximum value for an input field                                                     |
+| step        | Specifies the legal number intervals for an input field                                            |
+| list        | Specifies a list of pre-defined options for input controls                                         |
+| list        | Specifies a list of pre-defined options for input controls                                         |
+| url         | Specifies that the input field must contain a valid URL                                            |
+| id          | Specifies a unique id for an element                                                               |
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Highlight text in HTML</title>
-  </head>
-  <body>
-    <p>Search results for "salamander":</p>
-    <hr />
-    <p>
-      Several species of <mark>salamander</mark> inhabit the temperate
-      rainforest of the Pacific Northwest.
-    </p>
-    <p>
-      Most <mark>salamander</mark>s are nocturnal, and hunt for insects, worms,
-      and other small creatures.
-    </p>
-  </body>
-</html>
+<form>
+  <input type="text" name="username" placeholder="Username" required />
+  <input type="password" name="password" placeholder="Password" required />
+  <input type="submit" value="Login" />
+</form>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# HTML Form Validation
 
-## Q. How can I get indexed better by search engines?
+- HTML5 form validation is done by the browser, not by JavaScript.
+- Validation is the concept of checking user provided data against the required data.
 
-HTML tags are used to influence the way our pages appear in search results. With the help of certain tags, we can turn regular search snippets into rich snippets, and maybe even into featured snippets. And, as our search snippets get more advanced, they are able to secure better **Search Engine Results Pages (SERP)** positions and attract more traffic.
+| Server-side validation                                | Client-side validation                                                                   |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| happens when data is sent to another machine (server) | happens if we want to check the data on browser (client) before sending it to the server |
+| example: login page                                   | example: registration page                                                               |
 
-Here are all the HTML tags that still matter:
+# Input Validation
 
-### **1. Title tag**
-
-Title tags are used by search engines to determine the subject of a page and display it in SERP. As a rule of thumb, titles that are under 60 characters long will fit on most screens. In HTML, a title tag looks like this:
-
-```html
-<title>Your Title Goes Here</title>
-```
-
-### **2. Meta description tag**
-
-Meta description is a short paragraph of text used to describe your page in search results. The function of meta description is similar to the title. It provides a little more detail about your page and it helps users decide whether to visit your page or not. In HTML, a meta description tag looks like this:
+- input validation is used to validate the input of the user.
 
 ```html
-<meta name="description" content="Your description goes here" />
-```
-
-### **3. Heading tags**
-
-Headings (H1-H6) are used to split your page into sections or chapters. Each heading is like a small title within the page. In HTML, a heading looks like this:
-
-```html
-<h1>Your heading goes here</h1>
-```
-
-### **4. Image alt attribute**
-
-The `alt` text attribute is a part of an image tag, and it provides a description for an image. Alt text plays a major role in image optimization. It makes your images accessible both to search engines (by telling them what a particular image means) and to people (by displaying an alternative text in case a particular image cannot be loaded or by helping screen readers convey images). In HTML it may look like this:
-
-```html
-<img src="url" alt="Your image description goes here" />
-```
-
-### **5. Open Graph tags**
-
-Open Graph (OG) tags are placed in the `<head>` section of a page and allow any webpage to become a rich object in social networks. OG tags let you control how the information about your page is represented when shared via social channels. This possibility may help you enhance the performance of your links on social media, thus driving more click-throughs and increasing conversions. In HTML, it can look like this:
-
-```html
-<meta
-  name="og:title"
-  property="og:title"
-  content="Your Open Graph Title Goes Here"
+<input type="text" name="name" value="value" required />
+<input type="text" name="name" value="value" required pattern="[0-9]{3}" />
+<input
+  type="text"
+  name="name"
+  value="value"
+  required
+  pattern="[0-9]{3}"
+  maxlength="3"
+/>
+<input
+  type="text"
+  name="name"
+  value="value"
+  required
+  pattern="[0-9]{3}"
+  maxlength="3"
+  minlength="3"
+/>
+<input
+  type="text"
+  name="name"
+  value="value"
+  required
+  pattern="[0-9]{3}"
+  maxlength="3"
+  minlength="3"
+  autocomplete="off"
+/>
+<input
+  type="text"
+  name="name"
+  value="value"
+  required
+  pattern="[a-zA-Z0-9]+{3}"
+  maxlength="3"
+  minlength="3"
+  autocomplete="off"
 />
 ```
 
-### **6. Robots tag**
+## Regex
 
-A robots tag is an element in the HTML of a page that informs search engines which pages on your site should be indexed and which should not. Its functions are similar to robots.txt, but robots.txt gives suggestions. Whereas robots tags give instructions. In HTML, it can look like this:
-
-```html
-<meta name="robots" content="index, follow" />
-```
-
-### **7. Canonical tag**
-
-A canonical tag is a way of telling search engines that a specific URL represents the master copy of a page. Using the canonical tag prevents problems caused by identical or "duplicate" content appearing on multiple URLs. Practically speaking, the canonical tag tells search engines which version of a URL you want to appear in search results. In HTML, it may look like this:
+- Regular expressions are patterns used to match character combinations in strings.
+- Regular expressions are used to perform all types of text search and text replace operations.
+- Regular expressions are used to validate form input.
 
 ```html
-<link href="URL" rel="canonical" />
+<form>
+  <input
+    type="text"
+    name="username"
+    placeholder="Username"
+    required
+    pattern="[a-z]{5,10}"
+  />
+  <input
+    type="password"
+    name="password"
+    placeholder="Password"
+    required
+    minlength="5"
+    maxlength="10"
+  />
+  <input type="submit" value="Login" />
+</form>
 ```
 
-### **8. HTML5 semantic tags**
+# HTML Lists
 
-One of the most important features of HTML5 is its semantics tags. Semantic tags refers to syntax that makes the HTML more comprehensible by better defining the different sections and layout of web pages. It makes web pages more informative and adaptable, allowing browsers and search engines to better interpret content. For example, instead of using `<div id="header"></div>` you can use a `<header></hrader>` tag.
+- lists are used to create lists
 
-<p align="center">
-    <img src="assets/images/semantic-tags.png" alt="HTML5 semantic tags" width="300px" />
-</p>
+| HTMl List element | Description                                       |
+| ----------------- | ------------------------------------------------- |
+| ul                | unordered list or outlines list item with bullets |
+| ol                | ordered list or outlines list item with numbers   |
+| li                | list item                                         |
+| dl                | definition list or outlines list item with terms  |
+| dt                | definition term or outlines list item term        |
+| dd                | definition description or outlines list item      |
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# HTML List attributes
 
-## Q. What is the difference between an "attribute" and a "property" in HTML?
+| HTML List attribute | Description                                                                             |
+| ------------------- | --------------------------------------------------------------------------------------- |
+| type                | type is used to define the type of list: type="1" or type="a" or type="A"               |
+| start               | start is used to define the starting number of the list: start="number"                 |
+| value               | value is used to define the value of the list item: value="value"                       |
+| class               | class is used to define the class of the list: class="class"                            |
+| id                  | id is used to define the id of the list: id="id"                                        |
+| data-\*             | data-_ is used to define custom attributes: data-_="data-\*"                            |
+| style               | style is used to define the style of the list: style="style"                            |
+| title               | title is used to define the title of the list: title="title"                            |
+| lang                | lang is used to define the language of the list: lang="lang"                            |
+| dir                 | dir is used to define the direction of the list: dir="dir"                              |
+| hidden              | hidden is used to define whether the list is hidden: hidden="hidden"                    |
+| onclick             | onclick is used to define the onclick event of the list: onclick="event"                |
+| ondblclick          | ondblclick is used to define the ondblclick event of the list: ondblclick="event"       |
+| onmousedown         | onmousedown is used to define the onmousedown event of the list: onmousedown="event"    |
+| onmouseup           | onmouseup is used to define the onmouseup event of the list: onmouseup="event"          |
+| onmouseover         | onmouseover is used to define the onmouseover event of the list: onmouseover="event"    |
+| onmousemove         | onmousemove is used to define the onmousemove event of the list: onmousemove="event"    |
+| onmouseout          | onmouseout is used to define the onmouseout event of the list: onmouseout="event"       |
+| onkeypress          | onkeypress is used to define the onkeypress event of the list: onkeypress="event"       |
+| onkeydown           | onkeydown is used to define the onkeydown event of the list: onkeydown="event"          |
+| onkeyup             | onkeyup is used to define the onkeyup event of the list: onkeyup="event"                |
+| onmouseenter        | onmouseenter is used to define the onmouseenter event of the list: onmouseenter="event" |
+| onmouseleave        | onmouseleave is used to define the onmouseleave event of the list: onmouseleave="event" |
 
-Attributes are defined by HTML. Properties are accessed from DOM (Document Object Model) nodes.
+# Interactive Elements
 
-**Example**
+- Interactive elements are elements that can be interacted with.
+- <details> is used to create a details element
+- <summary> is used to create a summary element
+- <menu> is used to create a menu element
+- <command> is used to create a command element
+- <dialog> is used to create a dialog element
+
+# Entity References
+
+- &;: creates an entity reference
+- Entity references are used for avoiding the rendering issues.
+- provides characters that are not available in keyboard layouts
+- safeguard against XSS attacks and more limited character encodings
+- symbols that are not available in keyboard layouts
+
+| Entity Reference                   | Description                         |
+| ---------------------------------- | ----------------------------------- |
+| <code>&amp; or &#38; </code>       | ampersand (amp;)                    |
+| <code>&lt; or &#60; </code>        | less than (lt;)                     |
+| <code>&gt; or &#62; </code>        | greater than (gt;)                  |
+| <code>&quot; or &#34; </code>      | double quote (quot;)                |
+| <code>&apos; or &#39; </code>      | single quote (apos;)                |
+| <code>&nbsp; or &#160; </code>     | non-breaking space (nbsp;)          |
+| <code>&copy; or &#169; </code>     | copy right (copy;)                  |
+| <code>&reg; or &#174; </code>      | registered (reg;)                   |
+| <code>&larr; or &#8592; </code>    | left arrow (larr;)                  |
+| <code>&rarr; or &#8594; </code>    | right arrow (rarr;)                 |
+| <code>&uarr; or &#8593; </code>    | up arrow (uarr;)                    |
+| <code>&darr; or &#8595; </code>    | down arrow (darr;)                  |
+| <code> &crarr; or &#8629; </code>  | carriage return (crarr;)            |
+| <code>&lArr; or &#8656; </code>    | left double arrow (lArr;)           |
+| <code>&rArr; or &#8658; </code>    | right double arrow (rArr;)          |
+| <code>&uArr; or &#8657; </code>    | up double arrow (uArr;)             |
+| <code>&dArr; or &#8659; </code>    | down double arrow (dArr;)           |
+| <code>&bull; or &#8226; </code>    | bullet (bull;)                      |
+| <code>&hellip; or &#8230; </code>  | horizontal ellipsis (hellip;)       |
+| <code> &forall; or &#8704; </code> | for all (forall;)                   |
+| <code>&part; or &#8706; </code>    | partial differential (part;)        |
+| <code>&exist; or &#8707; </code>   | there exists (exist;)               |
+| <code>&empty; or &#8709; </code>   | empty set (empty;)                  |
+| <code>&nabla; or &#8711; </code>   | nabla (nabla;)                      |
+| <code>&isin; or &#8712; </code>    | element of (isin;)                  |
+| <code>&notin; or &#8713; </code>   | not an element of (notin;)          |
+| <code>&ni; or &#8715; </code>      | contains as member (ni;)            |
+| <code>&prod; or &#8719; </code>    | n-ary product (prod;)               |
+| <code>&sum; or &#8721; </code>     | n-ary summation (sum;)              |
+| <code>&minus; or &#8722; </code>   | minus sign (minus;)                 |
+| <code>&lowast; or &#8727; </code>  | asterisk operator (lowast;)         |
+| <code>&radic; or &#8730; </code>   | square root (radic;)                |
+| <code>&prop; or &#8733; </code>    | proportional to (prop;)             |
+| <code>&infin; or &#8734; </code>   | infinity (infin;)                   |
+| <code>&ang; or &#8736; </code>     | angle (ang;)                        |
+| <code>&and; or &#8743; </code>     | logical and (and;)                  |
+| <code>&or; or &#8744; </code>      | logical or (or;)                    |
+| <code>&cap; or &#8745; </code>     | intersection (cap;)                 |
+| <code>&cup; or &#8746; </code>     | union (cup;)                        |
+| <code>&int; or &#8747; </code>     | integral (int;)                     |
+| <code>&there4; or &#8756; </code>  | therefore (there4;)                 |
+| <code>&sim; or &#8764; </code>     | tilde operator (sim;)               |
+| <code>&cong; or &#8773; </code>    | congruent to (cong;)                |
+| <code>&asymp; or &#8776; </code>   | almost equal to (asymp;)            |
+| <code>&ne; or &#8800; </code>      | not equal to (ne;)                  |
+| <code>&equiv; or &#8801; </code>   | identical to (equiv;)               |
+| <code>&le; or &#8804; </code>      | less-than or equal to (le;)         |
+| <code>&ge; or &#8805; </code>      | greater-than or equal to (ge;)      |
+| <code>&sub; or &#8834; </code>     | subset of (sub;)                    |
+| <code>&sup; or &#8835; </code>     | superset of (sup;)                  |
+| <code>&nsub; or &#8836; </code>    | not a subset of (nsub;)             |
+| <code> &euro; or &#8364; </code>   | euro (euro;)                        |
+| <code>&pound; or &#163; </code>    | pound (pound;)                      |
+| <code>&yen; or &#165; </code>      | yen (yen;)                          |
+| <code>&cent; or &#162; </code>     | cent (cent;)                        |
+| <code>&sect; or &#167; </code>     | section (sect;)                     |
+| <code>&uml; or &#168; </code>      | umlaut (uml;)                       |
+| <code>&ordf; or &#170; </code>     | feminine ordinal indicator (ordf;)  |
+| <code>&ordm; or &#186; </code>     | masculine ordinal indicator (ordm;) |
+| <code>&laquo; or &#171; </code>    | left angle quotation mark (laquo;)  |
+| <code>&raquo; or &#187; </code>    | right angle quotation mark (raquo;) |
+| <code>&frac14; or &#188; </code>   | fraction one-quarter (frac14;)      |
+| <code>&frac12; or &#189; </code>   | fraction one-half (frac12;)         |
+| <code>&frac34; or &#190; </code>   | fraction three-quarters (frac34;)   |
+| <code>&iexcl; or &#161; </code>    | inverted exclamation mark (iexcl;)  |
+| <code>&iquest; or &#191; </code>   | inverted question mark (iquest;)    |
+| <code>&deg; or &#176; </code>      | degree (deg;)                       |
+| <code>&plusmn; or &#177; </code>   | plus-minus sign (plusmn;)           |
+| <code>&sup2; or &#178; </code>     | superscript two (sup2;)             |
+| <code>&sup3; or &#179; </code>     | superscript three (sup3;)           |
+| <code>&micro; or &#181; </code>    | micro (micro;)                      |
+| <code>&para; or &#182; </code>     | pilcrow (para;)                     |
+| <code>&middot; or &#183; </code>   | middle dot (middot;)                |
+| <code>&cedil; or &#184; </code>    | cedilla (cedil;)                    |
+| <code> &not; or &#172; </code>     | not (not;)                          |
+| <code>&shy; or &#173; </code>      | soft hyphen (shy;)                  |
+
+## Greek letters
+
+| Greek Entity Reference           | Greek Description  |
+| -------------------------------- | ------------------ |
+| <code>&Alpha; or &#913;</code>   | Alpha (Alpha;)     |
+| <code>&Beta; or &#914;</code>    | Beta (Beta;)       |
+| <code>&Gamma; or &#915;</code>   | Gamma (Gamma;)     |
+| <code>&Delta; or &#916;</code>   | Delta (Delta;)     |
+| <code>&Epsilon; or &#917;</code> | Epsilon (Epsilon;) |
+| <code>&Zeta; or &#918;</code>    | Zeta (Zeta;)       |
+| <code>&Eta; or &#919;</code>     | Eta (Eta;)         |
+| <code>&Theta; or &#920;</code>   | Theta (Theta;)     |
+| <code>&Iota; or &#921;</code>    | Iota (Iota;)       |
+| <code>&Kappa; or &#922;</code>   | Kappa (Kappa;)     |
+| <code>&Lambda; or &#923;</code>  | Lambda (Lambda;)   |
+| <code>&Mu; or &#924;</code>      | Mu (Mu;)           |
+| <code>&Nu; or &#925;</code>      | Nu (Nu;)           |
+| <code>&Xi; or &#926;</code>      | Xi (Xi;)           |
+| <code>&Omicron; or &#927;</code> | Omicron (Omicron;) |
+| <code>&Pi; or &#928;</code>      | Pi (Pi;)           |
+| <code>&Rho; or &#929;</code>     | Rho (Rho;)         |
+| <code>&Sigma; or &#931;</code>   | Sigma (Sigma;)     |
+| <code>&Tau; or &#932;</code>     | Tau (Tau;)         |
+| <code>&Upsilon; or &#933;</code> | Upsilon (Upsilon;) |
+| <code>&Phi; or &#934;</code>     | Phi (Phi;)         |
+| <code>&Chi; or &#935;</code>     | Chi (Chi;)         |
+| <code>&Psi; or &#936;</code>     | Psi (Psi;)         |
+| <code>&Omega; or &#937;</code>   | Omega (Omega;)     |
+
+- entities are also specified by entity number:
+- UTF-8 - character set is default in HTML5.
+- It includes all the characters in the Unicode Basic Multilingual Plane (BMP) of the Unicode Standard.
+- UTF-8 shares some characters with the ISO-8859-1 character set, to ASCII, ANSI, and Windows-1252.
+- utf-8 have different characters from 256 to 65535.
+
+# Responsive Design
+
+- sites layout adapts to the screen size of the user.
+- we can use media queries to control the layout of our site.
+- different screen sizes have different layout.
+- screen modes (mobile, tablet, desktop, portrait, landscape)
+
+```css
+ syntax: @media (conditions) and|or (conditions) {
+  rules
+  }
+```
+
+- conditions are width, height, orientation, and type of device.
+
+# Breakpoint Overlapping
+
+- when conditions of media queries overlap such that it becomes ambiguous to set style overlapping of breakpoints said to happen and it should be avoid carefully.
+
+# Alternative to responsive design
+
+- Server detects the type of browser compatibility and respective loads version of site as there are already many sites that are not compatible with all browsers.
+- even mobile devices have a different screen size configuration, hence to fit the page content properly, responsive design is important.
+
+# Abbreviations
 
 ```html
-<input id="inputId" type="text" value="Hello World!" />
+<abbr title="attribute">: creates an abbreviation</abbr>
 ```
 
-The **value** property reflects the current text-content inside the input box, whereas the **value** attribute contains the initial text-content of the **value** attribute from the HTML source code
+# 12 Column Grid Responsive Design or layout
 
-**Difference between HTML attributes and DOM properties:**
+- screen size or screen resolution is the basis of the layout or is divided into 12 columns because of the grid system.
+- grid system is a system that divides the screen into 12 columns. Each column has a width of 1/12 of the screen.
 
-| Attribute                                        | Property                             |
-| ------------------------------------------------ | ------------------------------------ |
-| Attributes are defined by HTML.                  | Properties are defined by the DOM.   |
-| The value of an attribute is constant.           | The value of a property is variable. |
-| These are used to initialize the DOM properties. | No such job defined.                 |
+```css
+@media (min-width: 768px) {
+  .col-md-1,
+  .col-md-2,
+  .col-md-3,
+  .col-md-4,
+  .col-md-5,
+  .col-md-6,
+  .col-md-7,
+  .col-md-8,
+  .col-md-9,
+  .col-md-10,
+  .col-md-11,
+  .col-md-12 {
+    float: left;
+  }
+  .col-md-12 {
+    width: 100%;
+  }
+  .col-md-11 {
+    width: 91.66666667%;
+  }
+  .col-md-10 {
+    width: 83.33333333%;
+  }
+  .col-md-9 {
+    width: 75%;
+  }
+  .col-md-8 {
+    width: 66.66666667%;
+  }
+  .col-md-7 {
+    width: 58.33333333%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-5 {
+    width: 41.66666667%;
+  }
+  .col-md-4 {
+    width: 33.33333333%;
+  }
+  .col-md-3 {
+    width: 25%;
+  }
+  .col-md-2 {
+    width: 16.66666667%;
+  }
+  .col-md-1 {
+    width: 8.33333333%;
+  }
+}
+```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# Classes
 
-## Q. How do you set IE compatibility mode?
+- classes are non-unique and can be used multiple times in the same element.
 
-**X-UA-Compatible** is a document mode meta tag that allows to choose what version of Internet Explorer the page should be rendered as. It is used by Internet Explorer 8 to specify whether a page should be rendered as IE 7 (compatibility view) or IE 8 (standards view).
+# IDS
+
+- IDs are unique and can be used only once in the same element.
+- it must be unique in the document
+- it must not contain any space characters
+- it must contain at least one character
+
+# Linking Resources
+
+| Attribute                        | Details                                                                                         |
+| -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| charset                          | Specifies the character encoding of the linked document                                         |
+| href                             | Specifies the URL of the linked document                                                        |
+| hreflang                         | Specifies the language of the linked document                                                   |
+| media                            | Specifies the media type of the linked document                                                 |
+| rel                              | Specifies the relationship between the current document and the linked document                 |
+| sizes                            | Specifies the size of the linked document                                                       |
+| type                             | Specifies the media type of the linked document                                                 |
+| target                           | Specifies where to open the linked document                                                     |
+| rev                              | Specifies the relationship between the current document and the linked document                 |
+| ping                             | Specifies the URL of the linked document                                                        |
+| integrity                        | Specifies a base64 encoded hash (sha256, sha384, or sha512) of the linked resource allowing the |
+| browser to verify its legitimacy |
+
+# linking to CSS
+
+- external CSS files are linked to using the link element.
+- internal CSS files are linked to using the style element.
+
+# Favicon
+
+- favicon is a small image that is displayed next to the web page's title in the browser's address bar.
 
 ```html
-<html>
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>My Web Page</title>
-  </head>
-  <body>
-    <p>Content goes here.</p>
-  </body>
-</html>
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
 ```
 
-Emulating the version tells the browser to use the DOCTYPE to determine how to render content. pages without a DOCTYPE will be rendered in quirks mode. Edge mode tells Windows Internet Explorer to display content in the highest mode available, which actually breaks the "lock-in" paradigm. With Internet Explorer 8, this is equivalent to IE8 mode.
+# Resource Hint: dns-prefetch, prefetch, prerender
 
-**Setting the Meta Element**
+## Preconnect
 
-The meta element includes a content attribute that enables you to specify the mode that content is rendered in for the webpage, as the following table shows.
+- Preconnect: tells the browser to connect to a server before the page is loaded. It will also make the
+  TCP handshake, and optional TLS negotiation.
+- Preconnect is used to preload resources that are needed for the page to load quickly.
+  ```html
+  <link rel="preconnect" href="URL" />
+  ```
 
-| Value   | Rendering mode                                                 |
-| ------- | -------------------------------------------------------------- |
-| IE=edge | Display content in the highest mode available                  |
-| IE=9    | Use the Windows Internet Explorer 9 standards rendering mode   |
-| IE=8    | Use the Internet Explorer 8 standards rendering mode           |
-| IE=7    | Use the Windows Internet Explorer 7 standards rendering mode   |
-| IE=5    | Use the Microsoft Internet Explorer 5 standards rendering mode |
+## dns-prefetch
 
-_Note: It is recommended that Web developers restrict their use of Edge mode to test pages and other non-production uses because of the possible unexpected results of rendering page content in future versions of Windows Internet Explorer._
+- dns-prefetch: tells the browser to preload the DNS records for the domain name of the linked resource.
+- Informs browsers to resolve the DNS for a URL, so that all assets from that URL load faster
+  ```html
+  <link rel="dns-prefetch" href="URL" />
+  ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+## prefetch
 
-## Q. What is an optional tag?
+- Informs the browsers that a given resource should be prefetched so it can be loaded more quickly.
+- DNS-Prefetch resolves only the domain name whereas prefetch downloads/stores the specified resources.
+  ```html
+  <link rel="prefetch" href="URL" />
+  ```
 
-The following lists all optional tags.
+## Prerender
 
-| Tag          | Description |
-| ------------ | ----------- |
-| `<area>`     |             |
-| `<base>`     |             |
-| `<body>`     |             |
-| `<br>`       |             |
-| `<caption>`  |             |
-| `<col>`      |             |
-| `<colgroup>` |             |
-| `<dd>`       |             |
-| `<dt>`       |             |
-| `<embed>`    |             |
-| `<head>`     |             |
-| `<hr>`       |             |
-| `<html>`     |             |
-| `<img>`      |             |
-| `<input>`    |             |
-| `<li>`       |             |
-| `<link>`     |             |
-| `<meta>`     |             |
-| `<optgroup>` |             |
-| `<option>`   |             |
-| `<p>`        |             |
-| `<param>`    |             |
-| `<rp>`       |             |
-| `<rt>`       |             |
-| `<source>`   |             |
-| `<tbody>`    |             |
-| `<td>`       |             |
-| `<tfoot>`    |             |
-| `<th>`       |             |
-| `<thead>`    |             |
-| `<tr>`       |             |
-| `<track>`    |             |
-| `<wbr>`      |             |
+- Informs browsers to fetch and render the URL in the background, so that they can be delivered to the user
+  instantaneously as the user navigates to that URL
+  ```html
+  <link rel="prerender" href="URL" />
+  ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# HTML Images
 
-## Q. What is an HTML preprocessor? Have you used different HTML templating languages before?
-
-A **HTML preprocessor** is a program that takes one type of data and converts it to another one. In case of HTML and CSS, some of the more popular preprocessor languages are Slim and Sass. Slim is processed into HTML and Sass is processed into CSS.
-
-No, but I heard about html template language like PUG (formerly Jade), Haml, ERB, Slim, Handlebars, Jinja, Liquid etc which is HTML preprocessor this mean that it is basically a language that will be converted to native html code.
-
-The typical usage is when you render something on the server side. The usual use-case is when you have to add dynamic content to your website, so when you fetch something from your database, you will have to replace some parts in your original template.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. How do you change the direction of html text?
-
-The default text direction in HTML is left-to-right. However, when developing web content and applications, we may need to set it to right-to-left, for instance, to cater for languages such as Arabic, Hebrew, Pashto, Persian, Urdu, and Sindhi.
-
-We can set text direction in HTML in one of two ways:
-
-- With the HTML **dir** attribute
-- With the CSS **direction** property
-
-**Example**
+- img tag creates an image
+- Responsive image using the srcset attribute:
 
 ```html
-<!-- Syntax -->
-<element dir="ltr|rtl|auto">
-  <!-- Example -->
-  <textarea dir="rtl"></textarea>
-</element>
+<img srcset="URL" sizes="100vw" />
 ```
-
-**Attribute Values**
-
-| Value | Description                                                         |
-| ----- | ------------------------------------------------------------------- |
-| ltr   | Default. Left-to-right text direction                               |
-| rtl   | Right-to-left text direction                                        |
-| auto  | Let the browser figure out the text direction, based on the content |
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. When is it appropriate to use the small element?
-
-The `<small>` HTML element represents side-comments and small print, like copyright and legal text, independent of its styled presentation. By default, it renders text within it one font-size smaller, such as from `small` to `x-small`.
-
-**Example**
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Small Element</title>
-  </head>
-  <style>
-    small {
-      font-size: 0.7em;
-    }
-  </style>
-  <body>
-    <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    </p>
-    <hr />
-    <p><small>The content is licensed under a W3C License.</small></p>
-  </body>
-</html>
+<img
+  src="https://picsum.photos/200/300"
+  srcset="
+    https://picsum.photos/400/600  400w,
+    https://picsum.photos/800/1200 800w
+  "
+  alt="This is a image"
+/>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+# HTML Pictures
 
-## Q. How do you serve a page with content in multiple languages?
+```html
+<picture
+  >: creates a picture
+  <picture>
+    <source srcset="URL" media="(min-width: 600px)" />
+    <source srcset="URL" media="(min-width: 960px)" />
+    <img srcset="URL" sizes="100vw" /> </picture
+></picture>
+```
 
-The **lang** attribute specifies the language of the element\'s content.
+# HTML Image Maps
 
-**Example**
+```html
+<img usemap="#mapname" />: creates an image map
+<img src="URL" usemap="#mapname" />
+<map name="mapname">
+  <area shape="rect" coords="0,0,100,100" href="URL" />
+</map>
+
+<map name="map">
+  <area
+    shape="rect"
+    coords="0,0,100,100"
+    href="https://www.google.com"
+    alt="This is a area"
+  />
+</map>
+```
+
+| Attribute | value | Details                                        |
+| --------- | ----- | ---------------------------------------------- |
+| usemap    | value | Specifies the name of the image map            |
+| name      | value | Specifies the name of the image map            |
+| shape     | value | Specifies the shape of the area                |
+| coords    | value | Specifies the coordinates of the area          |
+| href      | value | Specifies the URL of the linked document       |
+| alt       | value | Specifies the alternate text for the image map |
+
+# HTML Label Elements
+
+- label elements are used to label form controls.
+
+```html
+<label for="name">This is a label</label>
+<label for="name" class="classname">This is a label</label>
+<label for="name" style="color: red;">This is a label</label>
+```
+
+# Selection Menu Controls
+
+- selection menu controls are used to select a value from a list of options.
+
+# HTML Embed
+
+- Embed: embeds an object in the page.
+
+```html
+<embed
+  src="URL"
+  type="type"
+  name="name"
+  width="width"
+  height="height"
+  pluginspage="URL"
+/>
+```
+
+# HTML iframe
+
+- iframe: embeds a document in the page.
+
+```html
+<iframe
+  src="URL"
+  name="name"
+  width="width"
+  height="height"
+  scrolling="scrolling"
+  frameborder="frameborder"
+  marginheight="marginheight"
+  marginwidth="marginwidth"
+  allowfullscreen="allowfullscreen"
+  allow="allow"
+>
+</iframe>
+```
+
+| attribute       | value | details                                              |
+| --------------- | ----- | ---------------------------------------------------- |
+| src             | value | Specifies the URL of the document to embed           |
+| srcdoc          | value | Specifies the document to embed                      |
+| anchor          | value | Specifies the name of the anchor                     |
+| name            | value | Specifies the name of the iframe                     |
+| width           | value | Specifies the width of the iframe                    |
+| height          | value | Specifies the height of the iframe                   |
+| scrolling       | value | Specifies whether the iframe should have scrollbars  |
+| frameborder     | value | Specifies whether the iframe should have a border    |
+| marginheight    | value | Specifies the margin height of the iframe            |
+| marginwidth     | value | Specifies the margin width of the iframe             |
+| allowfullscreen | value | Specifies whether the iframe should allow fullscreen |
+| allow           | value | Specifies the features allowed in the iframe         |
+
+- sandbox in iframe
+
+  | attribute            | value | details                                               |
+  | -------------------- | ----- | ----------------------------------------------------- |
+  | allow-forms          | value | Specifies that the iframe should allow forms          |
+  | allow-pointer-lock   | value | Specifies that the iframe should allow pointer lock   |
+  | allow-popups         | value | Specifies that the iframe should allow popups         |
+  | allow-same-origin    | value | Specifies that the iframe should allow same origin    |
+  | allow-scripts        | value | Specifies that the iframe should allow scripts        |
+  | allow-top-navigation | value | Specifies that the iframe should allow top navigation |
+
+# SVG
+
+- svg is a standard for scalable vector graphics.
+
+```html
+<svg
+  width="width"
+  height="height"
+  viewbox="viewbox"
+  preserveaspectratio="preserveaspectratio"
+  xmlns="xmlns"
+  version="version"
+></svg>
+```
+
+| attribute                   | value | details                                                        |
+| --------------------------- | ----- | -------------------------------------------------------------- |
+| width                       | value | Specifies the width of the svg                                 |
+| height                      | value | Specifies the height of the svg                                |
+| viewbox                     | value | Specifies the viewbox of the svg                               |
+| preserveaspectratio         | value | Specifies the preserveaspectratio of the svg                   |
+| xmlns                       | value | Specifies the xmlns of the svg. xmlns stands for XML Namespace |
+| version                     | value | Specifies the version of the svg                               |
+| path                        | value | Specifies the path of the svg                                  |
+| circle                      | value | Specifies the circle of the svg                                |
+| ellipse                     | value | Specifies the ellipse of the svg                               |
+| line                        | value | Specifies the line of the svg                                  |
+| polygon                     | value | Specifies the polygon of the svg                               |
+| polyline                    | value | Specifies the polyline of the svg                              |
+| rect                        | value | Specifies the rect of the svg                                  |
+| text                        | value | Specifies the text of the svg                                  |
+| tspan                       | value | Specifies the tspan of the svg                                 |
+| image                       | value | Specifies the image of the svg                                 |
+| defs                        | value | Specifies the defs of the svg                                  |
+| g                           | value | Specifies the g of the svg                                     |
+| mask                        | value | Specifies the mask of the svg                                  |
+| pattern                     | value | Specifies the pattern of the svg                               |
+| clipPath                    | value | Specifies the clipPath of the svg                              |
+| linearGradient              | value | Specifies the linearGradient of the svg                        |
+| radialGradient              | value | Specifies the radialGradient of the svg                        |
+| stop                        | value | Specifies the stop of the svg                                  |
+| symbol                      | value | Specifies the symbol of the svg                                |
+| use                         | value | Specifies the use of the svg                                   |
+| animate                     | value | Specifies the animate of the svg                               |
+| animateMotion               | value | Specifies the animateMotion of the svg                         |
+| id                          | value | Specifies the id of the svg                                    |
+| class                       | value | Specifies the class of the svg                                 |
+| style                       | value | Specifies the style of the svg                                 |
+| transform                   | value | Specifies the transform of the svg                             |
+| transform-origin            | value | Specifies the transform-origin of the svg                      |
+| visibility                  | value | Specifies the visibility of the svg                            |
+| display                     | value | Specifies the display of the svg                               |
+| overflow                    | value | Specifies the overflow of the svg                              |
+| clip                        | value | Specifies the clip of the svg                                  |
+| clip-path                   | value | Specifies the clip-path of the svg                             |
+| mask                        | value | Specifies the mask of the svg                                  |
+| filter                      | value | Specifies the filter of the svg                                |
+| opacity                     | value | Specifies the opacity of the svg                               |
+| fill                        | value | Specifies the fill of the svg                                  |
+| fill-opacity                | value | Specifies the fill-opacity of the svg                          |
+| fill-rule                   | value | Specifies the fill-rule of the svg                             |
+| stroke                      | value | Specifies the stroke of the svg                                |
+| stroke-opacity              | value | Specifies the stroke-opacity of the svg                        |
+| stroke-width                | value | Specifies the stroke-width of the svg                          |
+| stroke-linecap              | value | Specifies the stroke-linecap of the svg                        |
+| stroke-linejoin             | value | Specifies the stroke-linejoin of the svg                       |
+| stroke-miterlimit           | value | Specifies the stroke-miterlimit of the svg                     |
+| marker                      | value | Specifies the marker of the svg                                |
+| marker-start                | value | Specifies the marker-start of the svg                          |
+| marker-mid                  | value | Specifies the marker-mid of the svg                            |
+| marker-end                  | value | Specifies the marker-end of the svg                            |
+| mask                        | value | Specifies the mask of the svg                                  |
+| clip-path                   | value | Specifies the clip-path of the svg                             |
+| clip-rule                   | value | Specifies the clip-rule of the svg                             |
+| color                       | value | Specifies the color of the svg                                 |
+| color-interpolation         | value | Specifies the color-interpolation of the svg                   |
+| color-interpolation-filters | value | Specifies the color-interpolation-filters of the svg           |
+| color-profile               | value | Specifies the color-profile of the svg                         |
+| color-rendering             | value | Specifies the color-rendering of the svg                       |
+| cursor                      | value | Specifies the cursor of the svg                                |
+| direction                   | value | Specifies the direction of the svg                             |
+| display                     | value | Specifies the display of the svg                               |
+| dominant-baseline           | value | Specifies the dominant-baseline of the svg                     |
+| enable-background           | value | Specifies the enable-background of the svg                     |
+| fill                        | value | Specifies the fill of the svg                                  |
+
+# Embedding external SVG files in HTML
+
+- using image element
+
+```html
+<img src="attention.svg" width="50" height="50" />
+```
+
+- using object element
+
+```html
+<object
+  data="attention.svg"
+  type="image/svg+xml"
+  width="50"
+  height="50"
+></object>
+```
+
+# Canvas
+
+- canvas is used to draw amazing stuff like shapes, graphs, manipulate images, create engaging
+  games etc. with JavaScript.
+
+  ```html
+  <canvas width="width" height="height" id="id" style="style"> </canvas>
+  ```
+
+  | attribute | value | details                           |
+  | --------- | ----- | --------------------------------- |
+  | width     | value | Specifies the width of the canvas |
+
+# Marking up computer code
+
+- if e formatting (white space, new lines, indentation) of the code matters, use pre element
+
+```html
+<pre>
+ <code>
+ x = 42
+ if x == 42:
+ print "x is … … 42"
+ </code>
+</pre>
+```
+
+# Inline with <code>
+
+```html
+<p>The <code>a</code> element creates a hyperlink.</p>
+<br />
+```
+
+# HTML ComputerCode
+
+```html
+<kbd>The <code>a</code> element creates a hyperlink.</kbd> <br />
+```
+
+# Tabindex
+
+```html
+<div tabindex="0">This div is focusable, but not in the tabbing order</div>
+```
+
+- Remove an element from the tabbing order by setting the tabindex attribute to -1.
+
+```html
+<button tabindex="-1">This button will not be reachable by tab</button>
+```
+
+# Global Attributes
+
+| attribute       | value | details                                      |
+| --------------- | ----- | -------------------------------------------- |
+| class           | value | Specifies the class of the element           |
+| id              | value | Specifies the id of the element              |
+| style           | value | Specifies the style of the element           |
+| title           | value | Specifies the title of the element           |
+| lang            | value | Specifies the lang of the element            |
+| dir             | value | Specifies the dir of the element             |
+| accesskey       | value | Specifies the accesskey of the element       |
+| tabindex        | value | Specifies the tabindex of the element        |
+| onclick         | value | Specifies the onclick of the element         |
+| ondblclick      | value | Specifies the ondblclick of the element      |
+| contenteditable | value | Specifies the contenteditable of the element |
+| contextmenu     | value | Specifies the contextmenu of the element     |
+| draggable       | value | Specifies the draggable of the element       |
+| dropzone        | value | Specifies the dropzone of the element        |
+| hidden          | value | Specifies the hidden of the element          |
+| spellcheck      | value | Specifies the spellcheck of the element      |
+| autocorrect     | value | Specifies the autocorrect of the element     |
+| autocomplete    | value | Specifies the autocomplete of the element    |
+| autocapitalize  | value | Specifies the autocapitalize of the element  |
+| autofocus       | value | Specifies the autofocus of the element       |
+| autoplay        | value | Specifies the autoplay of the element        |
+| controls        | value | Specifies the controls of the element        |
+| loop            | value | Specifies the loop of the element            |
+| transition      | value | Specifies the transition of the element      |
+| translate       | value | Specifies the translate of the element       |
+
+# HTML 5 Cache
+
+- Cache is a mechanism for storing data in the browser for later use.
+- we will create a cache with the following code:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>HTML5 Multilanguage Page</title>
+    <meta charset="UTF-8" manifest="index.appcache" />
+    >
+    <title>Document</title>
   </head>
   <body>
-    <h2>English</h2>
-    <p lang="en">This is demo text</p>
-
-    <h2>French</h2>
-    <p lang="fr">Ceci est un texte de démonstration</p>
-
-    <h2>Spanish</h2>
-    <p lang="es">Este es un texto de demostración</p>
-  </body>
-</html>
-```
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is the difference between `<section>` and `<div>`?
-
-The `<section>` tag creates independent sections within a webpage having logically connected content. And the `<div>` tag is an empty container specifying a division or a section.
-
-**The `<section>` Element**
-
-According to the W3C specification, the `<section>` tag means that the content inside this element is grouped. In other words, the content relates to a single theme. It must be an entry in the outline of the page.
-
-**Example**
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Section Tag Example</title>
-  </head>
-  <body>
-    <h1>W3Docs</h1>
-    <section>
-      <h2>W3Docs Sections</h2>
-      <ul>
-        <li>Books</li>
-        <li>Quizzes</li>
-        <li>Snippets</li>
-      </ul>
-    </section>
-    <section>
-      <h3>Books</h3>
-      <p>Learn HTML</p>
-      <p>Learn CSS</p>
-      <p>Learn Javascript</p>
-    </section>
-  </body>
-</html>
-```
-
-**The `<div>` Element**
-
-The `<div>` element only represents its child elements and doesn\'t have a special meaning. It can be used with the `lang`, `title`, and `class` attributes to add semantics that is common to a group of consecutive elements. This element can also be used in a `<dl>` tag and wrap groups of `<dt>` and `<dd>` elements.
-
-**Example**
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Div Tag Example</title>
-    <style>
-      div {
-        background-color: #87f5b3
+    <script>
+      var cache = {};
+      function getData(url, callback) {
+        if (cache[url]) {
+          callback(cache[url]);
+        } else {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+          xhr.onload = function () {
+            cache[url] = JSON.parse(xhr.responseText);
+            callback(cache[url]);
+          };
+          xhr.send();
+        }
       }
-    </style>
-  </head>
-  <body>
-    <h1>Example</h1>
-    <div>
-      <h2>A heading in a <div> tag.</h2>
-      <p>Some text in a <div> tag.</p>
-    </div>
-    <p>Here is some other text in a <p> tag.</p>
+    </script>
   </body>
 </html>
 ```
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+- then we will create index.appcache file with below codes
+- CACHE MANIFEST, index.html
+- The two files must be in the same folder in this example
 
-## Q. Discuss the differences between an HTML specification and a browser\'s implementation thereof.
+# HTML Event Attributes
 
-HTML specifications such as HTML5 define a set of rules that a document must adhere to in order to be "valid" according to that specification. In addition, a specification provides instructions on how a browser must interpret and render such a document.
+## HTML Form Events
 
-A browser is said to "support" a specification if it handles valid documents according to the rules of the specification. As of yet, no browser supports all aspects of the HTML5 specification (although all of the major browser support most of it), and as a result, it is necessary for the developer to confirm whether the aspect they are making use of will be supported by all of the browsers on which they hope to display their content. This is why cross-browser support continues to be a headache for developers, despite the improved specificiations.
+| Attributes       | Description                                                             |
+| ---------------- | ----------------------------------------------------------------------- |
+| onabort          | Fires when the loading of an element is aborted.                        |
+| onblur           | Fires when an element loses focus.                                      |
+| oncanplay        | Fires when the user can play the media.                                 |
+| oncanplaythrough | Fires when the user can play through the media.                         |
+| onchange         | Fires when the value of an element is changed.                          |
+| onclick          | Fires when an element is clicked.                                       |
+| oncontextmenu    | Fires when the user right-clicks an element.                            |
+| oncuechange      | Fires when the active cue changes in a text track.                      |
+| ondblclick       | Fires when an element is double-clicked.                                |
+| ondrag           | Fires when the user drags an element.                                   |
+| ondragend        | Fires when the user drags an element and releases it.                   |
+| ondragenter      | Fires when the user drags an element onto another element.              |
+| ondragleave      | Fires when the user drags an element away from another element.         |
+| ondragover       | Fires when the user drags an element and moves it over another element. |
+| ondragstart      | Fires when the user starts to drag an element.                          |
+| ondrop           | Fires when the user drops an element.                                   |
+| ondurationchange | Fires when the duration of the media changes.                           |
+| onemptied        | Fires when the media has been emptied.                                  |
+| onended          | Fires when the media has reached the end.                               |
+| onerror          | Fires when an error occurs.                                             |
+| onfocus          | Fires when an element receives focus.                                   |
+| oninput          | Fires when the value of an element is changed.                          |
+| oninvalid        | Fires when a form is invalid.                                           |
+| onkeydown        | Fires when the user presses a key.                                      |
+| onkeypress       | Fires when the user presses a key.                                      |
+| onreset          | Fires when a form is reset.                                             |
+| onscroll         | Fires when the user scrolls.                                            |
+| onsubmit         | Fires when a form is submitted.                                         |
+| onselect         | Fires when text is selected.                                            |
 
-In addition, while HTML5 defines some rules to follow for an invalid HTML5 document (i.e., one that contains syntactical errors), invalid documents may contain anything, and it is impossible for the specification to handle all possibilities comprehensively. Thus, many decisions about how to handle malformed documents are left up to the browser.
+## HTML Keyboard Events
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+| Attributes | Description                         |
+| ---------- | ----------------------------------- |
+| onkeydown  | Fires when the user presses a key.  |
+| onkeypress | Fires when the user presses a key.  |
+| onkeyup    | Fires when the user releases a key. |
 
-## Q. Why you would use a srcset attribute in an image tag? Explain the process the browser used when evaluating the content of this attribute.
+# ARIA
 
-The `srcset` attribute allows to define a list of different image resources along with size information so that browser can pick the most appropriate image based on the actual device\'s resolution.
+- Accessible Rich Internet Applications (ARIA) is a set of accessibility features that enable web content to be more accessible to people with disabilities or other accessibility needs.
+- "role" attribute is used to identify the role of an element.
+- "aria-\*" attributes are used to provide additional information about an element to assist in its accessibility.
 
-**Syntax**
+- ARIA roles
 
-```html
-<img
-  srcset=" 
-      url size, 
-      url size, 
-      url size "
-  src="default url"
-/>
-```
+| Role                      | Description                                                       |
+| ------------------------- | ----------------------------------------------------------------- |
+| role = "alert"            | A message with important, and usually time-sensitive, information |
+| role = "alertdialog"      | A dialog box that contains an alert message                       |
+| role = "application"      | A container for other content                                     |
+| role = "article"          | A self-contained composition                                      |
+| role = "banner"           | A large heading                                                   |
+| role = "button"           | A clickable button                                                |
+| role = "checkbox"         | A checkbox                                                        |
+| role = "columnheader"     | A header for a column in a table                                  |
+| role = "combobox"         | A listbox with an editable text field                             |
+| role = "complementary"    | Content that is complementary to the main content                 |
+| role = "contentinfo"      | Content about the page                                            |
+| role = "dialog"           | A dialog box                                                      |
+| role = "directory"        | A list of links to other documents                                |
+| role = "grid"             | A table with rows and columns                                     |
+| role = "gridcell"         | A cell in a grid                                                  |
+| role = "group"            | A group of objects                                                |
+| role = "heading"          | A large, main heading                                             |
+| role = "img"              | An image                                                          |
+| role = "link"             | A hyperlink                                                       |
+| role = "list"             | A list of items                                                   |
+| role = "listbox"          | A listbox                                                         |
+| role = "listitem"         | An item in a list                                                 |
+| role = "log"              | A system log                                                      |
+| role = "main"             | The main content of the document                                  |
+| role = "marquee"          | A scrolling text area                                             |
+| role = "menu"             | A menu of commands                                                |
+| role = "menubar"          | A menu bar                                                        |
+| role = "menuitem"         | An item in a menu                                                 |
+| role = "menuitemcheckbox" | A checkbox in a menu                                              |
+| role = "menuitemradio"    | A radio button in a menu                                          |
+| role = "navigation"       | Content for navigating the document                               |
+| role = "note"             | A note                                                            |
+| role = "option"           | An option in a select list                                        |
+| role = "presentation"     | Content for presenting the document                               |
+| role = "progressbar"      | A progress bar                                                    |
+| role = "radio"            | A radio button                                                    |
+| role = "radiogroup"       | A group of radio buttons                                          |
+| role = "region"           | A region of the document                                          |
+| role = "row"              | A row in a table                                                  |
+| role = "rowgroup"         | A group of rows in a table                                        |
+| role = "rowheader"        | A header for a row in a table                                     |
+| role = "scrollbar"        | A scroll bar                                                      |
+| role = "search"           | A search field                                                    |
+| role = "searchbox"        | A search field                                                    |
+| role = "separator"        | A separator                                                       |
+| role = "slider"           | A slider                                                          |
+| role = "spinbutton"       | A spin button                                                     |
+| role = "status"           | A status message                                                  |
+| role = "switch"           | A switch                                                          |
+| role = "tab"              | A tab                                                             |
+| role = "tablist"          | A list of tabs                                                    |
+| role = "tabpanel"         | A tab panel                                                       |
+| role = "term"             | A term                                                            |
+| role = "textbox"          | A text box                                                        |
+| role = "timer"            | A timer                                                           |
+| role = "toolbar"          | A toolbar                                                         |
+| role = "tooltip"          | A tooltip                                                         |
+| role = "tree"             | A tree                                                            |
+| role = "treegrid"         | A tree with rows and columns                                      |
+| role = "treeitem"         | An item in a tree                                                 |
+| role = "widget"           | A generic widget                                                  |
+| role = "window"           | A window                                                          |
+| role = "none"             | A generic container                                               |
+| role = "math"             | A mathematical expression                                         |
 
-### **1. Using display density descriptor**
+# HTML URL Encode
 
-`srcset` provides a comma-separated list of image resources along with display density it should be used, for example1x, 2x etc.
+- URL encoding is used to convert special characters into a format that can be transmitted over the Internet.
+- URL encoding is also known as percent encoding.
+- URL encoding is used to encode a string into a valid URL.
 
-**Example**
+## URL
 
-```html
-<img src="image.jpg" srcset="image.jpg, image_2x.jpg 2x" />
-```
+- Uniform Resource Locator (URL) is a standard for identification of resources on the Internet.
+- URL is a text string that identifies a resource on the Internet.
+- is used to address a webpage or document on the Internet means our browser requests document from web server using this URL.
 
-### **2. Using width descriptor**
+- Web address follows the format:
+  scheme://prefix.domain:port/path/filename
 
-The syntax is similar to the display density descriptor, but instead of display density values, we provide the actual width of the image.
+| scheme   | prefix                               | domain                        | port                        |
+| -------- | ------------------------------------ | ----------------------------- | --------------------------- |
+| scheme   | type of internet service or protocol | http/https/ftp                | used to access the resource |
+| prefix   | prefix of the domain name            | www                           | port                        |
+| domain   | domain name                          | example.com                   | port                        |
+| port     | port number                          | 80                            | 8080                        |
+| path     | path of the resource                 | /index.html or path at server | /images/logo.png            |
+| filename | name of the resource                 | index.html                    | logo.png                    |
 
-**Example**
+# HTML URL Decode
 
-```html
-<img src="image.jpg" srcset="small.jpg 300w, medium.jpg 600w, large.jpg 900w" />
-```
+- URL decoding is used to convert a URL encoded string into a normal string.
+- URL decoding is also known as percent decoding.
+- URL decoding is used to decode a URL into a normal string.
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
+- Web address follows the format:
+  scheme://prefix.domain:port/path/filename
 
-## Q. What is accessibility & ARIA role means in a web application?
+# DNS
 
-The **Accessible Rich Internet Applications (ARIA)** Suite, defines a way to make Web content and Web applications more accessible to people with disabilities. It especially helps with dynamic content and advanced user interface controls developed with HTML, JavaScript, and related technologies.
+- Domain Name System
+- is the phone book of the Internet.
+- the translator that translates domain names (that we use) into IP addresses (that browsers use).
 
-Screen readers work with regular HTML, but adding ARIA can provide screen reader users with greater context and interactivity with the content on the page. ARIA has no effect on how elements are displayed or behave in browsers. It does not add new functionality, and is meant to act only as an extra descriptive layer for screen readers.
+# IP addresses
 
-Without WAI-ARIA certain functionality used in Web sites is not available to some users with disabilities, especially people who rely on screen readers and people who cannot use a mouse. WAI-ARIA addresses these accessibility challenges, for example, by defining ways for functionality to be provided to assistive technology. With WAI-ARIA, developers can make advanced Web applications accessible and usable to people with disabilities.
+- unique 32-bit numbers assigned to every device connected to the web.
 
-ARIA attributes are divided into two categories: roles, and states & properties.
+## And how does this whole translation business happens?
 
-### **ARIA Roles**
+1. User types a domain name in the browser and presses enter. (Ex- google . com)
+2. This is a request for the files of the homepage of google and is called a query.
+3. The browser queries this from a DNS server.
+4. The DNS server finds the IP address of the requested domain and returns it to the web browser.
+5. The browser makes an HTTP request to the received IP address.
+6. The server of that address returns the files (HTML, CSS, Javascript files) to the browser.
+7. The browser uses these files to render a page and displays it to the user.
 
-An ARIA role is added via a `role="<ROLE TYPE>"` attribute, and does not ever change for an element once it is set. There are four categories of ARIA roles:
+# Understand how the browser works
 
-- landmark
-- document
-- widget
-- abstract
+- DOM Tree, Separation of concerns, request handling by servers, and more!
+- HTML, CSS, and Javascript are the three main components of the web.
+- HTML, CSS, and Javascript are coded and hosted on the server.
+- Now, The job of the server is to listen for requests & 'serve' these files up when requested.
+- When we go to a URL like 'google . com' a request is made to the server where the files for the homepage of Google live.
+- That server keeps listening for these requests and whoever makes these requests, the server sends back the relevant files to them.
+- Browsers are that piece of the puzzle that is used to make these requests.-
+- Browser, in addition to making these request, perform so other tasks.
 
-### **Landmark ARIA Roles**
+# Other ways to make a request are:
 
-Much like semantic HTML elements, landmark ARIA Roles are used to give users of assistive technology a better way to navigate and identify the different parts of a web page.
+- pressing a button on a page
+- refreshing a page
+- going to a link
+- Once a request is made, the browser 'requests' the server to send relevant files.
+- The server sends back those files and that's where the real job of a browser begins.
 
-**Example**
+1. HTML - is used for the content and 'what' will be displayed on a page is decided by it
+2. CSS - is used for prettying things up. It is like make-up and decides 'how' things will look on a page
+3. Javascript - is used for interactivity. 'What will happen if' is handled by it.
 
-```html
-<nav class="mobile-nav" role="navigation" aria-label="Mobile Menu">
-  List of Links
-</nav>
-```
+- This separating of files according to their role is called the 'seperation of concerns' approach.
 
-While seeming redundant, is actually useful for screen readers. It wouldn\'t read the aria-label on this navigation, which is really helpful for giving greater context to visually impaired users, without the `role="navigation"`.
+# parsing
 
-The different landmark roles you can use are as follows, copied from the W3C Wiki Page:
+- When the browser receives an HTML file, it undergoes what is called parsing.
+- Parsing is what enables the browser to take HTML files & make a DOM tree out of it.
+- Parsing is itself composed of a process called 'Tokenization' in which the HTML file is broken into several sections.
 
-- **banner**: A region that contains the prime heading or internal title of a page.
-- **complementary**: Any section of the document that supports the main content, yet is separate and meaningful on its own.
-- **contentinfo**: A region that contains information about the parent document such as copyrights and links to privacy statements.
-- **form**: A region of the document that represents a collection of form-associated elements, some of which can represent editable values that can be submitted to a server for processing.
-- **main**: Main content in a document. In almost all cases a page will have only one `role=“main”`.
-- **navigation**: A collection of links suitable for use when navigating the document or related documents.
-- **search**: The search tool of a Web document.
-- **application**: A region declared as a web application, as opposed to a web document.
+# Tokenization
 
-### **Document ARIA Roles**
+- Tokenization essentially enables the browser to go through the entire code file, one section at a time, and make sense of it.
+- We get a parsing tree during parsing and that eventually ends up becoming the DOM tree that we see in the browser.
 
-Document roles describe the structure of the content on the page, as opposed to the structure of the whole page, which landmark roles describe. The roles in bold are the ones we think are the most common document aria roles, and the ones which are useful to think about including in your HTML.
+- everything is an Object in Javascript.
+- DOM tree or the 'Document Object Model' is basically a map of the entire page, which is made up of objects, nodes and elements and we can use Javascript to manipulate these objects.
+- The DOM tree is a representation of the HTML file that the browser receives from the server.
+- The Javascript code we write manipulates the nodes in this DOM tree and produces interactivity.
+- Nodes are the building blocks of the DOM tree or are the basic units of the DOM tree.
+- Nodes such as script tags and head tags are hidden as they don't affect the rendered version of the page.
 
-- **article**: A section of a page that consists of a composition that forms an independent part of a document, page, or site.
-- **columnheader**
-- **definition**: A definition of a term or concept.
-- **directory**
-- **document**
-- **group**: A set of user interface objects which are not intended to be included in a page summary or table of contents by assistive technologies.
-- **heading**: A heading for a section of the page.
-- **img**
-- **list**
-- **listitem**
-- **math**
-- **note**
-- **presentation**
-- **region**
-- **row**
-- **rowgroup**
-- **rowheader**
-- **separator**
-- **toolbar**
+# Rendering
 
-### **Widget ARIA Roles**
+- rendering is the process of displaying the content of a web page
+- rendering in HTML is done by the browser and the browser renders the content of the page in the browser window from top to bottom
+- Rendering a webpage is the process of turning HTML, CSS, and JavaScript code into an interactive page that website visitors expect to see when clicking on a link.
+- is used to calculate the layout of all the visible elements on a page.
+- After this computation, the process of 'painting' starts in which content is put on the screen.
 
-Widget Roles are used to describe what are often javascript-based interfaces, or the more complicated parts of your web page\'s interface. The roles that are starred are the ones we think are the most common elements widget aria roles, and the ones which are useful useful to think about including in your HTML.
+1. Traverse all visible nodes of DOM tree
+2. Nodes like script (which don't affect rendered output) and those that are hidden by CSS are skipped
+3. Apply relevant CSS rules to each node & compute the final layout.
+4. After the Render Tree construction, the process of layout computation takes place.
+5. So far, we have each visible node with its relevant CSS rules applied.
+6. But we don't know their position in the tree.
+7. That is calculated in the layout computation.
+8. The process of layout computation is recursive & begins at the root html element.
+9. It then recursively goes through the tree hierarchy & calculates geometric information for every renderer.
+10. Each renderer has a 'reflow' method & that's what's invoked in this process.
+11. Now that the browser knows the structure of the document, the style for each node, & the geometry of the page, it now tries to create a picture of the entire page.
+12. This is called 'Painting' & is aptly called so.
+13. The browser computes composites of the page in this step.
+14. The process of painting takes a lot of time and things like GIFs increase the painting time.
+15. After painting the browser knows everything it needs to & only converting what it knows into pixels on the screen is what is left.
+16. That happens in 'Composting.'
+17. Composting is the final step of the process and in this step, 'rasterising' happens.
+18. Rastersing is the process of drawing a picture on the screen using known information.
+19. In composting, the browser separates the page into different layers & rasters them individually
+20. Since the combined effect of rasterising is that the entire page has been rasterised, when the user scrolls on a page, the new layers are displayed quickly to the user.
+21. Chrome uses this technique.
+22. And this is how the page is displayed to the user!
 
-- **alert**: A message with important, and usually time-sensitive, information.
-- **alertdialog**: A type of dialog that contains an alert message, where initial focus goes to an element within the dialog.
-- **button**: An input that allows for user-triggered actions when clicked or pressed.
-- **checkbox**: A checkable input that has three possible values: true, false, or mixed.
-- **dialog**: A dialog is an application window that is designed to interrupt the current processing of an application in order to prompt the user to enter information or require a response.
-- **gridcell**
-- **link**
-- **log**
-- **marquee**
-- **menuitem**
-- **menuitemcheckbox**
-- **menuitemradio**
-- **option**
-- **progressbar**
-- **radio**: A checkable input in a group of radio roles, only one of which can be checked at a time.
-- **scrollbar**
-- **slider**
-- **spinbutton**
-- **status**
-- **tab**: A grouping label providing a mechanism for selecting the tab content that is to be rendered to the user.
-- **tabpanel**: A container for the resources associated with a tab, where each tab is contained in a tablist.
-- **textbox**: Input that allows free-form text as its value.
-- **timer**
-- **tooltip**
-- **treeitem**
+# Browser
 
-### **Abstract ARIA Roles**
+Browsers functionality can be classified into four major sections and these include:
 
-Abstract aria roles are the basis of how the other ARIA roles are defined. These are not to be used in HTML.
+- Fetch: A major subsystem called network layer plays a vital role in fetching data from subsequent web servers via the internet.
+  $ The network layer is responsible for the following:
+- Establishing a connection with the web server
+- Sending a request to the web server
+- Receiving a response from the web server
+- Parsing the response
+- Rendering the response
+- Accepts URLs from the browser user interface and is responsible for making network calls to fetch resources via HTTP/FTP protocols.
 
-### **ARIA States & Properties**
-
-ARIA states and properties are often used to support ARIA roles that exist on a page. ARIA Properties often describe relationships with other elements, and for the most part, do not change once they\'re set.
-
-ARIA States are more dynamic and are typically updated with JavaScript as a user interacts with a page. Screen readers are notified when these states change, and can announce these changes to users after an interaction takes place.
-
-While there are 35 aria properties and states the W3C defines and which you can read more about on the W3C site, here are the ones we believe to most commonly used and practical for most web pages/applications.
-
-- **aria-activedescendant**: Identifies the currently active descendant of a composite widget. Use with autofill search suggestions.
-- **aria-autocomplete**: Indicates whether user input completion suggestions are provided. Use with autofill search suggestions.
-- **aria-checked (state)**: Indicates the current “checked” state of checkboxes, radio buttons, and other widgets. You can set this to true, false, or mixed state.
-- **aria-controls**: Identifies the element (or elements) whose contents or presence are controlled by the current element.
-- **aria-describedby**: Identifies the element (or elements) that describes the object.
-- **aria-disabled (state)**: Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
-- **aria-expanded (state)**: Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
-- **aria-hidden (state)**: Indicates that the element and all of its descendants are not visible or perceivable to any user as implemented by the author.
-- **aria-invalid (state)**: Indicates the entered value does not conform to the format expected by the application.
-- **aria-label**: Defines a string value that labels the current element.
-- **aria-labelledby**: Identifies the element (or elements) that labels the current element.
-- **aria-live**: Indicates that an element is dynamic, changing, and will be updated, and describes the types of updates the user can expect from the live region.
-- **aria-owns**: Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
-- **aria-pressed (state)**: Indicates the current “pressed” state of toggle buttons.
-- **aria-required**: Indicates that user input is required on the element before a form may be submitted.
-- **aria-selected (state)**: Indicates the current “selected” state of various widgets.
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. What is href and src attribute in HTML
-
-| href                                                                                | src                                                                          |
-| :---------------------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
-| href is used to link to another page or file.                                       | src is used to link to an external resource.                                 |
-| href is an attribute of the anchor tag.                                             | src is an attribute of the img tag.                                          |
-| REFerence to information for the current page ie css info for the page style sheet. | REFerence to information for the current page ie css info for the page style |
+- Process
+- Display
+- Storage
+- Security
