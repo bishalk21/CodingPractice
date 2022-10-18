@@ -79,6 +79,10 @@ HTML Divs and how to separate content for CSS styling and JavaScript. <br>
 </html>
 ```
 
+# History of HTML
+
+- HTML was created by Tim Berners-Lee in 1991.
+
 # HyperText
 
 - a text that is displayed on a computer or other electronic device with references (hyperlinks) to other text that the reader can immediately access.
