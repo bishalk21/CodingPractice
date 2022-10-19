@@ -1,0 +1,23 @@
+
+              
+   P-DEBOUNCE  
+              
+
+
+
+ALTERNATIVES ==>                  #See debounce-fn
+
+VERSION ==>                       #4.0.0
+
+P-DEBOUNCE                        #Delay async FUNC calls by NUMms.
+ (FUNC(...)[->PROMISE],NUM[,OPTS])#Additional call within that time resets the delay.
+ ->FUNC                           #  - previous call returns the next call's PROMISE instead
+                                  #  - even if arguments differ
+                                  #If OPTS.before true (def: false):
+                                  #  - first call is not delayed, but additional calls are
+                                  #  - additional calls still reset the delay
+                                  #  - additional calls return the first call's PROMISE instead
+
+P-DEBOUNCE.promise
+ (FUNC(...)->PROMISE)             #If a previous call is ongoing, next call return its PROMISE instead.
+ ->FUNC                           #  - even if arguments differ

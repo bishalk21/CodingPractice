@@ -1,0 +1,157 @@
+
+           
+   TS-NODE  
+           
+
+
+
+VERSION ==>                       #10.9.1
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            CONFIG             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CONF                              #Can be:
+                                  #  - --confVarName (CLI)
+                                  #  - CONF.varName (register())
+                                  #  - ENVVAR TS_NODE_VAR_NAME (CLI, register(), -r)
+                                  #  - TCONF.ts-node.varName
+                                  #Serialization for CLI and ENVVAR:
+                                  #  - STR -> STR
+                                  #  - BOOL -> '0|1'
+                                  #  - ARR -> 'STR,...'
+                                  #  - OBJ -> 'JSON'
+                                  #  - FUNC -> not possible
+--showConfig                      #Like tsc
+
+TCONF                             #TypeScript configuration.
+                                  #Forces:
+                                  #  - no --declaration[Map] --emitDeclarationOnly
+                                  #  - --outDir '$$ts-node$$' (no --out[File]), but actually not written
+                                  #  - --sourceMap --inlineSources
+                                  #     - but actually uses inline source maps
+                                  #     - uses node-source-map-support on type checking ERRORs
+                                  #Default: @tsconfig/node{version}/tsconfig.json
+--scriptMode                      #Resolve tsconfig.json and CONF.ignore based on compiled file (def if there is one)
+--cwdMode                         #Resolve tsconfig.json and CONF.ignore based on CONF.cwd (def otherwise)
+-P|--project                      #Like tsc (def: guessed)
+--skipProject                     #BOOL (def: false). Do not load tsconfig.json
+-O|--compilerOptions              #TCONF.compilerOptions
+
+--cwd                             #DIR (def: '.') for config resolution
+--scope                           #BOOL (def: false): ignore files outside CONF.scopeDir
+--scopeDir                        #'DIR' (def: TCONF.rootDir, tsconfig.json's DIR, or CONF.cwd)
+--files                           #BOOL: if false (def), ignore --files|include|exclude from tsconfig.json
+                                  #Instead, search dependencies from the files being checked|transpiled.
+
+-e|--emit                         #Emit files to CWD/.ts-node/
+--pretty                          #Like tsc
+-H|--compilerHost                 #Use TypeScript's compiler Host API instead of language service API
+
+TCONF.experimentalResolver        #BOOL (def: false)
+                                  #Make import "*.js|cjs|mjs" transpile|run "*.ts|cts|mts" instead
+                                  #Also allows import "*.js|cjs|mjs" even if in CommonJS (which is otherwise an error with tsc)
+                                  #Uses Node.js LOADERs under the hood
+TCONF.                            #BOOL (def: false)
+ experimentalTsImportSpecifiers   #Allows import "*.ts|cts|mts"
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           REGISTER            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+-r ts-node/register               #Do tsc runtime (instead of compile-time)
+                                  #Do it by patching require() (using require.extensions['EXT'])
+                                  #For extensions '.ts' and (depending on TCONF.allowJs|jsx) '.js[x]|.tsx'
+                                  #Transpilation and type checking are cached, using file path as key.
+-r ts-node/register/transpile-only#Same but with --transpileOnly
+-r ts-node/register/files         #Same but with --files
+
+--loader ts-node/esm
+--loader                          #Like ts-node/register[/transpile-only] but transpile to ES modules
+ ts-node/esm/transpile-only       #Requires setting TCONF.module 'esnext' and PACKAGE.type 'module'
+--esm                             #Same but using a child process, which calls `--loader`
+
+CONF.moduleTypes.GLOB             #'cjs|esm|package'. Override whether to transpile to CommonJS or ES modules
+                                  #Def: based on PACKAGE.type and TCONF.module
+
+-T|--transpileOnly                #BOOL (def: false). Do not type check.
+--typeCheck                       #BOOL. Inverse
+-D|--ignoreDiagnostics            #'NUM'|NUM_ARR: ignore type checking errors with those codes
+--logError                        #BOOL (def: false). `console.error()` on type checking error (instead of throwing)
+
+--preferTsExts                    #BOOL (def: false). If importing with '.EXT', prefer '.ts' over '.js'
+-I|--ignore                       #'REGEXP'_ARR (def: ['node_modules']). Ignore matching files
+--skipIgnore                      #BOOL (def: false). Do not use --ignore
+
+-C|--compiler                     #Underlying 'MODULE' compiler (def: 'typescript')
+--transpiler                      #Underlying 'MODULE' transpiler (def: none)
+--swc                             #Use swc as transpiler. Must first install @swc/core|wasm
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CLI              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ts-node                           #Like node but using -r ts-node/register
+                                  #Works as REPL too (using 'repl' core module)
+                                  #  - `.type TYPE` -> print a TYPE (using SERVICE.getTypeInfo())
+                                  #Node CLI flags must use NODE_OPTIONS, not argv
+ts-node-script                    #Same as ts-node --script-mode
+ts-node-cwd                       #Same as ts-node --cwd-mode
+ts-node-transpile                 #Same as ts-node --transpile-only
+ts-node-esm                       #Same as ts-node --esm
+-e|--eval
+-p|--print
+-i|--interactive
+--experimental-repl-await         #Same as node flags
+-r|--require
+--experimental-specifier-
+ resolution                       #Same as node flags, but can also be put in tsconfig.json
+
+ENVVAR TS_NODE_HISTORY            #Def: ~/.ts_node_repl_history
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         PROGRAMMATIC          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+register([CONF])->SERVICE         #Same as -r ts-node/register but programatically
+create([CONF])->SERVICE           #Same except with SERVICE.enabled(false)
+
+SERVICE.enabled()->BOOL           #
+SERVICE.enabled(BOOL)             #Get|set the effect of register()
+
+SERVICE.ignored('FILENAME')->BOOL #
+
+SERVICE.compile
+ ('TYPESCRIPT', 'FILENAME'[, NUM])#Manually transpile and type check a STR
+ ->'JAVASCRIPT'                   #NUM is line offset
+
+SERVICE.getTypeInfo               #Retrieve TYPE of a VAR inside 'TYPESCRIPT'
+ ('TYPESCRIPT', 'FILENAME', NUM)  #NUM is byte offset
+ ->OBJ                            #OBJ:
+                                  #  - name 'TYPE'
+                                  #  - comment STR (like autocomplete popup in VSCode)
+                                  #Not if --transpile-only
+
+SERVICE.options                   #CONF
+SERVICE.config                    #
+SERVICE.ts.*                      #Forwards to TYPESCRIPT.*
+
+CONF.transformers                 #Custom TYPESCRIPT transformers
+CONF.readFile('PATH')[->STR]
+CONF.fileExists('PATH')->BOOL     #Customize underlying FS.* calls

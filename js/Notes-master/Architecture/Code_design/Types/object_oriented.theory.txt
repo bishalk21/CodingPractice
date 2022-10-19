@@ -1,0 +1,81 @@
+
+                   
+   OBJECT_ORIENTED  
+                   
+
+
+
+OBJECT ==>                        #Complex type coupling data and methods of same concern
+                                  #Provides modularity: coherence, namespacing
+                                  #Can also provide abstraction: "encapsulation", i.e. exposing a limited set of an object
+
+METHODS ==>                       #Functions of an object
+                                  #Can use "this", first implicit argument for convenience
+
+SUBCLASSING ==>                   #OOP is often associated with subclassing (see polymorphism doc) but does not have to be, so not documented here
+
+PLAIN OLD DATA ==>                #Also called "passive data structure" (PDS)
+                                  #Object with no methods nor subclassing
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         RELATIONSHIPS         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+RELATIONSHIPS ==>                 #Relationship between objects, from more to less coupled:
+                                  #  - inheritance: "is a", polymorphic
+                                  #  - coercion: "is like a", polymorphic
+                                  #  - composition: "owns a", non-polymorphic, ownership
+                                  #  - aggregation|consultation: "has a", non-polymorphic, no ownership, exclusivity
+                                  #  - association: "uses a", non-polymorphic, no ownership, no exclusivity
+                                  #Concepts:
+                                  #  - polymorphic: uses object type (as opposed to object data) (see polymorphism doc)
+                                  #  - exclusivity: only one owner
+                                  #  - ownership: destroyed when owner is
+                                  #  - containment|container: owning several objects of similar|same type
+                                  #Prefer looser relationships, as it provides modularity.
+                                  #E.g. "composition over inheritance": only inheritance if behavorial subtyping, i.e. child is conceptually a subset:
+                                  #  - only adds to its parent: subtitutable (see below), does not encapsulate parent's interface
+                                  #  - same domain
+                                  #Recursion: referring to itself, directly or indirectly
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        INITIALIZATION         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+DEFINITION ==>                    #Type definition can be:
+                                  #  - class-based: separate definition and instances
+                                  #  - prototype-based: only instances
+PROTOTYPE ==>                     #A prototype is an object that is initialized by cloning, either by:
+                                  #  - reference ("delegation")
+                                  #  - deep copy ("concatenation")
+                                  #Usually done through a factory method, which it registers itself to.
+                                  #Goal: more dynamic|flexible but more complex
+
+FACTORY METHOD ==>                #Function returning new instances of a type.
+                                  #I.e. abstraction of a type initializer:
+                                  #  - actual type initializers might be encapsulated (i.e. private)
+                                  #  - pros: more flexibility, e.g.:
+                                  #     - can instrument (e.g. pooling)
+                                  #     - return different types
+                                  #  - cons: more complexity, e.g.:
+                                  #     - must replicate exception safety
+ABSTRACT FACTORY ==>              #Factory method that is an abstract method.
+                                  #I.e. children are meant to be reimplement it, e.g. specifying which instances to create
+NAMED CONSTRUCTOR ==>             #Factory method that is a static method on the class itself
+
+SINGLETON ==>                     #Pattern for objects that need to be unique.
+                                  #When retrieving the object:
+                                  #  - the first time, is initialized and returned
+                                  #     - i.e. is lazy initialized
+                                  #  - afterwards, is only returned
+                                  #Often requires global scope:
+                                  #  - must be thread-safe
+                                  #Problem: similar to global scope, i.e. less modular

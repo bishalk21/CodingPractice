@@ -1,0 +1,15 @@
+
+                 
+   SERVE-FAVICON  
+                 
+
+
+VERSION ==>                   #Node modules (2.5.0)
+                              #Serves /favicon.ico
+
+SERVE-FAVICON                 #Express MIDWR
+('PATH'|BUFFER[, OPTS])       #Uses header:
+                              #  - Cache-Control: OPTS.maxAge (def: 1 day)
+                              #  - ETag: using ETAG (see its doc)
+                              #  - Content-Type: "image/x-icon"
+                              #Handles conditional caching (using FRESH, see its doc)

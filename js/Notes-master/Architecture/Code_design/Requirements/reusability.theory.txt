@@ -1,0 +1,81 @@
+
+               
+   REUSABILITY  
+               
+
+
+
+REUSING ==>                       #Difference between reusing:
+                                  #  - when adding new features, i.e. easier
+                                  #  - after features were added, i.e. goal is to increase modularity
+                                  #Reusability:
+                                  #  - encouraging the first one (although it might help second one too)
+                                  #  - i.e. increases extensibility
+                                  #Can be:
+                                  #  - code reuse. Also called "standing on the shoulders of giants"
+                                  #  - data reuse
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       ENCOURAGING REUSE       :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPEN/CLOSE PRINCIPLE ==>          #Interfaces should encourage being extended, as opposed to being modified.
+                                  #I.e. limit|simplify the parts that need modification|addition in order to extend
+                                  #"O" of SOLID principles
+
+POLYMORPHISM ==>                  #See polymorphism doc
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        GOOD/BAD REUSE         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+HORIZONTAL/VERTICAL ELEMENTS ==>  #Architecture elements can be:
+                                  #  - horizontal: i.e. reused by many parts of the system (e.g. libraries)
+                                  #  - vertical: i.e. specific to a given need (e.g. application fullstack)
+                                  #The two should not mixed ("jumble" antipattern), i.e.:
+                                  #  - horizontal elements should be generic and meant for reuse only
+                                  #  - vertical elements should not be directly reused.
+                                  #    If can be reused, they should be promoted to horizontal elements instead (i.e. generalized)
+
+COPY-AND-PASTE PROGRAMMING ==>    #Antipattern also called "clipboard coding" or "software cloning|propagation"
+                                  #Code reuse that:
+                                  #  - does not understand the initial code well enough
+                                  #  - i.e. does not adapt it to current case perfectly
+                                  #"Data clumps" are code smells, i.e.:
+                                  #  - duplication of data (e.g. variables/constants) across modules
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           NO REUSE            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REINVENTED THE WHEEL ==>          #Also called "design in a vacuum" or "greenfield system"
+                                  #Re-implementing instead of reusing existing tools/libraries
+                                  #Might be due to:
+                                  #  - not knowing those tools exist
+                                  #  - "design around": avoiding patents conflicts
+                                  #  - "not invented here":
+                                  #     - conscious choice.
+                                  #     - possible reasons:
+                                  #        - desire for flexibility: which can be avoided by using customizable tools
+                                  #        - desire for security: which relies on the fallacy that in-house will be more secure
+                                  #        - avoiding vendor lock-in: which can be avoided by using tools with high interchangeabibility,
+                                  #          e.g. open-source software and open standards-based tools
+                                  #     - opposite is "PFE" (Proudly Found Elsewhere) or "Invented elsewhere"
+
+STOVEPIPE SYSTEM ==>              #Architecture that has granularity but lacks reuse:
+                                  #  - i.e. each subsystem is a "stovepipe", i.e. reinvents what other subsystems do
+                                  #  - often found in legacy systems
+STOVEPIPE ENTREPRISE ==>          #Same as stovepipe system, but between systems inside a company instead of subsystems inside a system, i.e. higher scale
+                                  #When focused on information reuse (i.e. systems|departments do not communicate to each other), called "information silos"

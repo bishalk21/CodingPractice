@@ -1,0 +1,22 @@
+
+                            
+   ROADMAP-UNIX-PERMISSIONS  
+                            
+
+
+
+Add REGEXP named groups (through babel)
+
+`symbolic` can use `ugo` as a permission character:
+  - e.g. `u+g` means "add all permissions from `group`"
+     - excluding special permissions
+  - only a single character, e.g. `u+gg`, `u+go` and `u+gw` are invalid
+  - if several comma-separated group, merge them with last one having priority (including `o+u,o+g` or `o+u,o-r`)
+
+`chmod` has particular behavior for `setuid` and `setgid` on directories:
+  - `octal` can only set them, but not unset them
+  - `symbolic` with `=` does not modify them
+
+Any `chmod` unsets `setgid` if current `gid` does not match file's owning group
+
+`+X` is noop if "u", "g" and "o" do not have "x" and is not a directory

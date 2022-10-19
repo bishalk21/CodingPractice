@@ -1,0 +1,442 @@
+
+       
+   JOI  
+       
+
+
+
+ALTERNATIVES ==>                  #See JSON-schema
+
+VERSION ==>                       #15.0.3
+                                  #Node and browser (requires "joi-browser" package)
+
+ENJOI ==>                        ##Project converting JSON-schema to JOI (see its doc)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             BASE              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI                               #Base SCHEMA
+SCHEMA                            #All methods returns a new immutable SCHEMA, so chainable
+
+JOI.defaults(FUNC(SCHEMA)->SCHEMA)#Called before SCHEMA is used for validation
+
+JOI.extend(...)                   #Add custom rules. See online doc.
+
+SCHEMA.describe()->SCHEMA_OBJ     #Serialize a schema to an OBJ (might include non-JSON types like REGEXP)
+JOI.compile(SCHEMA_OBJ)->SCHEMA   #Deserialize
+
+JOI.bind()->JOI                   #Binds all methods with JOI as this
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          ASSERTIONS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.assert(VAL, SCHEMA[, 'ERROR'])#Validate SCHEMA by throwing error
+                                  #'ERROR' is prepended to error message
+JOI.attempt(...)->VAL2            #Same but returns VAL2
+
+JOI.validate(VAL, SCHEMA          #Validate SCHEMA by passing ERROR|null to FUNC()
+[, OPTS][, FUNC(ERROR|null,VAL2)])#If no FUNC:
+->PROMISE(VAL2, ERROR|null)       #  - returns PROMISE for async
+                                  #  - PROMISE.error ERROR and PROMISE.value VAL2 are also set for sync
+                                  #VAL2 is deep copy of VAL.
+                                  #OPTS:
+                                  #  - abortEarly BOOL:
+                                  #     - if true (def), stops on first error
+                                  #     - VAL2 deep copy might be incomplete
+SCHEMA.validate(VAL[, FUNC])      #Same as JOI.validate(VAL, SCHEMA, FUNC)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            ERRORS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ERROR                             #ValidationError
+ERROR.isJoi                       #true
+ERROR.details                     #OBJ_ARR:
+                                  #  - message STR
+                                  #  - path 'VAR'_ARR
+                                  #  - type 'VALIDATION_FUNC'
+                                  #  - context OBJ:
+                                  #     - key 'VAR'
+                                  #     - label 'VAR': usually same as key
+                                  #     - value VAL
+                                  #     - validation rule-specific detailed information (see online doc)
+                                  #  - _object VAL: validated value
+ERROR.annotate([BOOL])->STR       #Prints a diff between actual and expected value
+                                  #If BOOL false (def), colored
+
+SCHEMA.label('KEY')               #Override key name in error messages
+SCHEMA.error(ERROR|FUNC(ERROR_ARR)#Override error
+ ->'ERROR'|ERROR|OBJ[_ARR][,OPTS])#If OPTS.self false (def), applies to children too
+
+OPTS.language                     #Override error messages for specific validation rules
+                                  #See the codebase for a list of OBJ keys for each validation rule
+                                  #Can include template values:
+                                  #  - values from ERROR.details.*.context
+                                  #  - interpolated with {{VAR}}
+                                  #  - or {{!VAR}} for HTML escaping, providing OPTS.escapeHtml true
+                                  #Prefixed with '"VARR"' unless string is prefixed with '!!' or '{{label}}' is used
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        TRANSFORMATION         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.convert                      #BOOL. If true (def), tries to cast VAL2 is cast to SCHEMA (using everything below)
+                                  #Still does deep copy on VAL2
+SCHEMA.strict()                   #Override OPTS.convert as false
+
+OPTS.stripUnknown                 #OBJ:
+                                  #  - objects BOOL (def: true): if VAL is an OBJ and keys are not among the available ones in
+                                  #    the schema, erase them
+                                  #  - arrays BOOL (def: false): same thing for values within an ARR
+                                  #Can also be BOOL, where true means { objects: true, arrays: false }
+SCHEMA.strip()                    #Remove this key
+
+OPTS.noDefaults                   #BOOL (def: false): do not apply default()
+SCHEMA.default(VAL[(CONTEXT_OBJ)])#If undefined, replace by VAL in SCHEMA.validate() VAL2
+                                  #When using VAL(), VAL.description()->STR must be defined
+
+BOOL_SCHEMA                       #Converts 'true|false' to BOOL
+BOOL_SCHEMA.truthy|falsy(VAL)     #Converts VAL to true|false
+BOOL_SCHEMA.insensitive([BOOL])   #If BOOL true (def), make conversion case-insensitive
+
+NUM_SCHEMA                        #Converts 'NUM' to NUM
+
+STR_SCHEMA.insensitive()          #Makes allow|[in]valid() case-insensitive (must be after)
+                                  #Also converts to lowercase
+STR_SCHEMA.lower|uppercase()      #
+STR_SCHEMA.trim([BOOL])           #If BOOL false (def: true), noop
+STR_SCHEMA.truncate([BOOL])       #Using STR_SCHEMA.max()
+STR_SCHEMA.replace(REGEXP, STR2)  #
+STR_SCHEMA.normalize([STR2])      #Unicode normalization among 'NFC' (def), 'NFD', 'NFKC', 'NFKD'
+STR_SCHEMA.isoDate()              #
+
+SYM_SCHEMA.map(ARG)               #Converts VAL to SYM, where ARG can be:
+                                  #  - { [STR]: SYM, ... } OBJ|MAP
+                                  #  - [VAL, SYM]_ARR
+
+ARR_SCHEMA                        #JSON string is converted to ARR
+ARR_SCHEMA.single([BOOL])         #If BOOL true (def), scalar VAL are converted to ARR
+
+OBJ_SCHEMA                        #Converts JSON object to OBJ
+OBJ_SCHEMA.rename                 #Transform keys.
+(KEY_STR|REGEXP, KEY2[, OPTS])    #Done before validation.
+                                  #OPTS (all def false):
+                                  #  - override BOOL: KEY2 can already exist for the first rename()
+                                  #  - multiple BOOL: KEY2 can exist for the other rename()
+                                  #  - alias BOOL: keep KEY
+                                  #  - skipUndefined BOOL: do not rename if undefined
+
+DATE_SCHEMA                       #Converts NUM|'DATE' to DATE
+
+BUFFER_SCHEMA                     #Converts STR to BUFFER
+BUFFER_SCHEMA.encoding(STR)       #Used during STR->BUFFER conversion
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          REFERENCES           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REF                               #VARR being a relative path among siblings
+                                  #If starts with "$", look into CONTEXT_OBJ instead of current object.
+                                  #Can include negative NUM for arrays (from its end).
+JOI.ref('REF'[, OPTS])->SCHEMA    #SCHEMA to use as a value and representing a sibling (like a JSON reference)
+                                  #Can be used with most rules, but not all
+                                  #OPTS:
+                                  #  - contextPrefix STR (instead of '$')
+                                  #  - separator STR (instead of '.')
+                                  #  - self BOOL:
+                                  #     - if true, value represent a child, not a sibling
+                                  #     - def: false, unless 'REF' starts with separator
+                                  #  - default VAL (if either path or value not present)
+                                  #  - strict BOOL: if false (def), does not throw on missing intermediary members
+                                  #  - functions BOOL: if true (def), allows traversing members OBJ.FUNC()
+
+JOI.isRef(SCHEMA)->BOOL           #
+
+FUNC_SCHEMA.ref()                 #Validates it is a REF
+
+JOI.reach
+ (SCHEMA, 'VARR'[_ARR][, OPTS])
+ ->SCHEMA2                        #Dereference a path to a sub-schema
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             LOGIC             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SCHEMA_ARR
+JOI.alternatives(SCHEMA[_ARR]...)
+JOI.alternatives().try
+ (SCHEMA[_ARR]...)                #Can be used as SCHEMA, meaning "any of SCHEMA_ARR".
+
+SCHEMA.concat(SCHEMA2)->SCHEMA3   #Means "all of those schemas" (i.e. must be same type)
+
+SCHEMA.when(SCHEMA3, OBJ2)        #Adds OBJ2.then|otherwise SCHEMA2 according to condition SCHEMA3
+SCHEMA.when('REF', OBJ2)          #Same but using OBJ2.is SCHEMA3, and applying it to JOI.ref('REF')
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            ALLOWED            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.presence                     #Default behavior:
+                                  #  - 'optional' (def): nothing is blacklisted
+                                  #  - 'required': undefined is blacklisted
+                                  #  - 'forbidden': every value is blacklisted
+
+SCHEMA.valid|only|equal
+ (VAL[_ARR]...)
+SCHEMA.invalid|disallow|not       #Whitelist|blacklist values.
+ (VAL[_ARR]...)                   #Whitelisting has priority over blacklisting
+VAL[_ARR]                         #Can use VAL[_ARR] directly as SCHEMA instead:
+                                  #  - e.g. JOI.validate(VAL, VAL2) is same as JOI.validate(VAL, JOI.valid(VAL2))
+SCHEMA.allow(VAL[_ARR]...)        #Same as valid(), but if whitelisted, all others don't become blacklisted
+
+SCHEMA.optional()                 #Same as allow(undefined)
+SCHEMA.required|exist()           #Same as invalid(undefined)
+SCHEMA.forbidden()                #Same as valid(undefined)
+OBJ_SCHEMA.optional|required|
+ forbiddenKeys('KEY'[_ARR]...)    #Same for OBJ properties
+
+ARR_SCHEMA.sparse([BOOL])         #If BOOL true (def), allows undefined (by def they are not allowed)
+
+SCHEMA.empty(VAL)                 #What "undefined" and empty strings means.
+                                  #By default, just means undefined and ""
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            UNKNOWN            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.allowUnknown                 #BOOL: if true (def: false) and VAL is OBJ, if keys are among the available
+                                  #ones in the schema, throw error
+OPTS.skipFunctions                #BOOL: same but only for keys being FUNC
+OBJ_SCHEMA.unknown([BOOL])        #Changes OPTS.allowUnknown
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERIC            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.any()                         #For any type
+                                  #Since JOI is already a SCHEMA, simply using JOI is shorter syntax
+SCHEMA.options(OPTS)              #Override default OPTS in SCHEMA.validate()
+
+JOI.lazy(FUNC()->SCHEMA[, OPTS])  #Same as SCHEMA, but fired lazily (during validation)
+                                  #OPTS:
+                                  #  - once BOOL (def: true): caches FUNC()
+
+SCHEMA.description(STR)
+SCHEMA.notes(STR[_ARR])
+SCHEMA.tags(STR[_ARR])
+SCHEMA.meta(OBJ)
+SCHEMA.unit(STR)                  #Meta information (doesn't do anything)
+
+SCHEMA.example(VAL,...)           #Validate VAL
+                                  #VAL can be an OBJ:
+                                  #  - parent OBJ2, context OBJ3: when SCHEMA uses REF
+
+SCHEMA.schemaType                 #'any|alternatives|array|boolean|binary|date|function|object|number|string|lazy'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            BOOLEAN            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.boolean()                     #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            NUMBER             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.number()                      #Does not allow [-]Infinity or NaN
+NUM_SCHM.min|max|greater|less(NUM)#
+NUM_SCHEMA.positive|negative()    #
+
+NUM_SCHEMA.integer()              #
+NUM_SCHEMA.unsafe([BOOL])         #If true (def: false), must be within Number.MIN|MAX_SAFE_INTEGER
+NUM_SCHEMA.precision(NUM)         #Max precision
+NUM_SCHEMA.multiple(NUM)          #
+NUM_SCHEMA.port()                 #Integer between 0 and 65535
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            STRING             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.string()                      #By default invalid(''): must allow('') to use ''
+STR_SCHEMA.min|max|length
+(NUM[, 'ENCODING'])               #STR length validation
+
+STR_SCHEMA.regex                  #OPTS:
+ (REGEXP[, OPTS|'NAME'])          #  - invert BOOL (def: false)
+                                  #  - name STR: for error messages
+STR_SCHEMA.alphanum()             #[[:alnum:]]
+STR_SCHEMA.token()                #[[:alnum:]_]
+STR_SCHEMA.hex([OPTS])            #OPTS:
+                                  #  - byteAligned BOOL (def: false): length must be even
+STR_SCHEMA.base64([OPTS])         #OPTS:
+                                  #  - paddingRequired BOOL (def: true): =-padding
+STR_SCHEMA.dataUri([OPTS])        #Does not check whether MIME or CHARSET are semantically valid
+                                  #Does check base64
+                                  #OPTS:
+                                  #  - paddingRequired BOOL (def: true): =-padding
+
+STR_SCHEMA.isoDate()              #
+STR_SCHEMA.uuid|guid([OPTS])      #OPTS: version STR[_ARR] among 'uuidv1-5'
+STR_SCHEMA.email([OPTS])          #OPTS:
+                                  #  - errorLevel NUM
+                                  #  - tldWhitelist STR_ARR
+                                  #  - minDomainAtoms NUM
+STR_SCHEMA.ip([OPTS])             #OPTS:
+                                  #  - version 'ipv4|ipv6|ipvfuture'
+                                  #  - cidr 'optional|required|forbidden'
+STR_SCHEMA.uri([OPTS])            #OPTS:
+                                  #  - scheme STR|REGEXP[_ARR]
+                                  #  - allowRelative BOOL (def: false)
+                                  #  - relativeOnly BOOL (def: false)
+STR_SCHEMA.hostname()             #
+STR_SCHEMA.creditCard()           #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            SYMBOL             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.symbol()                      #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             ARRAY             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.array()                       #
+
+ARR_SCHEMA.items(SCHEMA...)       #Each value must match any of SCHEMA
+ARR_SCHEMA.ordered(SCHEMA...)     #Each value must sequentially validate against each of them
+ARR_SCHEMA.has(SCHEMA...)         #At least one value must match any of SCHEMA
+
+ARR_SCHEMA.min|max|length(NUM)    #Array length validation
+ARR_SCHEMA.unique                 #Values must be unique. Can customize unique check.
+ (['VARR'|FUNC(VAL, VAL2)->BOOL]  #OPTS:
+ [, OPTS])                        #  - ignoreUndefined BOOL (def: false)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OBJECT             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.object()                      #
+
+{}
+JOI.object({})
+OBJ_SCHEMA.keys({})               #Validates OBJ is empty
+{ KEY: SCHEMA2 }
+JOI.object({ KEY: SCHEMA2 })
+OBJ_SCHEMA.keys|append
+ ({ KEY: SCHEMA2 ... })           #Validate children
+OBJ_SCHEMA.pattern
+ (SCHEMA|REGEXP, SCHEMA2)         #Validate children whose key matches REGEXP|SCHEMA, unless they match something in OBJ_SCHEMA.keys()
+
+OBJ_SCHEMA.assert                 #Validates REF value
+('REF', VAL[, 'ERROR'])           #REF cannot be top-level property
+
+OBJ_SCHEMA.min|max|length(NUM)    #Validates number of keys
+OBJ_SCHEMA.and|or|xor|nand|oxor   #Validates VARR presences together.
+ (VARR[_ARR]...)                  #oxor is like xor but allows 0 presences.
+OBJ_SCHEMA.with[out]
+ (VARR, VARR2[_ARR])              #Validates that if VARR, then [not] VARR2
+
+OBJ_SCHEMA.type(TYPE[, 'TYPE'])   #instanceof
+                                  #'TYPE' is for error messages
+OBJ_SCHEMA.schema()               #Must be a SCHEMA
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             DATE              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.date()                        #
+DATE_SCHEMA.min|max|less|greater
+ (DATE|'now')                     #>= <= < >
+DATE_SCHEMA.iso()                 #ISO 8601 format
+DATE_SCHEMA.timestamp([STR])      #Must be Unix timestamp in milliseconds ('javascript', def) or seconds ('unix')
+DATE_SCHEMA.raw()                 #Transform to Unix timestamp string
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           FUNCTION            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.func()                        #Supports same members as OBJ_SCHEMA, plus the ones below
+FUNC_SCHEMA.[min|max]arity(NUM)   #
+FUNC_SCHEMA.class()               #Must be a CLASS
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            BUFFER             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JOI.binary()                      #Validates BUFFER
+BUFFER_SCHEMA.min|max|length(NUM) #BUFFER size validation

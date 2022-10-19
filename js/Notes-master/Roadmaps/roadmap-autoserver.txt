@@ -1,0 +1,1214 @@
+
+                      
+   ROADMAP AUTOSERVER  
+                      
+
+
+Windows does not do proper shutdown
+
+Using yarn then CTRL-C then enter throw error message
+  - related to Nodemon problem
+
+When Nodemon restarts, Chrome devtools seems to still show code of former one
+  - it seems like old Node process is not killed
+
+Sharing:
+  - eslint-config-standard-prettier-fp:
+     - creates scripts to make upgrading dependencies and publishing easy
+     - fix Node version (it probably supports down to 6)
+     - enable unicorn/no-unsafe-regex rule
+  - Gulp: create repositories for common Gulp utils and tasks
+
+Compression:
+  - do not compress response if Cache-Control: [...]no-transform[...] [C]
+
+Charsets:
+  - auto-detect charsets using node-chardet
+  - use TextEncoder|Decoder instead of iconv-lite
+
+Use Server-Timing HTTP response headers
+
+Errors:
+  - replace addErrorHandler(), addGenErrorHandler() and related by try/catch blocks
+  - for each reason:
+     - done:
+        - AUTHORIZATION, NOT_FOUND, CONFLICT
+        - all server-side except CONFIG_VALIDATION, CONFIG_RUNTIME
+     - use throwPb()
+     - implement getMessage() if needed
+        - `message`
+           - can divide between prefix and `message`
+        - `extra`:
+           - see list of `extra` fields in code comments
+           - information should still be present in error message
+           - `path`:
+              - should be JSON path
+              - should set error.path in GraphQL
+           - `location.line|column|position`:
+              - in bytes of input
+              - should set error.locations|positions|source|nodes in GraphQL
+           - `suggestions`:
+              - try to find as many as possible
+              - if possible, use levenshtein distance to guess possible typo suggestion
+     - add/update user documentation
+        - including example
+  - distinguish between `error.expected` and `error.suggested`
+  - replace all addErrorHandler(), addGenErrorHandler(), throwError() with throwPb(), etc.
+     - then rename to throwError(), etc.
+  - remove no-throw ESLint rule, and use throw everywhere instead of functions
+  - maybe use throw new *Error() instead of throwError()
+  - check and document which error extra properties can be optional or not
+     - enforce it
+     - validate error extra properties by allowing each reason to specify a JSON schema
+  - do `bug` error handling like in `test-openapi`
+  - go through error utilities on GitHub to find error utilities similar to mine
+  - re-use `validate` utlity from `test-openapi`
+     - improve some errors with error.value|expected|path from JSON schema validation
+  - add error.code:
+     - NUM or "NAME" or UUID???
+     - should be reason-specific or agnostic???
+     - create a gulp task that checks for duplicates???
+     - goal: helping engine debugging and allow for analytics of particular errors
+  - console log reporter should include error type in logs???
+  - top-level error handler should distinguish between bugs and validation errors:
+     - do it by checking thrown Error type
+     - if bug, should report it as such in error message, and ask for people to fill in an issue
+  - error messages:
+     - improve error messages for JSON schema composed types: schema.contains|propertyNames|not|anyOf|oneOf|if|then|else
+       (others are fine)
+  - reporting several error at once:
+     - e.g. several data validation issues
+     - possible idea:
+        - when several errors can arise (e.g. data validation), wait until all are known to throw error
+        - add as ARR field in error.extra.*
+  - simplify core error handlers:
+     - try to re-use idea (but not code) from packaged NESTED-ERROR-STACKS (see my doc)
+        - and generally speaking simplify the "innererror" logic
+     - try to simply do new Error() instead of Error.captureStackTrace() even it means mutating objects
+     - normalizeError() can get both error and/or a message, which is too complex
+  - console log adapter:
+     - message is sometimes in stack trace (and it trimmed by getStack()): why??? it should not
+     - stack printing:
+        - check current REGEXPs against https://github.com/v8/v8/wiki/Stack-Trace-API#appendix-stack-trace-format
+        - separate into a separate package:
+           - what happens when another one is used at same time???
+           - should get inspired from existing packages, e.g. stack cleaning
+        - add async stack trace if "env" "dev", using andreasmadsen trace
+        - should optionally include node-source-map-support
+  - patch operators:
+     - make replace patchOperator.attribute|argument by patchOperator.validate.attribute|argument JSON schemas
+     - remove patchOperator.check()
+  - request timeout error includes very little information (e.g. does not include protocol) because it is fired in
+    an early middleware
+  - variants: if data validation fails because of an attribute that was generated as a variant, error message must
+    include information that it was generated as such, otherwise it's confusing for end-user
+
+Replace iconv-lite by TextEncoder|TextDecoder
+
+Testing:
+  - integration testing
+  - unit testing
+  - fuzz testing
+  - load testing
+  - performance testing
+  - greenkeeper
+
+inputValidation middleware:
+  - like dataValidation middleware but before any server-side data transformation:
+     - i.e. beginning of command layer
+     - reuse attr.validation like dataValidation middleware
+        - reason we do not have two different sets of validation: data stored in database should be valid input, and also having two sets adds two much complexity and room for errors to end-users
+     - gives 4** client-side errors, while dataValidation middleware gives 5** server-side errors
+     - input only (like dataValidation middleware)
+     - should try to memoize|reuse per request (to avoid memory leaks) between inputValidation and dataValidation middlewars
+
+JSON schema $data:
+  - $data notation is a bit cryptic and prone to error with JSON pointers.
+     - should replace to something more user-friendly, where user just need to specify the sibling model's attribute name
+     - at the moment, $data is removed before config validation, this would need to be changed
+     - validateMap would need to convert this notation to $data, for ajv to work
+     - error reporting does not currently work with $data, because ajv does not translate $data into the actual referred
+       data. E.g. it says "should equal [Object object]" because { $data: STR } is kept as is
+
+Logs:
+  - use cross-fetch library for HTTP log provider
+
+Pagination:
+  - has_next_page|has_prev_page should be false not undefined wherever pagination applies
+     - same thing for first_token|last_token ""
+
+Aggregation:
+  - args.group:
+     - in findMany commands
+     - value "ATTR,...":
+        - ATTR value can be any type, including undefined
+        - if several ATTR,... group by ordered union of all of them
+           - i.e. GROUP is an ARR
+        - should validate against bad format and unknown attributes, just like args.order
+        - should be parsed in parseGroupBy middleware, after args.parseOrderBy middleware (since it modifies it)
+     - performed just before parseResponse middleware:
+        - i.e. has no impact on any other middleware
+        - i.e. done at API level, not database adapter
+     - transforms response:
+        - from OBJ_ARR to OBJ2_ARR: group GROUP[_ARR], items OBJ_ARR
+     - args.order:
+        - prepend args.group to args.order, so that response is sorted by GROUP values, even when paginated.
+        - if some attributes in args.group were already in args.order, remove them first
+     - do not allow grouping on an ATTR that has unique constraint
+        - including model.id
+  - args.aggregate:
+     - on findMany commands
+     - value { VAR: AGG, ... }
+        - each AGG is run and assigned to each VAR, returning an OBJ
+        - AGG is "FUNC [...]", with available ones:
+           - count [ATTR,...]:
+              - count models where no ATTR == null (by augmenting args.filter) or all models if no ATTR specified
+           - sum|avg|min|max VAL:
+              - VAL can contain:
+                 - ATTR:
+                    - including multiple ones
+                    - when specifying ATTRs, only include models where no ATTR == null, by augmenting args.filter
+                 - + - * /
+                 - ( )
+                 - NUM finite constant
+              - tokenize then parse to AST in parseAggregate middleware, in action layer
+                 - it should validate against unknown ATTRs too
+                 - AST:
+                    - type: "count" (ATTR,... is handled by augmenting args.filter)
+                    - type: "sum|avg|min|max", value NODE
+                    - type: "add|substract|multiply|divide", left NODE, right NODE
+                    - type: "attribute", value "ATTR"
+                    - type: "constant", value NUM
+     - args.aggregate AST is passed to database adapter, which performs the aggregation
+     - database feature "aggregate:count|min|max|avg|sum"
+     - args.select should assume response will look like args.aggregate, instead of using model config:
+        - since args.aggregate, this also imply args.select will never have nested response/actions
+     - if args.aggregate !== undefined, the following is not applied:
+        - pagination:
+           - also forbid pagination-related args
+        - whole response layer:
+           - including validateMissingIds (but not authorization middleware), i.e. no 404 will be checked
+        - renameIdsOutput middleware
+     - forbid args.order
+  - args.aggregate + args.group:
+     - aggregate is performed on each group
+        - response looks like OBJ_ARR: group GROUP[_ARR], AGG_VAR: VAL (no "items")
+     - args.group_filter:
+        - like args.filter, except applied after grouping
+        - parsed in same middleware as args.filter
+        - forbidden if args.group or args.aggregate undefined
+     - args.order:
+        - is applied after grouping
+        - i.e. just like args.select, attributes must be validated against how aggregated response looks like,
+          not usual response
+     - pagination:
+        - cursor pagination is merged to args.group_filter, not args.filter
+        - offset pagination, i.e. offset|limit is applied after grouping
+     - everything else behaves same as args.aggregate without args.group, except:
+        - args.select amd results merging must be applied on each group
+        - args.order and pagination are allowed
+     - database feature "aggregate:group"
+     - args.aggregate can be empty, if want to obtain a result similar to SQL "distinct"
+  - add metadata.pages.total_size NUM, pagecount NUM:
+     - only for offset pagination
+     - only if args.page 1
+     - calculated by doing an extra count database query
+
+Static assets:
+  - take inspiration from existing ones, probably reusing one
+  - take inspiration from Express sendFile()
+  - think of Content-Disposition
+  - integrate GraphiQL with this
+  - server-side templates serving
+     - including isomorphic server-side renderer
+
+Orphans:
+  - maybe keep dead links dangling???
+     - but either:
+        - silently filter them on find
+        - also remove them (in a separate thread|promise) on find
+     - what if validation fails???
+        - request fails???
+        - model is deleted???
+  - is it worth the performance penalty and the validation constraints???
+     - although delete probably do want to remove dead links anyway???
+     - removing dead links when being populated???
+     - removing dead links in a separate promise, e.g. not affecting current query???
+  - validation:
+     - attribute targeting another model have limited validation:
+        - the reason: they might be deleted|modified when the model they target is deleted, and that model deletion
+          should not have to care about it, but in the same time we don't want invalid models
+        - forbidden: required, minItems, dependencies, contains, custom validation, being part of
+          $data cross-attributes validation
+     - maybe instead:
+        - if model being invalid after attribute removal, delete the model altogether???
+  - find dead links and remove dead links:
+     - should bypass authorization and pagination (using args.internal true)
+     - actions should have no args.select, so they are not in output
+     - make sure it does not impact "topLevel" action logic, since that logic might imply there is only one topLevel action
+     - do not merge their "results" with other "results", to avoid authorization issue
+     - after action performed (i.e. after db query for "remove dead links", and after 404 validation for "find dead links"),
+       response.data should be [] to avoid extra computation
+  - find dead links:
+     - for create|patch|upsert actions
+     - find all ids+modelName of attributes that:
+        - have attr.target !== undefined
+        - are defined in args.data
+        - are a "leaf", e.g. in args.data { childA, childB: { ... } }, childA, not childB (since it will be created,
+          it cannot be a dead link)
+        - are not one of the models already being written, i.e. the id of one the models in:
+           - (create|upsert) args.data
+           - (patch) currentData results
+     - timing:
+        - create: run|started just before currentData middleware
+        - patch|upsert:
+           - run|started just after currentData middleware
+           - only args.data that are being modified, i.e. defined in args.data and different from currentData results
+        - create|patch|upsert: await the promise only just before write actions start, i.e. can be run in parallel
+          of all middleware until then
+     - goal: firing 404 if dead link
+  - remove dead links:
+     - for delete actions
+     - silently skipped if target model's database adapter if does not have features "filter:eq|in|some"
+     - timing:
+        - run|started just after currentData middleware
+        - await it, i.e. mergePatchData middleware must not start until this is done
+     - first search for source models with dead links:
+        - do find actions with args.filter { attr: { in: ids } } (isArray false) or { attr: { some: { in: ids } } }
+          (isArray true) where ids are the models being deleted, on the models that might target them
+        - group by source model type:
+           - e.g. if two different model types have same parent model type but different parent model attribute,
+             just use args.filter OBJ_ARR alternative
+        - merge per source model attribute:
+           - e.g. if two models have same parent model attribute, merge their ids in "in", removing duplicates
+        - add args.filter { id: { neq: ids } } to exclude models already being deleted, i.e. already present in delete actions
+          results
+     - then create patch actions to remove dead links
+        - do not fire those patch actions, only stack them up at the end, and resolveWriteAction will take care of them
+     - should bypass 404, just in case the model got deleted in-between
+
+Compatibility layer:
+  - reporting deprecation
+  - breaking changes:
+     - notify when config change introduces breaking change (e.g. graphql.js provides that)
+  - think about how to version config file
+  - autoversioning:
+     - might be related to breaking changes feature
+  - migrations helpers
+     - when changing config constraints, should migrate data so they conform to new constraints
+     - when adding default|value, should migrate data, otherwise when doing patch with empty data,
+       or find followed by upsert, both should be idempotent, but default|value would actually be applied
+  - should it generate redirects when name has changed?
+  - feature flags
+
+Versioning/changes:
+  - can probably link together versioning, changes and undelete features
+  - versioning:
+     - on any model modification
+     - should allow restoring
+        - including undeleting:
+           - use query parameter "show_deleted" and model attribute "deleted"
+     - should allow searching
+     - maybe, instead of introducing new goals/commands, use special attributes to search or modify
+  - listening for changes:
+     - should emit change events, but not know how they are used, i.e. not know the subscriber side
+        - alternative is to emit events on ApiServer eventemitter for local consumption.
+          Less decoupling, but easier to implement and consume.
+          Might even be able to do both, e.g. add a module that translate local events into remote events.
+     - should allow listeners to catch up if they missed some events because of network problems
+     - should allow listeners to target specific: model, attribute, value, condition on value (e.g. value < 5),
+       request context, request user, etc.
+       Does not mean emitter perform those checks, but that it allows them to be performed
+     - make it easy to integrate with SaaS integrations, e.g. "use this service to send an email"
+        - standardize/simplify the interface to make it easy to create integrations
+  - separate from rest:
+     - done after the request was handed back to client, i.e. no impact on performance
+     - done in different database
+        - could be single table with streams of changes
+  - can problably use standard diff format, e.g. JSON patch or JSON merge patch.
+    Could also store models in full
+  - can limit max number of versioned models by time or by absolute number or a combination
+     - need to make sure change listeners can still get all events without model being removed from their reach
+  - maybe use HTTP memento
+  - maybe use semantic links, e.g. Link: <URI>; rel="alternate|canonical|latest-version|working-copy|predecessor-version|
+    successor-version|version-history" [S]
+  - must version config file format itself, and also apiEngine itself
+  - undelete feature
+
+Config strictness/polymorphism:
+  - think about additional properties (not specified in config), and whether to allow them in input, and in output:
+     - at the moment, they are allowed
+     - if want looser config, think of impact on:
+        - validation: see related JSON schema keywords: prohibited, additionalProperties, patternProperties, patternRequired,
+          propertyNames, additionalItems
+        - GraphQL schema
+        - patch operators type validation, i.e. OBJ.attribute|argument 'TYPE'_ARR
+     - should it be allowed to specify an unknown ATTR in args.order, args.aggregate, etc.?
+     - should unknown properties be allowed, but only if prefixed with `x-*`???
+  - type object|object[]:
+     - probably not a good idea because:
+        - not taken into account in limits (max attribute size, max number of models, max attributes per model)
+        - schemaless, e.g. no description, etc.
+           - if users need dynamic properties, can add this feature to models without having to add "type object"
+        - object JSON schema validation is not super simple
+        - denormalize where everything less in the engine is otherwise normalized
+           - e.g. could not query those models, because not top-level
+     - upside: less database queries
+  - mixed arrays:
+     - i.e. using schema.items SCHEMA_ARR instead of schema.items SCHEMA
+     - also schema.additionalItems
+     - re-verify error messages for those two properties
+  - overloading, i.e. union types:
+     - in GraphQL, use "union" maybe.
+     - could be done by passing array of config.type or config.model
+        - there is already some basic support for config.type array in config validation
+  - subtyping:
+     - both nominal (e.g. guessing type using an attribute as differentiator)
+     - or structural (e.g. guessing type from which attributes are there, or which are their types)
+     - in GraphQL, use "interface" maybe
+     - add the moment GraphQL fragment "on TYPE" are noop, i.e. always return true whatever TYPE is
+
+Enum:
+  - having a better support for enum instead of just atte.validate.enum
+  - potential benefits:
+     - adding metadata (description, deprecation, etc.) on each value
+        - can use GraphQL enum
+     - smaller representation/size in database by using integer indexes, while client uses normal strings:
+        - how to handle compatibility??? E.g. when removing an enum value, must migrate data???
+    
+New types:
+  - beyond JSON ones
+  - must be serializable|parsable from JSON:
+     - i.e. should probably be serialized to string in network and traffic
+  - possible types: date, regexp, function, binary, fixed point number
+  - allow custom types
+  - at API layer they are of the correct type:
+     - in config functions
+     - different args.filter operators, including attr.authorize
+     - different attr.validate keywords
+  - must work with pagination cursor serialization
+  - must work with GraphQL schema
+  - can probably be used as model.id
+
+Upgrade MongoDB doc:
+  - upgrade doc of MongoDB, including 4.0
+
+Upgrade GraphQL:
+  - core library
+  - go through to_learn
+
+Async actions/tasks:
+  - task management (restarting, retrieval, etc.)
+  - Async actions must be well thought as they slow down requests:
+     - there should be jobs reported to users and users should be able to control max wait time.
+     - when this is figured out, think of how async config functions would work within that
+        - consider that paramsRef is directly mutated, i.e. might not be thread-safe
+     - try to think if need generic async actions output (e.g. HTTP 202, Prefer: respond-async [C], Prefer: wait=NUM [C]
+  - see REST doc for more info
+  - hooks
+     - reacting to attribute changes, or even just read, etc
+     - fires JavaScript function
+     - can also fire a module that follows specific interface, so it can easily be referred to
+        - i.e. allows for microservices/addons ecosystem
+        - should include a HTTP call addon, i.e. provides webhooks  
+     - goal is to allow plugins into specialized BaaS for common services like email, SMS, etc.
+        - as opposed to put it in core, as their service is probably better
+
+Alternate ids:
+  - e.g. a query can either use machine-friendly `id` attribute, or human-friendly `name` attribute
+
+Server routing:
+  - compare with existing libraries, and see if should reuse one and/or their features
+
+Realtime:
+  - protocol-agnostic, i.e. WebSocket protocol is just one option
+  - subscriptions (on-demand or automatic after a query|mutation)
+  - use args.filter to targer specific models
+  - target specific write actions, or any
+  - info about old and new values
+  - maybe something like:
+     - create an endpoint to setup connection, where specify if want automatic or on-demand
+     - if on-demand, must then pass extra parameter to request (via arguments)
+       to specify want to subscribe
+
+Concurrency conflicts:
+  - locking or MVCC (automatic merge conflicts)
+  - preconditions, including HTTP (e.g. If-Match [C])
+  - errors, including HTTP 409
+  - see concurrency chapter in to_learn.txt
+  - problem with concept of "changed" in variants middleware:
+      - e.g. if clientA fetches model as { a: 1 } then clientB saves it as { a: 2 }, then clientA saves it as { a: 2 } as well,
+        "a" will not be considered "changed", although it should, because "changed" is not about which attributes changed from
+        a server perspective, but about which attributes a client tried to change, i.e. from a client perspective.
+      - e.g. variants middleware won't work properly, e.g. clientA fetches model as { oldA: 1, newA: 1 }, then clientB
+        saves it as { oldA: 2, newA: 2 }, then clientA saves it as { oldA: 1, newA: 2 }.
+        clientA intents here to chamge variant using "newA", but "oldA" will be used instead
+
+Rate limiting:
+  - should be shared between server instances
+  - maybe at API gateway-level
+  - see HTTP doc for standard headers and status codes
+
+Security:
+  - TLS
+  - CORS
+  - XSS
+  - CSRF
+  - general utilities, like "helmet"
+  - should be protocol-agnostic as much as possible
+
+Export/import from/to UML
+
+Request timeout fix:
+  - it currently uses Promise.race(), which does not cancel other promise when one fails,
+    i.e. request keeps being processed even after timeout error response has been sent
+      - instead, requestTimeout should only set a request-wide variable on setTimeout() callback.
+        Before each middleware, this variable should be checked, and if set, throw an exception.
+  - should call SERVER.setTimeout(NUM) too
+  - requests that error should not have already modified the database, or should rollback
+     - i.e. request timeout cannot happen after no rollback is possible anymore
+     - do this by passing setTimeout() return value to mInput, and calling clearTimeout() after last command layer completed
+  - think carefully of how much timeout should be:
+     - including when parsing request bodies as big as the limit
+
+Multiple databases:
+  - allow using the same database adapter several times but with different options
+     - how this is specified in the options is problematic:
+        - using OBJ_ARR in options is not currently supported, and is creating many problems, so should avoid
+        - using e.g. db.ADAPTER[_*].* notation for extra adapters is hard:
+           - each adapter options should be parsed and validated the same in /src/options/
+           - extra dynamic options should not appear in CLI --help message
+           - CLI --help message should document that dynamic options can be added
+           - CLI should be aware of dynamic options, so it parses them
+           - maybe use YARGS.hidden()
+
+Hidden attributes:
+  - attr.hidden BOOL[_FUNC]:
+  - on input, when true, behaves like attr.readonly
+  - on output, unsets attribute
+  - problems???
+     - if config is changed, and some clients that had hidden attribute now do not,
+       any upsert from those clients with previously fetched models will erase the previously hidden attributes from database
+     - impact on args.order_by|group_by|reduce|etc.???
+
+HTTPS support
+
+HTTP/2 support
+
+Proxies:
+  - make sure it works well with proxies
+
+HTTP details:
+  - 201 + Location [S]
+  - HTTP server events "checkContinue" (for 100-continue [C]), "connect" (for CONNECT), "upgrade" (for Upgrade [C])
+  - Accept-Patch [S]
+  - Expect: 100-continue [C]
+
+GraphQL:
+  - problem with polymorphism in GraphQL schema:
+     - nested attributes can either be a string or a nested object, in both selection and args.data
+     - GraphQL does not allow union of scalar and object
+     - also, GraphQL does not allow union types in input
+     - this is problematic as GraphiQL:
+        - shows queries as invalid
+        - autocorrects queries, e.g. turning nested_model selection into nested_model { id }
+     - same problem with args.filter, since args.filter.ATTR can be either VAL or a complex object
+        - that complex object should depend on the type of VAL:
+           - the leaves should be of the same type, e.g. { eq STR } if VAL is string
+           - some operators are available only for specific types
+        - should also not show operators if database does not support "filter:OPERATOR" feature
+     - OBJ or OBJ_ARR:
+        - can be either in:
+           - args.data
+           - response depending on *One or *Many
+        - might be less of a problem since GraphQL spec allow VAL for [VAL]
+  - fragments:
+     - if we do not allow any kind of polymorphism, consider not allowing fragments, as they only make sense with polymorphism
+     - fragment "on type" currently does not do anything
+     - all fragments must be used
+     - no recursive fragments
+  - variables:
+     - variable declarations does not currently do anything
+     - no duplicate variables
+     - no unused variables
+  - introspection:
+     - support __typename
+     - support __type(name: 'TYPE')
+     - support mixing GraphQL introspection query (e.g. __schema) with non-introspection query
+     - maybe do this by reusing code from Graphql.js
+  - go through GraphQL spec validation chapter again
+
+Database transformation layer:
+  - before database action middleware
+  - e.g. one model in two tables, two models in one table, database-specific info, for both input|output
+  - should allow single server to use multiple databases with different technologies (e.g. MongoDB + Redis) too
+  - possibility: using variants.ATTR.ATTR2 (instead of variants.ATTR) with ATTR being a nested model
+     - in that case, need to think about consequences on $model system parameters
+
+Custom commands:
+  - GraphQL schema:
+     - method: name, description
+     - args: requiredness, type (including ARR), default value, description, deprecation reason
+  - Config file declaration
+  - Global or model-wise???
+  - Nesting???
+  - allowing to call core commands???
+  - rpc layer input???
+  - GraphQL selection???
+  - how to target command name with REST???
+  - only allow POST method???
+  - examples: API status, rate limiting status
+
+Config functions:
+  - think if should use them in other parts of config
+  - Add system parameters related to device|browser detection
+  - server_info config parameters, add info about:
+     - databases|protocols|formats|rpcs and their options
+     - databases stats (e.g. dataset size, memory, load, etc.)
+        - remember that server_info is only calculated once at startup, for efficiency reasons
+
+Config validation:
+  - should config validate that validate.required|dependencies are only used at top-level:
+     - because of JSON schema recursion, it's actually currently possible to do validate.allOf.required
+     - this will crash, because we manipulate those properties at top-level, before calling ajv
+  - according to each attr.type:
+     - should validate that attr.validate only contain keywords for that type
+     - attr.default is of that type
+     - careful because attr.type is only decided after normalization
+  - config functions:
+     - validates when can that take either config function or a constant of the same type as the attribute,
+       e.g. in attribute.default|value
+     - make sure config functions does not use unknown params, which is challenging because:
+        - function body might not be readable, e.g. if function is bound
+     - perform static analysis, e.g. linting
+     - maybe validate complexity, e.g. max length
+
+Custom code:
+  - separating code into several packages
+     - probably call them all with prefix "auto", e.g. "autorpc"
+  - using a more plugin-oriented architecture:
+     - allow users to write support for new protocols, rpcs, etc.
+     - allow users to add|remove middleware
+     - should do this with a decorated FUNC(APIENGINE)->APIENGINE, as opposed to using a run option
+        - decorated APIENGINE should keep all features, including CLI
+     - allow integrations (see above)
+     - standardized how to do all this, e.g. with specific tooling, and with specific npm tags to easily list them
+
+Callbacks/events:
+  - not sure if this is a good idea
+  - on new|finished layers
+  - while events are async, callbacks are sync and allow modification of input/output
+
+CLI:
+  - dynamic options, such as db.mongodb.opts, does not work with CLI
+
+RegExp compatibility:
+  - figure out common subset of RegExp flags and features supported by all database adapters,
+    so that it is the same across database adapters
+
+Database retries:
+  - how to handle network or database connection failure???
+  - e.g. if query fails because database connection is down, should try exponential retry???
+  - done by API layer or by database adapter or by database library???
+
+Server-client state:
+  - $cookie:
+     - user parameters automatically set
+     - only with HTTP
+     - allow each protocol to do similar things (setting user parameters)
+     - check session middleware doc to get more inspiration
+  - session:
+     - retrieving a session object using a key-value store and an "id" specified as a config function
+     - slow down every request, so consider performance impact
+    
+Idempotence parameter (like Stripe)
+
+Views:
+  - are resources working as alias for a query:
+     - e.g. GET /my_view is translated to GET /my_models?group=attr&filter...
+     - allow overriding or adding args, e.g. GET /my_view/ID or GET /my_view?select=...
+  - for any command, not only find
+  - might be more actively cached
+
+Batch requests:
+  - pros:
+     - less network roundtrips
+     - faster response time per request and utilization of server time
+       because all requests wait for I/O at same time
+  - cons:
+     - charging should be per request, i.e. more complex pricing
+  - should do serially or in parallel??? Allow both???
+  - how to do this with REST??? with GraphQL???
+  - should allow using the JSON-RPC-specific way when using JSON-RPC
+  - how to handle limits such as maxpayload and request timeout???
+
+JSON references:
+  - recursive references:
+     - should be handled, not an error
+     - should work for:
+        - recursion with URI, or with PATH
+        - reference to parent
+        - reference to self
+        - mutual references to parents
+        - mutual references to selves
+        - siblings merging, including with self
+     - possible approach:
+        - on recursive reference, instead of throwing, store the promise as { $ref: PROMISE }
+        - once whole document is resolved, Promise.resolve() each promise as { $ref: VALUE }
+        - merge VALUE
+        - problems:
+           - VALUE might contain JSON references itself, including references to self
+           - needs to work with siblings merging, including with self
+     - pass option to throw on circular references, and use it
+        - be careful as the fact that cache[absolute URI] does not necessarily mean it is circular
+          (two siblings could require the same reference for example)
+        - maybe cache[absolute URI] could be { value, paths [absolute URIs,...] } and if current absolute URI
+          is among absolute URIs, throw
+  - add possibility to use [URI][#[PATH]]:
+     - default values (including "")
+        - URI: current document
+        - #PATH and PATH: #/
+     - PATH can be:
+        - /PATH relative to current document's (not root document's) root
+        - NUM/PATH relative to current position:
+           - 0 is $ref/../ i.e. siblings (if merged)
+        - should unescape / ~ but not percent encoding
+        - absolute|relative PATH should allow containing another JSON reference, which is then followed
+        - when ending with trailing slash, strip it
+     - should work with:
+        - siblings merging
+        - target value being a STR|NUM|BOOL|null
+     - errors:
+        - when using relative path, and going above document's root
+        - when using relative path, and URI is not ""
+        - when using absolute|relative path, and some path part (excluding last one) is not OBJ|ARR
+           - if part was undefined, error message should be different
+     - should use json-ptr library
+     - at the moment, if databases.memory.save true and databases.memory.data did not use JSON reference, throws.
+       We should also throw if a JSON reference was used but with a [NUM]/PATH (except if it resolved to "")
+  - using actual URI, i.e. not only local files
+     - including for top-level config file
+     - can be disabled with an option
+     - use cross-fetch library
+        
+RSS/Atom
+
+Code quality:
+  - auto-beautifier
+  - escomplex
+  - yamllint
+  - enforce gulp build is run before commit or push
+
+Caching:
+  - protocol-level caching, including HTTP caching
+     - allow specifying with protocol-agnostic settings, but also accept|produce standard HTTP caching
+       (see Express.js for example)
+  - automatic request caching, and invalidation:
+     - between API and database
+     - between client library and API
+     - between client and client library, e.g. creating a client library that gets push from server on invalidation,
+       so it does not even perform any request
+     - saved on key-value store, so can be shared between instances
+  - delta encoding
+
+Optimization:
+  - size of array returned by *Many actions should not impact too much response time:
+     - e.g. at the moment many things (e.g. attr.value) is run once per model, where it could instead be run once for
+       all models
+  - look for memory leaks
+     - check for memory leaks in memoize(), i.e. new requests should not increase memoize() memory retention
+  - do performance profiling to see which parts are slow
+  - memoize config functions run per request
+  - concatenate config functions together:
+     - apply config functions in batch, i.e. instead of applying same attr.value to several models of same collection,
+       transform config function to $val.map(FUNC) and apply on collection instead
+  - maybe use perf_hooks module instead of process.hrtime() + OBJ.measures for perf monitoring:
+     - not sure if this is a good idea:
+        - timerify() does not wait for async functions
+        - FUNC.name is messed up by timerify()
+        - 'mark' and 'measure' must be cleaned, which can be problematic if error happens in the middle of request middleware
+        - mark() + measure() + getEntries() is a bit verbose and slow
+        - 'make' and 'measure' names must be specific for each request, to not mix each request perf
+     - on the flip side:
+        - this avoid explicit shared variable OBJ.measures
+        - I think the user timing API is somehow integrating into Chrome devtools
+     - performance.nodeTiming for startup perf does not work, because it is as a library, so it would encompass the calling code
+  - use streaming:
+     - on compression|decompression and on charset decoding of request|response payloads
+     - allow trailing headers
+
+Limits:
+  - when project is more stable, need to reconsider each limit:
+     - to limit the hassle it is for end-user. E.g. pagination size too slow means paying for several requests, and longer overall request, which is frustrating.
+     - while still having an ok processing time for average big requests
+     - consider the limits of the DBaaS, and of the database they use, to avoid hitting those limits
+
+CI/CD
+
+Logging/monitoring:
+  - logging:
+     - dashboard
+     - go through docs and to_learn
+     - for "http" logger, use a library to perform the request, not Node.js core
+        - reason: missing features like compression, redirection, etc.
+     - add more logging handlers
+  - monitoring:
+     - see if can use process.report.*
+        - including generate JSON core dumps on fatal errors
+     - host metrics, including CPU, memory, uptime, etc.
+        - as opposed to serverinfo config parameter, which is calculated only once at startup
+     - alerting
+  - health monitoring
+     - status page
+     - health/ping endpoint
+     - think of added costs in a FaaS setup, and repercursion on pricing
+        - e.g. pinging every second would cost 100ms task per second
+  - distributed request tracing
+  - analytics:
+     - automatic digest of logging and monitoring information with nice data visualization
+
+Dependencies:
+  - package.json linting
+  - learn more about npm, yarn, etc.
+  - deprecation/security automatic check
+  - changelog for the engine project itself
+  - dependencies upgrades: choose strategy and tools (like greenkeeper)
+  - deprecation for the features of the engine project itself
+
+Less code:
+  - replace some code by libraries:
+     - /src/utilities/functional/
+     - other /src/utilities/
+     - /src/json_validation/
+
+Next ES:
+  - use ES6 import/export, when supported natively by Node.js without --experimental-modules, import() and import.meta supported
+     - rename *.js to *.mjs
+     - use import.meta instead of __dirname|__filename
+     - use import, export and import()
+     - fix ESLint rules for that
+     - no need for 'use strict' anymore nor ESLint impliedStrict true
+     - use shrimpit
+
+Nodemon exit in production mode:
+  - when server.keepAliveTimeout is left to its default value (i.e. 5000), and Nodemon is running, and a request
+    has just been fired (i.e. socket is still alive because of timeout), hitting CTRL-C will fail at freeing the
+    socket, i.e. restarting right after will fail.
+  - a former solution I had was to fire process.kill(process.pid, 'SIGUSR2') on shutdown event, but this was problematic:
+     - if several servers are run at once (with or without Nodemon), this will make the first one that finished exiting
+       abrupt the others
+     - it adds Nodemon-specific code
+
+Live database:
+  - DBaaS
+  - backups
+  - high-evailability
+  - scalability
+
+DevOps:
+  - PaaS/FaaS:
+     - try to reduce startup time:
+        - maybe FaaS provider cache feature
+        - maybe v8 snapshot
+        - maybe our own compile instruction
+  - serverless:
+     - since AWS lambda does not reuse Node REQ|RES, possible solutions:
+        - treat AWS lambda as a different protocol, alongside HTTP
+           - problem: there might be code duplication for the HTTP-related code, e.g. query string parsing
+        - create utility that converts AWS lambda input to REQ/RES
+  - easy to spawn multiple environments (stage, A/B testing, etc.)
+  - Docker container
+  - canary
+  - rolling releases
+
+System routing:
+  - maybe as API gateway
+  - load balancing
+  - autoscaling
+
+Authentication
+  - production key vs testing key (like Stripe)
+  - public key vs private key (like Stripe)
+  - slow revoking (like Stripe)
+  - scoped keys (like Stripe)
+
+Server framework:
+  - Make it easy to integrate with Express, Koa, Hapi, Restify, etc.
+
+Client:
+  - Make some parts isomorphic, e.g. data validation, config file loading, config validation, etc.
+  - Integration with frontend frameworks, client auto-generation
+
+GraphQL relay:
+  - must add clientMutationId, see https://facebook.github.io/relay/graphql/mutations.htm
+  - must follow https://facebook.github.io/relay/graphql/objectidentification.htm
+  - requires model-wise cursors, which is too slow, and too complicated for users, i.e.:
+     - only expose Relay.js cursors as opt-in
+     - only first and last cursor are calculated. The others simply append an offset to the first cursor.
+        - it is not as isolation-safe, but is much faster and only meant for Relay.js
+
+CLI tool:
+  - for doing both administration, config edition, or custom functions
+
+CLI client:
+  - features: nice simple syntax, autocomplete, client-side validation, nice error reporting
+
+GUI client:
+  - similar to Insomnia but tailored
+  - features: nice simple UI, autocomplete, client-side validation, nice error reporting
+
+Admin dashboard:
+  - like Mr.Wolf, but automated
+  - for content management, basically a GUI to the API
+
+Debugging:
+  - use GraphQL voyager instead of GraphiQL
+  - graphiql should be according to Accept [C] (not route) with potential override
+    with query variable like 'raw' to see raw result
+  - HTML interactive output format when requesting from a browser
+
+User documentation:
+  - interactive examples
+  - ability change examples protocol, interface, config format and programming language
+
+API documentation:
+  - description:
+     - build it using not only config.description, but also config.examples, config.title and config.* related to validation.
+     - should be done during config loading
+  - allow Markdown in config.description|examples|etc.
+  - printSchema():
+     - better sorting
+     - maybe change endpoint or way to get there.
+     - improve syntax highlighting.
+     - also maybe offer option to show full version, and offer simplified version by default,
+       e.g. showing only one action, and not showing variants (nested, singular|plural, etc.)
+  - API auto-documentation:
+     - see REST doc for idea of everything that can be documented
+     - provide API console for experimentation
+     - code examples
+  - changelog generation
+  - add error_uri URL in error messages, pointing to documentation
+  - parse comments in config file to include them in documentation and changelog.
+    E.g. good to describe business-specific config functions.
+  - should be adaptable (like other adapters)
+     - adapter would take the normalized config as input, but also generated API specifications, e.g. OpenAPI
+     - with a default adapter, probably widdershins
+
+Thorough dev documentation:
+  - use jsdoc, esdoc or similar
+     - see ESLint rules
+  - API engine documentation website
+
+Mock server/endpoints:
+  - fake data generation using config to guess type/constraints
+  - can be at level:
+     - attributes
+     - collections:
+        - maybe using database adapter "mock"
+     - server
+        - useful for client testing
+
+Meta-information:
+  - schema retrieval:
+     - through API, e.g. /MODEL/schema
+     - validation:
+        - model's validation JSON schema:
+           - Content-Type: application/schema+json [S]
+           - can be directly usable with a library like AJV
+        - model's schema:
+           - should use Content-Type: MIME;schema="URI";profile="URI" [S]
+           - should also be linked to by each response as Link: <URI>; rel="describedby" [S]
+  - semantic web
+  - HATEOAS:
+     - see REST documentation for ideas
+  - general API "home document":
+     - could use OPTIONS with HTTP as well
+  - CRUD endpoints to the config file:
+     - could have different access controls depending on client or server maintainer
+
+Other database adapters:
+  - add support for other databases
+  - each adapter:
+     - should only throw DB_ERROR
+     - should not throw when deleting an id that do not exist
+     - potentially ADAPTER.id.name and ADAPTER.id.default()
+        - prefer UUIDs so it looks consistent across databases
+     - ADAPTER.type|title|description
+     - ADAPTER.features:
+        - and whether they should be checked startup-time (/src/run/database/) or query-time (validateFeatures middleware)
+     - ADAPTER.connect|disconnect()
+     - ADAPTER.query()
+     - using undefined|null in both read and write
+     - like REGEXP test should not be anchored, unless ^$ is used
+     - should try to use the same option names accross adapters, e.g. port, host, username, password
+     - should reconnect if connection is lost
+        - should try to reconnect several times, but should give up quickly if does not work
+        - devOps should be used instead to restart the machine
+
+Other RPCs:
+  - implement other RPCs, beyond GraphQL, REST and JSON-RPC
+
+Other formats:
+  - CSV
+  - TSV
+  - DSV
+  - MSON
+  - XML
+  - protobuf
+  - HTML
+  - others
+    
+Other compression algorithms:
+  - lzma
+  - sdch
+  - xz
+  - bzip2
+  - exi
+    
+Output format:
+  - option to prettify output:
+     - agnostic to output format.
+     - should be as featureful as my JSON viewer Chrome extension: highligting, lines folding|collapsing, auto-URL-linker,
+       toggle button to show raw, data available in console
+     - automatically on when requesting from a browser.
+
+Node.js version:
+  - allow using other Node.js version than the latest
+
+Different OS:
+  - test under different OS
+
+Other programming languages:
+  - allow other programming languages in config functions:
+     - if imported via JSON reference, recognize it with file extension
+        - i.e. add support for loading|saving as a "format" for JSON types and functions
+     - if inline function:
+        - maybe config|collection|attribute.language???
+        - maybe "LANGUAGE(...)" notation???
+  - "programming languages" include transpilers like TypeScript
+  - make sure to reduce JavaScript-specific logic in codebase as much as possible
+  - possible performance optimization:
+     - reduce startup time of interpreter by starting it in a child process, then communicating to it
+     - send functions calls in batch, e.g. if a middleware like attr.value calls 100 times synchronously,
+       send functions calls all at once
+     - if possible, compile or transpile to a JavaScript function
+
+Config format:
+  - export|import from|to:
+     - OpenAPI, RAML, API blueprint, others
+     - HTTP clients: Postman, Insomnia, curl
+     - ORM like Waterline
+     - live database, by querying schema and/or at data
+  - create proper config file linter, inspired by ESLint
+     - standard output (both as a string and as OBJ_ARR)
+     - error locations
+     - errors documentation URLS
+     - autocorrections
+     - check jest-validate also for inspiration in terms of error messages
+
+API specification:
+  - automatically serve API specifications:
+     - OpenAPI 2.0
+     - OpenAPI 3.0
+     - RAML
+     - API blueprint
+     - API elements, fury.js
+  - allow generating those files from the CLI
+  - try to re-use OpenAPI specification tools to provide with:
+     - export to other API specifications, Postman|Insomnia, etc.
+     - client generation
+     - API documentation
+     - stress testing
+     - see my doc for other inspiration
+
+Offline-first:
+  - how:
+     - do everything the server would do, but client-side
+        - i.e. client must know config
+     - no need for server interaction, except for sync
+        - this where server validates that client-side logic happened correctly
+        - also where new data is available for other clients
+           - which include realtime and conflicts
+  - check couchDB and related for ideas about this
+  - what about static assets???
+     - some offline-first tools choose to bypass backend and let client directly interact with cloud provider
+
+i18n:
+  - language content negotiation
+  - error messages
+
+Privacy feature
+
+Central BaaS API:
+  - deploying backends using config
+  - config file's user management (who can modify config)
+  - must submit not only config but also directory/project around it:
+     - because of JSON references
+     - problem is size of hosting those directories
+     - maybe should require GitHub repos, so no need to host
+
+Sysadmin client app:
+  - config edition:
+     - should perform client-side:
+        - basic format validation, e.g. YAML linting following by YAML parsing
+        - config validation
+        - all this should reuse isomorphic server code
+        - YAML beautifer button or auto
+     - possible options:
+        - left pane with YAML, right pane with generated documentation|overview
+        - instead of YAML, could use non-developer-friendly UI as well, e.g. documentation|overview with inline editing
+        - could also combine both, where they are different views updating the same models
+        - get some inspiration from OpenAPI GUI editors (see my doc for a list of them)
+  - GUI to central BaaS API
+
+Promotion:
+  - commercial website
+  - ads
+
+Config migrations:
+  - guessing a config from existing database.
+
+Positioning:
+  - main keywords: BaaS, featureful, easy, generic, stable, open-source
+  - market: BaaS
+  - main value: backend that is both featureful and easy to maintain
+  - target audience:
+     - developers, not newbyes
+     - no assumptions on particular technologies or business cases
+  - main requirements, in order:
+     - easy:
+        - maintainability: maintaining, setting up, upgrading, integrating, extending
+        - manageability: operating, deploying, scaling, monitoring
+        - learnability: documentation, support
+        - UI dashboard: good UX, design, usability
+     - stable:
+        - tested, secure, reliable, available, recoverable
+     - featureful:
+        - any feature a backend can provide
+        - high quality design/implementation of each feature
+     - generic/agnostic:
+        - prefer generic over specific, even it lowers efficiency or performance:
+           - i.e. interoperability with specific tools (client libraries, databases, etc.) is not paramount
+             although nice to have
+        - flexibility:
+           - allow customizing business logic, with least assumptions about it
+           - do not allow end-users customizing API design:
+              - prefer forcing good API design over flexibility
+              - but encourage contributors to customize API design through generic plugin architecture
+  - configuration:
+     - featureful, i.e. many configuration options, which is ok
+     - but easiness achieved thanks to:
+        - minimal API surface for each option, by sacrificing specificity/efficiency over genericity
+        - each option should have good default so they rarely need to be used
+  - open source:
+     - i.e. no vendor lock-in
+  - difference from competitors:
+     - open-source
+     - generic/agnostic
+     - as opposed to other API specifications, generate full BaaS
+     - as opposed to other BaaS, use a declarative approach
+
+ 25  MUST HAVE FEATURES
+ 3   Errors
+ 30  Testing
+ 1   inputValidation
+ 0.5 JSON schema $data
+
+ 4   Aggregation
+
+ 4   Static assets
+
+ 2   Orphans
+?7   Compatibility layer
+?7   Versioning/changes
+
+ 10  DATA MODEL
+?5   Config strictness/polymorphism
+?1   Enum
+?2   New types
+ 2   Upgrade MongoDB doc
+
+ 15  NICE TO HAVE FEATURES
+?3   Async actions/tasks
+?1   Alternate ids
+?0.5 Server routing
+?4   Realtime
+?3   Concurrency conflicts
+ 1   Rate limiting
+ 3   Security
+ 0.5 Request timeout fix
+ 0.5 Multiple databases
+ 1   Hidden attributes
+
+ 15  NOT ESSENTIAL FEATURES
+ 2   HTTPS
+ 2   HTTP/2
+ 0.5 Proxies
+ 0.5 HTTP details
+ 2   GraphQL
+?3   Database transformation layer
+?2   Custom commands
+ 1   Config functions
+ 2   Config validation
+?3   Custom code
+?1   Callbacks/events
+ 0.5 CLI
+ 0.5 RegExp compatibility
+ 0.5 Database retries
+ 2   Server-client state
+ 1   Views
+ 1   Batch requests
+ 2   JSON references
+ 2   RSS/Atom
+
+ 55  SOFTWARE QUALITY
+ 1   code quality
+?5   Caching
+?5   Optimization
+ 0.5 Limits
+ 2   CI/CD
+ 6   Logging/monitoring
+ 2   Dependencies
+ 2   Less code
+ 1   Next ES
+ 0.1 Nodemon exit
+
+ 70  DEVOPS/LIVE
+ 2   Live database
+?10  DevOps
+?2   System routing
+?20  Authentication
+?5   Server framework
+?10  Client
+ 2   GraphQL relay
+?5   CLI tool
+?25  Admin dashboard
+
+ 40  DEV FEATURES
+ 3   Debugging
+ 5   User documentation
+ 10  API documentation
+ 20  Thorough dev documentation
+?2   Fake server
+?3   Meta-information
+
+ 20  NOT IMPORTANT FEATURES
+ *   Other database adapters
+ *   Other RPCs
+ *   Other formats
+ *   Other compression algorithm
+ 1   Output format
+ 3   Node.js version
+ 2   Different OS
+ *   Other programming languages
+?    Config format
+ 10  API specifications
+
+?    Offline-first
+?    i18n
+?    Privacy feature
+?    Central BaaS API
+?    Sysadmin client app
+?    Promotion
+?    Config migrations
+?    Positioning

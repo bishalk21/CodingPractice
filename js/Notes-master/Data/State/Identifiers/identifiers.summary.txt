@@ -1,0 +1,55 @@
+
+                       
+   IDENTIFIERS_SUMMARY  
+                       
+
+
+
+USE CASES ==>                     #SGML:                              publicid/FPI
+                                  #Full content:                      data URI
+                                  #Decentralized:
+                                  #  - same content -> same resource: NI
+                                  #  - otherwise:                     UUID
+                                  #Human-friendly:
+                                  #  - easy to read|understand:       tag
+                                  #  - easy to type or spell out:     NI (nih)
+                                  #Efficient:                         URL or no URI
+                                  #Registered:
+                                  #  - with metadata:                 DOI or OID
+                                  #  - otherwise:                     URN
+
+NO URI ==>                        #E.g. database incremental ID (as opposed to using URI)
+                                  #  - more efficient (e.g. smaller) but application-specific
+                                  #Can also store URI shortcut, i.e. URI without URI scheme or namespace:
+                                  #  - URN: only NSS
+                                  #  - tag: only DATE:TAG
+                                  #  - UUID: non-URI format
+                                  #  - NI: only [ALGO;]HASH
+
+URL ==>                           #Using location as identification:
+                                  #  - does not require resolution to retrieve location (less round-trips)
+                                  #  - but couples location with identification
+
+CROSS-IDENTIFIERS ==>             #Can:
+                                  #  - publicid/FPI, OID, UUID -> URN
+                                  #  - UUID                    -> OID
+
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| NAME         | SYNTAX                                            | FORMATS           | NAMESPACE         | HUMAN-FRIENDLY    | LOCATION        | METADATA                             | USAGES           |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| URN          | urn:NID:NSS                                       | URI               | REGISTERED_ID     | namespace-only    | yes             | no                                   | books, texts     |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| DOI          | doi:NAMESPACE/ID                                  | URI               | REGISTERED_ID     | namespace-only    | Handle system   | yes (using resolution)               | publishing       |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| OID          | NUM.NUM2...                                       | [non-]URI, binary | REGISTERED_ID     | no                | yes             | description, ctime (using resolution)| anything         |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| publicid/FPI | PREFIX//OWNER//CLASS DESCRIPTION//LANG[//VERSION] | non-URI           | DOMAIN            | good but verbose  | no              | description, lang, version           | SGML             |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| tag          | tag:DOMAIN,DATE:TAG                               | URI               | DOMAIN            | very good         | no              | date                                 |                  |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| UUID         | AAAAAAAA-BBBB-CDDD-EEFF-GGGGGGGGGGGG              | [non-]URI, binary | random [+ DOMAIN] | no                | no              | no                                   |                  |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| NI           | ni://[AUTHORITY]/ALGO;HASH[?VAR=VAL&...]          | URI, binary       | content checksum  | easy to spell out | well known URIs | authority, MIME, anything            |                  |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+
+| data URI     | data:[MIME][;charset=CHARSET][;base64],CODE       | URI               | content full      | no                | not needed      | no                                   |                  |
++--------------+---------------------------------------------------+-------------------+-------------------+-------------------+-----------------+--------------------------------------+------------------+

@@ -1,0 +1,37 @@
+
+                 
+   SIMOV_SLUGIFY  
+                 
+
+
+ALTERNATIVES ==>                  #  - simov slugify (preferred)
+                                  #  - sindresorhus slugify:
+                                  #     - only Node
+                                  #     - less maintained
+                                  #     - less allowed characters
+                                  #     - less features
+                                  #     - not as good to convert Unicode chars to ASCII
+                                  #     - handles camelCase better
+
+VERSION ==>                       #1.6.5
+
+SLUGIFY(STR[, OPTS|STR2])->STR    #Transform a string to dasherized lowecase with only [0-9a-zA-Z$*_+~.()'"!:@-]
+                                  #Does:
+                                  #  - STR.normalize()
+                                  #  - dasherize lowercase: AbcDef -> abcdef, Abc Def -> abc-def
+                                  #     - only lowercase if OPTS.lower true (def: false)
+                                  #  - remove anything that is not [\s0-9a-zA-Z$*_+~.()'"!:@-]
+                                  #     - i.e. any character allowed unescaped in PATH:
+                                  #        - except & , ; = / ?
+                                  #        - and with also "
+                                  #     - if OPTS.remove /REGEXP/g, use that instead
+                                  #     - if OPTS.strict true (def: false), anything not [0-9a-zA-Z] instead
+                                  #  - replace|squash spaces by OPTS.replacement STR2 (def: '-')
+                                  #     - trim whitespaces if OPTS.trim true (def)
+                                  #  - try to normalize Unicode -> ASCII:
+                                  #     - by removing accents or using a similar character
+                                  #        - including alternative quotes symbols
+                                  #     - replace $ & < > | % by "dollar|and|less|greater|or|percent"
+                                  #     - replace some Unicode chars by their names (e.g. currencies)
+                                  #     - replace some language-specific characters according to OPT.locale 'LANG'
+                                  #  - for each key after SLUGIFY.extend({ STR: STR2, ... }), replace STR by STR2

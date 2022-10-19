@@ -1,0 +1,55 @@
+
+         
+   JSON5  
+         
+
+
+
+ALTERNATIVES ==>                  #See serialization formats summary
+
+VERSION ==>                       #2.1.1
+
+EXTENSION ==>                     #.json5
+                                  #MIME type application/json5, +json5
+
+SYNTAX ==>                        #Superset of JSON, with the following additions, which are all:
+                                  #  - optional
+                                  #  - following JavaScript syntax
+                                  #In short: comments, unquoted VAR, trailing commas, multiline STR, NaN/Inf
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             MAIN              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+//COMMENT
+/* COMMENT */                     #
+
+VAR: VAL                          #Follow JavaScript naming restrictions for OBJ properties.
+                                  #I.e. VAR can be unquoted under some conditions
+
+TRAILING COMMA ==>                #Allowed
+
+TRAILING BACKSLASH ==>            #Allowed
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OTHERS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+'VAR': VAL                        #Instead of "VAR": VAL
+'STR'                             #Instead of "STR"
+
+0xNUM
+0XNUM                             #
+.NUM                              #Instead of 0.NUM
++NUM                              #
+Infinity
+-Infinity
+NaN                               #

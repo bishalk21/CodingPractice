@@ -1,0 +1,80 @@
+
+                     
+   DCHESTER_JSONPATH  
+                     
+
+
+
+ALTERNATIVES ==>                  #  - dchester jsonpath (prefered): fairly fast
+                                  #  - s3u JSONPath: most features, but also way too slow until it is resolved
+                                  #  - fastPath: not maintained
+                                  #  - jQuery-JSONPath: not maintained, requires jQuery
+                                  #  - f5io: not very close to spec
+
+VERSION ==>                       #0.2.11
+                                  #Browser or Node
+                                  #JSON path utilities
+
+JSON PATH COMPATIBILITY ==>       #[(EXPR)] and [?(EXPR)]:
+                                  #  - only contain limited version of JavaScript:
+                                  #    ~ ! == != === !== < <= > >= + - * / % | & ^ && !! . ? `STR` ARR OBJ FUNC(...)
+                                  #    This should cover a lot though, e.g. any native types functions|operators
+                                  #  - errors in [?(EXPR)] are silently ignored
+                                  #Leading $ is optional
+                                  #PATH["VAR"] can use double quotes
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            PARSING            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+'PATH'                            #JSON path
+PATH_VAR_ARR                      #JSON path, split on '.'
+PARSED_PATH                       #Parsed JSON path as OBJ_ARR, where each OBJ is one FILTER:
+                                  #  - expression:
+                                  #     - type:
+                                  #        - 'root' $, value '$'
+                                  #        - 'identifier' .VAR, 'string_literal' [VAR], value 'VAR'
+                                  #        - 'numeric_literal' .NUM or [NUM], value NUM
+                                  #        - 'wildcard' *, value '*'
+                                  #        - 'union' [,], value FILTER_ARR
+                                  #        - 'slice' [[INT]:[INT2][:STEP]], value STR
+                                  #        - 'script_expression' (...), value STR
+                                  #        - 'filter_expression' ?(...), value STR
+                                  #     - value VAL
+                                  #  - scope 'child' (if .) or 'descendant' (if ..)
+                                  #  - operation 'member' (if . or ..) or 'subscript' (if [] or ..[])
+
+JSONPTH.parse('PATH')->PARSED_PATH#
+JSONPATH.stringify
+(PATH_VAR_ARR)->'PATH'            #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            QUERIES            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JSONPATH.nodes                    #Performs query
+(VAL, 'PATH'[, NUM])->OBJ_ARR     #OBJ:
+                                  #  - value VAL2: result
+                                  #  - path PATH_VAR_ARR: JSON path, split on '.'
+                                  #NUM limits number of results
+JSONPATH.query
+(VAL, 'PATH'[, NUM])->VAL2_ARR    #Same as nodes(), with only OBJ.value
+JSONPATH.paths(VAL, 'PATH'[, NUM])
+->PATH_VAR_ARR                    #Same as nodes(), with only OBJ.path
+
+JSONPATH.parent(VAL, 'PATH')->VAL2#Performs query, for first element only, and returns parent
+                                  #Throw exception if trying to reach root's parent
+
+JSONPATH.value
+(VAL, 'PATH'[, VAL2])->VAL2       #Performs query, for first element only, and sets the value with VAL2 if provided
+JSONPATH.apply
+(VAL, 'PATH', FUNC(VAL2)->VAL2)   #Performs query, and sets their value with apply mapping function, returning modified values
+->OBJ_ARR                         #Same return value as nodes()

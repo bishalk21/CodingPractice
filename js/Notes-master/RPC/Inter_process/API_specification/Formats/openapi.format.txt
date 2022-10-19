@@ -1,0 +1,479 @@
+
+           
+   OPENAPI  
+           
+
+
+
+ALTERNATIVES ==>              #  - OpenAPI (prefer)
+                              #     - backed up by Linux foundation
+                              #     - much more tools and high-profile
+                              #     - YAML/JSON
+                              #  - API blueprint
+                              #     - MSON (markdown-based format)
+                              #  - RAML:
+                              #     - seems to lose traction, most tools are not being updated
+                              #     - YAML
+                              #  - agreed:
+                              #     - quite obscure project
+                              #     - specification not extensive
+                              #     - limited eco-system
+
+API SPECIFICATION ==>         #Declarative description of an API endpoints.
+                              #Usual goals (see my doc for each category):
+                              #  - specification format itself:
+                              #     - generated from scratch, code or code comments, UI editor
+                              #     - formats conversion
+                              #     - format abstraction (e.g. API elements)
+                              #  - parsing/validating:
+                              #     - specific format (e.g. YAML, MSON, JSON references, etc.) parsing
+                              #     - often coupled with specification validation
+                              #  - specification lists
+                              #  - API documentation
+                              #  - request|response validation
+                              #  - testing:
+                              #     - HTTP assertions
+                              #     - integration testing automation
+                              #     - stress testing
+                              #  - auto-generation:
+                              #     - API stubs creation
+                              #     - client SDK
+                              #     - server-side routes, API gateway
+                              #     - web automation
+                              #     - schema (e.g. GraphQL)
+                              #  - mock servers
+
+VERSION ==>                   #3.1.0
+                              #Formerly called Swagger
+                              #Different versions are marked in parenthesis
+
+SWAGGER HUB ==>              ##SaaS with swagger-editor, swagger-codegen, API mocking, swagger-ui
+                             ##Paid for entreprise features: access control, Git integration, communication
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERAL            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SERVING (2) ==>               #Usually at HOST/swagger.json|yaml
+SERVING (3) ==>               #Usually at HOST/openapi.json|yaml
+
+FORMAT ==>                    #JSON or JSON-compatible YAML
+
+MARKDOWN (2) ==>              #Can use GFM syntax
+MARKDOWN (3) ==>              #Can use CommonMark 0.27 syntax
+
+SUMMARY ==>                   #Version 2.0 recommends max 120 chars
+
+JSON REFERENCES ==>           #Can only be used for SCHEMA|PARAM|RESP|PATHDEF|EXAMPLE|REQ_BODY|HEADER_VAL|LINK|CALLBACK
+                              #Can use URI. Cannot use relative JSON pointers.
+
+x-*                           #Custom properties can be present anywhere, providing they are prefixed with "x-"
+                              #and not by x-oai- nor x-oas-
+
+REQUIRED PROPERTIES ==>      *#Are marked like this
+
+INCLUDE MEMBERS ==>           #  - <-- VAR this means VAR members are included|inherited
+
+MIME_RANGE                    #MIME type, but allow * wildcard
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         SPECIFICATION         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SPEC                         *#  - info INFO
+                             *#  - paths PATHS
+                              #  - security SECURITY_USES
+                              #  - tags TAG_ARR
+                              #  - externalDocs EXTERNALDOCS
+SPEC (2)                     *#  - swagger '2.0'
+                              #  - <-- SERVER
+                              #  - consumes|produces 'MIME'_ARR
+                              #    (later versions specify Accept|Content-Type [S] headers instead)
+                              #  - <-- COMPONENTS
+SPEC (3)                     *#  - openapi '3.0.2'
+                              #  - servers SERVER_ARR
+                              #  - components COMPONENTS
+
+INFO                         *#  - title STR
+                              #  - description 'MARKDOWN'
+                             *#  - version STR
+                              #  - termsOfService 'URL'
+                              #  - contact:
+                              #     - name STR
+                              #     - url 'URL'
+                              #     - email 'EMAIL'
+                              #  - license:
+                             *#     - name STR
+                              #     - url 'URL'
+
+SERVER (2)                    #  - schemes 'http[s]|ws[s]'_ARR
+                              #  - host STR (def: current one): no protocol, only hostname
+                              #  - basePath STR: must start with "/", e.g. "/api/v1"
+SERVER (3)                   *#  - url 'URL'
+                              #     - can contain {SERVER_VAR_NAME}
+                              #  - variables.SERVER_VAR_NAME:
+                             *#     - default STR
+                              #     - enum STR_ARR
+                              #     - description STR
+                              #  - description STR
+
+COMPONENTS                    #Members whose sole purpose is to be used as targets for JSON references
+                              #(except for SECURITY_DEF):
+                              #  - parameters.NAME PARAM
+                              #  - responses.NAME RESP
+                              #NAME must be [[:alnum:].-_]
+COMPONENTS (2)                #  - securityDefinitions.SEC_NAME SECURITY_DEF
+                              #  - definitions.NAME SCHEMA
+COMPONENTS (3)                #  - securitySchemes.SEC_NAME SECURITY_DEF
+                              #  - schemas.NAME SCHEMA
+                              #  - examples.NAME EXAMPLE
+                              #  - requestBodies.NAME REQ_BODY
+                              #  - headers.NAME HEADER_VAL
+                              #  - links.NAME LINK
+                              #  - webhooks.NAME CALLBACK
+
+PATHS                         #  - "/PATH": PATHDEF
+                              #     - can replace part of PATH with {PARAM_VAR}
+
+PATHDEF                       #  - get|put|post|delete|options|head|patch OPERATION
+                              #  - parameters PARAM_ARR
+PATHDEF (3)                   #  - trace OPERATION
+                              #  - summary STR
+                              #  - description 'MARKDOWN'
+                              #  - servers SERVER_ARR
+
+OPERATION                     #  - description|summary|externalDocs: same as above
+                              #  - operationId 'FUNC': used by client APIs
+                              #  - parameters PARAM_ARR
+                             *#  - responses RESPONSES
+                              #  - security SECURITY_USES
+                              #  - tags 'TAG'_ARR
+                              #  - deprecated BOOL (def: false)
+OPERATION (2)                 #  - consumes|produces|schemes: same as above
+OPERATION (3)                 #  - requestBody REQ_BODY
+                              #  - callbacks.FUNC CALLBACK
+                              #  - servers SERVER_ARR
+
+PARAM                        *#  - name 'PARAM_VAR'
+                             *#  - in STR:
+                              #     - "path": part of path
+                              #     - "query"
+                              #     - "header"
+                              #  - description STR
+                              #  - required BOOL (def: false)
+                             *#    (must be required: true if "in" "path")
+                              #  - allowEmptyValue BOOL:
+                              #     - deprecated
+                              #     - def: false
+                              #     - only for "query|formData"
+                              #     - what empty value means is application-specific:
+                              #         - could be '?VAR=', '?VAR', '?VAR=false', '?VAR=null', etc.
+                              #     - if empty value is empty string, SCHEMA should disallow empty strings (e.g. using minLength)
+                              #     - if empty value is passed, SCHEMA should be skipped
+                              #     - if true, STYLE_PROPS.style can only be:
+                              #        - "label": "."
+                              #        - "matrix": ";VAR"
+                              #        - "form": "VAR="
+                              #     - can be true even if required true
+PARAM (2)                    *#  - in STR: also:
+                              #     - "formData":
+                              #        - body when multipart/form-data or x-www-form-urlencoded
+                              #        - does not target whole body but only 'PARAM_VAR':
+                              #           - x-www-form-urlencoded: PARAM_VAR=VAL&...
+                              #           - multipart/form-data:
+                              #              - Content-Disposition: form-data; name="PARAM_VAR"[; filename="ANY_FILENAME"]
+                              #              - "filename" if SMALL_SCHEMA.type "file"
+                              #              - PARAM type is indicated by SMALL_SCHEMA.type (unless "file")
+                              #     - "body":
+                              #        - body otherwise
+                              #        - name must be "body" too
+                              #  (unless in "body")
+                              #  - <-- SMALL_SCHEMA
+                              #  (if in "body")
+                             *#  - schema SCHEMA
+PARAM (3)                    *#  - in STR: also:
+                              #     - "cookie"
+                              #  - deprecated BOOL
+                              #  - <-- STYLE_PROPS
+                              #  - schema SCHEMA or content CONTENTS
+                              #     - content CONTENTS only needed when parameter is not a simple value, e.g. when passing
+                              #       JSON in query variables or requests headers
+                              #  - example VAL or examples.MIME EXAMPLE
+
+HEADER_VAL (3)                #Like PARAM, but without "name" nor "in"
+
+REQ_BODY (3)                  #  - description 'MARKDOWN'
+                              #  - required BOOL (def: false)
+                             *#  - content CONTENTS
+
+RESPONSES                     #  - HTTP_STATUS_CODE: RESP
+                              #     - HTTP_STATUS_CODE can be "default", i.e. "any other status code"
+RESPONSES (3)                 #HTTP_STATUS_CODE can be "1XX|2XX|3XX|4XX|5XX"
+
+RESP                         *#  - description 'MARKDOWN'
+RESP (2)                      #  - schema SCHEMA
+                              #  - headers.HEADER SMALL_SCHEMA
+                              #  - examples.MIME VAL
+RESP (3)                      #  - content CONTENTS
+                              #  - headers.HEADER HEADER_VAL
+                              #  - links.NAME LINK
+
+CONTENTS (3)                  #  - MIME_RANGE: CONTENT
+
+CONTENT (3)                   #  - schema SCHEMA
+                              #  - example VAL or examples.MIME EXAMPLE
+                              #  (only for REQ_BODY and with MIME 'multipart|x-www-form-urlencoded')
+                              #  - encoding.PROP:
+                              #     - contentType 'MIME_RANGE,...'
+                              #        - default for PROP is:
+                              #           - 'application/json' if "type" "object"
+                              #           - items type, if array with object "items"
+                              #           - 'application/octet-stream' otherwise
+                              #     (for body with MIME "multipart")
+                              #     - headers.HEADER HEADER_VAL
+                              #        - PROPs to be considered request headers instead
+                              #     (for body with MIME "x-www-form-urlencoded")
+                              #     - <-- STYLE_PROPS
+
+STYLE_PROPS (3)               #  - allowReserved BOOL (def: false):
+                              #     - allow characters that should be URI encoded in QUERY not to be URI encoded
+                              #     - only for "query"
+                              #  - style:
+                              #     - how to deserialize:
+                              #        - "simple" (def for "path|query|header"):
+                              #           - like no SUFFIX in URI templates
+                              #           - except with * SUFFIX, it is VAR=VAL,...
+                              #        - "label":
+                              #           - like . SUFFIX in URI templates
+                              #           - except it uses . delimiters instead of ,
+                              #        - "matrix": like ; SUFFIX in URI templates
+                              #        - "form" (def for "cookie"):
+                              #           - like ? SUFFIX in URI templates
+                              #           - except without leading ?
+                              #        (array only)
+                              #        - "spaceDelimited": "VAL ..."
+                              #        - "pipeDelimited": "VAL|..."
+                              #        (object only)
+                              #        - "deepObject": "VAR[VAR2][...]=VAL&..."
+                              #  - explode BOOL (def: false unless style "form"): like * SUFFIX in URI templates
+
+EXAMPLE (3)                   #  - summary STR
+                              #  - description 'MARKDOWN'
+                              #  - value VAL or externalValue 'URL'
+
+SCHEMA                        #  - the following JSON schema v4 properties:
+                             *#     - type (cannot be an array)
+                              #     - enum|default
+                              #     - title
+                              #     - multipleOf|[exclusive]maximum|minimum NUM
+                              #        - note that exclusiveMaximum|Minimum is BOOL
+                              #     - min|maxLength|pattern
+                              #     - min|maxItems|uniqueItems
+                             *#     - items SCHEMA (if array)
+                              #     - properties|additionalProperties|minProperties|maxProperties|required
+                              #     - allOf
+                              #  - the following JSON schema v7 properties:
+                              #     - readOnly
+                              #  - format STR:
+                              #     - "integer" can be "int32|int64" (signed)
+                              #     - "number" can be "float|double"
+                              #     - "string" can be:
+                              #        - nothing
+                              #        - "byte": base64 (standard, not base64url)
+                              #        - "password": no special format, just hint to UI that it should be obscured
+                              #        - "binary": no special format, just hint
+                              #        - "date-time": like in JSON schema v4
+                              #        - "date": like in JSON schema v7
+                              #        - anything in JSON schema
+                              #     - others don't use it
+                              #  - description 'MARKDOWN'
+                              #  - externalDocs EXTERNALDOCS
+                              #  - example VAL
+                              #  - xml: name STR, namespace STR, prefix STR, attribute BOOL, wrapped BOOL
+SCHEMA (2)                    #  - type "file":
+                              #     - property within a MIME "multipart/form-data" payload, with a filename="ANY_FILENAME" (see above)
+                              #        - with RESP, it is not specified which file (since there is no PARAM_NAME to select)
+                              #     - only if PARAM "in" "formData" or with RESP
+                              #        - if RESP, can only use SCHEMA.type|default|title|readOnly|required|format|description|externalDocs|example
+                              #  - discriminator 'PROP':
+                              #     - for inheritance
+                              #     - must be present in both parent and children
+                              #     - 'PROP' is member shared by both parent and children and specifying their TYPE
+                              #     - 'PROP' must be required
+                              #     - children must specify their parent's SCHEMA using anyOf|allOf|oneOf
+SCHEMA (3)                    #  - the following JSON schema properties:
+                              #     - $schema
+                              #     - v4: oneOf|anyOf|not
+                              #     - v7: writeOnly
+                              #  - deprecated BOOL (def: false)
+                              #  - nullable BOOL (def: false): allow `null`
+                              #  - discriminator:
+                             *#     - propertyName 'PROP'
+                              #     - mapping.TYPE JSON_POINTER (to a SCHEMA)
+
+SMALL_SCHEMA (2)              #Like SCHEMA (2) except:
+                              #  - no type 'object' nor properties|additionalProperties|minProperties|maxProperties|required
+                              #  - no title|externalDocs|readOnly
+                              #  - no example, but x-example often supported by tools
+                              #  - no allOf
+                              #  - no discriminator|xml
+                              #Also has:
+                              #  - collectionFormat STR:
+                              #     - only if type "array"
+                              #     - can be:
+                              #        - "csv" (def): VAL,VAL2
+                              #        - "ssv": VAL VAL2
+                              #        - "tsv": VAL\tVAL2
+                              #        - "pipes": VAL|VAL2
+                              #        - "multi": VAR=VAL&VAR=VAL2 (only for in "query|formData")
+
+LINK (3)                      #Operation to perform to access a related resource (e.g. "next" page):
+                              #  - operationRef JSON_POINTER (to an OPERATION) or operationId 'FUNC'
+                              #  - parameters { '[path|query|header|cookie].VAR': VAL } (can contain RUNTIME_EXPR)
+                              #     - note that the dot is in the key name itself
+                              #  - requestBody VAL (can contain RUNTIME_EXPR)
+                              #  - description STR
+                              #  - server SERVER
+
+CALLBACK (3)                  #HTTP requests performed by the server (i.e. webhook)
+                              #  - URL: PATHDEF
+                              #     - URL can contain {RUNTIME_EXPR}
+
+RUNTIME_EXPR (3)              #Refers to current request|response. Can be:
+                              #  - "$url"
+                              #  - "$method"
+                              #  - "$statusCode"
+                              #  - "$request|response.path|query|header.VAR"
+                              #  - "$request|response.body[#JSON_POINTER]"
+
+SECURITY_USES                 #OBJ_ARR:
+                              #  - SEC_NAME: SCOPE_ARR (empty if "apiKey|http|basic")
+                              #ARR is or|alternative. OBJ keys is and|join
+
+SECURITY_DEF                 *#  - type STR:
+                             *#     - "apiKey"
+                             *#     - "oauth2"
+                              #  - description 'MARKDOWN'
+                              #  (for apiKey)
+                             *#  - name 'VAR'
+                             *#  - in 'query|header'
+SECURITY_DEF (2)             *#  - type STR:
+                             *#     - "basic"
+                              #  (for oauth2)
+                             *#  - flow 'implicit|password|application|accessCode'
+                              #  - <-- OAUTH2
+SECURITY_DEF (3)             *#  - type STR:
+                             *#     - "http"
+                             *#     - "openIdConnect"
+                              #  (for oauth2)
+                             *#  - flows.implicit|password|clientCredentials|authorizationCode OAUTH2
+                              #  (for apiKey)
+                             *#  - in 'query|header|cookie'
+                              #  (for openIdConnect)
+                             *#  - openIdConnectUrl 'URL'
+                              #  (for http)
+                             *#  - scheme 'basic|digest|bearer|...'
+                              #  (for http with scheme 'bearer')
+                             *#  - bearerFormat STR (e.g. 'JWT'): token format, hint for client
+
+OAUTH2                       *#  - scopes: VAR: 'DESCRIPTION'
+                              #  (for implicit|accessCode|authorizationCode)
+                             *#  - authorizationUrl 'URL'
+                              #  (for accessCode|authorizationCode|password|application|clientCredentials)
+                             *#  - tokenUrl 'URL'
+OAUTH2 (3)                    #  - refreshUrl 'URL'
+
+TAG                           #Used to group OPERATIONs. Often by 'MODEL'.
+                             *#  - name 'TAG'
+                              #  - description 'MARKDOWN'
+                              #  - externalDocs EXTERNALDOCS
+
+EXTERNALDOCS                  #  - description 'MARKDOWN'
+                             *#  - url 'URL'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       VERSION MIGRATION       :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SWAGGER2OPENAPI ==>          ##Converts from OpenAPI 2.0 to 3.0.0
+                             ##Also does validation
+                             ##Version 2.11.16
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          CONVERSION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JSON-SCHEMA-TO-OPENAPI-SCHEMA##Converts JSON schema v7 to OpenAPI SCHEMA 2.0/3.0
+ (JSONSCHEMA[, OPTS])->SCHEMA##Does:
+                             ##  - converts JSON schema v7 -> v4:
+                             ##     - SCHEMA.if|then|else -> oneOf|allOf
+                             ##  - converts JSON schema v6 -> v4:
+                             ##     - SCHEMA.const -> enum
+                             ##     - SCHEMA.exclusiveMaximum|Minimum NUM -> exclusiveMaximum|Minumum true + maximum|minimum NUM
+                             ##  - converts JSON schema v5 -> v4:
+                             ##     - SCHEMA.dependencies -> SCHEMA.allOf.oneOf[.not].required
+                             ##  - remove JSON schema-only properties:
+                             ##     - SCHEMA.$schema|id
+                             ##     - SCHEMA.type ['TYPE', 'null'] -> SCHEMA.type 'TYPE', nullable true
+                             ##     - SCHEMA.patternProperties -> SCHEMA['x-patternProperties']
+                             ##  - add required properties:
+                             ##     - SCHEMA.items {} if undefined and type 'array'
+                             ##  - cleanup:
+                             ##     - remove SCHEMA.required not in SCHEMA.properties
+                             ##     - remove SCHEMA.required|properties if empty
+                             ##Does not handle SCHEMA.if|then|else|dependencies|propertyNames|patternProperties|contains|additionalItems
+                             ##OPTS:
+                             ##  - cloneSchema BOOL (def: true): deep clone SCHEMA
+                             ##Version 0.3.0
+
+OPENAPI-SCHEMA-TO-JSON-SCHEMA##Converts OpenAPI's 2.0/3.0 SCHEMA to JSON schema v4
+ (SCHEMA[, OPTS])->JSONSCHEMA##Does:
+                             ##  - remove OpenAPI-only properties:
+                             ##     - SCHEMA.nullable|discriminator|readOnly|writeOnly|xml|externalDocs|example|deprecated
+                             ##     - can keep some with OPTS.keepNotSupported 'PROP'_ARR
+                             ##  - converts OpenAPI-only properties:
+                             ##     - SCHEMA.nullable -> add SCHEMA.type 'null' and SCHEMA.enum null
+                             ##     - SCHEMA.format "int32|int64|float|double" -> SCHEMA.minimum|maximum
+                             ##     - SCHEMA.format "byte" -> SCHEMA.pattern
+                             ##  - throws on OpenAPI-only properties:
+                             ##     - SCHEMA.type "file"
+                             ##  - converts JSON schema version 7 properties:
+                             ##     - SCHEMA.format "date" -> "date-time" if OPTS.dateToDateTime true (def: false)
+                             ##  - remove JSON schema version 5 properties:
+                             ##     - SCHEMA.readOnly|writeOnly if OPTS.removeReadOnly|WriteOnly true (def: false)
+                             ##  - converts JSON schema-only properties:
+                             ##     - SCHEMA['x-patternProperties'] -> SCHEMA.patternProperties if OPTS.supportPatternProperties true (def: false)
+                             ##        - sets SCHEMA.additionalProperties SCHEMA2 to false if it deep equals one of
+                             ##          SCHEMA.patternProperties.REGEXP SCHEMA2
+                             ##        - can further customize with OPTS.patternPropertiesHandler(SCHEMA)->SCHEMA
+                             ##  - adds JSON schema-only properties:
+                             ##     - SCHEMA.$schema "http://json-schema.org/draft-04/schema#"
+                             ##  - cleanup:
+                             ##     - remove SCHEMA.required not in SCHEMA.properties
+                             ##     - remove SCHEMA.required|properties if empty
+                             ##OPTS:
+                             ##  - cloneSchema BOOL (def: true): deep clone SCHEMA
+                             ##Version 2.2.0
+OPENAPI-SCHEMA-TO-JSON-SCHEMA##Same but using:
+ .fromParameter(PARAM)       ##  - PARAM.schema
+                             ##  - PARAM.content.MIME, in which case return { MIME: JSON_SCHEMA }
+                             ##Does not work with non-body OpenAPI 2.0 PARAM
+
+OPENAPI2JSONSCHEMA           ##Not as many normalization|conversion
+                             ##Prefer OPENAPI-SCHEMA-TO-JSON-SCHEMA

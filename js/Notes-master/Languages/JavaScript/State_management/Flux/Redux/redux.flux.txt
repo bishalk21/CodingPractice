@@ -1,0 +1,134 @@
+
+         
+   REDUX  
+         
+
+
+
+COMPARISON ==>                    #See Flux doc
+
+VERSION ==>                       #3.6.0
+                                  #Flux implementation:
+                                  #  - actions:
+                                  #     - like Flux, but with helper functions (firing)
+                                  #     - actions creators are passed to views as props
+                                  #  - dispatcher:
+                                  #     - no dispatcher, stores listens to all actions, and whitelist them
+                                  #     - multiple-action orchestration can be done with imperative code
+                                  #  - stores:
+                                  #     - when action dispatched, change STORE state with reducer function
+                                  #     - encourage single per app, divided into substores
+                                  #  - views:
+                                  #     - like Flux, listen to stores changes and assign to RFVIEW.state
+                                  #     - encourage top-level smart component
+                                  #     - use a mapping function to separate stores states to views state, passed down as props
+
+DIFFERENCE WITH FLUX ==>          #STORE takes role of Flux DISPATCHER + REDUCESTORE
+                                  #  - so single store per app
+                                  #  - no DISPATCHER.waitFor()
+                                  #No FTYPE|view in core, but can use React-redux
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            ACTIONS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REDUX.bindActionCreators          #With VAL:
+(VAL, STORE.dispatch)->VAL        #  - FUNC2()->ACTION
+                                  #  - { KEY: FUNC2()->ACTION ... }
+                                  #Patches it so that FUNC2() triggers STORE.dispatch(ACTION)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             STORE             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REDUX.createStore                 #APPSTATE0:
+(RFUNC([APPSTAT,]ACTION)->APPSTAT2#  - default APPSTATE
+[, APPSTATE0])->STORE             #RFUNC is 'reducer':
+                                  #  - called on STORE.dispatch(ACTION), to update APPSTATE
+                                  #  - called at init
+                                  #  - should be 'pure' (see Flux REDUCESTORE):
+                                  #     - if unsupported ACTION (including undefined), should return unchanged APPSTATE
+                                  #     - should never return undefined
+STORE.getState()->APPSTATE        #
+STORE.dispatch(ACTION)            #Cannot be called from inside STORE's RFUNC. Returns ACTION.
+STORE.subscribe(SFUNC())          #Called when STORE.dispatch(ACTION) has been called and APPSTATE changed.
+                                  #Returns unsubscribe FUNC()
+STORE.replaceReducer(RFUNC)       #
+
+
+REDUX.combineReducers
+({KEY: RFUNC(...)->APPSTATE ...})
+->RFUNC2(...)->{KEY: APPSTATE ...}#Allow dividing main reducer into smaller ones
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             VIEWS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REACT-REDUX ==>                   #Version 4.0.0
+                                  #Redux version of FluxContainer:
+                                  #  - updates views when store change
+                                  #  - should be on 'smart' components (see Flux/React documentation)
+
+<Provider store={STORE}>          #Pass STORE as context to single child.
+                                  #Must wrap app.
+
+HOC                               #FUNC(RTYPE)->RTYPE2
+REACTREDUX.connect                #Make RTYPE:
+(FUNC[,FUNC2][,FUNC3][,OPT])->HOC #  - update on STORE change, with FUNC() translating store state into components props ("selector")
+                                  #    to pass down to children (see "Reselect" library)
+                                  #  - pass bound action creators as components props (using FUNC2), to use in the RCOMP
+                                  #    (its children should use callbacks to parent)
+                                  #RTYPE2:
+                                  #  - wraps <RTYPE>:
+                                  #     - if OPT.withRef true (def: false), RCOMP2.refs.wrappedInstance or RCOMP2.getWrappedInstance() = RCOMP
+                                  #     - RTYPE2.wrappedComponent RTYPE
+                                  #  - fires RCOMP2 'update' (hence RCOMP 'update'):
+                                  #     - when STORE change: using STORE.subscribe(), if STORE.getState() changed (using ===)
+                                  #     - STORE is RCOMP2.props|context.store (e.g. through <Provider>)
+                                  #  - RCOMP.props:
+                                  #     - PROPS = shallow merge (or FUNC3 taking them as arguments) of:
+                                  #        - RCOMP2.props
+                                  #        - FUNC_RET = FUNC(STORE.getState(), RCOMP2.props)
+                                  #        - FUNC2_RET = FUNC2(STORE.dispatch, RCOMP2.props)
+                                  #           - can be OBJ instead, in which case, return bindActionCreators(OBJ, STORE.dispatch)
+                                  #           - def: return { dispatch: STORE.dispatch }
+                                  #     - PROPS.storeState = STORE.getState()
+                                  #     - updated inside shouldComponentUpdate() (hence forceUpdate() does not update it)
+                                  #  - optimization if OPT.pure true (def):
+                                  #     - should be used according to same conditions as React PURERENDERMIXIN
+                                  #     - shouldComponentUpdate() returns false (i.e. RCOMP 'update' not triggered) if PROPS did not change,
+                                  #       i.e. if RCOMP2.props, FUNC_RET and FUNC2_RET did not change (shallow comparison)
+                                  #     - only recalculates FUNC[2]() if arguments changed
+                                  #       (shallow comparison for RCOMP2.props, reference comparison for STORE.getState())
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          MIDDLEWARE           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REDUX.applyMiddleware
+(FUNC(STORE)->FUNC2(FUNC3(ACTION))
+->FUNC4(ACTION) ...)->RPATCH      #
+REDUX.createStore(..., RPATCH)    #Patches REDUX.createStore:
+RPATCH(REDUX.createStore)         #  - FUNC() is called during applyMiddleware(). It is a REDUX_MDWR
+  ->CREATESTORE                   #  - FUNC2() is called during CREATESTORE()
+                                  #  - FUNC4() is called before STORE.dispatch(ACTION)
+                                  #     - can modify ACTION
+                                  #     - must call FUNC3(ACTION) to pass to next middleware
+                                  #STORE only has members getState() and dispatch(ACTION)
+                                  #Both ways to apply RPATCH are equivalent

@@ -1,0 +1,1 @@
+Package it for browsers too

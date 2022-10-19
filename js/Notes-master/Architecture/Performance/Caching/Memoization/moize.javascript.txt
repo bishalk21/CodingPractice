@@ -1,0 +1,234 @@
+
+         
+   MOIZE  
+         
+
+
+
+ALTERNATIVES ==>                  #  - mem (preferred if need few features or small bundle size):
+                                  #     - TTL
+                                  #     - custom cache
+                                  #     - p-memoize: for async FUNCs
+                                  #        - do not cache rejected promises
+                                  #  - moize (preferred if bundle size ok):
+                                  #     - TTL
+                                  #     - LRU caching
+                                  #     - do not cache rejected promises
+                                  #     - events (add|change|hit|expire)
+                                  #     - stats
+                                  #     - custom cache
+                                  #     - can either serialize arguments or deeply compare them
+                                  #     - React helper
+                                  #     - big bundle size
+                                  #  - memoizee (almost preferred if bundle size ok):
+                                  #     - TTL
+                                  #     - LRU caching
+                                  #     - weakmaps (cache by OBJ reference, garbage collected when OBJ is)
+                                  #     - do not cache rejected promises
+                                  #     - stats
+                                  #     - big bundle size
+                                  #  - nano-memoize:
+                                  #     - TTL
+                                  #  - memoize-one:
+                                  #     - for particular case, i.e. only cache last invocation
+                                  #     - memoizes "this" too
+                                  #  - fast-memoize:
+                                  #     - fastest when only one argument and not OBJ|ARR, very slow otherwise
+                                  #     - not well maintained
+                                  #  - memoizerific: LRU caching, not well maintained
+                                  #  - lodash: slower
+                                  #     - memo-decorator: wrapper but as decorator, not well maintained
+
+VERSION ==>                       #6.1.1
+
+MICRO-MEMOIZE ==>                ##Smaller and slightly faster subset of moize
+                                 ##Marked with this notation
+                                 ##Also renames:
+                                 ##  - OPTS.matchesArg() -> OPTS.isEqual()
+                                 ##  - OPTS.matchesKey() -> OPTS.isMatchingKey()
+                                 ##  - OPTS.transformArgs() -> OPTS.transformKey()
+                                 ##  - FUNC.isMoized -> FUNC.isMemoized
+                                 ##  - FUNC.originalFunction -> FUNC.fn
+                                 ##Version 4.0.10
+
+MOIZE(FUNC[, OPTS])->FUNC2       ##If FUNC already memoized, use the underlying FUNC instead.
+
+FUNC.isMoized                    ##BOOL
+FUNC.options                     ##OPTS
+FUNC.originalFunction            ##FUNC
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            BINDING            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+MOIZE(OPTS)->MOIZE                #Binds OPTS
+MOIZE(MOIZE2[, OPTS])->MOIZE      #Composition (merge OPTS)
+MOIZE.compose(...MOIZE2)->MOIZE   #Composition (merge OPTS)
+
+MOIZE.deep(FUNC)->FUNC            #Same as MOIZE(FUNC, { isDeepEqual: true })
+MOIZE.shallow(FUNC)->FUNC         #Same as MOIZE(FUNC, { isShallowEqual: true })
+MOIZE.maxAge(NUM)(FUNC)->FUNC     #Same as MOIZE(FUNC, { maxAge: NUM })
+MOIZE.maxArgs(NUM)(FUNC)->FUNC    #Same as MOIZE(FUNC, { maxArgs: NUM })
+MOIZE.maxSize(NUM)(FUNC)->FUNC    #Same as MOIZE(FUNC, { maxSize: NUM })
+MOIZE.promise(FUNC)->FUNC         #Same as MOIZE(FUNC, { isPromise: true, updateExpire: true })
+MOIZE.infinite(FUNC)->FUNC        #Same as MOIZE(FUNC, { maxSize: Infinity })
+MOIZE.react(FUNC)->FUNC           #Same as MOIZE(FUNC, { isReact: true })
+MOIZE.serialize(FUNC)->FUNC       #Same as MOIZE(FUNC, { isSerialized: true })
+MOIZE.serializeWith(FUNC)(FUNC2)
+ ->FUNC                           #Same as MOIZE(FUNC, { serializer: FUNC2 })
+MOIZ.matchesKey(FUNC)(FUNC2)->FUNC#Same as MOIZE(FUNC, { matchesKey: FUNC2 })
+MOIZ.matchesArg(FUNC)(FUNC2)->FUNC#Same as MOIZE(FUNC, { matchesArg: FUNC2 })
+MOIZE.transformArgs(FUNC)(FUNC2)
+ ->FUNC                           #Same as MOIZE(FUNC, { transformArgs: FUNC2 })
+MOIZE.updateCacheForKey
+ (FUNC)(FUNC2)->FUNC              #Same as MOIZE(FUNC, { updateCacheForKey: FUNC2 })
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             KEYS              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ARGS                             ##Values passed as arguments to memoized FUNC, as an ARR
+KEYS                             ##Cache keys (for all arguments), as an ARR
+KEY                              ##Cache key (of a single argument)
+
+OPTS.isSerialized                 #If false (def):
+                                  #  - use OPTS.matchesKey() but not OPTS.serializer()
+                                  #  - ARGS === KEYS
+                                  #  - i.e. cache ARGS as is and perform shallow comparison (deep if OPTS.isDeepEqual true)
+                                  #If true:
+                                  #  - use OPTS.serializer() but not OPTS.matchesKey()
+                                  #  - i.e. cache serialized ARGS and perform === comparison
+
+OPTS.transformArgs(ARGS)->ARGS   ##Map ARGS before being used as KEYS
+OPTS.maxArgs                      #Only compare first NUM ARGS
+
+OPTS.serializer(ARGS)->STR_ARR    #How KEYS are computed from ARGS
+                                  #Def:
+                                  #  - if primitive type, String()
+                                  #  - otherwise JSON.stringify()
+                                  #  - if has circular references, uses `fast-stringify` library to serialize them
+                                  #  - if FUNC, calls FUNC.toString()
+
+OPTS.matchesKey(KEYS,KEYS2)->BOOL##How KEYS are compared (def: iterates over KEY with OPTS.matchesArg())
+OPTS.matchesArg(KEY, KEY2)->BOOL ##How KEY are compared (only if OPTS.matchesKey not defined)
+                                 ##Def: Object.is()
+                                  #If OPTS.isDeepEqual|isShallowEqual true (def: false), def is deep|shallow equal instead.
+
+OPTS.updateCacheForKey(ARGS)->BOOL#If true, do not use|read cache. Still update it though.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         SPECIAL ARGS          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.isPromise                   ##Whether true|false, caches PROMISE itself (not its resolved|rejected value), which is good.
+                                 ##If true (def: false):
+                                 ##  - do not cache rejected PROMISEs: if PROMISE is rejected, remove from cache
+                                 ##  - make cache miss fire additional events onCacheHit|onCacheChange after PROMISE success
+                                 ##  - fails if return value is not a PROMISE
+
+OPTS.isReact                      #If true (def: false):
+                                  #  - def OPTS.matchesArg() is shallow equal instead.
+                                  #  - use OPTS.maxArgs 2
+                                  #  - use OPTS.isShallowEqual true
+                                  #  - copy FUNC.contextTypes|defaultProps|propTypes|displayName
+
+OPTS.profileName                  #Override FUNC.name
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              TTL              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.maxAge                       #Expiration time NUM (in ms)
+OPTS.updateExpire                 #If true (def: false), reset expiration time on cache hit
+OPTS.onExpire(KEY)->BOOL          #Fired on expiration
+                                  #If false is returned, do not expire and reset expiration time
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              LRU              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.maxSize                     ##LRU caching size NUM
+                                 ##Def: 1
+                                 ##Can be Infinity
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CACHE             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FUNC.cache                       ##CACHE
+CACHE.snapshot                   ##Shallow clone of FUNC.cache (because that one is directly mutated)
+
+CACHE.keys                       ##KEYS_ARR
+CACHE.values                     ##ARR (return values, same order as CACHE.keys)
+CACHE.size                       ##NUM
+
+FUNC.*()                          #Should use methods below instead of directly modifying CACHE.*
+                                  #as it will apply OPTS.onCache*|transformArgs|maxSize
+
+FUNC.keys()->KEYS_ARR             #
+FUNC.values()->ARR                #
+
+FUNC.get(KEYS)->VAL               #Undefined if not existing
+FUNC.has(KEYS)->BOOL              #
+FUNC.add(KEYS, VAL)               #Add cached values, if not existing yet
+FUNC.update(KEYS, VAL)            #Update cached values if existing
+FUNC.remove(KEYS)                 #Noop if not existing
+FUNC.clear()                      #Clear all cache
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            EVENTS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.onCacheAdd(CACHE, OPTS,FUNC)##Fired on cache miss
+OPTS.onCacheHit(CACHE, OPTS,FUNC)##Fired on cache hit
+OPTS.onCacheChange               ##Fired on either:
+ (CACHE, OPTS, FUNC)             ##  - cache miss
+                                 ##  - cache hit that reordered LRU cache order, i.e. of not the most recent item
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             STATS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+MOIZE.collectStats()              #Start recording stats
+MOIZE|FUNC.getStats               #OBJ:
+ (["PROFILE"])->OBJ               #  - calls NUM
+                                  #  - hits NUM
+                                  #  - usage "NUM%"
+                                  #  - profiles.PROFILE.calls|hits|usage
+                                  #"PROFILE":
+                                  #  - OPTS.profileName (def: FUNC.name + line|column|source info from new ERROR.stack)
+                                  #  - used to differentiate between groups of functions
+MOIZE|FUNC.isCollectingStats()
+ ->BOOL                           #

@@ -1,0 +1,1727 @@
+
+        
+   HTML  
+        
+
+
+
+SUMMARY ==>                                     #Interoperability   browser hacks, quirks mode
+                                                #Syntax             self-closing, optional [end] tags
+                                                #Categories         metadata, flow (sectioning, containing, phrasing (including replaced)), interactive, palpable, transparent
+                                                #Formatting
+                                                #Header             <meta>, viewport, format-detection
+                                                #Icons/titles       titles, icons, pinned tabs, desktop shortcuts
+                                                #Embedding          OpenGraph protocol (Facebook), Twitter, Google+
+                                                #Attributes         HTML vs IDL, data-ATTR
+                                                #Selection          class, id
+                                                #i18n               <meta>, lang, hreflang, dir, <bdo>, <ruby>
+                                                #Sectioning top     <!DOCTYPE>, <html>, <head>, <body>
+                                                #Sectioning upper   <div>, <header|main|footer|aside|figure|figcaption>, <section|article|nav>, <blockquote|address>
+                                                #Sectioning lower   <h*>, <p>, <pre>, <ol|ul|li>, <dl|dt|dd>
+                                                #Phrasing           <span>, <strong|em|i|b|mark>, <ins|del|s|u>, <code|kbd|samp|var>, <q|cite|abbr|dfn>, <data|time>, <sub|sup|small>, <br|wbr|hr>
+                                                #Links              <base>, <link> <a>, <map|area>
+                                                #Forms              autofill|autocomplete, contenteditable, validation, <form>,
+                                                #                   <input type="text|password|email|tel|url|search|checkbox|radio|file|button|hidden|submit|image|reset|range">,
+                                                #                   <button type="button|submit|reset">, <texarea>, <select|optgroup|option>, <progress>, <label>, <fieldset|legend>
+                                                #Table              <table>, <caption>, <thead|tbody|tfoot>, <tr|th>, <colgroup|col>
+                                                #Embedded           <iframe>, <object|param>
+                                                #Images             <img>, <picture|source>
+                                                #Media              <audio|video|source>, <track>
+                                                #Vector             <svg>, <canvas>
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERAL            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+STANDARDS ==>                                   #W3C for most (5.1 recommendation, 5.2 working draft)
+                                                #But WHATWG (fork) has a spec as well
+
+XHTML ==>                                       #Follows HTML5 but:
+                                                #  - MIME "application/[xhtml+]xml" instead of "text/html"
+                                                #  - more restrictive
+                                                #  - can be parsed as XML
+                                                #Polyglot: XHTML HTML-compatible
+                                                #Not documented here
+
+DESIGN PRINCIPLES ==>                           #Meant for:
+                                                #  - content structure (not presentation)
+                                                #  - end-users:
+                                                #     - first (before developers)
+                                                #     - all of them: a11y, i18n
+                                                #  - widely varying user agents:
+                                                #     - support|reuse existing content|practices
+                                                #     - degrade gracefully
+                                                #     - clearly defined behavior (as opposed to implementation-specific)
+                                                #     - media independence
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       INTEROPERABILITY        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+BROWSER COMPTABILITY ==>                        #Desktop:
+                                                #  - Chrome 57, Opera 43
+                                                #  - Safari 10.0
+                                                #  - IE 11
+                                                #  - Edge 14
+                                                #  - Firefox 52
+                                                #Mobile/tablet:
+                                                #  - Chrome Mobile 57, Android browser 56, Opera Mobile 41
+                                                #  - Safari Mobile 10.2
+                                                #  - UC browser 11.4
+
+CHECKING BROWSER SUPPORT ==>                    #  - caniuse
+                                                #  - Firefox (and others):
+                                                #     - https://platform-status.mozilla.org/
+                                                #     - MDN
+                                                #  - IE: https://msdn.microsoft.com/en-us/library/hh772374
+                                                #  - Edge:
+                                                #     - https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/
+                                                #     - https://developer.microsoft.com/en-us/microsoft-edge/platform/status/
+                                                #  - Safari: https://webkit.org/status/
+                                                #  - Chrome: http://www.chromestatus.com/features/
+                                                #  - https://platform.html5.org/
+
+PROGRESSIVE ENHANCEMENT ==>                     #See a11y doc
+
+BROWSER HACKS ==>                               #Syntax in HTML/CSS/JavaScript which only works in specific browsers/versions
+                                                #Goal is to target specific browsers
+                                                #To avoid
+                                                #See list online
+
+QUIRKS MODE ==>                                 #Rendering mode for older websites.
+                                                #Often triggered by browsers according to DOCTYPE
+                                                #WHATWG lists main changes in a spec.
+DOCUMENT.compatMode                             #Can be:
+                                                #  - "CSS1Compat": normal
+                                                #  - "BackCompat": Quirks mode
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            SYNTAX             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<TAG attr[="value"]>...</TAG>                   #Not self-closing: tag has children
+<TAG>/                                          #Self-closing: tag has no children nor end tag.
+                                                #Written <TAG> (preferred) or <TAG/>
+
+OPTIONAL TAGS ==>                               #Are optional, but will be implicitely added: <html>, <head>, <body>, <tbody>
+OPTIONAL END TAG ==>                            #Are:
+                                                #  - Table-related: <thead>, <tbody>, <tfoot>, <tr>, <th>, <td>
+                                                #  - List-related: <option>, <optgroup> <li>, <dt>, <dd>, <colgroup>
+                                                #  - <p>
+
+<!-- COMMENT -->                                #Cannot include -- nor start with > or ->
+
+CATEGORIES ==>                                  #Content categories:
+                                                #  - metadata: in <head>
+                                                #  - flow|inline: in <body>
+                                                #     - sectioning:
+                                                #        - roots: <blockquote>, <body>, <details>, <dialog>, <fieldset>, <figure>, <td>
+                                                #        - content: <article>, <aside>, <nav>, <section>
+                                                #     - containers:
+                                                #        - thick: <div>, <dl|ol|ul>, <address|footer|header|main>, <menu>, <form>, <table>
+                                                #        - headers: <h*>
+                                                #        - thin: <p>, <pre>
+                                                #     - phrasing:
+                                                #        - script-related: <script>, <template>
+                                                #        - replaced (external source influences display)
+                                                #           - embedded: <audio|video>, <canvas>, <iframe>, <img|picture>, <math>, <svg>, <object>
+                                                #           - form-related: <button|fieldset|input|label|object|output|select|textarea|img>
+                                                #              - listed: have ELEM.form
+                                                #                 - submittable
+                                                #                 - resettable
+                                                #              - labelable: can have <label>
+                                                #        - others
+                                                #Also:
+                                                #  - interactive: <a>, <img usemap>, <audio|video controls>, submittable form-related except <fieldset>, <details>, <iframe>, <label>
+                                                #  - palpable: actual content, which excludes:
+                                                #     - script-related, noscript
+                                                #     - separators ([w]br)
+                                                #     - datalist, del, dialog, picture, slot
+                                                #Children restriction:
+                                                #  - none: marked <TAG>/
+                                                #  - specific tags:
+                                                #     - e.g. <colgroup> only allows <col>
+                                                #     - noted in this doc
+                                                #  - headers, thin containers and phrasing: can only contain phrasing
+                                                #  - transparent:
+                                                #     - allowed children are same as parent
+                                                #     - i.e. can be suppressed with document still valid
+                                                #     - i.e. embedded with no children, thin wrappers (<a>, <del|ins>), <slot>
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        HTML FORMATTING        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ABBREVIATIONS ==>                               #  - CG:  cssguidelin.es
+                                                #  - GC:  grvcoelho HTML style guide
+                                                #  - JH:  jQuery HTML style guide
+                                                #  - MCG: mdo code guide
+                                                #  - PG:  primercss.io guidelines
+                                                #  - WH:  Wordpress HTML coding standards
+
+ALTERNATIVES ==>                                #When there are competing recommandations, we use / instead of -, with the preferred choice on top
+
+SUMMARY FORMATTING ==>                          #  <!-- No <html|head|body|tbody> -->
+                                                #
+                                                #  <!-- Lean markup. Follow visual order. -->
+                                                #
+                                                #  <div class="BLOCK BLOCK__ELEMENT  ANOTHERBLOCK">
+                                                #    <input class="FIRST" name="SECOND" data-third="THIRD" src|for|value|href|type="checkbox" checked title="FIFTH" role="SIXTH">
+                                                #    <div>
+                                                #      <p|li|option>Text<a>URL<a/>Text
+                                                #      <p|li|option>Text<a>URL<a/>Text
+                                                #    </div>
+                                                #  </div>
+                                                #
+                                                #  <div class="BLOCK"></div>
+                                                #
+                                                #
+                                                #
+                                                #
+                                                #
+                                                #  <!-- Another section -->
+                                                #  <div class="BLOCK"></div>
+
+
+NEWLINES ==>                                    #  - newlines between <TAG>:
+                                                #     - none between sibling inline elements (GS)
+                                                #     - one between related (GS CG)
+                                                #     - two between loosely related (GS CG)
+                                                #     - five between sections (CG)
+                                                #  - newline before <br>
+
+INDENT ==>                                      #  - width:
+                                                #     / 2 spaces (PG GS)
+                                                #     / tab (JH WH)
+                                                #  - do not indent <html|body|script|style> children (JH)
+                                                #  - indent attributes:
+                                                #     / do not indent
+                                                #     / indent each on a newline
+
+SPACES ==>                                      #  - no trailing whitespace (GS JH)
+
+STRUCTURE ==>                                   #  - should follow visual order (PG)
+                                                #  - lean markup (MCG PG JH):
+                                                #     - avoid wrapping a tag to only add a class
+                                                #     - i.e. <TAG class="CLASS" ...> instead of <TAG2 class="CLASS"><TAG ...></TAG2
+                                                #  - avoid HTML in JavaScript (MCG)
+
+TAGS ==>                                        #  - <tag> lowercase (GS JH WH)
+                                                #  - self-closing tags:
+                                                #     / <TAG> (MCG PG GS JH)
+                                                #     / <TAG /> (WH)
+                                                #  - optional tags (e.g. <html|head|body|tbody>):
+                                                #     / omit (GS)
+                                                #     / keep (JH)
+                                                #  - optional end tags (e.g. <p|li|option>):
+                                                #     / omit (GS)
+                                                #     / keep (JH)
+
+ATTRIBUTES ==>                                  #  - case:
+                                                #     - lowercase name
+                                                #     - lowercase attribute value, if enum
+                                                #  - order: class, id|name, data-*, src|for|type|href|value, title|alt, role|aria-* (MCG)
+                                                #  - boolean attribute:
+                                                #     / checked (MCG PG)
+                                                #     / checked="checked" (WH)
+                                                #  - omit optional attributes (JH)
+                                                #  - use "" (PG GS JH WH)
+                                                #  - classes: one space between related classes, two spaces otherwise (CG)
+
+COMMENTS ==>                                    #  - use <!-- TODO: ... --> (GS)
+                                                #  - newlines around <!-- --> if multilines, and no indentation (JH)
+                                                #  - space around <!-- --> (JH)
+                                                #  - newline before comment (JH)
+                                                #  - sentence case (JH)
+
+OTHERS ==>                                      #  - do not use entity references, except for & < > " (GS)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            HEADER             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<meta name="STR" content="STR">/                #Anything
+
+<meta name="viewport" content="WORD, ...">/     #See CSS doc
+
+<meta name="format-detection" content="STR">/   #See tel URI scheme doc
+
+NOT USED A LOT ==>                              #The following tags are not used a lot (if at all) by SEO or other tools
+<meta>
+  name="generator" content="STR"                #Generated by a tool
+  name="subject" content="STR"                  #Short description of site-wide content
+  name="abstract" content="STR"                 #<10-words description of site-wide content (for academic primarly)
+  name="rating" content="STR"                   #STR can be "Safe For Kids", "14 Years", "General", "Mature", "Restricted"
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          ICONS/TITLE          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<title>                                         #Tab title, containing only text. No more than 100 chars
+                                                #Shown on browser tab
+                                                #Shown on search results (see SEO doc)
+  TITLE.text                                    #Like TITLE.textContent
+DOCUMENT.title                                  #<title>.textContent
+
+<meta>/
+  name="application-name" content="STR"         #Like <title>, but site-wide
+
+
+FAVICON ==>                                     #Used not only on tabs, but also on desktop shortcuts, booksmarks, links bar.
+                                                #Should use:
+                                                #  - DOMAIN/favicon.ico:
+                                                #     - only one file for each size, but does not support transparency
+                                                #     - requested by many tools, so should be defined
+                                                #     - SIZE: 16x16, 32x32, 48x48
+                                                #  - <link rel="icon" href="FILE" sizes="SIZE">/
+                                                #     - formats:
+                                                #        - ICO: Safari will prefer ICO over PNG if both available as <link>, so prefer putting at DOMAIN/favicon.io instead
+                                                #        - JPG|GIF: does not support transparency, so prefer PNG|SVG
+                                                #        - SVG: perfectly scale, but only supported by Firefox (with MIME 'image/svg+xml'), so prefer PNG for the moment
+                                                #        - PNG: SIZE: 16x16, 32x32, 48x48, 62x62, 192x192
+                                                #     - type attribute useless if Content-Type [S] correctly set
+
+
+PINNED TAB ([MOBILE] SAFARI) ==>                #
+<link>/
+  rel="mask-icon" href="FILE.svg" color="#HEX"  #Icon and background color. FILE should be only black color with transparency
+
+DESKTOP SHORCUTS (IOS) ==>                      #
+<link>/
+  rel="apple-touch-icon[-precomposed]"          #Icon. SIZE: 76, 120, 152, 180
+  href="FILE-SIZE.png"                          #Unless "precomposed", iOS adds rounded corners, shadow and shine
+<meta>/
+  name="apple-mobile-web-app-title"
+    content="TITLE"                             #Title. (def: <title>)
+
+DESKTOP SHORTCURS (IE11) OR PINNED PAGE ==>     #A pinned page is a Windows toolbar shortcut (as opposed to desktop shortcut)
+<meta>/
+  name="msapplication-square|wideSIZElogo"      #Icon: use <wide> when not square (i.e. 310x150)
+    content="FILE.png">                         #SIZE: 70x70, 150x150, 310x150, 310x310
+  name="msapplication-TileImage"
+    content="FILE-SIZE.png"                     #Icon (IE10). SIZE: 144
+  name="msapplication-TileColor" content="#HEX" #Background color
+  name="msapplication-navbutton-color"
+    content="#HEX"                              #Back|Forward buttons colors
+  name="application-name" content="STR"         #Title
+  name="msapplication-tooltip" content="TOOLTP">#When hovering title
+  name="msapplication-starturl" content="URI">  #URL when clicking on it
+  name="msapplication-window"
+    content="width=NUM,height=NUM2"             #Window size when creating new window from click (min: 800x600)
+  name="msapplication-task" content="VAR=VL,..."#Creates subtasks when right-clicking on the pinned page
+                                                #VAR:
+                                                #  - name TITLE
+                                                #  - action-uri URI
+                                                #  - icon-uri FILE.png
+  name="msapplication-task-separator"
+    content="1"                                 #Adds an horizontal line between subtasks
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           EMBEDDING           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPEN GRAPH PROTOCOL ==>                         #When user posts a URL, Facebook|Twitter fetches those metadata to provide rich snippets.
+                                                #Can also use some libraries to parse this.
+                                                #Types:
+                                                #  - DATE: 'YYYY-MM-DD[ HH:MM]'
+                                                #  - ARR: use tag several times
+                                                #  - TYPE (e.g. MUSIC.ALBUM): URL to an HTML file containing <meta> for that type
+                                                #Can use online validators
+<meta>/
+  property="og:url" content="URI"               #Like <link rel="canonical">/
+  property="og:type" content="TYPE"             #Type to interpret other <meta property="og:*">.
+                                                #The ones below are for any TYPE
+  property="og:site_name" content="NAME"        #Like <meta name="application-name">/
+  property="og:title" content="TITLE"           #Like <title>
+  property="og:determiner" content="STR"        #Appears before title, among "" (def), "an", "a", "the" or "auto"
+  property="og:description" content="STR"       #Like <meta name="description">/
+  property="og:audio" content="FILE"            #Like og:audio:url
+  property="og:video" content="FILE"            #Like og:video:url
+  property="og:image" content="THUMBNAIL"       #Like og:image:url
+  property="og:image|audio|video:[secure_]url"
+    content="FILE"                              #
+  property="og:image|audio|video:type"
+    content="MIME"                              #
+  property="og:image|video:width|height"
+    content="NUM"                               #
+  property="og:locale[:alternate]"
+    content="LANG_ARR"                          #Use "alternate" for item with index > 1
+
+  property="og:type" content="website"          #Webpage (no specific properties)
+
+  property="og:type" content="music.song"       #
+  property="music:duration" content="UINT"      #In seconds
+  property="music:album"
+    content="MUSIC.ALBUM_ARR"                   #
+  property="music:album:disc|track"
+    content="UINT_ARR"                          #
+
+  property="og:type" content="music.song|album" #
+  property="music:musician" content="PROFIL_ARR"#
+
+  property="og:type" content="music.album"      #
+  property="music:release_date" content="DATE"  #
+
+  property="og:type"
+    content="music.album|playlist"              #
+  property="music:song" content="MUSIC.SONG"    #
+  property="music:song:disc|track"
+    content="INT_ARR"                           #
+
+  property="og:type"
+    content="music.playlist|radio_station"      #
+  property="music:creator" content="PROFILE"    #
+
+  property="og:type"
+    content="video.movie|tv_show|episode|other" #
+  property="video:actor|director|writer"
+    content="PROFILE"                           #
+  property="video:actor:role" content="STR"     #
+  property="video:duration" content="UINT"      #
+  property="video:release_date" content="DATE"  #
+  property="video:tag" content="STR_ARR"        #
+
+  property="og:type" content="video.episode"    #
+  property="video:series" content="MUSC.TV_SHOW"#
+
+  property="og:type" content="article"          #
+  property="article:published|modified|
+    expiration_time" content="DATE"             #
+  property="article:author" content="PROFIL_ARR"#
+  property="article:section" content="STR"      #
+  property="article:tag" content="STR_ARR"      #
+
+  property="og:type" content="book"             #
+  property="book:author" content="PROFILE_ARR"  #
+  property="book:isbn" content="STR"            #
+  property="book:release_date" content="DATE"   #
+  property="book:tag" content="STR_ARR"         #
+
+  property="og:type" content="profile"          #
+  property="first|last_name" content="STR"      #
+  property="username" content="STR"             #
+  property="gender" content="male|female"       #
+
+TWITTER ==>                                     #To create rich snippet when users posts URL
+                                                #But Twitter also supports OpenGraph Protocol (so do not use properties where OGP equivalent exists)
+                                                #Can use online validators
+<meta>/
+  name="twitter:card" content="TYPE"            #Similar to <meta property="og:type">/
+                                                #Properties below are global
+  name="twitter:site" content="@ACCOUNT"        #
+  name="twitter:creator" content="@ACCOUNT"     #
+  name="twitter:url" content="URI"              #Like <meta property="og:url">/
+  name="twitter:title" content="STR"            #Like <meta property="og:title">/
+  name="twitter:description" content="STR"      #Like <meta property="og:description">/
+  name="twitter:image" content="THUMBNAIL"      #Like <meta property="og:image">/
+  name="twitter:image:alt" content="STR"        #
+
+  name="twitter:card"
+    content="summary[_large_image]"             #General website (in big size)
+
+  name="twitter:card" content="photo"           #Image
+  name="twitter:image:width|height"
+    content="THUMBNAIL"                         #Like <meta property="og:image:width|height">/
+
+  name="twitter:card" content="gallery"         #Carousel
+  name="twitter:image0-3" content="THUMBNAIL"   #
+
+  name="twitter:card" content="player"          #Video. Needs to be approved first (takes few days). See online for props
+
+  name="twitter:card" content="app"             #Mobile app
+  name="twitter:app:country" content="COUNTRY"  #
+  name="twitter:app:name:PLATFORM" content="STR"#PLATFORM: iphone|ipad|googleplay
+  name="twitter:app:id:PLATFORM" content="NUM"  #
+  name="twitter:app:url:PLATFORM" content="URI" #
+
+SCHEMA.ORG ==>                                  #Used by Google+ to create rich snippet when users post URL
+<meta>/
+  itemprop="name|description|image" content="*" #Similar to <meta property="og:title|description|image">/
+
+<meta>/
+  name="apple-itunes-app" content="VAR=VAL,..." #Adds a box on top of page inviting people to download iOS app
+                                                #VAR:
+                                                #  - app-id NUM
+                                                #  - affiliate-data STR: for iTunes affiliates
+                                                #  - app-argument URI: current URI, so that apps can use it
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              DOM              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+LOADING|PARSING ORDER ==>                       #See DOM doc
+
+HTMLElement                                     #Child of ELEM, parent of all HTML tags.
+HTMLTAGElement                                  #HTMLELEM of <TAG>
+                                                #Only when there are IDL attributes on top of the HTML ones
+                                                #Sometimes called slightly differently
+HTMLUnknownElement                              #HTMLELEM using a tagName not supported
+HTMLCollection                                  #HTMLELEM_ARR-like, with also HTMLCOLL.ID|NAME
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          ATTRIBUTES           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+HTML VS IDL ATTRIBUTES ==>                      #The HTML attribute and JavaScript one (IDL attribute) are in sync but:
+                                                #  - changing ELEM.onEvent does not change HTML
+                                                #  - value|checked|selected (HTML) -> defaultValue|Checked|Selected (JavaScript)
+                                                #     - value|checked|selected (JavaScript) does not have corresponding HTML attribute
+                                                #  - some exist only in JavaScript
+                                                #  - some are readonly in JavaScript
+                                                #  - lowercase in HTML, camelcase in JavaScript
+                                                #  - STR in HTML, any type in JavaScript
+                                                #  - if empty in HTML, JavaScript might give default value
+                                                #  - some name changes (to avoid reserved names): for -> htmlFor
+
+ELEM.ATTR                                       #IDL attributes
+ELEM.attributes                                 #HTML attributes as NAMEDNODEMAP (ARR-like of ATTRs, with also OBJ.ATTR 'VAL')
+ELEM.getAttribute[Node]('ATTR')->'VAL'|ATTR     #
+ELEM.setAttribute[Node]('ATTR', 'VAL'|ATTR)     #
+ELEM.hasAttribute('ATTR')->BOOL                 #
+ELEM.hasAttributes()->BOOL                      #
+ELEM.removeAttribute[Node]('ATTR'|ATTR)[->ATTR] #HTML attributes
+
+<any>
+  data-VAR="VAL"                                #Custom attribute:
+                                                #  - VAR should start with namespace, e.g. data-myapp-myprop
+                                                #  - [a-z-] (no uppercase)
+  ANY.dataset.VAR                               #Camelcased
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           SELECTION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<any>
+  class="STR STR..."                            #Used for CSS|JavaScript selection
+                                                #Only [:alpha:][[:alnum:]-_].
+  HTMLELEM.className                            #'CLASS ...'
+  HTMLELEM.classList                            #DOMTOKENLIST
+  id="STR"                                      #Same but must be unique. To avoid unless really need singleton.
+
+DOMTOKENLIST                                    #ARR-like
+DOMTOKENLIST.add|remove('CLASS', ...)          $#'WebReflection dom4.js' (1.8.3) (if multiple arguments)
+DOMTOKENLIST.toggle('CLASS'[, BOOL2])->BOOL    $#If BOOL2 true|false, is like add|remove() instead
+                                               $#'WebReflection dom4.js' (1.8.3) (if BOOL2 used)
+DOMTOKENLIST.contains('CLASS')->BOOL            #
+DOMTOKENLIST.toString()->'CLASS ...'            #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             I18N              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<meta charset="utf-8">/                         #Should be first in <head>
+                                                #Can also use (but optional with UTF-8):
+                                                #  - &#x00[00[00]]
+                                                #  - &#NAME: HTML entity among a predefined set
+                                                #& < > = ' should always be escaped
+DOCUMENT.characterSet                           #STR (e.g. 'UTF-8')
+                                                #Can be different than the one set by the document if user overrided it.
+
+<any>
+  lang="STR"                                    #Language code.
+                                                #Used by:
+                                                #  - CSS: :lang(), hyphens, etc.
+                                                #  - browser font selection
+                                                #  - external tools: SEO, spellcheck, translation
+                                                #  - a11y
+                                                #Should be used, and defined on <html>
+  [WORKER]NAVIGATOR.language                    #Language code of the browser UI
+<a|area|link>
+  hreflang="STR"                                #Language code of document linked by href="URI".
+
+<any>
+  dir="ltr|rtl|auto"                            #Text direction
+  DOCUMENT.dir                                  #'ltr|rtl'
+<bdo>                                           #Phrasing content which should use dir="..."
+
+<ruby>                                          #Contains asian characters, meant to be enriched with Ruby annotations (i.e. latin|simpler alphabet pronunciation, placed on top|right of ideogram)
+                                                #Each character follows this order: character, opening parenthesis (<rp>), pronunciation (<rt>), closing parenthesis (<rp>)
+                                                #Parent of <rp>, <rt>
+<rt>                                            #Child must be pronunciation text
+<rp>                                            #Child must be parenthesis character
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        SECTIONING TOP         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<!DOCTYPE html>/
+DOCUMENT.doctype                                #DOCUMENTTYPE. Readonly
+DocumentType                                    #NODE child.
+DOCUMENTTYPE.name                               #Typically "html"
+
+<html>                                          #Should contain only <head> and <body>, in that order.
+DOCUMENT.documentElement                        #HTML
+
+<head>                                          #
+DOCUMENT.head                                   #
+<body>                                          #
+DOCUMENT.body                                   #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       SECTIONING UPPER        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<div>                                           #Prefer other sectioning upper tags.
+
+<header>                                        #Beginning
+<main>                                          #Middle
+                                               ##IE11: must manually define display: block in CSS
+<footer>                                        #End
+<aside>                                         #Not on document flow, but related (sidebars, glossary, ads, etc.)
+<figure>                                        #Not on document flow, self-contained (e.g. floating picture)
+<figcaption>                                    #Text inside <figure>. Only one per <figure>
+
+<section>                                       #Chapters, tabbed page, blocks, sections
+<article>                                       #Like <section> but more self-contained, from a list of similar items,
+                                                #e.g. blog post, comment, etc.
+<nav>                                           #Main purpose is to contain links
+
+<blockquote>                                    #Multiline quote
+  cite="URI"                                    #Source
+<address>                                       #Postal address
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       SECTIONING LOWER        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<h1-h6>                                         #Headings.
+
+<p>                                             #Generic
+
+<pre>                                           #Programming language content
+
+<ol>                                            #Ordered list (bullet point-like) of <li>.
+                                                #Can be nested.
+  start="NUM"                                   #Starting index
+<ul>                                            #Same as <ol> but unordered
+<li>                                            #
+  value="NUM"                                   #Index (only inside <ol>)
+
+<dl>                                            #Definition list, containing pairs of <dt> + <dd>
+<dt>                                            #Title followed by one or more <dd>
+<dd>                                            #Content
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           PHRASING            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<span>                                          #Prefer other phrasing tag.
+
+<strong>                                        #Stressed as more important
+<em>                                            #Stressed as different content-wise
+<i>                                             #Stressed as different form-wise
+<b>                                             #Different style-wise
+<mark>                                          #Stressed as relevant to current context (e.g. currently searched keywords)
+
+<ins|del>                                       #New|removed content (document edits)
+  datetime="STR"                                #Change date
+  cite="URI"                                    #URI explaining change
+<s>                                             #Outdated content (no document edits)
+<u>                                             #Wrong|mispelled content
+
+<code>                                          #Computer code
+<kbd>                                           #Command line input
+<samp>                                          #Command line output
+<var>                                           #Math|programming variable
+
+<q>                                             #Quote
+  cite="URI"                                    #Source
+<cite>                                          #Reference
+<abbr>                                          #Abbreviation
+  title="STR"                                   #Full name.
+<dfn>                                           #Term defined elsewhere
+  title="STR"                                   #Defined term (def: textContent)
+
+<data>                                         $#Adds machine-readable metadata to phrasing content.
+                                               $#Unrecognized by some browsers, so cannot use DATA.value
+  value="STR"                                  $#
+<time>                                         $#Adds date[time] metadata to phrasing content.
+                                               $#Unrecognized by some browsers, so cannot use TIME.datetime
+  datetime="DATE[TIME]"                        $#RFC 3339
+
+<sub|sup>                                       #Subscript|superscript
+<small>                                         #Small prints or side comments
+
+<br>/                                           #Semantic line break. Avoid for style line breaks (use CSS instead)
+<wbr>/                                         $#Optional word break.
+                                               $#Not supported by IE11 but degrades gracefully
+                                               $#Can also use (supported by all browsers):
+                                               $#  - U+200B (zero-width space, ZWSP): same effect
+                                               $#  - U+00AD (soft hyphen, &shy;): optional hyphen word break
+<hr>/                                           #Semantic paragraph break.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             LINKS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<base>/                                         #Base for relative URIs (def: ".") and default target for following URIs.
+                                                #Only first <base> counts.
+  href="URI"                                    #Can be relative|absolute
+  target="STR"                                  #
+
+<a|area|link>
+  href="URI"                                    #
+  type="STR"                                    #MIME type (semantic info)
+  rel="STR ..."                                 #See HTTP doc
+  A|AREA|LINK.rel                               #"STR ..."
+
+<link>                                          #See HTTP doc
+  media="MEDIAQUERYLIST"                        #See CSS doc
+  integrity="ALGO-HASH ..."                    $#If content checksum does not match HASH, discard it with a network error.
+                                               $#Only useful if current document is trusted, i.e. only useful on third-party content (e.g. CDN)
+                                               $#Possible ALGO: sha256|384|512. Uses standard base64.
+                                               $#File cannot be served from filesystem (file:)
+                                               $#Not supported by IE nor [Mobile ]Safari, but degrades gracefully
+
+<a>                                             #Link
+  target="STR"                                  #How to open link:
+                                                #  - "_self" (def): same tab
+                                                #  - "_blank": new tab
+                                                #  - "_parent": parent iframe
+                                                #  - "_top": top iframe
+  A.text                                        #Same as A.textContent
+  A.protocol                                    #
+  A.hostname                                    #
+  A.port                                        #
+  A.host                                        #
+  A.pathname                                    #
+  A.search                                      #
+  A.hash                                        #See URL in DOM doc
+DOCUMENT.links                                  #A|AREA_HTMLCOLL
+
+
+<img|object>                                    #
+  usemap="#MAP_NAME"                            #Use a <map>, i.e. transparent overlay
+<map>                                           #Can contain other things than <area>
+  MAP.areas                                     #AREA_HTMLCOLL
+  MAP.images                                    #IMG|OBJECT_HTMLCOLL
+<area>/                                         #Hot-spot inside a <map>
+  shape="rect|circle|poly|default"              #
+  coords="NUM..."                               #According to shape (in CSS pixels):
+                                                #  - "rect|default" : left,top,right,bottom
+                                                #  - "circle" : x,y,radius
+                                                #  - "poly" : x1,y1,...,xn,yn
+  alt="STR"                                     #Like <img>
+  target="STR"                                  #
+  AREA.protocol                                 #
+  AREA.hostname                                 #
+  AREA.port                                     #
+  AREA.host                                     #
+  AREA.pathname                                 #
+  AREA.search                                   #
+  AREA.hash                                     #Like <a>, A
+
+<img>                                           #
+  ismap                                         #Adds '?NUM,NUM2' (pointer coordinates) to parent <a|area> URI when pressed
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             FORM              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+AUTOFILL/AUTOCOMPLETE ==>                       #Browsers have different implementations:
+                                                #  - what follows is Chrome-oriented, but should work on other browsers too
+                                                #  - it also follows WHATWG (for autocomplete)
+                                                #Autocomplete (i.e. suggest as you type):
+                                                #  - suggestions added when submitting any <form> (no user prompts)
+                                                #  - suggestions reused:
+                                                #     - accross domains
+                                                #     - for any <control> using either:
+                                                #        - same name="STR"
+                                                #        - or same autocomplete="[section-ANYTHING] [shipping|billing] TYPE ..."
+                                                #           - autocomplete can also be "off" or "on" (def)
+                                                #              - not possible if type="hidden"
+                                                #     - canonical autocomplete TYPE, name="STR", <control> type and value formats are documented below
+                                                #        - recommended, but can use different <control> type or value format if needed
+                                                #Autofill (i.e. prefill):
+                                                #  - add values to prefill when submitting <form>:
+                                                #     - only for specific types of controls:
+                                                #        - e.g. Chrome: login forms, addresses, credit card info
+                                                #        - uses heuristics, e.g. login forms: <input type="text"> followed by <input type="password">
+                                                #     - prompts user when page changes:
+                                                #        - including reload or HISTORY.replaceState()
+                                                #        - if <form action="URL">, when URL loads
+                                                #  - prefill values:
+                                                #     - on same page, same element, using heuristics (e.g. same name or place in DOM)
+                                                #History prefill:
+                                                #  - control values are kept when going back|forth in history
+                                                #  - does not persist after new tab or reload
+                                                #Will be prevented if:
+                                                #  - <control disabled>
+                                                #  - failing HTML validation
+                                                #  - browser settings cleaning
+                                                #  (autocomplete only)
+                                                #  - type="password"
+                                                #  - autocomplete="off"
+                                                #     - if set on <form>, all <input> should also have autocomplete="off" as well
+                                                #Does not matter for autocomplete|autofill|prefill:
+                                                #  - preventDefaut()
+                                                #  - any <form> method works
+
+CANONICAL AUTOCOMPLETE TYPES ==>                #SUBTYPE is: home|work|mobile|fax|pager
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | AUTOCOMPLETE             | TYPE     | NAME          | FORMAT          | DESCRIPTION                                           |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | email                    | email    | email         |                 |                                                       |
+                                                #  | username                 | text     | username      |                 |                                                       |
+                                                #  | new|current-password     | password | password      |                 |                                                       |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | language                 | text     | language      | BCP 47          | preferred language                                    |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | name                     | text     | name          |                 | full name including prefixes                          |
+                                                #  | given-name               | text     | firstname     |                 |                                                       |
+                                                #  | additional-name          | text     | middlename    |                 |                                                       |
+                                                #  | family-name              | text     | lastname      |                 |                                                       |
+                                                #  | honorific-prefix|suffix  | text     |               |                 | e.g. Mr. or Jr.                                       |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | nickname                 | text     |               |                 |                                                       |
+                                                #  | bday                     | date     | birthday      | YYYY-MM-DD      | like the three fields below                           |
+                                                #  | bday-year                | number   |               | YYYY            |                                                       |
+                                                #  | bday-month               | number   |               | 1-12            |                                                       |
+                                                #  | bday-day                 | number   |               | 1-31            |                                                       |
+                                                #  | sex                      | text     | gender        |                 |                                                       |
+                                                #  | tel                      | tel      | phone         | \+[[:digit:] ]+ |                                                       |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | organization-title       | text     | jobtitle      |                 |                                                       |
+                                                #  | organization             | text     | company       |                 |                                                       |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | street-address           | texarea  | address       |                 |                                                       |
+                                                #  | address-line1|2|3        | text     | address1|2|3  |                 | same as street-address but in one line each           |
+                                                #  | address-level4           | text     |               |                 | levels below district but above street                |
+                                                #  | address-level3           | text     |               |                 | district                                              |
+                                                #  | address-level2           | text     | city          |                 |                                                       |
+                                                #  | address-level1           | text     | state|region| |                 |                                                       |
+                                                #  |                          |          | proving|county|                 |                                                       |
+                                                #  | postal-code              | text     | zip           |                 |                                                       |
+                                                #  | country[-name]           | text     | country       | ISO-3166        |                                                       |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | url                      | url      | url           |                 | of the person|company|address related to other fields |
+                                                #  | photo                    | url      | photo         |                 | of the person|company|address related to other fields |
+                                                #  | SUBTYPE tel              | tel      | phone|mobile  | \+[[:digit:] ]+ | e.g. +1 617 253 5702                                  |
+                                                #  | SUBTYPE tel-country-code | text     | country-code  |                 | e.g. +1                                               |
+                                                #  | SUBTYPE tel-national     | text     |               |                 | tel minus country-code, e.g. 617 253 5702             |
+                                                #  | SUBTYPE tel-area-code    | text     | area-code     |                 | first part of tel-national, e.g. 617                  |
+                                                #  | SUBTYPE tel-local        | text     |               |                 | second+third part of tel-national, e.g. 5235702       |
+                                                #  | SUBTYPE tel-local-prefix | text     | exchange      |                 | second part of tel-national, e.g. 523                 |
+                                                #  | SUBTYPE tel-local-suffix | text     | suffix        |                 | third part of tel-national, e.g. 5702                 |
+                                                #  | SUBTYPE email            | email    | email         |                 | for contact info, not login                           |
+                                                #  | SUBTYPE impp             | url      |               |                 | instant messaging                                     |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+                                                #  | cc-[*-]name              | text     | ccname        |                 | full|first|middle|last name for payment               |
+                                                #  | cc-number                | text     | cardnumber    | [[:digit:]]+    | payment mean number (e.g. for credit cards)           |
+                                                #  | cc-exp                   | month    | exp-date      | YYYY-MM         | payment mean expiration                               |
+                                                #  | cc-exp-year              | number   | ccyear        | YYYY            | payment mean expiration                               |
+                                                #  | cc-exp-month             | number   | ccmonth       | 1-12            | payment mean expiration                               |
+                                                #  | csc                      | text     | cvc           | [[:digit:]]+    | credit card (or payment mean) security code           |
+                                                #  | cc-type                  | text     | card-type     |                 | payment type                                          |
+                                                #  | transaction-currency     | text     |               | ISO 4217        | for recurring payments                                |
+                                                #  | transaction-amount       | number   |               | FLOAT           | for recurring payments                                |
+                                                #  +--------------------------+----------+---------------+-----------------+-------------------------------------------------------+
+<form|input|select|textarea>
+  autocomplete="..."                            #See above
+                                                #<input>: not for type="checkbox|radio|file|submit|reset|image"
+                                               $#<select|textarea>: not crossbrowser, but degrades gracefully
+
+
+<any>
+  contenteditable="|true|false"                 #Make content editable by user, and all children tags.
+  HTMLELEM.contentEditable                      #'true|false|inherit'
+  HTMLELEM.isContentEditable                    #BOOL
+
+<input|textarea|CONTENTEDITABLE|any>
+  spellcheck="true|false|"                      #Red line under wrong word, depending on lang attribute.
+                                                #Only works on INPUT|TEXTAREA|CONTENTEDITABLE but is inherited by descendants on <any>
+                                                #Can be:
+                                                #  - "true" (def for TEXTAREA or contenteditable)
+                                                #  - "false" (def for INPUT)
+                                                #  - "": inherit
+
+VALIDATION ==>                                  #Prevents value update (both UI and IDL):
+                                                #  - soft:
+                                                #     - for: required|type|pattern
+                                                #     - allow invalid values through, but updates validity
+                                                #  - hard:
+                                                #     - for: maxlength|min|max|step
+                                                #     - does not let invalid through, so always valid
+                                                #     - bug: maxlength let invalid values through when using JavaScript, and does not update validity
+                                                #Prevents form submission on submit event, i.e.:
+                                                #  - when using UI, or SUBMIT.click()
+                                                #  - not when using FORM.submit()
+
+<control>                                       #Means <input|textarea|select|button|fieldset|object|output>
+  CONTROL.validity                              #Returns VALIDITYSTATE
+    VALIDITYSTATE.valid                         #False if any other property is true
+    VALIDITYSTATE.typeMismatch                  #True if incorrect pattern (via default pattern in some <input>)
+    VALIDITYSTATE.patternMismatch               #True if incorrect pattern (via CONTROL.pattern)
+    VALIDITYSTATE.tooLong                       #True if beyond CONTROL.maxlength
+    VALIDITYSTATE.rangeOverflow|Underflow       #Same for CONTROL.max|min
+    VALIDITYSTATE.stepMismatch                  #Same for CONTROL.step
+    VALIDITYSTATE.customError                   #setCustomValidity() has been called
+  CONTROL.validationMessage                     #Current error message
+  CONTROL.setCustomValidity(STR)                #Sets:
+                                                #  - VALIDITYSTATE.customError: false if "", true otherwise
+                                                #  - CONTROL.validationMessage: STR
+  CONTROL|FORM.checkValidity()->BOOL            #Returns CONTROL|FORM.validity.valid
+                                                #If false:
+                                                #  - fills CONTROL.validationMessage (automatically localized by browser)
+                                                #  - fires CONTROL|FORM.oninvalid = FUNC(EVENT)
+                                                #Called on FORM:
+                                                #  - automatically before submit event, and if false:
+                                                #     - does not trigger submit event
+                                                #     - does not submit form (if it was going to)
+                                                #     - show validationMessage next to ELEM, unless invalid EVENT.preventDefault()
+                                                #  - unless FORM.novalidate true
+  CONTROL.willValidate                          #True if checkValidity() will be called during submit
+                                                #Usually true, except e.g. if CONTROL.disabled true
+<form>
+  novalidate                                    #See above
+
+<form>                                          #Parent of <control>
+                                                #Don't nest.
+  action="URI"                                  #Redirects current URI when the form is submitted:
+  method="post|get"                             #  - unless EVENT.preventDefault()
+  enctype="TYPE"                                #     - can do AJAX request instead in event handler
+                                                #  - use METHOD:
+                                                #     - GET: payload in query string
+                                                #     - POST: payload in request body
+                                                #  - using each <control name="VAR">, CONTROL.value VAL and TYPE:
+                                                #     - "text/plain": see HTTP doc
+                                                #     - "application/x-www-form-urlencoded" (def): see HTTP doc
+                                                #     - "multipart/form-data; boundary=STR": see HTTP doc
+                                                #  - <input type="file">:
+                                                #     - with "multipart/form-data", use filename="FILE" and Content-Type: TYPE
+                                                #     - with others, just send filename
+  FORM.enctype|encoding                         #Same thing
+  accept-charset="STR"                          #Charset in Content-Type [C]. Def is charset of the page (often UTF-8).
+  target="STR"                                  #Like <a>
+  FORM.onsubmit = FUNC(EVENT)                   #Fired by:
+                                                #  - clicking on <input|button type="submit">
+                                                #  - enter key while focus inside the <form>
+                                                #Default browser action (cancelable): see above
+  FORM.submit()                                 #Submits form.
+                                                #Does not fire submit event (use SUBMIT_INPUT.click() instead)
+  FORM.onreset = FUNC(EVENT)                    #Fired by:
+                                                #  - clicking on <input|button type="reset">
+                                                #  - FORM.reset() (sometimes)
+                                                #Default browser action (cancelable): reset controls
+  FORM.reset()                                  #Fires reset event
+  FORM.elements                                 #CONTROL_HTMLCOLL
+  FORM[UINT]
+  FORM.ID
+  FORM.length                                   #Same as using FORM.elements
+DOCUMENT.forms                                  #FORM_HTMLCOLL
+
+<control>
+  form="ID"                                     #Def: parent <form>
+                                               ##IE11: HTML attribute (not IDL) does not work
+  CONTROL|LABEL|LEGEND|OPTION.form              #
+
+<input>/                                        #Various <control>, depending on type="STR"
+  name="VAR"                                    #
+  value="VAL"                                   #Default value
+  INPUT.defaultValue                            #Default value
+  INPUT.value                                   #Current value
+  disabled                                      #
+  autofocus                                    $#Gives focus as soon as in the DOM (not Safari Mobile)
+  type="text"                                   #Single-line input (linebreaks are removed)
+    maxlength="NUM"                             #Max number of Unichars. Def: -1 (infinite)
+    size="NUM"                                  #Size of box, in number of Unichars (similar to CSS 'ch') (def: 20)
+    placeholder="STR"                           #What to show when value empty
+    readonly                                    #Like disabled, but user can still click it (but not modified).
+  type="password"                               #Like type="text" but doesn't show input
+  type="email|tel|url|search"                   #Like type="text" but semantically indicate content which can influence:
+                                                #  - layout (e.g. "tel" gets input keyboard on iOS)
+                                                #  - default validity pattern (e.g. "email|url")
+  type="checkbox"                               #Uses checked instead of value
+    checked                                     #Default checked 'on|'
+    INPUT.defaultChecked                        #Default checked BOOL
+    INPUT.checked                               #Current checked BOOL
+    INPUT.indeterminate                         #BOOL, indicating parent checkbox where some children are true, others false
+  type="radio"                                  #Like type="checkbox" but exclusive with others with same name
+  type="file"                                   #Upload.
+    accept="MIME,..."                           #MIME can be audio|video|image/*
+                                                #Restricts the browser filepicker filter, but user can still remove filter, so
+                                                #does not prevent picking the wrong file.
+    INPUT.value                                 #'FILENAME'. Readonly
+    INPUT.files                                 #FILELIST. Readonly
+  type="button"                                 #
+    value="LABEL"                               #
+  type="hidden"                                 #Not displayed
+  type="submit"                                 #See FORM.submit|onsubmit
+    formaction|target|enctype|method|
+    novalidate="STR"                            #Override the action|target|enctype|method|novalidate attribute of the associated FORM.
+    value="LABEL"                               #
+  type="image"                                  #See FORM.submit|onsubmit
+    formaction|target|enctype|method|
+    novalidate="STR"                            #Like type="reset"
+    INPUT.value                                 #Cannot be seen nor set in UI
+    src="URI"                                   #
+    alt="STR"                                   #
+    width|height="NUM"                          #Like <img>
+  type="reset"                                  #See FORM.reset|onreset
+    value="LABEL"                               #Label
+  type="range"                                  #Slider
+    min|max="NUM"                               #Def: 0|100
+    step="FLOAT|any"                            #Def: 1
+    INPUT.stepUp|Down([NUM])                    #Goes up|down by step * NUM (def: 1)
+    INPUT.valueAsNumber                         #Like Number(INPUT.value). Might return NaN
+
+<button>                                        #Like <input type="submit|reset|button"> (same members) except label are children not INPUT.value
+  type="submit|reset|button"                    #Def: 'submit' (but should always be defined)
+
+<textarea>                                      #Like <input type="text"> (including members) but:
+                                                #  - multiline
+                                                #  - can only contain text as child
+                                                #  - no list|pattern|size
+                                                #  - value: only in JavaScript
+  TEXTAREA.defaultValue                         #Use children instead of value="STR"
+  cols="NUM"                                    #Width in Unichars (def: 20)
+  rows="NUM"                                    #Same for lines.
+  wrap="STR"                                    #How the browser automatically insert linebreaks for wrapping : "soft" (def) or "hard"
+  TEXTAREA.type                                 #Always 'textarea'
+
+<select>                                        #Dropdown with <option|optgroup>
+  name="VAR"
+  disabled                                      #Like <input>
+  autofocus                                    $#Like <input>
+  size="NUM"                                    #If >= 2, is a scrollable area instead of a dropdown, showin NUM items
+                                                #Def: 0
+  multiple                                      #
+  SELECT.type                                   #'select-one|multiple'
+  SELECT.value                                  #First selected OPTION.value
+  SELECT.*                                      #Like SELECT.options.*
+  SELECT.options                                #OPTIONSCOLL
+  OPTIONSCOLL                                   #OPTIONS_HTMLCOLL, with extra methods
+  OPTIONSCOLL.selectedIndex                     #First selected OPTION index (or -1)
+  OPTIONSCOLL.add(OPTION[GROUP][, OPTION2|NUM]) #Adds OPTION, before OPTION2 (def: end)
+  OPTIONSCOLL.remove(UINT)                      #Removes OPTION
+<optgroup>                                      #<option> group
+  label="STR"
+  disabled
+<option>                                        #Choice.
+                                                #Can only contain text as child
+  value="STR"                                   #If empty STR, it is the default option.
+  label="STR"                                   #Def: children
+  OPTION.text                                   #Same as OPTION.label
+  selected
+  OPTION.defaultSelected                        #Initial value of "selected"
+  disabled
+  OPTION.index                                  #UINT. Readonly.
+
+<progress>                                      #Children are not used
+  value="NUM"                                   #From 0 to max (def: 0)
+                                                #Will look indeterminate until set (except on Safari Mobile)
+  max="NUM"                                     #Def: 1
+  PROGRESS.position                             #Returns value / max. Readonly.
+                                                #-1 if indeterminate
+
+<label>                                         #Phrasing content before a <control>
+                                                #Clicking on it clicks on <control>
+                                                #Should always be used.
+  for="ID"                                      #<control> ID
+
+<fieldset>                                      #<control> container (but can contain other elements)
+  disabled                                      #
+<legend>                                        #<fieldset> title
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TABLE             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<table>                                         #
+  TABLE.caption|tHead|tFoot|tBodies             #TBODY|TFOOT|TABLECAPTION|null
+  TABLE.createCaption|THead|TFoot|TBody()       #Creates or returns
+  TABLE.deleteCaption|THead|TFoot()             #
+  TABLE.rows                                    #TR_HTMLCOLL
+  TABLE.insertRow([UINT])->TR                   #Creates a TR
+  TABLE.deleteRow(UINT)                         #Removes a TR
+
+<caption>                                       #<table> title
+
+<thead>                                         #Section of <table> with first TRs
+<tbody>                                         #Section of <table> with middle TRs
+<tfoot>                                         #Section of <table> with last TRs
+  THEAD|TBODY|TFOOT.rows                        #
+  THEAD|TBODY|TFOOT.delete|insertRow(UINT)      #Like TABLE
+
+<tr>                                            #<table> row, containing <td> or <th>
+  TR.cells                                      #TD|TH_HTMLCOLL
+  TR.deleteCell(UINT)                           #
+  TR.insertCell([UINT])->TD|TH                  #
+  TR.rowIndex                                   #UINT. -1 if not in a <table>
+  TR.sectionRowIndex                            #Same but inside current TBODY|TFOOT
+
+<td>                                            #<table> cell, inside a <tr>
+  rowspan="NUM"                                 #How much cells it extends horiz. (0 -> all) (def 1)
+  colspan="NUM"                                 #Same for vertic.
+  headers="ID[ ID2...]"                         #ID of the <th> related to this cell. Only semantic (i.e. for screen readers)
+  TD.cellIndex                                  #UINT. -1 if not in a <table>
+<th>                                            #Like <td> (same members) but semantically a header. Usually:
+                                                #  - in <thead|tfoot>: vertical header
+                                                #  - first|last child of <tr>: horizontal header
+                                                #  - but can be elsewhere, in which case should specify intent (i.e. for screen readers)
+                                                #    with scope="col|row[group]"
+  scope="STR"                                   #
+
+<colgroup>                                      #<col> group. Child of <table>
+                                                #Invisible if no content.
+                                                #Often just used for CSS selecting all relevant <td|th>
+  span="NUM"                                    #Number of columns (def: all). If present, no <col> inside.
+<col>/                                          #Columns.
+  span="NUM"                                    #Number of columns (def: 1)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           EMBEDDED            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<iframe>                                        #Embedded HTML document
+                                                #Child is text in case browser does not support <iframe>
+  src="URI"
+  height="NUM"
+  width="NUM"                                   #In CSS pixels. Same comments as <img>
+  name="STR"                                    #
+  sandbox[="STR ..."]                           #Security restrictions (some can be lifted using "STR" allow-*):
+                                                #  - plugins disabled
+                                                #  - scripts disabled (allow-scripts)
+                                                #  - no form submission (allow-forms)
+                                                #  - unique origin, so same-origin policy apply (allow-same-origin)
+                                                #    Also block document.cookie and localStorage access
+                                                #  - no popups
+                                                #  - can't go up to container DOCUMENT
+                                                #  - can't use <object> or similar
+                                                #  - can't use seamless attribute
+                                                #  - can't use autoplay attribute, autofocus, etc.
+  IFRAME.contentDocument|Window                 #DOCUMENT|WINDOW
+                                                #Throws exception if same-origin policy does not match.
+                                                #Can use postMessage() instead
+WINDOW2.frameElement                            #Inverse: IFRAME|null
+WINDOW2.parent                                  #Parent WINDOW. If none, WINDOW2.
+WINDOW2.top                                     #WINDOW2.parent.parent...
+WINDOW.frames                                   #Iframes' WINDOWs ARR-like
+WINDOW[NUM]                                     #Like WINDOW.frames[NUM]
+WINDOW.length                                   #Like WINDOW.frames.length
+
+
+<object>                                        #External resource, identified by MIME type
+                                                #Supported by browser natively or via plugins
+                                                #Ex: Flash, PDF
+                                                #If not supported, content inside <object> is displayed.
+  data="URI"
+  type="STR"                                    #MIME-type
+  typemustmatch                                $#If declared MIME type (type="STR") and actual one (data="URI") do not match, do not use it
+                                               $#Not supported by IE but degrades gracefully
+  name="STR"                                    #
+  height="NUM"
+  width="NUM"                                   #In CSS pixels (same comments as <img>)
+  OBJECT.contentDocument                        #DOCUMENT|null
+  WINDOW2.frameElement|parent|top               #Like <iframe>
+<param>/                                        #<object> option
+  name="STR"
+  value="STR"
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            IMAGES             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<img>/                                          #Image
+                                                #Formats:
+                                                #  - JPEG, GIF, PNG, SVG, BMP, ICO (BMP/PNG)
+                                                #  - should provide right formats and compression level for performance/quality ratio
+  src="URI"
+  alt="STR"                                     #If image not available
+  longdesc="URI"                                #Same thing, but using an external file content (usually in HTML)
+  height|width="NUM"                            #In CSS pixels
+                                                #CSS:
+                                                #  - has priority over this.
+                                                #  - should specify relative units, e.g. [max-]width: 100%
+  IMG.naturalHeight|width                       #Same, but size of the file, without browser resizing
+  IMG.complete                                  #True if read and displayed, and format accepted by browser.
+  srcset="URL[ NUMx|w],..."                    $#Specify alternative sources (of the same image):
+                                               $#  - browser will only download|use the fittest (not "first fitting") one
+                                               $#     - some browsers might get another source if it is available cached and better quality than fittest
+                                               $#  - reevaluated everytime conditions (MEDIAQUERYLIST, initial width) changes:
+                                               $#     - only download|use new one if better quality than ones already downloaded
+                                               $#  - cannot mix NUMx with NUMw
+                                               $#  - no duplicate
+                                               $#NUMx (def: 1x):
+                                               $#  - target pixel ratio
+                                               $#  - "fittest": lowest NUM >= devicePixelRatio
+                                               $#  - initial width: natural width / NUM
+                                               $#  - if src="URL" also specified: like appending "URL 1x" to srcset
+                                               $#  - best when natural width is fixed
+                                               $#NUMw (def: 1w):
+                                               $#  - image natural (i.e. file) width
+                                               $#     - should really match file width, otherwise initial width will be miscalculated
+                                               $#  - "fittest": lowest NUM >= (initial width * devicePixelRatio)
+                                               $#  - initial width: see sizes="..."
+                                               $#  - if src="URL" also specified: ignored
+                                               $#  - best when natural width is flexible
+                                               $#Width:
+                                               $#  - natural: of the file itself
+                                               $#  - initial: before HTML/CSS sizing
+                                               $#  - actual: after HTML/CSS sizing
+                                               $#'picturefill' (3.0.2)
+  sizes="[MEDIAQUERYLIST ]LEN,..."             $#Initial width when using srcset="URL NUMw"
+                                               $#Last item (default) must omit MEDIAQUERYLIST
+                                               $#Def: 100vw
+                                               $#The reason we provide this in HTML instead of CSS is to provide a hint to
+                                               $#browser so it can pick only the best source (with srcset="...")
+                                               $#'picturefill' (3.0.2)
+DOCUMENT.images                                 #IMG_HTMLCOLL
+
+<picture>                                      $#Similar to using <img srcset|sizes> but:
+                                               $#  - can also target MIME types and use generic MEDIAQUERYLIST
+                                               $#  - can specify different images ("art direction")
+                                               $#Browser:
+                                               $#  - first, picks the first fitting (not "fittest") fitting <source> according to each <source type|media>
+                                               $#  - then, performs URL selection on the picked <source srcset|sizes>
+                                               $#Last child must be an <img>:
+                                               $#  - it will use the picked URL
+                                               $#  - <img src="URL"> will be used as fallback if <picture> unsupported
+                                               $#     - should always be provided, but not if using the polyfill
+                                               $#  - <img srcset|sizes> can be provided, which is the same as defining another <source>
+                                               $#'picturefill' (3.0.2)
+<source>                                       $#Child of <picture>
+                                               $#'picturefill' (3.0.2)
+  type="MIME"
+  media="MEDIAQUERYLIST"                       $#Used to pick first fitting <source>
+  srcset|sizes="..."                           $#Like <img>.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             MEDIA             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<audio>                                         #
+
+<video>                                         #
+  height|width="NUM"                            #In CSS pixels (same comments as <img>)
+                                                #Box does not keep ratio, but content (video) always keep ratio.
+  VIDEO.videoHeight|Width                       #Natural size (i.e. beside browser resizing)
+  poster="URI"                                  #Thumbnail
+  playsinline                                  $#Do not open video fullscreen
+                                               $#Only supported by browsers that do open fullscreen, i.e. Safari Mobile
+
+<media>                                         #<audio|video>
+  src="URI"                                     #Source.
+                                                #Can be multiple times, so browser chooses the best one.
+                                                #Prefer using <source>
+                                                #Best formats:
+                                                #  - <audio>: from best to worst quality:
+                                                #     - .wav (lossless)           (not IE)                      audio/wave
+                                                #     - .webm Opus                (not IE, Safari, any mobile)  audio/webm
+                                                #     - .ogg/.opus Opus           (not IE, Safari, any mobile)  audio/ogg
+                                                #     - .webm Vorbis              (not IE, Safari [Mobile])     audio/webm
+                                                #     - .ogg/.oga Vorbis          (not IE, Safari [Mobile])     audio/ogg
+                                                #     - .acc                      (not Firefox)                 audio/aac
+                                                #     - .mp3                      (all)                         audio/mpeg
+                                                #  - <video>:
+                                                #     - .webm Opus VP8/VP9        (not IE, Safari, any mobile)  video/webm
+                                                #     - .webm Vorbis VP8/VP9      (not IE, Safari [Mobile])     video/webm
+                                                #     - .ogg/.ogv Theora          (not IE, Safari, any mobile)  video/ogg
+                                                #     - .mp4                      (all)                         video/mp4
+                                                #Should provide right formats and compression level for performance/quality ratio
+  MEDIA.src                                     #Reflects HTML attribute
+  MEDIA.currentSrc                              #As opposed to MEDIA.src:
+                                                #  - use <source> if used
+                                                #  - gives server answer, not client request
+                                                #  - null if networkState is NETWORK_EMPTY
+                                                #  - readonly
+  MEDIA.canPlayType('MIME')                     #Returns "probably" (true), "" (false) or "maybe" (unknown).
+
+<source>/                                       #Like <audio|video src="URI">. <audio|video> child
+  src="URI"                                     #
+  type="MIME"                                   #MIME type
+
+<media>
+  controls                                      #Show controls (play, etc.)
+                                                #Controls do not seem to emit any DOM event
+
+  preload="STR"                                 #Can be:
+                                                #  - "none"
+                                                #  - "metadata": only preload metadata
+                                                #  - "auto" or "": preload whole file
+  MEDIA.load()                                  #Reloads
+                                                #Required if src has been changed
+  MEDIA.onemptied = FUNC(EVENT)                 #Reloaded, i.e. using MEDIA.load()
+  MEDIA.onloadedmetadata = FUNC(EVENT)          #Loaded metadata
+  MEDIA.onloadeddata = FUNC(EVENT)              #Loaded first frame of data.
+  MEDIA.oncanplay = FUNC(EVENT)                 #Loaded several frames of data
+  MEDIA.oncanplaythrough = FUNC(EVENT)          #Can play until the end (according to current download rate, i.e. might still be fetching)
+  MEDIA.onsuspend = FUNC(EVENT)                 #Data fetching stopped, including for normal end of fetch.
+  MEDIA.readyState                              #How much data is loaded:
+                                                #  - HAVE_NOTHING
+                                                #  - HAVE_METADATA: same as loadedmetadata
+                                                #  - HAVE_CURRENT_DATA: same as loadeddata
+                                                #  - HAVE_FUTURE_DATA: same as canplay
+                                                #  - HAVE_ENOUGH_DATA: same as canplaythrough
+  MEDIA.onreadystatechange = FUNC(EVENT)        #When MEDIA.readyState changes
+  MEDIA.buffered                                #Buffer as TIMESRANGE:
+                                                #  - length (usually 1)
+                                                #  - start|end(UINT): return start|end of buffer numbered UINT (in secs)
+                                                #If seek forward/backward, creates new ranges in TIMESRANGE.
+
+  autoplay                                     $#Does not work (but degrades gracefuly) on Safari Mobile and Chrome mobile
+                                               $#except for <video> that are either:
+                                               $#  - <video muted>
+                                               $#     - can start as muted autoplay, and show a button to unmute
+                                               $#  - on visual viewport, e.g. will pause if not
+                                               $#  - installed as PWA
+                                               $#  - (Chrome only) has high MEI (Media Engagement Index), i.e. many videos
+                                               $#    with audio, larger than 200x140, have been played for >7 secs
+                                               $#     - can see at chrome://media-engagement
+  MEDIA.pause()                                 #
+  MEDIA.paused                                  #BOOL. Readonly.
+  MEDIA.onpause = FUNC(EVENT)                   #Including when paused because finish playing
+  MEDIA.play()->PROMISE                         #PROMISE might fail, i.e. if autoplay is disabled
+  MEDIA.onplay = FUNC(EVENT)                    #When played after having been paused
+  MEDIA.onplaying = FUNC(EVENT)                 #When played after having been paused or initially
+  MEDIA.played                                  #Same as MEDIA.buffered but for what has been played.
+
+  MEDIA.seeking                                 #BOOL. Readonly
+  MEDIA.onseeking|seeked = FUNC(EVENT)          #Start|ends changing current place
+  MEDIA.ontimeupdate = FUNC(EVENT)              #Current place changed, e.g. when playing or seeking|seeked
+  MEDIA.seekable                                #Same as MEDIA.played for seekable
+
+  MEDIA.onwaiting = FUNC(EVENT)                 #Paused because lack of data
+  MEDIA.ended                                   #BOOL. Readonly.
+  MEDIA.onended = FUNC(EVENT)                   #
+  MEDIA.onstalled = FUNC(EVENT)                 #Cannot fetch data
+  MEDIA.error                                   #The most recent MEDIA_ERROR, ou null. Readonly.
+  MEDIA.networkState                            #Media loading state :
+                                                #  - NETWORK_EMPTY: not started yet
+                                                #  - NETWORK_LOADING
+                                                #  - NETWORK_IDLE: stop loading
+                                                #  - NETWORK_NO_SOURCE
+
+  loop                                          #
+  MEDIA.currentTime                             #DOUBLE (in sec)
+  MEDIA.duration                                #DOUBLE. Readonly. Can be:
+                                                #  - 0: not available
+                                                #  - Inf: streaming
+                                                #  - NaN: inconnu
+  MEDIA.ondurationchange = FUNC(EVENT)          #Emitted when first loaded too
+
+  muted                                         #
+  MEDIA.volume                                  #From 0 to 1
+  MEDIA.onvolumechange = FUNC(EVENT)            #
+
+  MEDIA.playbackRate                            #Speed:
+                                                #  - <0: backward
+                                                #  - 0 et 1: slow motion
+                                                #  - 1: normal (def)
+                                                #  - >1: fast forward
+                                                #Sound is muted outside of a specific range (e.g. 0.25 to 5), depending on browsers.
+  MEDIA.defaultPlaybackRate                     #Initial value of "playbackRate"
+  MEDIA.onratechange = FUNC(EVENT)              #
+
+<track>/                                        #Video|audio|text track (e.g. subtitles)
+                                                #<audio|video> child
+  src="URL"                                     #Format: .vtt (WebVTT)
+  srclang="LANG"                                #Required if kind="subtitles", but can be used for others too
+  kind="STR"                                    #Among:
+                                                #  - 'subtitles' (def):
+                                                #     - of non-understandable audio, with transformations (e.g. language translation)
+                                                #     - appear on top of <video>
+                                                #  - 'captions':
+                                                #     - of non-understandable audio, without transformations (e.g.  when sound is muted)
+                                                #     - appear on top of <video>
+                                                #  - 'descriptions':
+                                                #     - of video (e.g. for blind people)
+                                                #     - added as synthetized audio
+                                                #  - 'chapters':
+                                                #     - added as navigation menu
+                                                #  - 'metadata' (def for unsupported STR):
+                                                #     - can only be used in JavaScript.
+                                                #     - Not visible to user
+                                                #There can only be one <track> per kind+srclang+label combination
+  label="STR"                                   #Display name
+  default                                       #Enabled by default. Only one per <track>
+  TRACK.readyState                              #Among: TRACK.NONE|LOADING|LOADED|ERROR
+  TRACK.track                                   #TEXTRACK
+  TEXTTRACKLIST                                 #ARR-like
+  TEXTTRACKLIST.getTrackById('ID')->TEXTTRACK   #
+  TEXTTRACKLIST.onchange = FUNC(TRACKEVENT)     #TRACKEVENT: track TRACK
+  TEXTTRACKLIST.onadd|removetrack = FUNC(TRKEVT)#
+  TEXTTRACK                                     #Text <track>, as opposed to audio|video ones
+  TEXTTRACK.kind|label|language                 #Like TRACK
+  TEXTTRACK.mode                                #Among:
+                                                #  - 'showing' (def)
+                                                #  - 'hidden'
+                                                #  - 'disabled'
+  TEXTTRACK.cues                                #TEXTTRACKCUELIST
+  TEXTTRACK.activeCues                          #TEXTTRACKCUELIST currently playing
+  TEXTTRACK.add|removeCue(TEXTTRACKCUE)         #
+  TEXTTRACK.oncuechange = FUNC(EVENT)           #When the active cue changes
+  TEXTTRACKCUELIST                              #ARR-like
+  TEXTTRACKCUELIST.getCueById('ID')->TEXTTRACKCU#
+  TEXTTRACKCUE                                  #Represents a single metadata
+                                                #E.g. for translations: a single line of translations between a start and an end time
+  TEXTTRACKCUE.track                            #TRACK
+  TEXTTRACKCUE.id                               #'ID'
+  TEXTTRACKCUE.start|endTime                    #NUM (in sec)
+  TEXTTRACKCUE.pauseOnExit                      #BOOL: if true, pause <video|audio> on cue endTime
+  TEXTTRACKCUE.onenter|exit = FUNC(EVENT)       #
+<audio|video>
+  MEDIA.textTracks                              #TEXTTRACKLIST
+  MEDIA.addTextTrack('KIND'[, 'LABEL'[,'LANG']])
+   ->TEXTTRACK                                  #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            VECTOR             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<svg>                                           #Document SVG
+                                                #Like a .svg file, but without <?xml ?>.
+
+
+<canvas>                                        #Area where to draw vector graphics via JavaScript.
+                                                #Content is displayed if canvas not supported
+  width="NUM"
+  height="NUM"                                  #In CSS pixel
+  CANVAS.getContext(STR)                        #"2d" to return a CONTEXT, "3d" a 3DCONTEXT (WebGL)
+  CANVAS.toDataURL([STR[, NUM]])                #Returns as data URI
+                                                #STR is "image/png" (def) or "image/jpeg"
+                                                #NUM is jpeg quality, from 0 à 1.
+
+  CanvasRenderingContext2D                      #Enfant de PATHMETHODS et DRAWINGSTYLES
+  CONTEXT.canvas                                #Renvoie le CANVAS sous-jacent
+  CONTEXT.save|restore()
+  CONTEXT.scale(DOUBLE, DOUBLE2)
+  CONTEXT.rotate(DOUBLE)
+  CONTEXT.translate(DOUBLE, DOUBLE2)
+  CONTEXT.[setT|t]ransform(6 DOUBLE)
+  CONTEXT.globalAlpha
+  CONTEXT.globalCompositeOperation              #Not blend modes
+  CONTEXT.stroke|fillStyle
+  CONTEXT.createLinearGradient(4 DOUBLE)
+  CONTEXT.createRadialGradient(6 DOUBLE)
+  CONTEXT.createPattern(VIDEO|CANVAS|IMAGE[, ENUM])
+  CONTEXT.shadowOffsetX|Y
+  CONTEXT.shadowBlur
+  CONTEXT.shadowColor
+  CONTEXT.clearRect(4 DOUBLE)
+  CONTEXT.fillRect(4 DOUBLE)
+  CONTEXT.strokeRect(4 DOUBLE)
+  CONTEXT.beginPath()
+  CONTEXT.fill|stroke([STR])
+  CONTEXT.clip([STR])
+  CONTEXT.isPointInPath(2 DOUBLE[, STR])
+  CONTEXT.fill|strokeText(4 DOUBLE)
+  CONTEXT.measureText(STR)
+  CONTEXT.drawImage(VIDEO|CANVAS|IMAGE, 2|4|8 DOUBLE)
+  CONTEXT.createImageData(IMAGEDATA|2 DOUBLE)
+  CONTEXT.getImageData(4 DOUBLE)
+  CONTEXT.putImageData(IMAGEDATA, 2|4 DOUBLE)   #
+  CONTEXT.imageSmoothingEnabled                ##Ext: webkit
+
+  CONTEXT.lineWidth
+  CONTEXT.lineCap
+  CONTEXT.lineJoin
+  CONTEXT.miterLimit
+  CONTEXT.*etLineDash(DOUBLE...)
+  CONTEXT.lineDashOffset
+  CONTEXT.font
+  CONTEXT.textAlign
+  CONTEXT.textBaseline
+
+  CONTEXT.moveTo(2 DOUBLE)                      #Commence un nouveau path (coordonnées locales).
+  CONTEXT.lineTo(2 DOUBLE)                      #Continue un path avec une nouvelle ligne.
+  CONTEXT.quadraticCurveTo(4 DOUBLE)
+  CONTEXT.bezierCurveTo(6 DOUBLE)
+  CONTEXT.arcTo(5 DOUBLE)
+  CONTEXT.rect(4 DOUBLE)
+  CONTEXT.arc(5 DOUBLE[, BOOL])
+  CONTEXT.closePath()                           #Clot le path.
+
+  CanvasGradient
+  GRADIENT.addColorStop(DOUBLE, STR)
+  CanvasPattern
+
+  TextMetrics
+  TEXTMETRICS.width
+
+  ImageData
+  IMAGEDATA.width|height
+  IMAGEDATA.data
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OTHERS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<any>
+  draggable="STR"                               #See DOM doc
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         NOT SUPPORTED         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+POLYFILLS ==>                                  $#'FEATURE'. Use this syntax to mean it can be polyfilled, or degrades gracefullly.
+                                               $#PLUGIN_OPTS might be specified.
+                                               $#When supported natively, should check API change as polyfill often different from standard API
+                                              $$#This notation means not covered by polyfill
+
+UPDATING ==>                                    #On stage change (nothing [-> editor draft] -> working draft -> recommendation):
+                                                #  - check browser support
+                                                #  - if partial support, write|revise whole API
+                                                #     - only new introduced one, e.g. if level 4, not ones already present in level 3
+                                                #  - editor drafts usually not documented (except when easy polyfills are available, or already implemented)
+                                                #When update browser version:
+                                                #  - check under that browser category if it supports new properties
+                                                #  - check if other browsers do too
+
+STAGES ==>                                      #(R) Recommendation (including candidate|proposed)
+                                                #(D) Working draft (including last call draft)
+                                                #(E) Editor draft
+                                                #(WHATWG) Living standard. Avoid refering to WHATWG, look at W3C first (they backport WHATWG standards)
+                                                #         E.g. look at W3C DOM 2|3|4 and HTML 5|5.1|5.2 first
+                                                #(G) Group note
+
+UNSUPPORTED BROWSERS ==>                        #Noted IE, F (Firefox), C[M] (Chrome desktop|mobile), O[M] (Opera [mobile]), S[M] (Safari [mobile]), A (Android)
+                                                #Only shows least frequently updating browser: IE < A < SM < S < F < OM < O < CM < C
+
+PARTIAL SUPPORT ==>                             #Implied when unsupported API is documented
+
+FULLY SUPPORTED ==>                             #HTML Design Principles (W)
+                                                #HTML5 Image Description Extension (longdesc) (R)
+                                                #HTML 3.2 Reference Specification (R)
+                                                #HTML 4.01 Specification (R)
+
+
+FULLY|PARTIALLY UNSUPPORTED ==>                 #Follows, by category.
+
+
+NEW ELEMENTS ==>                            IE11#HTML Imports (W) (<link href="*.html">)
+                                                #HTML 5 (R):
+                                            IE11#  - <template> (HTML that is parsed but not rendered)
+                                            IE11#  - <datalist>, <input>: list (combo box) (buggy behavior)
+                                            IE11#  - <input>: type="date|time|color|number"
+                                          SM10.2#  - <progress>: value (indeterminate)
+                                            IE11#  - <meter> (similar to progress bars, but for measures)
+                                           $IE11#  - <data> (semantics: thin wrapper adding metadata for machines)
+                                            IE11#  - <output> (semantics: combination of user form controls' input)
+                                           $IE11#  - <time> (semantics indicating time value)
+                                           $IE11#  - <wbr>
+                                                #HTML 5.1 (R):
+                                            IE11#  - <details>, <summary> (accordion)
+                                            IE11#  - <dialog>, <form>: method="dialog" (dialogs|modals)
+                                            IE11#  - <input>: type="month|week"
+                                            IE11#  - <menu>, <menuitem>, <any>: contextmenu, <button>: menu, type="menu", ELEM: onshow = FUNC(EVENT) (context menus by right-clicking, pushing a button)
+                                                #HTML 5.2 (W):
+                                            IE11#  - <input>: type="datetime-local"
+
+VALIDATION ==>                                  #HTML 5 (R):
+                                            IE11#  - <input>: accept="[.]EXT|audio|video|image/*", pattern, multiple (type="email")
+                                            IE11#  - INPUT: valueAsDate
+                                            IE11#  - <input|textarea>: minlength
+                                           S10.0#  - <input|select|textarea>: required, VALIDITYSTATE: valueMissing
+                                           $IE11#  - <object>: typemustmatch
+                                            IE11#  - VALIDITYSTATE: tooShort, badInput
+                                                #HTML 5.1 (R):
+                                            IE11#  - BUTTON|FIELDSET|FORM|INPUT|OBJECT|SELECT|TEXTAREA: reportValidity() (is a local checkValidity())
+                                            IE11#  - HTMLELEM: forceSpellCheck()
+
+FORMS ==>                                       #HTML 5 (R):
+                                            IE11#  - BUTTON|INPUT|PROGRESS|SELECT|TEXTAREA: labels (list of <label>)
+                                         $SM10.2#  - <button|input|select|textarea>: autofocus
+                                            IE11#  - CONTENTEDITABLE: oninput
+                                            IE11#  - FIELDSET: type, elements
+                                            IE11#  - <input>: multiple (type="file")
+                                            IE11#  - INPUT|TEXTAREA: selectionDirection, setRangeText()
+                                            IE11#  - LABEL: control
+                                            IE11#  - OPTION: new HTMLOptionElement()
+                                            IE11#  - RADIONODELIST
+                                            IE11#  - SELECT: .ID|NAME, SELECT: selectedOptions
+                                           $IE11#  - <select|textarea>: autocomplete
+                                            IE11#  - TEXTAREA: textLength
+
+DRAG&DROP ==>                                   #HTML 5.1 (R):
+                                            IE11#  - <any>: dropzone
+                                            IE11#  - DATATRANSFER: items (and DATATRANSFERITEM[LIST]), setDragImage()
+                                            IE11#  - ELEM|DOCUMENT: ondragexit = FUNC(EVENT)
+
+MEDIA ==>                                       #HTML 5 (R):
+                                            IE11#  - IMG: new HTMLImageElement(), onloadstart = FUNC(EVENT), onprogress = FUNC(PROGRESSEVENT)
+                                            IE11#  - AUDIO: new HTMLAudioElement()
+                                           $CM57#  - <video>: autoplay (different behavior)
+                                            IE11#  - MEDIA: getStartDate(), defaultMuted, onloadstart = FUNC(PROGRESSEVENT)
+                                                #  - tracks:
+                                            IE11#     - MEDIA: videoTracks, VIDEOTRACK[LIST], DATACUE
+                                             C57#     - MEDIA: audioTracks, AUDIOTRACKLIST, AUDIOTRACK (subtitles as audio)
+                                            IE11#     - TEXTTRACK: inBandMetadataTrackDispatchType, id
+                                                #HTML 5.1 (R):
+                                            IE11#  - IMG: currentSrc
+                                            IE11#  - MEDIA: fastSeek()
+                                                #HTML (WHATWG):
+                                           $IE11#  - <video>: playsinline
+                                            IE11#  - <audio|video>: controlslist
+                                            IE11#  - MEDIA: play() PROMISE return value
+
+CANVAS ==>                                      #HTML Canvas 2D Context (R)
+                                            IE11#  - (<canvas>) CONTEXT: drawFocusIfNeeded(), add|remove|clearHitRegion()
+                                            IE11#  - MOUSEEVENT: region
+                                                #HTML 5 (R):
+                                            IE11#  - CANVAS: toBlob()
+                                                #HTML 5.1 (R):
+                                            IE11#  - CANVAS: probablySupportsContext()
+                                            IE11#  - WINDOW: createImageBitmap()
+                                                #HTML (WHATWG):
+                                            IE11#  - CONTEXT: setTransform(MATRIX), resetTransform(), imageSmoothingQuality, filter, resetClip(), isPointInStroke(), scrollPathIntoView(), direction,
+                                                #    arcTo(7 DOUBLE), ellipse()
+                                             F52#  - CONTEXT: fillRule
+                                            IE11#  - IMAGEDATA: new
+                                            IE11#  - PATH2D (and functions using it as argument)
+                                            IE11#  - TEXTMETRICS: *BoundingBox|Height|Baseline*
+                                            IE11#  - TOUCH: region
+
+LINKS ==>                                       #HTML 5 (R):
+                                            IE11#  - <a|area>: download
+                                            IE11#  - A|AREA|LINK: relList
+                                            IE11#  - A|AREA|LOCATION: username, password
+                                                #HTML 5.1 (R):
+                                            IE11#  - A|AREA: origin
+                                                #HTML (WHATWG):
+                                            IE11#  - <a|area>: ping
+                                            IE11#  - <link>: as, SVG favicon
+
+RESPONSIVENESS ==>                              #HTML 5.1 (R):
+                                           $IE11#  - <img|source>: srcset, sizes
+                                           $IE11#  - <source>: media
+                                           $IE11#  - <picture> (<img> with several sources, for responsiveness)
+
+I18N ==>                                        #HTML 5 (R):
+                                            IE11#  - <any>: translate
+                                            IE11#  - <bdi>, <input|textarea>: dirname (i18n direction)
+                                            IE11#  - <rb>, <rtc> (Ruby annotations, for asian characters)
+                                                #HTML 5.1 (R):
+                                            IE11#  - <input|textarea>: inputmode
+                                            IE11#  - NAVIGATOR|WORKERGLOBAL.navigator: languages
+                                            IE11#  - WINDOW|WORKERGLOBALSCOPE: onlanguagechange = FUNC(EVENT)
+
+A11Y ==>                                        #HTML 5 (R):
+                                            IE11#  - HTMLELEM: accessKeyLabel
+
+PERFORMANCE ==>                                 #HTML (WHATWG)
+                                           $IE11#  - NAVIGATOR|WORKERGLOBAL.navigator: hardwareConcurrency
+
+SECURITY ==>                                    #HTML 5 (R):
+                                            IE11#  - <audio|img|link|script|video>: crossorigin
+                                            IE11#  - <iframe>: sandbox="allow-pointer-lock|popups|top-navigation", srcdoc
+                                                #HTML 5.1 (R):
+                                            IE11#  - LOCATION: ancestorOrigins (parent <iframe> hostnames)
+                                                #HTML (WHATWG):
+                                            IE11#  - <iframe>: sandbox="allow-modals|orientation-lock|popups-to-escape-sandbox|presentation"
+                                           $IE11#Subresource integrity (R) (checksum on <link|script> content)
+
+DEBUGGING ==>                                   #HTML 5.1 (R):
+                                           $IE11#  - WINDOW: onrejectionhandled|unhandledrejection = FUNC(PROMISEREJECTIONEVENT)
+
+OTHERS ==>                                      #HTML 5 (R):
+                                            IE11#  - DOCUMENT: open(STR[, STR])
+                                           S10.0#  - DOCUMENT: execCommand() (insertBrOnReturn)
+                                            IE11#  - NAVIGATOR: [un]registerProtocol|ContentHandler(), (intercept|handle specific procotols or MIME types)
+                                            IE11#  - OBJECT: contentWindow
+                                            IE11#  - <ol>: reversed
+                                            IE11#  - <table>: border="" (specifies <table> is used only semantically, not for layout purpose)
+                                            IE11#  - WINDOW: stop(), locationbar|menubar|personalbar|scrollbars|statusbar|toolbar
+                                             C57#  - WINDOW: onafter|beforeprint = FUNC(EVENT)
+                                                #HTML 5.1 (R):
+                                            IE11#  - DOCUMENT: currentScript
+                                            IE11#  - NAVIGATOR: isProtocol|ContentHandlerRegistered()
+                                            IE11#  - WORKER: new Worker() second arg OBJ
+                                                #HTML (WHATWG):
+                                            IE11#  - BROADCASTCHANNEL (broadcast MessageChannel)

@@ -1,0 +1,523 @@
+
+                
+   GRAPH_THEORY  
+                
+
+
+
+EDGE ==>                          #Link connecting 2 "nodes"/"vertices"/"points" (unique values) together.
+                                  #Also called "arc"/"line"
+                                  #"Loop": when both vertices are the same
+                                  #Set of edges often noted E, and set of vertices V
+
+WALK ==>                          #List of connected vertices|edges
+                                  #If the graph is directed, it must follow orientation
+                                  #"Trail":
+                                  #  - when edges are disctinct
+                                  #  - "[simple] path": when vertices are distinct too
+                                  #Can be:
+                                  #  - infinite
+                                  #  - "semi-infinite"/"ray":
+                                  #     - only one "end" is infinite
+                                  #"Order":
+                                  #  - for directed graphs:
+                                  #     - "pre-order": follows orientation, parents first
+                                  #        - "level-order": siblings|cousins before children
+                                  #     - "post-order": follows inverse orientation, children first
+                                  #     - "in-order"/"symmetric":
+                                  #         - for binary trees
+                                  #         - left child > parent > right child
+
+CYCLE ==>                         #Path where first vertex is also the last vertex.
+                                  #Also called "circuit"/"closed walk" (as opposed to "open walk")
+                                  #Repetition:
+                                  #  - "tour"/"closed trail": when trail
+                                  #  - "simple cycle"/"closed path": when path
+                                  #"Girth":
+                                  #  - length of shortest cycle
+                                  #  - infinite if no cycle
+                                  #  - "triangle-free graph": when girth > 3
+                                  #"Induced|chordless cycle":
+                                  #  - cycle that is an induced path
+                                  #  - called "hole" when length > 3
+                                  #     - "antihole" is complement of a "hole"
+                                  #"Acyclic graph":
+                                  #  - graph with no simple cycle
+                                  #  - its orientation is called "acyclic"
+                                  #     - every graph can have an acyclic orientation
+                                  #"Directed cycle":
+                                  #  - directed simple cycle
+                                  #  - "directed acyclic graph" (DAG):
+                                  #     - directed graph with no directed cycle
+                                  #     - different from a directed graph with no simple cycle
+                                  #"[Simple] cycle graph":
+                                  #  - graph consisting of a single simple cycle
+                                  #  - every vertex has degree 2
+                                  #  - according to order, can be an "odd|even cycle"
+                                  #"Cactus graph"/"husmi tree":
+                                  #  - connected graph where no simple cycles share same edge
+                                  #  - implies every biconnected component is either a simple cycle or an edge
+
+REMOVING CYCLES ==>               #Set of vertices|edges that, if removed, remove all cycles from a connected graph:
+                                  #  - directed graphs:
+                                  #     - "feedback vertex|edge set": set of vertices|edges
+                                  #     - "minimum feedback set": set with minimum vertices|edges
+                                  #  - undirected graphs:
+                                  #     - "circuit|cycle rank"/"cyclomatic number"/"nullity":
+                                  #        - minimum number of edges
+                                  #        - is size - order + number of connected components
+                                  #"Spanning tree":
+                                  #  - spanning a subgraph:
+                                  #     - with no cycle (i.e. it is a subtree)
+                                  #     - with the least amount of edges
+                                  #  - if supergraph is a tree, spanning tree is isomorphic to supergraph
+                                  #     - and vice-versa
+                                  #  - not necessarily unique
+                                  #  - "fundamental cycle":
+                                  #     - edge present in supergraph but not in spanning tree
+                                  #  - "minimum [weight] spanning tree" (MST):
+                                  #     - same but with minimum sum of edges weights instead
+                                  #  - "shortest path tree":
+                                  #     - spanning tree:
+                                  #        - that is rooted
+                                  #        - with minimal distance between root and any leaf
+                                  #     - single-source|destination shortest path algorithms find them (see its doc)
+                                  #     - when there are some negative cycles, might not be a tree
+                                  #     - when edges are not weighted, same as a BFS tree
+                                  #  - "Trémaux tree"/"normal spanning tree":
+                                  #     - spanning tree:
+                                  #        - that is rooted
+                                  #        - where the pair of vertices of every fundamental cycle
+                                  #          has a path between them in subtree that follows root->leaves direction
+                                  #           - i.e. are ancestors|descendants, not cousins
+                                  #     - every connected undirected graph has a Trémaux tree
+                                  #        - i.e. a DFS tree is always a Trémaux tree
+                                  #     - "tree-depth"/"vertex ranking number"/"ordered chromatic number":
+                                  #        - minimum height of any Trémaux tree for a given graph
+                                  #  - "uniform spanning tree":
+                                  #     - spanning tree chosen randomly among all the possible spanning trees
+                                  #  - "random minimum spanning tree":
+                                  #     - minimum spanning tree of a graph with random weights
+
+TRAVERSAL ==>                     #Walk visiting each vertex at least once
+
+EULERIAN TRAIL ==>                #Trail visiting each edge exactly once.
+                                  #Also called "Eulerian walk".
+                                  #"Eulerian cycle|circuit|tour":
+                                  #  - same thing but must be a tour
+                                  #A graph can be:
+                                  #  - "semi-eulerian": if it has at least one eularian trail
+                                  #     - any connected graph with <= 2 odd-degree vertices is semi-eulerian
+                                  #        - and vice-versa
+                                  #  - "eulerian"/"unicursal": if it has at least one eularian tour
+                                  #     - any connected graph with 0 odd-degree vertices is eulerian
+                                  #        - and vice-versa
+                                  #"Eulerian orientation":
+                                  #  - orientation of an eulerian undirected graph so that resulting directed graph
+                                  #    is eulerian too
+                                  #  - any connected directed graph where each vertex indegree = outdegree is eulerian
+                                  #     - and vice-versa
+                                  #     - i.e. every eulerian graph has an eulerian orientation
+                                  #"Cycle space":
+                                  #  - set of all eulerian tours of a given graph
+
+WALK LENGTH ==>                   #Usually, number of edges
+                                  #Edges can be weighted:
+                                  #  - in which case, length is sum of weights
+                                  #  - "negative walks|paths|cycles|etc.": when sum of weights is negative
+
+DISTANCE ==>                      #Length of shortest path between two vertices
+                                  #Also called "geodesic distance"
+                                  #If there is no path (i.e. disconnected), distance is infinite.
+                                  #In directed graphs, distance is not transitive.
+                                  #"Eccentricity":
+                                  #  - maximal distance of a given vertex from any other vertex
+                                  #  - "radius" is minimum eccentricity of a connected graph
+                                  #     - "central vertex": vertex whose eccentricity = radius
+                                  #  - "diameter" is maximum eccentricity of a connected graph
+                                  #     - "peripheral vertex": vertex whose eccentricity = diameter
+                                  #  - "pseudo-peripheral vertex":
+                                  #     - vertex which has same eccentricity as its furthest vertices
+                                  #"Level structure":
+                                  #  - partitioning a graph according to their distance from a root vertex
+                                  #"Geodetic graph":
+                                  #  - when there is a single shortest path between any pair of vertices
+
+SHORTEST PATH ==>                 #See shortest path doc
+
+DISTANCE MATRIX ==>               #Matrix representing a graph's vertices distances from each other
+                                  #Columns represent end vertex, rows start vertex
+                                  #  - for undirected graphs:
+                                  #     - each vertex is both end and start
+                                  #     - i.e. matrix is symmetric
+
+ORIENTATION ==>                   #Edge direction:
+                                  #  - i.e. vertices are ordered or not
+                                  #  - i.e. there is a start vertex ("parent") and an end vertex ("child")
+                                  #     - parent/child relationship is recursively "ancestors" and "descendants"
+                                  #     - "siblings": vertices with same parent
+                                  #  - called "arrow" then
+                                  #"Directed path"/"dipath":
+                                  #  - path where all edges have same orientation
+                                  #"Directed" vs "undirected" vs "mixed" graph:
+                                  #  - when all|none edges are oriented
+                                  #  - "oriented graph":
+                                  #     - directed graph where, if multiple edges are allowed,
+                                  #       they have the same orientation for a given pair of vertices
+                                  #"Graph orientation":
+                                  #  - set of all its edge directions
+
+ORDER ==>                         #Specifying a comparison order between vertices.
+                                  #Does not necessarily match edge direction
+
+GRAPH ==>                         #Array of vertices and edges.
+                                  #Often noted G, H, I, etc.
+
+GRAPH ORDER ==>                   #Number of vertices
+                                  #Can be "finite" or "infinite"
+                                  #"Order-zero" graph:
+                                  #  - when order is 0
+                                  #  - can be allowed or not
+                                  #"Trivial graph":
+                                  #  - when order is 1
+
+GRAPH SIZE ==>                    #Number of edges
+                                  #"Null"/"edgeless" graph:
+                                  #  - when size is 0, i.e. no vertex is connected
+                                  #"Complete" graph:
+                                  #  - when size is maximum, i.e. all possible edges are present
+                                  #     - if directed graphs, must have edges in both orientations
+                                  #  - "tournament":
+                                  #     - directed graph formed from a complete undirected graph
+                                  #  - Kn (e.g. K2, K3) is complete graph of order n
+
+GRAPH DENSITY ==>                 #Number of edges / max possible number of edges
+                                  #Is 0 for a null graph, 1 for a complete graph
+                                  #If multiple edges are allowed:
+                                  #  - 2 is if there are 2 edges per pair of vertices, etc.
+                                  #Max possible number of edges is:
+                                  #  - size * (size - 1) / 2, for undirected graphs
+                                  #  - size * (size - 1), for directed graphs
+                                  #Called "upper density" when graph is infinite
+
+DEGREE ==>                        #Number of edges of a given vertex
+                                  #Also called "valency"
+                                  #"indegree" vs "outdegree":
+                                  #  - same but depending on the edge orientation
+                                  #Types:
+                                  #  - "isolated vertex": degree 0
+                                  #  - "source": indegree 0
+                                  #  - "sink": outdegree 0
+                                  #  - "leaf"/"external|outer vertex": degree 1
+                                  #  - "branch"/"internal|inner vertex"/"inode": degree > 1
+                                  #"[n-]regular graph":
+                                  #  - graph where each vertex has same degree
+                                  #     - if directed, same indegree and outdegree
+                                  #  - called "cubic graph"/"trivalent graph" if 3
+                                  #  - "strongly regular graph":
+                                  #     - regular graph where:
+                                  #        - every two adjacent vertices have m neighbors
+                                  #        - every two non-adjacent vertices have n neighbors
+                                  #     - noted srg(order, degree, m, n)
+                                  #     - its complement is also stronly regular,
+                                  #       srg(order, order-degree-1, order-2*degree+n-2, order-2*degree+m)
+                                  #"Star graph|tree":
+                                  #  - connected graph where only one vertex has degree > 1
+                                  #  - if n > 1, diameter is 2
+                                  #  - is K₁,ₙ
+                                  #  - "claw":
+                                  #     - when n = 3
+                                  #     - "claw-free graph": graph with no claw as an induced subgraph
+                                  #  - "starlike":
+                                  #     - when instead only one vertex has degree > 2
+                                  #     - i.e. line subgraphs are allowed
+
+MULTIPLE EDGES ==>                #When there can be multiple edges for the same set of vertices
+                                  #Also called "parallel" edges
+                                  #Types:
+                                  #  - multiple edges and loops: "pseudographs"
+                                  #  - multiple edges and no loops: "multigraphs"
+                                  #  - single edges and no loops: "simple graph"
+
+CONNECTIVITY ==>                  #A vertex is:
+                                  #  - "reachable" from another vertex if there is a path to it.
+                                  #  - "adjacent" to another vertex if it shares an edge
+                                  #A path is:
+                                  #  - "incident" to another edge if it shares a vertex
+                                  #  - "incident" to a vertex if it is one its vertices
+                                  #"Connected" graph|component:
+                                  #  - when no vertex is unreachable
+                                  #  - graph with order 1 is connected, but with order 0 is not
+                                  #  - for directed graphs:
+                                  #     - is "strongly" connected / "diconnected" when orientation
+                                  #       is taking into account, "weakly" connected otherwise
+                                  #     - graph orientation is then called "strong orientation"
+                                  #"Cut":
+                                  #  - removing 1-n vertices|edges to split a connected graphs into several ones
+                                  #  - can be:
+                                  #     - "edge cut"
+                                  #     - "vertex cut|separator"
+                                  #  - "cut size":
+                                  #     - number of vertices|edges cut
+                                  #     - can be weighted if vertices|edges have weight
+                                  #  - "minimum|maximum k-cut":
+                                  #     - cut using the least|most number of vertices|edges possible, to split into
+                                  #       k connected graphs
+                                  #     - "minimum|maximum cut": when k is 2
+                                  #"[Vertex|edge] connectivity":
+                                  #  - size of the minimum cut
+                                  #  - "k-[vertex|edge-]connected":
+                                  #     - when connectivity is at least k
+                                  #     - can also be called "biconnected"/"block", "triconnected", etc.
+                                  #  - "maximum connectivity":
+                                  #     - when connectivity is same as minimum degree
+                                  #  - "semi-hyper connectivity":
+                                  #     - when doing any minimum cut results in only one more disconnected graph
+                                  #  - "super connectivity":
+                                  #     - when doing any minimum cut results in only one more disconnected graph of order 1
+                                  #  - "hyper connectivity":
+                                  #     - when doing all minimum cuts results in only one more disconnected graph of order 1
+                                  #"Bridge":
+                                  #  - cut edges of a 1-connected graph
+                                  #  - opposite is "bridgeless"
+                                  #"Partition":
+                                  #  - finding subgraphs with minimal connectivity between them
+                                  #  - "uniform partition": minimizing size difference between subgraphs
+
+K-PARTITE GRAPH ==>               #When contains k sets of vertices with no edges between each other
+                                  #"bipartite"/"bigraph", "tripartite"/"trigraph": when k is 2|3
+                                  #Is "complete" if there is an edge between each vertex, except inside same set
+                                  #  - noted Kₙ,... where ₙ i size of each set
+                                  #  - are complements of cluster graphs
+                                  #  - are cographs
+                                  #  - "multipartite graph": when sets sizes are same
+                                  #  - "Turán graph": when sets sizes differ by at most 1
+
+LABELING ==>                      #Assigning values to edges ("edge value") or vertices
+                                  #"Weighted graph":
+                                  #  - when all edges have a numerical value
+                                  #"Coloring":
+                                  #  - when adjacent vertices|edges have different labels
+
+CLUSTERING ==>                    #"Triplet":
+                                  #  - induced subgraph that:
+                                  #     - has order 3
+                                  #     - has a root (any of the three vertices)
+                                  #  - can be:
+                                  #     - "closed": complete (i.e. forms a triangle)
+                                  #     - "open": not complete (i.e. forms a line)
+                                  #"Global clustering coefficient":
+                                  #  - number of closed triplets / number of open triplets
+
+TREE ==>                          #Acyclic graph that is connected.
+                                  #As a consequence:
+                                  #  - every pair of vertices is connected by exactly one path.
+                                  #  - connectivity is 1
+                                  #  - K₃ is not a minor
+                                  #  - size = order - 1
+                                  #Specific terminology:
+                                  #  - "branching factor": degree
+                                  #  - "subtree": subgraph
+                                  #  - "ordered|place tree": ordered graph
+                                  #  - "forest": disjoint union of trees
+                                  #"Irreducible/series-reduced" tree:
+                                  #  - when no vertex has degree 2 (can be have degree 1, 3, etc.)
+                                  #"Polytree"/"oriented|directed" tree/"singly connected network": when directed
+
+ROOT ==>                          #Vertex of a graph designated as root.
+                                  #The designation is the only requirement.
+                                  #"Vertex|edge-rooted graph":
+                                  #  - root can be an edge instead of a vertex
+                                  #Graph can have:
+                                  #  - "[singly] rooted graph": one root
+                                  #  - "multiply rooted graphs": multiple roots
+                                  #"Flow graphs"/"pointed graph":
+                                  #  - when it is directed, there a single root and it can reach every other vertex
+
+ROOTED TREE ==>                   #Vertex "height":
+                                  #  - longest path to a leaf
+                                  #  - tree "height": root's height
+                                  #"Depth":
+                                  #  - length of path to root (ignoring direction)
+                                  #  - "level": depth + 1
+                                  #  - "balanced":
+                                  #     - when depth is the minimum possible
+                                  #  - "perfect k-ary":
+                                  #     - full k-ary tree where all leaves have same depth
+                                  #     - "complete k-ary":
+                                  #        - same but the last level is allowed to have absent leaves, providing they
+                                  #          are all on the right of all present leaves
+                                  #"[out-]arborescence"/"branching"/"out-tree":
+                                  #  - when directed and root can reach every other vertex
+                                  #     - i.e. it is a pointed graph
+                                  #  - when direction is inverted, called "anti-arborescence"/"in-tree"
+                                  #"Free tree"/"unrooted tree":
+                                  #  - undirected tree without a root, in a context where it should have one
+                                  #  - "unrooted binary tree":
+                                  #     - when every vertex's degree = 1|3
+                                  #     - can be converted to a binary tree by picking any vertex as root
+                                  #"k-ary|k-way|n-ary|m-ary tree":
+                                  #  - when every vertex's outdegree <= k
+                                  #  - called "binary"/"bifurcating" or "ternary" for 2 or 3
+                                  #  - "full k-ary": outdegree = 0|k
+                                  #  - "rose tree": when outdegree is variable and has no upper limit
+
+GRAPH COMPARISONS ==>             #"Homomorphism":
+                                  #  - transforming vertices while keeping edges:
+                                  #     - i.e. if pair of non-transformed vertices is connected,
+                                  #       then same pair of transformed vertices is connected
+                                  #     - including edge values ("edge-preserving")
+                                  #     - can include vertex values or not ("label-preserving")
+                                  #     - might not be bijective:
+                                  #        - i.e. connected edges are kept, but disconnected edges might become connected
+                                  #        - e.g. might merge|split vertices
+                                  #"Isomorphism":
+                                  #  - bijective homomorphism
+                                  #     - i.e. disconnected edges are kept as well
+                                  #     - i.e. shape of the graph is conceptually the same
+                                  #  - "automorphism":
+                                  #     - function (G)->G2 where G and G2 isomorphic
+                                  #     - "automorphism group": set of all possible automorphism of a graph
+                                  #  - "homeomorphism":
+                                  #     - when two graphs have a common (i.e. isomorphic) subdivision
+                                  #  - "canonalization":
+                                  #     - function (G)->G2 where any isomorphic G returns the same G2
+
+SUBGRAPH ==>                      #Subset of a graph that is itself a graph
+                                  #"Supergraph" is opposite
+                                  #"Induced subgraph":
+                                  #  - when all edges between vertices are kept
+                                  #  - "induced path"/"snake":
+                                  #     - path formed from an induced subgraph
+                                  #        - i.e. each vertex is only connected to 1|2 other vertices in the path
+                                  #          and both ends do not connect
+                                  #     - noted Pₙ where n is path length
+                                  #     - "detour number":
+                                  #        - length of the longest induced path
+                                  #     - "induced path number":
+                                  #        - smallest number of induced paths a graph can be partioned into
+                                  #        - "path cover number": same but partition must include all vertices
+                                  #  - "neighborhood":
+                                  #     - induced subgraph of one vertex and all its adjacent vertices
+                                  #        - i.e. including edges between neighbors
+                                  #     - can be:
+                                  #        - "closed" (includes main vertex), noted Nᴳ(V)
+                                  #        - "open" (excludes it), noted N(V), usually assumed
+                                  #     - if all neighborhoods of a graph are isomorphic to G, the graph is "locally G"
+                                  #  - "clique":
+                                  #     - induced subgraph that is complete
+                                  #     - vertices|edges of any graph are cliques of order 1|2
+                                  #     - "maximal clique":
+                                  #        - clique that is not a subgraph of another clique
+                                  #     - "maximum clique":
+                                  #        - clique with the highest order
+                                  #        - "clique number": its order
+                                  #        - "Kₙ-free graph": when clique number is < n
+                                  #     - "intersection number":
+                                  #        - minimum number of cliques needed to cover all vertices
+                                  #     - "block graph":
+                                  #        - graph where where every biconnected component is a clique
+                                  #"Spanning":
+                                  #  - creating a subgraph that includes all supergraph's vertices
+
+GRAPH UNARY OPERATIONS ==>        #"Transpose|converse|reverse graph":
+                                  #  - inverting directions of a directed graph
+                                  #"Complement"/"inverse":
+                                  #  - graph with same vertices, but invert edges (i.e. edges where there were none and vice-versa)
+                                  #  - only for graphs with single edges
+                                  #  - graphs with loops can invert them too
+                                  #  - "cograph"/"P₄-free graph":
+                                  #     - graph that can formed using only complements and disjoint unions on vertices or other cographs
+                                  #  - "self-complementary":
+                                  #     - when a graph is isomorphic to its complement
+                                  #"Line|edge graph"/"covering graph"/"derivative"/"conjugate"/"adjoint graph"/"derived graph":
+                                  #  - swapping edges and vertices
+                                  #  - i.e. graph of a graphs' adjacencies
+                                  #  - are claw-free
+                                  #"Vertex contraction|identification":
+                                  #  - merging two vertices, i.e. into one vertex that has edges of both
+                                  #  - when both vertices have an edge to a common third vertex, this can either
+                                  #    produce multiple edges, or be reduced to a single edge
+                                  #  - "edge contraction":
+                                  #     - when the two vertices are adjacent
+                                  #  - "smoothing":
+                                  #     - doing several vertex contraction on a graph
+                                  #     - "path contraction":
+                                  #        - smoothing a path until it becomes single edge
+                                  #        - the edges of the contracted vertices can either be eliminated or added to
+                                  #          one of the end vertices
+                                  #"Vertex cleaving|splitting":
+                                  #  - inverse of vertex contraction
+                                  #  - split vertices can share same edges or not
+                                  #  - "subdivision"/"expansion":
+                                  #     - doing several vertex splitting on a graph
+                                  #"Left|right rotation":
+                                  #  - on rooted binary directed trees only
+                                  #  - inverting two nodes' heights while keeping in-order traversal's order
+                                  #     - between a node ("X") and its left|right child ("pivot")
+                                  #  - how:
+                                  #     - if X is:
+                                  #        - root: pivot becomes root
+                                  #        - not root: X's parent becomes pivot's parent
+                                  #     - invert direction of edge between X and pivot
+                                  #     - pivot's right|left child becomes X's left|right child instead
+                                  #  - often used for balancing trees
+
+GRAPH BINARY OPERATIONS ==>       #"Disjoint union"/"graph sum":
+                                  #  - combines multiple graphs without adding any edge, i.e. while keeping them disconnected
+                                  #  - noted G + H or G ⨁  H or G ∪ H
+                                  #  - "cluster graph"/"P₃-free graph":
+                                  #     - disjoint union of complete graphs
+                                  #     - implies that there are no 3-vertices induced path
+                                  #"Graph intersection":
+                                  #  - combine multiple graphs by keeping vertices|edges present in all graphs
+                                  #  - notes G * H or G ⨂  H or G ∩ H
+                                  #  - "intersection graph":
+                                  #     - representing a series of sets according to their intersection, as a graph
+                                  #     - each set is a vertex, and each edge is an intersection with another set
+                                  #"Graph join":
+                                  #  - set of edges between each graph's vertices to all other graphs' vertices
+                                  #  - form complete k-partite graphs
+
+HYPEREDGE ==>                     #Link connecting 1-n vertices together.
+                                  #Is conceptually similar to a mathematical set.
+                                  #Since it is a generalization of edges, most concepts of graphs/edges apply:
+                                  #  - graph is called "hypergraph"
+                                  #"Edge size":
+                                  #  - number of vertices per edge
+                                  #  - "k-uniform": when all edges have same size
+                                  #"clutter"/"sperner family":
+                                  #  - when max vertex degree is 0|1
+                                  #  - i.e. no edge is a subset of another edge
+
+PATH GRAPH ==>                    #Graph where vertices form a single sequence, i.e. all vertices (except ends) have degree 2.
+                                  #Also called "linear graph"
+                                  #"Linear forest": forest of path graphs
+
+[FLOW] NETWORK ==>                #Directed graph where edges have a flow:
+                                  #  - it is a number
+                                  #  - it can vary with time
+                                  #  - "capacity": maximum flow per edge
+                                  #Flow represents entropy that:
+                                  #  - originates from a "source" vertex
+                                  #  - goes through edges
+                                  #     - edges must preserve the amount of flow
+                                  #  - ends in a "sink" vertex
+                                  #Also called "transportation network"
+
+TOPOLOGICAL SORTING ==>           #Putting all the vertices of a directed acyclic graph in a list, where each parent vertex
+                                  #comes before its child.
+                                  #If a directed graph:
+                                  #  - has no cycle, then it has at least one topological sorting
+                                  #  - has at least one topological sorting, then it has no cycle
+                                  #Algorithms:
+                                  #  - kahn's algorithm
+                                  #     - steps:
+                                  #        - for each vertex with indegree 0:
+                                  #           - push vertex to final list
+                                  #           - remove any edge where this vertex is the start vertex
+                                  #        - repeat
+                                  #     - time complexity: O(order + size)
+                                  #        - because each vertex and each edge is visited once
+                                  #     - space complexity: O(order)
+                                  #        - because must store which vertex have been visited

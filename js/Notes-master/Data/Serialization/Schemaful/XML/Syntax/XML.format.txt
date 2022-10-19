@@ -1,0 +1,85 @@
+
+       
+   XML  
+       
+
+
+
+ALTERNATIVES ==>                  #See serialization formats summary
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             HTML              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<html>
+  xmlns                           #
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              DOM              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ATTR|ELEM.namespaceURI
+ATTR|ELEM.prefix
+ATTR|ELEM.localName
+
+DOMIMPL.createDocumentType()
+DOMIMPL.createDocument()
+DOCUMENT.createAttribute|ElementNS()
+DOCUMENT.getElementsByTagNameNS()
+DOCUMENT.createProcessingInstruction()
+
+DOMPARSER.parseFromString(STR, 'application|text/xml', 'xhtml+xml')
+
+DOCUMENTTYPE.publicId|systemId
+
+ELEM.getElementsByTagNameNS()
+ELEM.hasAttributeNS()
+ELEM.removeAttributeNS()
+ELEM.set|getAttribute[Node]NS()
+
+NAMEDNODEMAP.get|set|removeNamedItemNS()
+
+NODE.isDefaultNamespace()
+NODE.lookupPrefix()
+NODE.lookupNamespaceURI()
+
+PROCESSINGINSTRUCTION             #Child of CHARDATA
+
+XHR.responseXML
+
+XMLDOCUMENT
+
+XMLSERIALIZER
+XMLSERIALIZER.serializeToString()
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CSS              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+@namespace
+CSSNAMESPACERULE: namespaceURI, prefix
+
+NAMESPACE|SELECTOR
+SELECTOR[NAMESPACE|ATTRIBUTE]
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         NOT SUPPORTED         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+NOT SUPPORTED ==>                 #IE11<=:
+                                  #  - XPath (description: XML query)

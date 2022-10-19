@@ -1,0 +1,26 @@
+
+               
+   HTTP-ERRORS  
+               
+
+
+
+VERSION ==>                   #2.0.0
+                              #ERROR type specific for HTTP status codes
+                              #Package called http-errors
+
+HTTPERRORS.HttpError          #Constructor. Inherits from ERROR
+HTTPERRORS.STATUS_NUM         #Constructor for specific status. Child of HTTPERROR
+HTTPERRORS.STATUS_STR         #Same, with STATUS_STR titleized, e.g. NotFound
+
+HTTPERRORS
+([STATUS_NUM[,'MESSG'][,OBJ]])
+->HTTPERROR                   #OBJ is merged in HTTPERROR
+HTTPERROR.name                #'STATUSError', only for 4**|5**
+HTTPERROR.message             #'MESSAGE' (def: 'STATUS')
+HTTPERROR.status[Code]        #STATUS_NUM (def: 500)
+HTTPERROR.expose              #Hint that it should be hidden from client
+                              #False for 5**, true otherwise
+
+HTTPERRORS.isHttpError(VAL)
+ ->BOOL                       #

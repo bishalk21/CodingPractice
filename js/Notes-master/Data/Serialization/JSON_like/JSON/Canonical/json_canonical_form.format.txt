@@ -1,0 +1,60 @@
+
+                       
+   JSON_CANONICAL_FORM  
+                       
+
+
+
+ALTERNATIVES ==>                 J#  - JSON canonical form: RFC draft-staykov-hu-json-canonical-form-00
+                                 S#  - seagreen son: format + Haskell implementation
+                                 F#  - fast-json-stable-stringify: JavaScript implementation, maintained
+                                 D#  - fast-safe-stringify: Node.js implementation, maintained
+                                 T#  - json-stable-stringify: JavaScript implementation, not maintained
+                                 C#  - canonical-json: JavaScript implementation, not maintained, not as good as
+                                 C#    json-stable-stringify
+                                  #See their doc for implementation details
+                                  #Some features:
+                                  #  - are not specified by JavaScript implementations
+                                  #  - but marked as supported, because JavaScript supports it by default
+                                  #  - those are:
+                                  #     - UTF-8:
+                                  #        - JavaScript engines are technically UTF-16,
+                                  #          but it's abstracted away from developers, when STR is in-memory
+                                  #        - however, when reading|writing file, e.g. with Node.js, should pick utf-8
+                                  #          (often the default)
+                                  #     - duplicated keys: impossible with JavaScript OBJ
+
+CANONICAL ==>                     #Reducing possible different variants of same data
+                                  #Goal is better comparison, e.g. for diff, or need to use as key (e.g. caching key)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         RESTRICTIONS          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ENCODING ==>                CFTSJD#UTF-8
+
+WHITESPACES|NEWLINES ==>     CFTSJ#Must not be used between tokens
+
+CIRCULAR REFS ==>               FT#Replaced by '__cycle__'
+                                 D#Replaced by "['Circular']"
+                                  #It is better to process circular references first instead, e.g. by json-js cycle.js
+
+
+OBJ                         CFTSJD#Must be lexicographically sorted:
+                            CFTSJD#  - i.e. based on Unicode codepoint value
+                            CFTSJD#  - is default STR comparison behavior in JavaScript
+                            CFTSJD#    (i.e. ARR.sort(), Object.keys(OBJ).sort())
+                             CFTSD#No duplicated keys
+
+
+[-]DIGIT.NUME[-]NUM              J#For all non-integer NUMs
+[-]NUM[.NUM]                     S#No exponent
+                                 S#No trailing zeros
+                                 S#No -0
+
+STR                              S#No \/
+                                 S#\uXXXX: only for U+0000-U+001F, and if not one of \b \t \n \f \r

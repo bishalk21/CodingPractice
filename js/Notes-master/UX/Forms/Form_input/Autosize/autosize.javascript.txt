@@ -1,0 +1,12 @@
+
+              
+   AUTOSIZE   
+              
+
+
+VERSION ==>                                     #3.0.6 (Node/AMD/global)
+
+autosize(ELEM[_ARR]|JQ)                         #Makes a TEXTAREA automatically increase/decrease height on input.
+                                                #Every resize fires autosize:resized()
+autosize.update(ELEM[_ARR]|JQ)                  #After updating TEXTAREA.value programatically
+autosize.destroy(ELEM[_ARR]|JQ)                 #

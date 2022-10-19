@@ -1,0 +1,98 @@
+
+        
+   JSON  
+        
+
+
+
+ALTERNATIVES ==>                                #See serialization formats summary
+
+STANDARDS ==>                                   #ECMA-404
+                                                #RFC 8259: more detailed
+
+I-JSON ==>                                      #RFC 7493
+                                                #I-JSON ("Internet JSON"), restrictive version of JSON for maximum
+                                                #interoperability between parsers.
+
+NOTATION ==>                                   !#Means recommended but implementation-specific
+                                              !!#Means recommended but implementation-specific, and required by I-JSON
+
+GOAL ==>                                        #Serialization format based on JavaScript
+                                                #Extension: .json
+                                                #MIME type: application/json
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            SYNTAX             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CASE ==>                                        #Case-sensitive
+
+WHITESPACES|NEWLINES ==>                        #Is space, tab, CR or LF
+                                                #Whitespaces|newlines are ignored:
+                                                #  - at start|end
+                                                #  - between tokens
+                                                
+ENCODING ==>                                    #UTF-8
+                                                #No byte-order mark
+                                                
+LIMITS ==>                                     !#Implementation-specific
+                                               !#On depth level, input size, STR sixe, ARR|OBJ length, key length
+
+{"VAR": VAL}                                    #OBJ
+                                                #Must double-quote "VAR"
+                                                #No trailing commas
+                                                #VAR: same restrictions as STR
+                                              !!#No duplicate keys
+                                              !!#Is unordered
+
+[VAL,...]                                       #ARR
+                                                #No trailing commas
+
+"..."                                           #STR.
+                                                #No single quotes
+                                                #Any Unicode supported unescaped except " \ and U+0000-U+001F (\-escaped)
+                                                #  - i.e. significant newline must be escaped
+                                                #  - U+2028|2029 (line separators) allowed unescaped in JSON and ES2018 (Node >=10),
+                                                #    but not in ES2017 or before
+                                              !!#  - when used as OBJ key "VAR", must be normalized for duplication check
+                                                #Can use backslash sequences (fewer than JavaScript):
+                                                #  \" \\ \b \f \n \r \t \/
+                                                #  \uXXXX
+                                                #    - U+010000-U+10FFFF can only be used unescaped
+                                              !!#    - must be valid codepoint
+
+[-]NUM[.NUM][e|E[+|-]NUM]                       #FLOAT.
+                                                #No leading comma (e.g. ".7")
+                                                #No +NUM
+                                                #No Infinity|NaN
+                                                #No leading zero (e.g. "07")
+                                                #Only base 10
+                                                #Not specified:
+                                                #  - max size
+                                              !!#     - double floats
+                                                #  - overflow, underflow, rounding
+                                                #  - whether can normalize NUM <-> NUM.0 (INT vs FLOAT)
+                                                #  - whether can normalize 0 <-> -0
+
+true|false                                      #BOOL
+
+null                                            #
+
+TOP-LEVEL ==>                                 !!#OBJ|ARR
+
+RECURSION ==>                                   #Not possible.
+
+COMPARISON WITH JAVASCRIPT ==>                  #No undefined, FUNC or native objects (besides OBJ|ARR)
+                                                #Can however support others:
+                                                #  - if toJSON() defined:
+                                                #     - DATE.toJSON()->DATE.toISOString()
+                                              !!#       DATE must follow ISO8601/RFC3339, which DATE.toISOString() does
+                                              !!#  - binary should be base64 STR (base64url variant)
+                                                #  - by calling toString() prior
+                                                #  - via JSON.stringify|parse FUNC
+                                                #Does not handle any ES6-specific syntax, like { [STR]: VAL }, { VAR }, SYM, etc.
+                                                #Unescaped U+2028|2029 in "..." allowed only starting from ES2018

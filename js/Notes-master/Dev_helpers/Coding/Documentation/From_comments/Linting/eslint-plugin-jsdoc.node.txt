@@ -1,0 +1,344 @@
+
+                       
+   ESLINT-PLUGIN-JSDOC  
+                       
+
+
+
+VERSION ==>                       #32.0.2
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CORE              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/recommended                 #Preset with 70% of the rules as warnings
+
+CONF.settings.jsdoc               #SETTINGS
+
+ESTREE_TYPE                       #Can always be 'any'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          CODE BLOCK           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/check-line-alignment [STR]  #Wrong alignment of columns in comments
+ ['TAG'_ARR]                      #STR is 'always' (def) or 'never'
+                                  #Def 'TAG'_ARR: ['param', 'arg', 'argument', 'property', 'prop', 'returns', 'return']
+jsdoc/check-alignment             #Wrong alignment of * in code block
+jsdoc/check-indentation [OBJ]     #Wrong alignment inside code block
+                                  #OBJ:
+                                  #  - excludeTags 'TAG'_ARR (def: ['example'])
+jsdoc/no-bad-blocks [OBJ]         #Wrong syntax of JSDoc code block
+                                  #OBJ:
+                                  #  - ignore 'TAG'_ARR (def: ['@ts-check', '@ts-expect-error', '@ts-ignore', '@ts-nocheck'])
+
+jsdoc/require-jsdoc [OBJ]         #Every FUNC|CLASS must have /** */ block comment
+                                  #OBJ:
+                                  #  - publicOnly: only for top-level exports. BOOL (def: false) or OBJ2:
+                                  #     - esm|cjs|window BOOL: using ESM|CommonJS or global variables (window.*)
+                                  #     - ancestorsOnly BOOL: any top-level variable is considered top-level export
+                                  #  - require.ESTREE_TYPE: ignore:
+                                  #     - FunctionDeclaration BOOL (def: true)
+                                  #     - [Arrow]FunctionExpression|MethodDefinition BOOL (def: false)
+                                  #     - ClassDeclaration|Expression BOOL (def: false)
+                                  #  - contexts 'ESTREE_TYPE'_ARR or OBJ:
+                                  #     - context 'ESTREE_TYPE'_ARR: only for variables matching those
+                                  #     - inlineCommentBlock BOOL (def: false): use inline /** */ comments in autofix
+                                  #  - exemptEmptyFunctions BOOL (def: false): ignore FUNCs with no parameters nor return values
+                                  #  - exemptEmptyConstructors BOOL (def: true): ignore constructors with no parameters
+                                  #  - enableFixer BOOL (def: true): autofix
+                                  #  - checkConstructors|checkGetters|checkSetters BOOL (def: true)
+
+SETTINGS.minLines|maxLines        #Allow NUM (def: 0|1) empty lines after code block.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            MODULES            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/require-file-overview [OBJ] #Must have a @file|overview|fileoverview in each file
+                                  #OBJ:
+                                  #  - tags.TAG (def: file|overview|fileoverview) OPTS:
+                                  #     - initialCommentsOnly BOOL (def: true)
+                                  #     - mustExist BOOL (def: true)
+                                  #     - preventDuplicates BOOL (def: true)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            @PARAM             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/require-param [OBJ]         #Must have a @param
+                                  #OBJ:
+                                  #  - exemptedBy 'TAG'_ARR: ignore if those are present
+                                  #  - checkConstructors|checkGetters|checkSetters BOOL (def: true)
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+                                  #  - enableFixer BOOL (def: true): autofix
+                                  #  - enableRootFixer BOOL (def: true): autofix adding new @param
+                                  #  - enableRestElementFixer BOOL (def: true): autofix adding new rest @param
+                                  #  - checkRestProperty BOOL (def: false): report missing rest @param
+                                  #  - checkDestructured BOOL (def: true)
+                                  #  - checkDestructuredRoots BOOL (def: true)
+                                  #  - useDefaultObjectProperties BOOL (def: false)
+                                  #  - autoIncrementBase NUM (def: 0): starting arg index
+                                  #  - unnamedRootBase 'VAR'_ARR: name of argument, if destructured
+                                  #  - checkTypesPattern '/REGEXP/' (def: /^(?:[oO]bject|[aA]rray|PlainObject|Generic(?:Object|Array))$/)
+                                  #    which types are checked for destructuring
+
+jsdoc/require-param-name          #@param must have a VAR
+ [OBJ]                            #OBJ:
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+jsdoc/require-param-type          #@param must have a {TYPE}
+ [OBJ]                            #OBJ:
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+jsdoc/require-param-description   #@param must have a COMMENT
+ [OBJ]                            #OBJ:
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+jsdoc/require-hyphen-before-      #'always|never' (def: 'always'). COMMENT in @param must be preceded by ' - '
+ param-description [OBJ]          #OBJ:
+                                  #  - tags.TAG|* 'always|never': for other tags
+
+jsdoc/check-param-names [OBJ]     #@param VAR different from variable name
+                                  #OBJ:
+                                  #  - allowExtraTrailingParamDocs BOOL (def: false): require all parameters to be documented,
+                                  #    but allow documenting parameters not present yet
+                                  #  - checkRestProperty BOOL (def: false)
+                                  #  - checkDestructured BOOL (def: false): check destructured argument FUNC({ VAR })
+                                  #  - useDefaultObjectProperties BOOL (def: false)
+                                  #  - checkTypesPattern BOOL (def: false)
+                                  #  - enableFixer BOOL (def: true): autofix
+                                  #  - disableExtraPropertyReporting BOOL (def: false)
+
+jsdoc/no-defaults [OBJ]           #No @default
+                                  #OBJ:
+                                  #  - noOptionalParamNames BOOL (def: false): no default parameter in @param ([VAR])
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           @RETURNS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/require-returns [OBJ]       #Must have a @returns
+                                  #OBJ:
+                                  #  - exemptedBy 'TAG'_ARR: ignore if those are present
+                                  #  - checkConstructors|checkGetters|checkSetters BOOL (def: true)
+                                  #  - forceReturnsWithAsync BOOL: if false (def), ignore if @async
+                                  #  - forceRequireReturn  BOOL: If false (def), ignore if no return statement
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+                                  #  - checkGetters BOOL: if false (def: true), ignore get functions
+
+jsdoc/require-returns-type        #@returns must have a {TYPE}
+ [OBJ]                            #OBJ:
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+jsdoc/require-returns-description #@returns must have a COMMENT
+ [OBJ]                            #OBJ:
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+jsdoc/require-returns-check [OBJ] #If @returns, a return statement must exist
+                                  #OBJ:
+                                  #  - exemptAsync BOOL (def: true)
+
+jsdoc/require-throws [OBJ]        #throw statements must be documented
+                                  #OBJ:
+                                  #  - exemptedBy 'TAG'_ARR: ignore if those are present
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+jsdoc/require-yields [OBJ]        #TO DOCUMENT
+jsdoc/require-yields-check [OBJ]  #TO DOCUMENT
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           @PROPERTY           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/require-property            #Must have a @property in @typedef|namespace whose type is OBJ
+
+jsdoc/require-property-name       #@property must have a VAR
+jsdoc/require-property-type       #@property must have a {TYPE}
+jsdoc/require-property-description#@property must have a COMMENT
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CLASS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SETTINGS.ignorePrivate            #BOOL (def: false). Ignore blocks with @private or @access private
+SETTINGS.ignoreInternal           #BOOL (def: false). Ignore blocks with @internal
+
+SETTINGS.overrideReplacesDocs     #BOOL (def: true). Ignore jsdoc/require-description|example|param|returns if @override
+SETTINGS.
+ augmentsExtendsReplacesDocs      #BOOL (def: false). Ignore jsdoc/require-description|example|param|returns if @augments
+SETTINGS.implementsReplacesDocs   #BOOL (def: false). Ignore jsdoc/require-description|example|param|returns if @implements
+
+jsdoc/implements-on-classes       #No @implements unless @class|constructs
+ [OBJ]                            #OBJ:
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           COMMENTS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/require-description [OBJ]   #Must have a COMMENT|@description
+                                  #OBJ:
+                                  #  - descriptionStyle:
+                                  #     - 'body' (def): comment block's COMMENT
+                                  #     - 'tag': @description
+                                  #     - 'any': both
+                                  #  - checkConstructors|checkGetters|checkSetters BOOL (def: true)
+                                  #  - exemptedBy 'TAG'_ARR: ignore if those are present
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+jsdoc/
+ newline-after-description STR    #'always|never'. Newline after COMMENT
+jsdoc/require-description-        #COMMENT|@description must start with uppercase and end with period.
+ complete-sentence [OBJ]          #OBJ:
+                                  #  - tags.TAG 'TAG'_ARR
+                                  #  - abbreviations 'STR'_ARR (def: []): abbreviations ending with period
+                                  #  - newlineBeforeCapsAssumesBadSentenceEnd BOOL (def: false): words on next line must be capitalized
+jsdoc/match-description [OBJ]     #COMMENT|@description must match OBJ.matchDescription 'REGEXP' (uses 'u' flag)
+                                  #OBJ:
+                                  #  - tags.TAG 'REGEXP' or true (same as OBJ.matchDescription): same for specific TAG
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           @EXAMPLE            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/require-example [OBJ]       #Must have an @example
+                                  #OBJ:
+                                  #  - exemptedBy 'TAG'_ARR: ignore if those are present
+                                  #  - checkConstructors|checkGetters|checkSetters BOOL (def: true)
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+                                  #  - exemptNoArguments BOOL (def: false): ignore FUNC with no arguments
+
+jsdoc/check-examples [OBJ]        #Runs ESLint inside @example
+                                  #OBJ:
+                                  #  - baseConfig CONF (def: current one)
+                                  #  - configFile CONF_FILE (def: current one)
+                                  #  - checkEslintrc BOOL (def: true): use .eslintrc
+                                  #  - noDefaultExampleRules BOOL: if false (def), add the following rules:
+                                  #    eol-last, no-console, no-multiple-empty-lines, no-undef, no-unused-vars, padded-blocks,
+                                  #    import/no-unresolved, import/unambiguous, node/no-missing-import|require
+                                  #  - reportUnusedDisableDirectives BOOL (def: true), use --report-unused-disable-directives
+                                  #  - allowInlineConfig BOOL (def: true): allow // eslint-* comments
+                                  #  - [reject]exampleCodeRegex 'REGEXP' or '/REGEXP/FLAGS': only (or do not) lint @example matching it
+                                  #  - matchingFilename STR: dummy 'PATH' to use. For example for CONF.overrides or filename-related rules
+                                  #  - captionRequired BOOL (def: false): requires <caption> at beginning
+                                  #  - paddedIntent NUM (def: 0): require indentation of whole code inside @example
+                                  #  - checkDefaults BOOL (def: false): also check inside @default[values]
+                                  #  - checkParams BOOL (def: false): also check inside @param|arg[ument] default value
+                                  #  - checkProperties BOOL (def: false): also check inside @prop[erty] default value
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TAGS              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/check-tag-names [OBJ]       #No custom @TAG
+                                  #OBJ:
+                                  #  - definedTags 'TAG'_ARR: ignored
+SETTINGS.tagNamePreference.TAG    #Can be:
+                                  #  - true: allow
+                                  #  - false: forbid
+                                  #  - 'TAG2': alias
+SETTINGS.jsdoc.mode               #'jsdoc' (def), 'typescript', 'closure'
+
+jsdoc/check-values [OBJ]          #Check value for:
+                                  #  - @version|since: valid VERSION_RANGE
+                                  #  - @license: valid license (or among OBJ.allowedLicenses STR_ARR)
+                                  #     - can customize where to find license with OBJ.licensePattern (def: '([^\n]*)')
+                                  #  - @author: among OBJ.allowedAuthors STR_ARR
+jsdoc/empty-tags [OBJ]            #Check that the following tags (and additional OBJ.tags 'TAG'_ARR) have no value:
+                                  #@abstract|async|generator|global|hideconstructor|ignore|inheritdoc|inner|instance|override|readonly
+jsdoc/check-access                #@access STR must be private|protected|package|public
+                                  #Also should not mix with @private|protected|package|public
+
+jsdoc/check-property-names [OBJ]  #No duplicate @TAG
+                                  #Also check @TAG that require a specific parent @TAG
+                                  #OBJ:
+                                  #  - enableFixer BOOL (def: true): autofix
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TYPES             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/no-types [OBJ]              #No {TYPE} after @param|returns. When using TypeScript since it's redundant
+                                  #OBJ:
+                                  #  - contexts 'ESTREE_TYPE'_ARR: only for variables matching those
+
+jsdoc/check-syntax                #No Google Closure-specific TYPEs
+jsdoc/check-types [OBJ]           #No custom TYPE for primitive TYPEs
+                                  #OBJ:
+                                  #  - noDefaults BOOL (def: false). Only use SETTINGS.preferredTypes
+                                  #  - unifyParentAndChildTypeChecks BOOL (def: false): with SETTINGS.preferredTypes.TYPE, make
+                                  #    it work for TYPE[] and *.<TYPE> as well
+                                  #  - exemptTagContexts OBJ_ARR: @TAG-specific rules
+                                  #     - tag 'TAG'
+                                  #     - types true (allow any custom TYPE), 'TYPE'_ARR (restrict TYPEs)
+jsdoc/no-undefined-types [OBJ]    #No unknown TYPE.
+                                  #OBJ:
+                                  #  - definedTypes 'TYPE'_ARR: ignored
+SETTINGS.preferredTypes.TYPE      #BOOL|'TYPE2'. Forbid|allow TYPE.
+SETTINGS.structuredTags.TAG       #Forces what TAG comment must be.
+                                  #OBJ:
+                                  #  - type BOOL (def: true): allows setting a TYPE
+                                  #  - required STR_ARR (def: []) among:
+                                  #     - "name": requires a ARG
+                                  #     - "type": requires a TYPE
+                                  #     - "typeOrName"
+                                  #  - name STR|BOOL: what ARG must be, among:
+                                  #     - "text" (def): anything
+                                  #     - "namepath-defining|referencing": VAR
+                                  #     - false: nothing
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             VARS              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+jsdoc/valid-types [OBJ]           #VAR must be valid JSDoc
+                                  #OBJ:
+                                  #  - allowEmptyNamepaths BOOL (def: true): if false, do not allow missing VAR

@@ -1,0 +1,78 @@
+
+           
+   CP-FILE  
+           
+
+
+
+
+VERSION ==>                       #10.0.0
+
+CP-FILE[.sync]                    #Like FS.copyFile() but:
+ (PATH, PATH2[, OPTS])[->PROMISE] #  - progress events
+                                  #  - creates PATH2 parent directories (if does not exist)
+                                  #  - better error messages
+                                  #Correctly copies atime|mtime|mode
+                                  #Uses graceful-fs (see its doc)
+                                  #OPTS:
+                                  #  - cwd STR (def: '.')
+                                  #  - overwrite BOOL (def: true): if false, does not allow copying if destination file already exists
+                                  #  - directoryMode NUM (def: 0o777)
+                                  #  - progress(OBJ):
+                                  #     - fired at regular intervals (on underlying STREAM 'data' events):
+                                  #        - sourcePath|destinationPath PATH|PATH2
+                                  #        - writtenBytes NUM (in bytes)
+                                  #        - size NUM (in bytes)
+                                  #        - percent 0-1
+                                  #     - not if .sync()
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CPY              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ALTERNATIVES ==>                  #  - fs.cp(): Node.js >= 16.7.0
+                                  #  - cpy: globbing, renaming filename, removing junk, cwd, progress
+
+VERSION ==>                       #9.0.1
+
+CPY('GLOB'[_ARR], 'DIR')          #Built on top of CP-FILE(...) but adds:
+ ->PROMISE_'DEST'_ARR             #  - copy several files in parallel
+                                  #  - globbing
+                                  #  - renaming filename
+                                  #OPTS:
+                                  #  - overwrite: like cp-file
+                                  #  - any globby options
+                                  #  - concurrency NUM (def: twice number of CPUs)
+                                  #  - rename 'FILENAME'[('CURRENT_FILENAME')]
+                                  #  - flat BOOL:
+                                  #     - if true (def), only filename + parent directories up to OPTS.cwd
+                                  #        - useful when copying a directory
+                                  #     - if false, only keep filename
+                                  #  - cwd 'DIR' (def: process.cwd())
+                                  #  - ignoreJunk BOOL (def: true): excludes unnecessary files (see JUNK doc)
+                                  #  - filter(FILE)->[PROMISE_]BOOL: excludes specific files
+                                  #     - FILE:
+                                  #        - path STR (absolute)
+                                  #        - relativePath STR (relative to OPTS.cwd)
+                                  #        - name 'FILENAME.EXT'
+                                  #        - nameWithoutExtension 'FILENAME'
+                                  #        - extension 'EXT'
+
+PROMISE.on('progress', FUNC(OBJ)) #Fired at regular intervals (on underlying STREAM 'data' events):
+                                  #  - completedFiles NUM
+                                  #  - totalFiles NUM
+                                  #  - percent 0-1
+                                  #  - completedSize NUM (in bytes)
+
+cpy 'GLOB'... 'DIR'               #CLI
+                                  #Version 4.1.0
+--no-overwrite                    #
+--rename=FILENAME                 #
+--flat                            #
+--cwd DIR                         #
+--concurrency NUM                 #
+--dot                             #Allow GLOB to match dotfiles (globby option 'dot')

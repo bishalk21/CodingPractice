@@ -1,0 +1,1178 @@
+
+           
+   NETLIFY  
+           
+
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            PRICING            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+PRICING ==>                       #General:
+                                  #  - free plan:
+                                  #     - 1 concurrent build
+                                  #     - 100GB/month CDN
+                                  #     - notifications: GitHub
+                                  #     - 1 team member
+                                  #  - pro plan ($45/month):
+                                  #     - 3 concurrent builds
+                                  #     - 400GB/month CDN
+                                  #     - 3 team members
+                                  #     - notifications: GitHub, email, Slack
+                                  #     - team-wide ENVVARs
+                                  #     - site-wise password / access control
+                                  #     - audit log (7 days retention period)
+                                  #  - business plan ($500/month):
+                                  #     - 5 concurrent builds
+                                  #     - faster|priority builds
+                                  #     - 600GB/month CDN
+                                  #     - notifications: GitHub, email, Slack, API
+                                  #     - 5 team members
+                                  #     - billing admin role
+                                  #     - USER.roles
+                                  #     - audit log (unlimited retention period)
+                                  #     - SAML SSO
+                                  #     - support
+                                  #  - additional for any plan:
+                                  #     - 1 concurrent build for $40/month
+                                  #     - 100GB CDN for $20/month
+                                  #Analytics:
+                                  #  - starts at $9/month/Site (250,000 pageviews/month)
+                                  #Identity:
+                                  #  - free plan:
+                                  #     - 1000 users
+                                  #     - 5 invites
+                                  #  - level 1 ($100/month/Site):
+                                  #     - 5000 users
+                                  #     - 100 invites
+                                  #     - OAuth colors|name|description
+                                  #     - custom email sender address
+                                  #  - level 2 (custom):
+                                  #     - more users
+                                  #     - more invites
+                                  #     - custom OAuth providers
+                                  #Forms:
+                                  #  - free plan:
+                                  #     - 100 submissions
+                                  #     - 10MB
+                                  #  - level 1 ($19/month/Site)
+                                  #     - 1000 submissions
+                                  #     - 1GB
+                                  #  - level 2 (custom):
+                                  #     - more submissions
+                                  #     - more GB
+                                  #Functions:
+                                  #  - free plan:
+                                  #     - 125_000 requests
+                                  #     - 100 hours
+                                  #  - level 1 ($25/month/Site):
+                                  #     - 2_000_000 requests
+                                  #     - 1000 hours
+                                  #  - level 2 (custom)
+                                  #     - more requests
+                                  #     - more hours
+                                  #     - custom AWS account
+                                  #     - can use Intrisic
+                                  #Large Media:
+                                  #  - free plan:
+                                  #     - 2_500 transformations
+                                  #  - level 1 ($20/month/Site):
+                                  #     - 100_000 transformations
+                                  #  - level 2 (custom):
+                                  #     - more transformations
+                                  #Support:
+                                  #  - free plan:
+                                  #     - Netlify Community
+                                  #  - level 1 ($1000/month):
+                                  #     - email
+                                  #     - during working hours|days
+                                  #  - level 2 ($3000/month):
+                                  #     - email, slack, phone
+                                  #     - any hours|days
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            CONFIG             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CONF                              #Either (by priority):
+                                  #  - CLI flags
+                                  #  - PACKAGE_ROOT/netlify.toml
+                                  #  - settings through web UI at app.netlify.com, for all Sites
+                                  #All paths are relative to PACKAGE_ROOT
+BUILDCONF                         #Merge of CONF.build.* and CONF.context.CONTEXT.* (using ENVVAR BRANCH|CONTEXT)
+
+WEB UI ==>                        #Allow doing that CLI is doing
+
+~/.netlify/config.json            #STATE. Stateful config for all Sites
+
+PACKAGE_ROOT/.netlify             #Should not be committed
+PACKAGE_ROOT/.netlify/state.json  #SSTATE. Stateful config for a specific Site
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             AUTH              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+STATE.users                       #OBJ. Set by netlify login
+STATE.users.USER_ID               #USER_STATE
+USER_STATE.id
+STATE.userId                      #USER_ID
+USER_STATE.name                   #STR
+USER_STATE.email                  #'EMAIL'
+
+netlify * --auth=AUTH_TOKEN
+ENVVAR NETLIFY_AUTH_TOKEN         #STR. OAuth token for authentication
+USER_STATE.auth.token             #Can be generated from web UI ("User settings > Personal access token")
+
+OAUTH APPLICATION ==>             #Can build an OAuth app to do Netlify API calls on Netlify user's behalf
+                                  #Must be generated from Web UI ("User settings > OAuth applications")
+
+SSO LOGIN ==>                     #Must contact Netlify to enable SSO (outside already available ones, GitHub|GitLab|Bitbucket)
+
+netlify login                     #By default, open browser to get OAuth token
+--new                             #Logout first
+
+netlify logout                    #
+
+netlify switch                    #Login to a different account (multiple login)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             SITES             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+Site                              #Repository/project with a specific deploy configuration
+
+PACKAGE.name                      #Must be defined
+
+netlify init                      #Either:
+                                  #  - netlify sites:create
+                                  #  - netlify link
+-m|--manual                       #Like netlify sites:create
+-w|--watch                        #Wait for first deploy to complete
+--force                           #Re-initialize CI hooks even if already setup
+
+netlify sites:create              #Create a new Site
+                                  #Asks for:
+                                  #  - team
+                                  #  - Site name
+                                  #  - GitHub OAuth token
+                                  #  - CONF.build.command|publish
+-m|--manual                       #Instead of GitHub OAuth token, use:
+                                  #  - SSH keys: for read access to repository
+                                  #  - webhook URL: that git provider should POST to on change
+-n|--name SITE_NAME               #
+-a|--account-slug=USERNAME        #
+-c|--with-ci                      #Initializes CI hooks
+
+netlify sites:delete SITE_ID      #
+--force                           #No confirmation prompt
+
+netlify sites:list                #Show all Sites: name|id|url, repo, team
+
+netlify link                      #Communicate which Site the current project is.
+                                  #Def: asks between:
+                                  #  - guessing from git URL
+                                  #  - dropdown from list of options
+                                  #  - explicit --id|--name
+--id SITE_ID
+--name SITE_NAME                  #
+
+netlify unlink                    #
+
+ENVVAR NETLIFY_SITE_ID
+SSTATE.siteId                     #Set by netlify link
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         GIT PROVIDER          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+USER_STATE.auth.PROVIDER          #GIT_STATE. Connection with GitHub|GitLab|Bitbucket (for CI)
+                                  #Done from Web UI
+GIT_STATE.provider                #'github|gitlab|bitbucket'
+GIT_STATE.user                    #'USER_ID'
+GIT_STATE.token                   #STR. OAuth token
+
+GITHUB APP ==>                    #Alternative to using OAuth tokens:
+                                  #  - shows GitHub checks
+                                  #  - add PR comments linking to deploy preview
+                                  #  - can scope to specific repositories, or specific permissions
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              DNS              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+DOMAIN REGISTRATION ==>           #Done via Web UI
+                                  #Can set automatic renewal (def: true)
+                                  #Netlify is the WHOIS contact (i.e. privacy)
+
+SITE_NAME.netlify.com             #Always available
+
+CUSTOM DOMAIN NAME ==>            #Done via Web UI. Requires either:
+                                  #  - using Netlify as a registrar
+                                  #  - using another registrar and changing nameservers
+
+PRIMARY DOMAIN NAME ==>           #The one used for production. Done via Web UI
+                                  #Domain aliases can be created via Web UI too.
+
+MANAGED DNS SERVER ==>            #Done via Web UI.
+                                  #Allows:
+                                  #  - www.* redirection
+                                  #  - branch subdomains (subdomains for branch deploys)
+                                  #Can add DNS records
+                                  #Built on top of NS1 provider
+                                  #Optional. If not managed, must either:
+                                  #  - (prefered) add a CNAME from www.* to SITE_NAME.netlify.com
+                                  #  - add a A record to Netlify load balancer (104.198.14.52)
+
+www.*                             #Automatically redirects to *
+
+SECONDARY DNS NETWORK ==>         #Backup if main DNS network fails, for resilient|redundancy. Cost extra money (must contact sales)
+
+IPV6 ==>                          #Can be enabled (def: false)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              SSL              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+METHODS ==>                       #  - "managed": automatic SSL using letsencrypt under the hood
+                                  #  - "custom":
+                                  #     - upload a SNI certificate
+                                  #     - must manually renew
+                                  #  - "dedicated IP":
+                                  #     - upload a non-SNI certificate (for old browsers). Must contact sales.
+                                  #     - must manually renew
+                                  #Done with web UI
+
+HTTP/2 ==>                        #Enabled
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          CI TRIGGER           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+
+TRIGGERS ==>                      #  - on git provider new commit
+                                  #  - with CLI
+                                  #  - with web UI
+                                  #     - including drag-drop a directory
+                                  #  - with incoming webhook
+
+netlify deploy                    #Deploy
+-s|--site SITE_ID                 #
+-d|--dir DIR                      #CONF.build.publish
+-f|--functions DIR                #CONF.build.functions
+-m|--message STR                  #Deploy custom message, shown in web UI
+--timeout=NUM                     #
+-o|--open                         #Open Site URL after deploy
+-p|--prod                         #Unless set, do not deploy to production URL, only to temporary URL
+
+netlify watch                     #Show last deploy, or wait for it to finish
+
+INCOMING WEBHOOK ==>              #URL to POST to trigger a new build on a specific BRANCH
+                                  #Created through Web UI
+                                  #Query parameters:
+                                  #  - trigger_branch 'BRANCH' (def: 'master')
+                                  #  - trigger_title STR: deploy message
+ENVVAR INCOMING_HOOK_URL          #'URL'
+ENVVAR INCOMING_HOOK_TITLE        #STR
+ENVVAR INCOMING_HOOK_BODY         #'JSON' of the request body
+
+SKIP BUILD ==>                    #Either:
+                                  #  - any, by locking a specific deploy (from web UI)
+                                  #  - specific one with '[skip ci]' in commit message
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CI/CD             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+PROGRAMMING LANGUAGES ==>         #Node.js, Ruby, Python
+
+CONF.build.base                   #$PWD (def: PACKAGE_ROOT). Useful for monorepos
+CONF.build.command                #'COMMAND' to run with Bash
+                                  #PATH includes PACKAGE_ROOT/node_modules/.bin
+                                  #Always install dependencies first (e.g. npm install)
+
+CD ==>                            #Deploy automatically
+CONF.build.publish                #'DIR' to deploy
+
+STATUS BADGES ==>                 #[![Netlify Status](https://api.netlify.com/api/v1/badges/SITE_ID/deploy-status)](https://app.netlify.com/sites/USER/deploys)
+
+netlify open --site
+netlify open:site                 #Open browser URL for deployed Site
+netlify open --admin
+netlify open:admin                #Open browser URL for Site in app.netlify.com
+
+CONTEXT ==>                       #Can be:
+                                  #  - production: when on production branch (def: `main`), deploy to URL
+                                  #  - when other BRANCH ("branch deploy"): deploy to `BRANCH---URL` or (if using branch subdomains) `BRANCH.URL` instead
+                                  #  - when PR: deploy to `deploy-preview-NUM---URL|deploy-preview-NUM.URL`
+                                  #Can toggle branch deploy and deploy preview, or select specific BRANCHs, from the web UI
+                                  #Each individual deploy is also available at BUILD_ID---USER.netlify.com
+CONF.context.CONTEXT.*            #Like CONF.build.* but for specific CONTEXT among:
+                                  #  - production
+                                  #  - branch-deploy, BRANCH
+                                  #  - deploy-preview
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          SPECIFIC CI          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+DETECTION ==>                     #Current setup (programming language, build library) is detected among several possible ones
+
+NODE ==>                          #
+npm install                       #Run first if package.json
+ENVVAR NPM_VERSION                #Can be set
+ENVVAR NPM_FLAGS                  #Can be set
+ENVVAR NPM_TOKEN                  #Can be set
+yarn install                      #If yarn.lock
+ENVVAR YARN_VERSION               #Can be set
+ENVVAR YARN_FLAGS                 #Can be set (def: '--ignore-optional')
+ENVVAR NODE_VERSION               #Can be set to tell nvm which Node.js version to use
+                                  #Can also use .nvmrc or .node-version
+                                  #Can be read too
+                                  #Def: Node 10
+ENVVAR NODE_ENV                   #Def 'development'
+ENVVAR NVM_BIN                    #E.g. '/opt/buildhome/.nvm/versions/node/v12.16.0/bin'
+ENVVAR NVM_CD_FLAGS               #E.g. ''
+ENVVAR NVM_DIR                    #E.g. '/opt/buildhome/.nvm'
+
+BOWER ==>                         #
+bower install                     #Run first if bower.json
+
+GO ==>                            #
+ENVVAR GO_VERSION                 #Can be set
+ENVVAR GOPATH                     #E.g. '/opt/buildhome/.gimme_cache/gopath'
+ENVVAR GOROOT                     #E.g. '/opt/buildhome/.gimme/versions/go1.12.linux.amd64'
+ENVVAR GOCACHE                    #E.g. '/opt/buildhome/.gimme_cache/gocache'
+ENVVAR GIMME_CGO_ENABLED          #E.g. 'true'
+ENVVAR GIMME_ENV_PREFIX           #E.g. '/opt/buildhome/.gimme/env'
+ENVVAR GIMME_GO_VERSION           #E.g. '1.12'
+ENVVAR GIMME_NO_ENV_ALIAS         #E.g. 'true'
+ENVVAR GIMME_TYPE                 #E.g. 'binary'
+
+JAVA ==>                          #
+ENVVAR JAVA_VERSION               #Can be set
+
+PHP ==>                           #
+ENVVAR PHP_VERSION                #Can be set
+
+PYTHON ==>                        #
+pip install                       #Run first if requirements.txt
+PACKAGE_ROOT/runtime.txt          #Can be set to specify Python version
+ENVVAR
+ PIPENV_DEFAULT_PYTHON_VERSION    #E.g. '2.7'
+ENVVAR PIPENV_RUNTIME             #E.g. '2.7'
+ENVVAR PIPENV_VENV_IN_PROJECT     #E.g. '1'
+ENVVAR VIRTUAL_ENV                #E.g. '/opt/buildhome/python2.7'
+
+RUBY ==>                          #
+bundle install                    #Run first if Gemfile[.lock]
+PACKAGE_ROOT/.ruby-version
+ENVVAR RUBY_VERSION               #Can be set
+ENVVAR CUSTOM_RUBY                #E.g. '0'
+ENVVAR GEM_HOME                   #E.g. '/opt/buildhome/.rvm/gems/ruby-2.6.2'
+ENVVAR GEM_PATH                   #E.g. '/opt/buildhome/.rvm/gems/ruby-2.6.2:/opt/buildhome/.rvm/gems/ruby-2.6.2@global'
+ENVVAR IRBRC                      #E.g. '/opt/buildhome/.rvm/rubies/ruby-2.6.2/.irbrc'
+ENVVAR MY_RUBY_HOME               #E.g. '/opt/buildhome/.rvm/rubies/ruby-2.6.2'
+ENVVAR RVM_DIR                    #E.g. '/opt/buildhome/.rvm'
+ENVVAR rvm_bin_path               #E.g. '/opt/buildhome/.rvm/bin'
+ENVVAR rvm_delete_flag            #E.g. '0'
+ENVVAR rvm_path                   #E.g. '/opt/buildhome/.rvm'
+ENVVAR rvm_prefix                 #E.g. '/opt/buildhome'
+ENVVAR rvm_ruby_string            #E.g. 'ruby-2.6.2'
+ENVVAR rvm_version                #E.g. '1.29.9 (latest)'
+
+WASMER ==>                        #
+ENVVAR WASMER_DIR                 #E.g. '/opt/buildhome/.wasmer'
+ENVVAR WASMER_CACHE_DIR           #E.g. '/opt/buildhome/.wasmer/cache'
+
+HUGO ==>                          #
+ENVVAR HUGO_VERSION               #Can be set (def: OS's one)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         DEPLOY BUTTON         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+https://app.netlify.com/start/    #Fork current repo and create a new Site from it
+ deploy?repository=REPO_URL       #
+
+CONF.template.environment         #Like CONF.build.environment, but for when using deploy button
+CONF.template.incoming-hooks      #STR_ARR
+
+DEPLOY BUTTON ==>                 #HTML|Markdown with the above link
+                                  #Image is https://www.netlify.com/img/deploy/button.svg
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         NOTIFICATIONS         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+NOTIFICATION ==>                  #Do actions on specific events
+                                  #Done from Web UI
+                                  #By default, add GitHub checks on deploy-preview-building|succeeded|failed
+
+MONOREPOS ==>                     #Can decide in Web UI if single commit changing several Sites should trigger one or
+                                  #several (def) notifications
+
+EVENTS ==>                        #  - deploy-building: start CI build
+                                  #  - deploy-succeeded|failed: end CI build
+                                  #  - deploy-[un]locked: lock|unlock builds
+                                  #  - deploy-preview-building|succeeded|failed: same but for deploy previews
+                                  #  - submission-created: form submitted and verified
+
+ACTIONS ==>                       #  (no deploy previews)
+                                  #  - Slack message on specific channel
+                                  #  - HTTP POST request
+                                  #     - can specify 'PRIVATE_KEY', sent as X-Webhook-Signature: JWS [S]
+                                  #        - alg 'HS256'
+                                  #        - iss 'netlify'
+                                  #  - email
+                                  #  (deploy previews only)
+                                  #  - GitHub check
+                                  #  - GitHub PR message
+
+ZAPPIER ==>                       #Can do similar notifications using Zappier integration
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          PROCESSING           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CONF.headers                      #HEADERS_ARR
+                                  #Group of HTTP response headers to set for specific URLs
+HEADERS.for                       #'/PATH'. Can contain ':VAR' and '*'
+HEADERS.values.HEADER             #STR
+
+PACKAGE_ROOT/_headers             #Like CONF.headers but as a file:
+                                  #  - identation-based
+                                  #  - groups of:
+                                  #     - HEADERS.for
+                                  #     - followed by indented lines, where each line is HEADER: STR
+                                  #  - can use #COMMENT
+
+CONF.build.processing             #PROCESSING. Post-processing of files
+PROCESSING.skip_processing        #BOOL (def: false): ignore all PROCESSING.*
+PROCESSING.js.minify              #BOOL (def: false). Minify JS
+PROCESSING.js.bundle              #BOOL (def: false). Bundle JS as single file
+PROCESSING.css.minify             #BOOL (def: false). Minify CSS
+PROCESSING.css.bundle             #BOOL (def: false). Bundle CSS as single file
+PROCESSING.images.compress        #BOOL (def: false). Minify images
+
+SNIPPET INJECTION ==>             #Append custom HTML before either </head> or </body> on each page
+                                  #From Web UI
+
+PRE-RENDERING ==>                 #Deliver pre-rendered HTML (if HTML is dynamic) to search engines crawlers, for better SEO
+                                  #Done one every 1|2 days
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          LARGE MEDIA          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FILE LIMIT ==>                    #If not using large media, file limit is 10MB
+                                  #Also, if 10,000s of files, builds can be long
+
+LARGE MEDIA ==>                   #Use Git LFS (see its doc) with Netlify as remote servers
+                                  #Does not work:
+                                  #  - with password site protection
+                                  #  - when images are processed (since it's just links):
+                                  #     - by CONF.build.command
+                                  #     - by CONF.build.processing
+                                  #  - when forking repo
+
+INSTALLATION ==>                  #  - install git-lfs
+                                  #  - netlify plugins:install netlify-lm-plugin
+                                  #  - netlify lm:install
+                                  #  - netlify lm:setup
+
+URL?nf_resize|w|h=VAL             #Image pre-processing. Query parameters:
+                                  #  - nf_resize 'fit' (resize) or 'smartcrop' (can do a centered crop)
+                                  #  - w|h NUM (in pixels): width|height
+                                  #Only for large media files
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           REDIRECTS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CONF.redirects                    #REDIRECT_ARR
+                                  #First rules have higher priority
+                                  #'URL' is relative to Site's domain, i.e. can use '/PATH'
+REDIRECT.from                     #'URL'
+                                  #Trailing slashes non-significant
+REDIRECT.to                       #'URL'
+                                  #Can contain ':VAR' expanded from REDIRECT.from|query.VAR if they use:
+                                  #  - ':VAR'
+                                  #  - '*', expanded as ':splat'
+                                  #Can be omitted, e.g. not a redirect but want REDIRECT.conditions
+REDIRECT.query.VAR                #STR. Only redirect if ?VAR=STR used
+                                  #Also passes ?VAR=STR to redirected URL (otherwise no query params is passed)
+REDIRECT.status                   #NUM (def: 301)
+                                  #If 200, "rewrite":
+                                  #  - server-side redirect, instead of client-side|HTTP redirect
+                                  #  - can only redirect once
+REDIRECT.headers.VAR              #'VAL'. Request headers after redirection
+REDIRECT.signed                   #'ENVVAR'. Add a request header with OBJ:
+                                  #  - netlify_id SITE_ID
+                                  #  - site_url URL
+                                  #  - context CONTEXT
+                                  #Signed as a JWS with ENVVAR value as a private key
+REDIRECT.force                    #If false (def), do not redirect if REDIRECT.from URL exists
+                                  #Useful when using '*', i.e. redirects when '*' matches non-existing files only
+REDIRECT.conditions.TYPE          #STR. Redirects depending on the request properties.
+                                  #TYPE can be:
+                                  #  - Language 'LANG'_ARR (def: 'en')
+                                  #     - use cookie `nf_lang` (can be set)
+                                  #  - Country 'COUNTRY'_ARR (def: 'US'):
+                                  #     - use cookie `nf_country` (can be set)
+                                  #     - based on IP
+                                  #  - Role STR_ARR (e.g. 'admin'): USER roles (Netlify Identity)
+
+PUBLISH_DIR/_redirects            #Alternative to CONF.redirects
+                                  #File with:
+                                  #  - one REDIRECT per line
+                                  #  - whitespace-separated fields for each REDIRECT:
+                                  #      from [QUERY=VAL ...] to [status[!]] CONDITION_TYPE=VAL,...
+                                  #    ! is REDIRECT.force
+                                  #  - can #COMMENT
+
+PROCESSING.html.pretty_urls       #BOOL (def: false). Remove .EXT and `index` from URLs (using redirects)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         SPLIT TESTING         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+
+SPLIT TESTING ==>                 #Random DNS redirection towards different deploys.
+                                  #Use a cookie to identify browser and redirect to same deploy on reload.
+                                  #  - cookie `nf_country` 0-1
+                                  #Only one test at once.
+                                  #Done from web UI
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            ENVVAR             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ALL-SITE ENVVARs ==>              #Can be added in Web UI
+
+CONF.build.environment.ENVVAR     #STR. For specific Site
+
+ENVVAR REPOSITORY_URL             #E.g. 'git@github.com:ehmicky/cv-website'
+ENVVAR BRANCH                     #E.g. 'master'
+ENVVAR HEAD                       #E.g. 'master'
+ENVVAR COMMIT_REF                 #E.g. '95e47764310101a004d58f9ed00a2fad59e939b6'
+ENVVAR CACHED_COMMIT_REF          #Same but parent commit
+ENVVAR PULL_REQUEST               #E.g. 'false'
+
+ENVVAR BUILD_ID                   #E.g. '5d6bdcdbfc2c13000c9aa18c'
+ENVVAR DEPLOY_ID                  #E.g. '5d6bdcdbfc2c13000c9aa18b'
+
+ENVVAR CONTEXT                    #'production', 'branch-deploy', 'BRANCH' or 'deploy-preview'
+ENVVAR REVIEW_ID                  #'NUM' if PR
+ENVVAR URL                        #Production URL
+ENVVAR DEPLOY_PRIME_URL           #CONTEXT--URL
+ENVVAR DEPLOY_URL                 #DEPLOY_ID---URL
+ENVVAR NETLIFY_IMAGES_CDN_DOMAIN  #E.g. 'd33wubrfki0l68.cloudfront.net'
+
+ENVVAR NETLIFY_BUILD_BASE         #E.g. '/opt/build'
+ENVVAR PWD                        #E.g. '/opt/build/repo'
+ENVVAR HOME                       #E.g. '/opt/buildhome'
+
+ENVVAR NETLIFY                    #'true'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             FORMS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+POST URL                          #Any POST request shows HTML page with success|captcha
+                                  #Response is handled by Netlify Forms API:
+                                  #  - creates submission-created event for Functions and notifications (see there)
+                                  #  - can view|download from Web UI
+                                  #Request payload:
+                                  #  - form-name STR
+                                  #  - anything else
+                                  #Filter spam with Akismet
+
+<form>
+ data-netlify="true"              #Make <form> do a POST towards current URL
+                                  #Done by modifying HTML at deploy time
+                                  #  - i.e. must exist at build time, including hidden
+                                  #If there is an INPUT with name "subject", it's used for email notifications
+                                  #(instead of default "Form submission from NAME form")
+ name="STR"                       #form-name
+ action="/PATH"                   #Custom response HTML page
+ type="file"                      #Can be used
+ netlify-honeypot="STR"           #Add a <hidden> field that bots are tempted to fill but users can't see
+                                  #When filled, form submission is marked as spam
+                                  #STR is the name
+ data-netlify-recaptcha="true"    #Add reCAPTCHA 2
+                                  #Either:
+                                  #  - a <div data-netlify-recaptcha="true"> must exist, replaced by reCAPTCHA
+                                  #  - use the reCAPTCHA HTML <form>snippet
+                                  #     - and set ENVVARs SITE_RECAPTCHA_KEY and SITE_RECAPTCHA_SECRET must exist
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           FUNCTIONS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FUNCTIONS ==>                     #AWS Lambda function file for a specific Site
+                                  #Can be in Node.js or Go
+
+FILE LOCATION ==>                 #Can be:
+                                  #  - FUNCTIONS_DIR[/...]/FNAME.js:
+                                  #     - PACKAGE_ROOT is found, then node_modules are bundled with their FILE.js as zip files
+                                  #     - those zip files are uploaded to AWS Lambda
+                                  #  - already zipped
+                                  #When nested entry point filename must be directory name (not `index.js`)
+                                  #Function is accessed on DOMAIN/.netlify/functions[/...]/FILE.js
+CONF.build.functions              #FUNCTIONS_DIR
+
+FUNC(EVENT, CONTEXT
+ [, FUNC2(ERROR, RESULT)])        #Must be name export `handler`.
+ ->PROMISE_RESULT                 #EVENT|CONTEXT|RESULT are like in AWS Lambda
+
+CONTEXT.clientContext.user        #USER (Netlify Identity)
+CONTEXT.clientContext.identity    #OBJ: url IDENTITY_URL, token 'JWS'
+
+EVENTS ==>                        #Run functions on events instead of HTTP requests.
+                                  #FNAME must be event name.
+                                  #Events:
+                                  #  - deploy-building: start CI build
+                                  #  - deploy-succeeded|failed: end CI build
+                                  #  - deploy-[un]locked: lock|unlock builds
+                                  #  - split-test-[de]activated: split test enabled|disabled
+                                  #  - split-test-modified
+                                  #  - submission-created: form submitted and verified
+                                  #  (Netlify Identity)
+                                  #  - identity-validate: start email signup
+                                  #  - identity-signup: end email signup
+                                  #  - identity-login: end login
+                                  #Request payload is OBJ:
+                                  #  - payload OBJ: event-specific
+                                  #     (identity-validate|signup|login)
+                                  #     - event 'validate|signup|login'
+                                  #     - user USER
+                                  #  - site OBJ: Site-specific
+                                  #Response payload is OBJ, event-specific:
+                                  #  (identity-validate|signup|login)
+                                  #  - USER.*: to update
+                                  #Cannot be called externally, thanks to JWS
+
+LOGS ==>                          #Seen in web UI
+
+ENVVAR AWS_LAMBDA_JS_RUNTIME      #Can be get|set for Node.js version of AWS Lambda
+                                  #Either 'nodejs6.10', 'nodejs8.10', 'nodejs10.x' or 'nodejs12.x' (def)
+ENVVAR GO_IMPORT_PATH             #Can be get|set for Go import path.
+
+INTRISIC ==>                      #Can use provider Intrisic (security, reduces I/O privileges)
+
+netlify functions:create FNAME    #Create file for a Function at FUNCTIONS_DIR/[FNAME/]FILE, using a template
+-n|--name FNAME                   #
+-u|--url URL                      #Template URL. Def: interactive
+
+netlify functions:build           #Zips source older to build folder
+-s|--src DIR                      #Source folder
+-f|--functions FUNCTIONS_DIR      #Build folder
+
+netlify functions:invoke FNAME    #Fire a Function file
+-n|--name FNAME                   #
+-f|--functions FUNCTIONS_DIR      #
+-q|--querystring STR              #
+-p|--payload 'JSON'[_PATH]        #Request payload, POST method
+--[no-]identity                   #Netlify Identity JWT???
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        NETLIFY LAMBDA         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+VERSION ==>                       #1.6.3
+
+netlify-lambda build DIR          #Build source function files to dist (at BUILDCONF.functions) with Webpack.
+                                  #Use Babel.
+                                  #Sets up ENVVARs (from BUILDCONF.environment)
+                                  #Run webpack using webpack config:
+                                  #  - context DIR
+                                  #  - entry.FILENAME_NO_EXT: './FILENAME.EXT'
+                                  #     - for each DIR/*.mjs|js|ts (except *.test|spec*)
+                                  #  - output:
+                                  #     - path BUILDCONF.functions
+                                  #     - filename '[name].js'
+                                  #     - libraryTarget 'commonjs'
+                                  #  - resolve:
+                                  #     - extensions ['.wasm', '.mjs', '.js', '.json', '.ts']
+                                  #     - mainFields ['modules', 'main']
+                                  #  - mode 'development', 'production' (def) or 'none' (if others) using NODE_ENV
+                                  #  - module:
+                                  #     - rules OBJ_ARR (single element):
+                                  #        - test REGEXP matching *.mjs|js|ts
+                                  #        - exclude REGEXP matching node_modules|bower_components|*.test|spec*
+                                  #        - use:
+                                  #           - loader require('babel-loader')
+                                  #           - options:
+                                  #              - cacheDirectory true
+                                  #              - babelrc BOOL (if --babelrc)
+                                  #              (if no babel config)
+                                  #              - presets ['@babel/preset-env', {targets:{node:'6.10.3|8.10.0'}}]
+                                  #                 - version is based on ENVVAR AWS_LAMBDA_JS_RUNTIME (including in BUILDCONF.environment)
+                                  #              - plugins @babel/plugin-proposal-class-properties|transform-object-assign|proposal-object-rest-spread
+                                  #  - target 'node'
+                                  #  - plugins:
+                                  #     - DEFINE-PLUGIN: using BUILDCONF.environment, i.e. sets up same ENVVARs
+                                  #     - IGNORE-PLUGIN: with REGEXP /vertx/
+                                  #  - optimization:
+                                  #     - nodeEnv ENVVAR NODE_ENV (def: 'production')
+                                  #  - bail true
+                                  #  - devtool false
+                                  #Can merge a custom one using --config, with higher priority
+-c|--config PATH                  #PATH to additional webpack config
+-b|--babelrc                      #BOOL (def: true)
+
+netlify-lambda serve DIR          #Run netlify-lambda build in watch mode
+                                  #Then spawn a static server serving DIR at localhost:PORT/.netlify/functions/FNAME
+                                  #  - emulates AWS lambda request parameters
+-c|--config PATH
+-b|--babelrc                      #Like netlify-lambda build
+-t|--timeout NUM                  #Def: 10 (in secs). Request timeout
+-p|--port NUM                     #Def: 9000
+-s|--static                       #Only spawn static server. Do not build webpack in watch mode
+
+netlify-lambda install [DIR]      #Run `npm install` inside each PACKAGE_ROOT found in DIR (def: BUILDCONF.functions)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           IDENTITY            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FEATURES ==>                      #Signup, login, password reset, user data (including group, role)
+
+IDENTITY_URL                      #Base API URL for Netlify Identity
+                                  #Defaults to SITE_URL/.netlify/identity
+                                  #All URLs below are relative to it
+
+JWS                               #USER connection token is a JWS
+                                  #  - should be sent with Authorization: Bearer JWS [C]
+                                  #  - must be done for IDENTITY_URL/user|admins calls
+                                  #JWS:
+                                  #  - alg 'HS256'
+                                  #  - payload:
+                                  #     - sub USER_ID (UUID)
+                                  #     - exp: in 1 hour
+                                  #     - user_metadata USER_DATA
+                                  #     - app_metadata APP_DATA
+                                  #     - email 'EMAIL'
+
+PERSISTENCE ==>                   #Current JWS is stored in cookie nf_jwt:
+                                  #  - if OPTS.setCookie true (def: false) ("remember me" checkbox)
+                                  #  - communicates to API using X-Use-Cookie: session|1 [C]
+                                  #Current USER is stored in localStorage (if browser):
+                                  #  - key 'gotrue.user'
+                                  #  - if BOOL true (def: false), which is last argument of several methods
+                                  #Expires in 1 hour
+
+USER                              #  - id 'USER_ID'
+                                  #  - email 'EMAIL'
+                                  #  - aud 'GROUP' (def: '')
+                                  #     - group of users
+                                  #     - set as X-JWT-AUD: STR [C]
+                                  #  - role STR (def: '')
+                                  #  - user_metadata USER_DATA
+                                  #     - full_name STR (username if 'email')
+                                  #  - app_metadata APP_DATA
+                                  #     - provider 'PROVIDER'
+                                  #     - authorization:
+                                  #        - roles 'ROLE'_ARR
+                                  #  - created_at 'DATE'
+                                  #  - confirmation_sent_at 'DATE'
+                                  #  - confirmed_at 'DATE'
+                                  #  - updated_at 'DATE'
+                                  #  - any custom property
+
+IDENTITY_SETTINGS                 #Netlify Identity account settings, for all users
+
+METHODS ==>                       #  - email (password)
+                                  #  - Google|Facebook
+                                  #  - GitHub|GitLab|BitBucket
+PROVIDER                          #One of: email, google|facebook, github|gitlab|bitbucket
+IDENTITY_SETTINGS.                #BOOL (def: false). Allowed PROVIDERs for this account
+ external.PROVIDER                #Def: only email
+                                  #Done from Web UI of JS client.
+                                  #OAuth server information is Netlify's, i.e. use their brand name|color|description
+                                  #  - can modify in Web UI
+
+IDENTITY_SETTINGS.disable_signup  #BOOL (def: false): whether users can signup
+IDENTITY_SETTINGS.autoconfirm     #BOOL. If false (def: true), do not send confirmation emails on email signups
+                                  #  - i.e. must manually send invite on signup requests ("invite-only")
+                                  #Done from Web UI or JS client.
+INVITATION ==>                    #Can manually send signup invites from Web UI
+
+EMAIL TEMPLATES ==>               #For invitation, signup confirmation, password reset request, email address update
+                                  #Can be updated with Web UI, pointing to a HTML file in the repository.
+                                  #Can use {{.VAR}}: SiteURL, ConfirmationURL, Email, NewEmail, Token
+CUSTOM EMAIL SENDER ADDRESS ==>   #By default, email sent by no-reply@netlify.com, but can customize in Web UI
+
+WEBHOOK ==>                       #Can create event webhook (with Web UI). Does POST /URL
+
+ADMIN ==>                         #Can browse|update|delete users and see activity logs in Web UI
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         IDENTITY API          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+POST /signup                      #Email signup first step
+                                  #Request body OBJ:
+                                  #  - email 'EMAIL'
+                                  #  - password 'PASSWORD'
+                                  #  - data USER_DATA
+                                  #Response body USER
+POST /token                       #Email login
+                                  #Request body (urlencoded) OBJ:
+                                  #  - grant_type 'password|refresh_token'
+                                  #  (is 'password')
+                                  #  - username 'EMAIL'
+                                  #  - password 'PASSWORD'
+                                  #  (is 'refresh_token')
+                                  #  - refresh_token 'JWS'
+                                  #Response OBJ:
+                                  #  - access_token 'JWS'
+                                  #  - refresh_token 'JWS'
+                                  #  - token_type 'bearer'
+                                  #  - expires_in NUM (def: 3600, in secs)
+                                  #  - any USER.*
+GET /authorize                    #OAuth login|signup first step
+                                  #Query parameters OBJ:
+                                  #  - provider 'PROVIDER'
+                                  #  [- invite_token 'JWS']
+POST /recover                     #Password reset request first step.
+                                  #Request body OBJ:
+                                  #  - email 'EMAIL'
+POST /verify                      #Email|oauth login|signup second step, or password reset second step.
+                                  #Request body OBJ:
+                                  #  - type 'signup|recovery'
+                                  #  - token 'JWS'
+                                  #  (only with 'signup')
+                                  #  [- password 'PASSWORD']
+                                  #Response body: like POST /token
+
+POST /logout                      #No request|response body
+
+GET /settings                     #Response body IDENTITY_SETTINGS
+
+GET /user                         #Response body current USER
+PUT /user                         #Request body USER
+
+GET /admins/users                 #Query parameters OBJ:
+                                  #  - audience GROUP
+                                  #Response body USER_ARR
+GET /admins/users/USER_ID         #Response body USER
+POST /admins/users                #Request body USER
+PUT /admins/users/USER_ID         #Request body USER
+DELETE /admins/users/USER_ID      #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          IDENTITY JS          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+gotrue-js                         #Netlify Identity JavaScript client
+
+netlify-identity-widget           #Browser signup|login widget built on top of gotrue-js
+
+new GoTrue([OPTS])                #OPTS:
+                                  #  - APIUrl 'IDENTITY_URL'
+                                  #  - audience 'GROUP' (def: ''):
+                                  #  - setCookie BOOL (def: false)
+
+GOTRUE.signup
+ ('EMAIL', 'PASSWORD', DATA)
+ ->PROMISE_OBJ                    #POST /signup
+GOTRUE.login
+ ('EMAIL', 'PASSWORD'[, BOOL])
+ ->PROMISE_OBJ                    #POST /token with grant_type 'password', then createUser()
+
+GOTRUE.loginExternalUrl
+ ('PROVIDER')->'URL'              #Return '/authorize?provider=PROVIDER'
+GOTRUE.acceptInviteExternalUrl
+ ('PROVIDER', 'JWS')->'URL'       #Return '/authorize?provider=PROVIDER&invite_token=JWS'
+
+GOTRUE.requestPasswordRecovery
+ ('EMAIL')->PROMISE_OBJ           #POST /recover
+
+GOTRUE.verify
+ ('TYPE', 'JWS'[, BOOL])
+ ->PROMISE_OBJ                    #POST /verify then createUser()
+GOTRUE.confirm('JWS'[, BOOL])
+ ->PROMISE_OBJ                    #POST /verify with type 'signup' then createUser()
+GOTRUE.acceptInvite
+ ('JWS', 'PASSWORD'[, BOOL])
+ ->PROMISE_OBJ                    #POST /verify with type 'signup' and password 'PASSWORD' then createUser()
+GOTRUE.recover('JWS'[, BOOL])
+ ->PROMISE_OBJ                    #POST /verify with type 'recovery' then createUser()
+
+GOTRUE.settings()->PROMISE_OBJ    #GET /settings
+
+GOTRUE.createUser(OBJ[, BOOL])    #GET /user
+ ->PROMISE_OBJ2                   #OBJ is: access_token 'JWS', refresh_token 'JWS'
+
+GOTRUE.currentUser()->USER        #If out of date, refresh with POST /token and grant_type 'refresh_token'
+USER.*                            #Anything from GET /user response
+USER.update(OBJ)->PROMISE_OBJ     #PUT /user with request body OBJ
+USER.logout()->PROMISE_OBJ        #POST /logout then USER.clearSession()
+USER.clearSession()               #Remove cache
+
+User.admin()->ADMIN               #
+ADMIN.user                        #USER
+ADMIN.listUsers(['GROUP'])
+ ->PROMISE_OBJ_ARR                #GET /admins/users?audience=GROUP
+ADMIN.getUser({ id: USER.id })
+ ->PROMISE_OBJ                    #GET /admins/users/USER_ID
+ADMIN.createUser
+ ('EMAIL', 'PASSWORD', OBJ)
+ ->PROMISE_OBJ                    #POST /admins/users
+ADMIN.updateUser
+ ({ id: USER.id }, OBJ)
+ ->PROMISE_OBJ                    #PUT /admins/users/USER_ID
+ADMIN.deleteUser({ id: USER.id })
+ ->PROMISE_OBJ                    #DELETE /admins/users/USER_ID
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        ACCESS CONTROL         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ACCESS CONTROL ==>                #Single user authentication with password for whole website (as opposed to multiple users)
+                                  #Done from Web UI
+
+OAUTH-AS-A-SERVICE ==>            #Netlify can provide endpoint for server-side step of OAuth
+                                  #Authorization callback is https://api.netlify.com/auth/done
+                                  #Add client ID and secret key must be added to Site settings (Web UI)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          GIT GATEWAY          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+GIT GATEWAY ==>                   #Create API endpoints at SITE_URL/.netlify/git/* to read|write underlying git repository:
+                                  #  - GitHub -> https://api.github.com/repos/USER/REPO/*
+                                  #     - only for endpoints: git|contents|pulls|branches
+                                  #  - GitLab -> https://gitlab.com/api/v4/projects/USER%2FREPO/*
+                                  #     - only for endpoints: files|commits|tree
+                                  #  - Gitbucket: not available
+                                  #Used by NetlifyCMS
+                                  #Must supply a GitHub|GitLab access token
+                                  #Enabled from Web UI
+
+ACCESS CONTROL ==>                #Can limit to specific USER roles
+                                  #Done from Web UI
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           ANALYTICS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ANALYTICS ==>                     #From Web UI
+                                  #Can see:
+                                  #  - pageviews:
+                                  #     - over time
+                                  #     - per page, referrer, 404
+                                  #  - unique visitors over time
+                                  #  - bandwidth over time
+                                  #Is done from CDN, not HTTP:
+                                  #  - faster
+                                  #  - cannot be blocked by client
+                                  #  - GDPR compliant
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TEAMS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TEAM ==>                          #Users group:
+                                  #  - permissions:
+                                  #     - collaborator: read|write Sites (can be restricted to specific Sites)
+                                  #     - billing admin: read|write billing
+                                  #     - owner: collaborator + billing admin + delete Sites + read|write Teams
+                                  #Done from Web UI
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           AUDIT LOG           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+AUDIT LOG ==>                     #Main Site|Teams events. Viewed from Web UI
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CLI              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+netlify *                         #
+--json
+--silent                          #Output
+
+netlify status                    #Prints:
+                                  #  - current user name|email|team
+                                  #  - site name|id|url
+                                  #  - CONF path
+                                  #  - admin URL
+--verbose                         #Also print environment info (OS, CPU, node|npm|yarn|browsers versions)
+
+netlify status:hooks              #???
+
+netlify dev                       #???
+                                  #https://cli.netlify.com/netlify-dev
+
+netlify plugins                   #Show plugins
+--core                            #Show core plugins: netlify-cli, @oclif/plugin-help|plugins|not-found
+
+netlify plugins:install PKG,...   #npm install PKG for a plugin
+-f|--force                        #No confirmation flag
+
+netlify plugins:uninstall PKG,... #
+
+netlify plugins:update            #npm update
+
+netlify plugins:link [PKGNAME|DIR]#npm link
+
+netlify api ENDPOINT_NAME         #HTTP call to Netlify API
+-d|--date 'JSON'                  #Request body
+--list                            #Show all ENDPOINT_NAME
+
+STATE.telemetryDisabled           #BOOL (def: false). Do not send analytics.
+netlify --telemetry-disable|enable#Modify STATE.telemetryDisabled
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              API              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+
+BASE URI ==>                      #https://api.netlify.com/api/v1/
+
+AUTHENTICATION ==>                #Query parameter:
+                                  #  - access_token 'ACCES_TOKEN'
+                                  #'ACCESS_TOKEN' obtained from OAuth2 flow at https://app.netlify.com/authorize
+
+MIME ==>                          #application/json
+
+RATE LIMITS ==>                   #200 requests/minute
+                                  #Response headers:
+                                  #  - X-RateLimit-Limit: 200 [S]
+                                  #  - X-RateLimit-Remaining: NUM [S]
+                                  #  - X-RateLimit-Reset: DATE_NUM [S]
+
+PAGINATION ==>                    #Query parameters:
+                                  #  - per_page NUM (def|max: 100): page size
+                                  #  - page NUM (def: 1): page number
+                                  #Response headers:
+                                  #  - Link: <URI?page=NUM&per_page=NUM>; rel="prev|next|last" [S]
+
+X-Request-Id: UUID [S]            #For debugging
+
+OPENAPI ==>                       #OPENAPI 2.0
+
+SITE                              #Either SITE_ID or Site domain

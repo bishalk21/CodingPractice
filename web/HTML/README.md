@@ -1,2175 +1,1333 @@
-# Internet and HTML
+## Table of Contents
 
-[DNS](#dns) <br>
-[IP Addresses](#ip-addresses) <br>
-[Understand how the browser works](#understand-how-the-browser-works) <br>
-[Rendering](#rendering) <br>
-[Browsers](#browser) <br>
-[Parsing](#parsing) <br>
-[Rendering](#rendering) <br>
-[HTML](###html) <br>
-[HyperText](#hypertext) <br>
-[Markup](#markup) <br>
-[SEO](#seo) <br>
-[Meta](#meta) <br>
-[HTML Elements](#html-elements) <br>
-[Semantic HTML](#semantic-html) <br>
-[HTML Comment](#html-comment) <br>
-[IDS](#ids)<br>
-[Favicon](#favicon)<br>
-[Resource Hint: dns-prefetch, prefetch, prerender](#resource-hint-dns-prefetch-prefetch-prerender)<br>
-[HTML Input Control Elements](#html-input-control-elements)<br>
-[SVG](#svg)<br>
-[Canvas](#canvas)<br>
-[Marking up computer code](#marking-up-computer-code)<br>
-[Tabindex](#tabindex)<br>
-[Global Attributes](#global-attributes)<br>
-[HTML 5 Cache](#html-5-cache)<br>
-[HTML Event Attributes](#html-event-attributes)<br>
-[HTML Table](#html-table)<br>
-[HTML Form](#html-form)<br>
-[HTML Form Events](##html-form-events)<br>
-[HTML Keyboard Events](##html-keyboard-events)<br>
-[ARIA Attributes](#aria)<br>
-[12 Column Grid Responsive Design or layout](#12-column-grid-responsive-design-or-layout)<br>
-[HTML URL Encode](#html-url-encode)<br>
-[HTML URL Decode](#html-url-decode)<br>
+[Introduction](#introduction)
 
-Learn the anatomy of HTML syntax to structure your websites. <br>
-Understand the HTML boilerplate and HTML doctypes. <br>
-How to structure text in HTML. <br>
-How to structure HTML lists to create unordered and ordered lists. <br>
-How to insert images using HTML and how to use the HTML image tag. <br>
-How to create hyperlinks using anchor tags. <br>
-Understand how to use HTML tables for content. <br>
-How to use tables for layout. <br>
-Learn HTML best practices. <br>
-Understand about HTML forms and create a simple contact me form. <br>
-HTML Divs and how to separate content for CSS styling and JavaScript. <br>
+1. [HTML Tags](#html-tags)
+2. [Web Browsers](#web-browsers)
+3. [HTML Page Structure](#html-page-structure)
+4. [How HTML Elements Should Be Displayed](#how-html-elements-should-be-displayed)
+5. [Makes HTML Pages More Dynamic And Interactive By Javascript](#makes-html-pages-more-dynamic-and-interactive-by-javascript)
 
-### HTML
+[Elements](#elements)
 
-- Best Practice - URL=https://htmlcheatsheet.com/
-- https://htmlcheatsheet.com/
-- https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf
-- https://docs.emmet.io/cheat-sheet/
-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form
-- https://codepen.io/
-- https://archive.org/web/
-- https://www.fileformat.info/info/charset/UTF-8/list.htm
-- https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
+1. [HTML Elements](#html-elements)
+2. [Nested HTML Elements](#nested-html-elements)
+3. [Do Not Forget The End Tag](#do-not-forget-the-end-tag)
+4. [Empty HTML Elements](#empty-html-elements)
+5. [Use Lowercase Tags](#use-lowercase-tags)
 
-# What is HTML?
+[Attributes](#attributes)
 
-- stands for HyperText Markup Language
-- is a markup language used to create web pages
-- describes the structure of a Web page
-- is composed of HTML elements
-- is not case sensitive
+1. [HTML Attributes](#html-attributes)
+2. [Use Lowercase Attributes](#use-lowercase-attributes)
+3. [Quote Attribute Values](#quote-attribute-values)
+4. [Single Or Double Quotes](#single-or-double-quotes)
+5. [Global Attributes](#global-attributes)
+6. [data-\* Attribute](#data-attribute)
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Page Title</title>
-  </head>
-  <body>
-    <p>lorem ipsum</p>
-  </body>
-</html>
-```
+[Comments](#comments)
 
-# History of HTML
+1. [HTML Comment](#html-comment)
+2. [Conditional Comments](#conditional-comments)
 
-- HTML was created by Tim Berners-Lee in 1991.
+[Block and Inline Elements](#block-and-inline-elements)
 
-# HyperText
+1. [Block Level Elements](#block-level-elements)
+2. [Inline Elements](#inline-elements)
 
-- a text that is displayed on a computer or other electronic device with references (hyperlinks) to other text that the reader can immediately access.
+[Entities](#entities)
 
-```html
-<a href="https://www.w3schools.com">This is a link</a>
-```
+1. [HTML Entities](#html-entities)
+2. [Non Breaking Space](#non-breaking-space)
 
-# Markup
+[Uniform Resource Locators](#uniform-resource-locators)
 
-- A markup language is a computer language that defines the structure and presentation of raw text.
-- Markup languages are used to annotate a document in a way that is syntactically distinguishable from the text, and can assign semantic meaning to the text.
+1. [HTML URL](#html-url)
+2. [URL Encoding](#url-encoding)
 
-```html
-<p>This is a paragraph.</p>
-```
+[HTML DOM](#html-dom)
 
-# HTML Elements
+1. [What is HTML DOM](#what-is-html-dom)
+2. [DOM Methods](#dom-methods)
+3. [DOM Document](#dom-document)
+4. [DOM Events](#dom-events)
+5. [DOM Event Listener](#dom-event-listener)
+6. [DOM Nodes](#dom-nodes)
+7. [DOM Node Relationships](#dom-node-relationships)
+8. [DOM Node List](#dom-node-list)
 
-- a tag and content between the tags is called an HTML element
-- a unit of content in an HTML document formed by a start tag, some content, and an end tag
-- HTML elements are the building blocks of HTML pages
-- HTML elements tell the browser how to display the content
+[BOM](#bom)
 
-```html
-<p>This is a paragraph</p>
-```
+1. [What is BOM](#what-is-bom)
+2. [The Window Object](#the-window-object)
+3. [Window Screen Object](#window-screen-object)
+4. [Window Location Object](#window-location-object)
+5. [Window History Object](#window-history-object)
+6. [Window Navigator Object](#window-navigator-object)
+7. [Popup Boxes](#popup-boxes)
+8. [Timing Events](#timing-events)
+9. [Cookies](#cookies)
 
-# Foundation of HTML Elements
+[APIs](#apis)
 
-- tags
-- attributes
-- content
+1. [Geolocation](#geolocation)
+2. [Web Storage](#web-storage)
+3. [Web Worker](#web-worker)
 
-# Structure of an HTML Document
+[Performance](#performance)
 
-- Html is organized as a collection of family tree relationships.
-- if an element is inside another element, it is a child of that element. The child element is nested inside of the parent element.
-- the relationship between elements and their children is called the DOM (Document Object Model).
-- the relationship between elements and their ancestors and descendant elements is known as hierarchical relationships or parent-child relationships.
+1. [Delay JavaScript Loading](#delay-javascript-loading)
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>My First HTML Page</title>
-  </head>
-  <body>
-    <h1>This is my first HTML page</h1>
-    <p>This is my first paragraph.</p>
-  </body>
-</html>
-```
+[HTML Reference](#html-reference)
 
-# HTML Comment - HTML comments are used to add a description to the HTML
+1. [script](#script)
 
-code - HTML comments are not displayed on the page, but they are read by the
-browser -
+[Reference Information](#reference-information)
 
-<!---->
-
-# Tags - the HTML element name, surrounded by opening and closing angle brackets
-
-- tags are used to create HTML elements - tags are always surrounded by a start
-  and end tag
-
-```html
-<p>This is a paragraph</p>
-```
-
-# Opening Tag
-
-- first html tag used to start an element
-
-```html
-<p></p>
-```
-
-# Content
-
-- the information between the start and end tag
-- content is the text that is displayed within the HTML element
-
-```html
-<p>This is a paragraph</p>
-```
-
-# Closing Tag
-
-- the second html tag used to end an element
-- have a forward slash before the tag name
-
-````html
-```html
-<p></p>
-````
-
-# HTML Attributes
-
-- attributes specify the HTML element's properties
-- attributes are specified within the opening tag
-- attributes are separated from the tag by an equals sign (=)
-- made up of two parts: a name and a value, separated by an equals sign
-- the value is placed inside double quotes
-
-```html
-<p style="color: red;">This is a paragraph</p>
-```
-
-| Attribute | Description                                                                                                 |
-| --------- | ----------------------------------------------------------------------------------------------------------- |
-| id        | Specifies a unique id for an HTML element (the value must be unique within the HTML document)               |
-| class     | Specifies one or more class names for an HTML element (refers to a class in a style sheet)                  |
-| style     | Specifies an inline CSS style for an HTML element                                                           |
-| title     | Specifies extra information about an element (displayed as a tooltip when the mouse moves over the element) |
-
-# Semantic HTML
-
-- relating to meaning in language or logic
-- semantic elements clearly describes its meaning to the developer and browser
-- Semantic HTML elements are easy to read and understand
-- address element indicates that the content is a contact information
-
-| Semantic Element | Description                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------- |
-| address          | Specifies contact information for the author/owner of a document or an article              |
-| article          | Specifies independent, self-contained content                                               |
-| aside            | Specifies content aside from the page content                                               |
-| details          | Specifies additional details that the user can view or hide                                 |
-| dialog           | Specifies a dialog box or window                                                            |
-| figcaption       | Specifies a caption for a figure element                                                    |
-| figure           | Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc. |
-| footer           | Specifies a footer for a document or section                                                |
-| header           | Specifies a header for a document or section                                                |
-| main             | Specifies the main content of a document                                                    |
-| mark             | Specifies marked/highlighted text                                                           |
-| menuitem         | Defines a command/menu item that the user can invoke from a popup menu                      |
-| nav              | Specifies navigation links                                                                  |
-| section          | Specifies a section in a document                                                           |
-| summary          | Defines a visible heading for a details element                                             |
-
-Q. Why is Semantic HTML important?
-
-- Accessibility: screen readers can use semantic HTML to determine the structure of a page
-- SEO: search engines can use semantic HTML to determine the structure of a page
-- Readability: semantic HTML is easier to read and understand
-
-* For indexing the structure and content of your web pages, search engines use semantic HTML and HTML elements that are meaningful.
-
-# SEO
-
-# What is SEO?
-
-- Search Engine Optimization
-- Search Engine Optimization is the process of making sure that your website is indexed by search engines and that it is displayed on the top of search results.
-- process of optimizing the content of a website for search engines
-
-# DOCTYPE - Declaration of the Document Type
-
-- instruction to the web browser what type of document to expect, along with the version of HTML the page is written in.
-- is used to inform the browser about the type of document or whether the page is following the HTML5 specification or not
-- defines the type of document
-
-# head
-
-- part of HTML metahor
-- contains the machine-readable tags that define the structure of the document like the title, the author, the description, the keywords, the stylesheets, the scripts, etc.
-- contains meta, link, script, and style elements, and the title element
-
-# meta
-
-- defines metadata about the document (e.g. author, description, keywords)
-- meta elements are used to specify the content type of the document
-- not displayed on the page, but they are read by the browser, search engines, and other web browsers or services
-
-1. Character sets and encodings
-
-- meta charset="utf-8":
-- An HTML attribute that defines the character encoding for your browser to use when displaying the website content.
-- UTF-8 is the most common character encoding, which is used in the HTML5 specification
-
-## Why is character encoding important?
-
-- Most websites these days have to display characters that are not traditional ASCII characters.
-- When receiving such characters in an HTML source, browsers should be able to handle those properly.
-
-## Various Character Encodings
-
-HTML Standards has listed many encodings along with UTF-8 with reference to "Encoding Standards."
-
-Examples:
-
-❍ UTF-8
-❍ ISO-8859-2
-❍ windows-1251
-❍ windows-1252
-❍ GBK
-❍ UTF-16BE
-
-Find the full list:
-https://encoding.spec.whatwg.org/#names-and-labels
-
-## Why should we use UTF-8?
-
-⬘ The HTML5 specification encourages web developers to use the UTF-8 character set.
-⬙ Why? Because it covers almost all of the characters and symbols in the world.
-
-2. keywords for SEO
-
-```html
-<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />
-```
-
-3. description for SEO
-
-```html
-<meta name="description" content="This is my first HTML page" />
-```
-
-4. author for SEO
-
-```html
-<meta name="author" content="Bishal Karki" />
-```
-
-5. viewport for SEO and different devices support or responsive design
-
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /> //
-width=device-width means that the page will be displayed in the same width as
-the device width // initial-scale=1.0 means that the page will be displayed in
-100% of the width of the device
-```
-
-6. page refresh for SEO after certain time
-
-```html
-<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
-```
-
-7. robots for SEO
-
-```html
-<meta name="robots" content="index,follow noindex" /> // index,follow
-```
-
-| Value/Directive                        | Description                                                                                                                   |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| index                                  | tells search engines to index this page                                                                                       |
-| all                                    | default value or tells search engines to index this page                                                                      |
-| follow                                 | tells search engines to follow links on this page                                                                             |
-| nofollow                               | tells search engines to not follow links on this page                                                                         |
-| none                                   | tells search engines to not index this page                                                                                   |
-| noindex                                | tells search engines to not follow links on this page                                                                         |
-| noarchive                              | tells search engines to not archive this page                                                                                 |
-| nosnippet                              | tells search engines to not display a snippet of this page                                                                    |
-| noodp                                  | tells search engines to not use the Open Directory Project                                                                    |
-| notranslate                            | tells search engines to not translate this page                                                                               |
-| nocache                                | tells search engines to not cache this page                                                                                   |
-| noimageindex                           | tells search engines to not index images on this page                                                                         |
-| unavailabl                             | tells search engines to mark this page as unavailable                                                                         |
-| unavailableafter                       | tells search engines to mark this page as unavailable after                                                                   |
-| unavailable_after [RFC--850-date/time] | Do not show this page in search results after the specified date/time. The date/time must be specified in the RFC 850 format. |
-
-8. Social Media Meta Tags for SEO
-
-```html
-<!-- The style to be used for this article -->
-<meta property="fb:article_style" content="myarticlestyle" /> //facebook
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@site_account" />
-<meta name="twitter:creator" content="@individual_account" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@site_account" />
-<meta name="twitter:creator" content="@individual_account" />
-<meta name="twitter:url" content="https://example.com/page.html" />
-<meta name="twitter:title" content="Content Title" />
-<meta
-  name="twitter:description"
-  content="Content description less than 200 characters"
-/>
-<meta name="twitter:image" content="https://example.com/image.jpg" />
-<!-- Google+ / Schema.org -->
-<link href="https://plus.google.com/+YourPage" rel="publisher" />
-<meta itemprop="name" content="Content Title" />
-<meta
-  itemprop="description"
-  content="Content description less than 200 characters"
-/>
-<meta itemprop="image" content="https://example.com/image.jpg" />
-```
-
-3. Mobile Layout for SEO
-
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-```
-
-| Attributes    | Description                                                                             |
-| ------------- | --------------------------------------------------------------------------------------- |
-| width         | The width of the viewport in device-independent pixels.                                 |
-| initial-scale | The initial scale of the viewport.                                                      |
-| shrink-to-fit | If true, the viewport width is dynamically determined based on the width of the device. |
-| user-scalable | If true, the viewport width is dynamically determined based on the width of the device. |
-| minimum-scale | The minimum scale of the viewport.                                                      |
-| maximum-scale | The maximum scale of the viewport.                                                      |
-
-4. Automatic Refresh for SEO
-
-```html
-<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
-```
-
-5. Phone Number for SEO
-
-```html
-<meta name="phone" content="+1-800-555-1234" />
-```
-
-6. Automatic Redirection for SEO
-
-```html
-<meta http-equiv="refresh" content="5;url=http://www.example.com/" /> // 5
-```
-
-7. Web App
-
-```html
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="apple-mobile-web-app-title" content="Web App Title" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="theme-color" content="black" />
-```
-
-8. content-type for SEO
-
-- Allow the webserver to include the Content-Type header in the response coming to the browser.
-- Content-Type: text/html; charset=utf-8
-
-8. http-equiv metadata
-
-- Set content for
-
-```html
-<meta http-equiv="Content-Type" in HTML.
-```
-
-- When present, it must be inside the head element near the top of the document.
-- meta http-equiv="Content-Type"
-  content="text/html; charset=utf-8">
-
-  9. BOM
-
-- BOM (Byte-Order-Mark) is the usage of a special Unicode character U+FEFF.
-- It should be placed within the first 3 bytes of the document.
-
-10. HTML Entities
-
-- A fallback is that HTML has to display all UTF-8 characters properly by using HTML entities.
-
-# head element
-
-- viewport is used to specify the dimensions of the browser window:
-
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-```
-
-- link is used to link to other documents:
-
-```html
-<link rel="stylesheet" href="style.css" />
-```
-
-- title is used to define the title of the document:
-
-```html
-<title>My First HTML Page</title>
-```
-
-- style is used to define the style of the document:
-
-```html
-<style>
-  p {
-    color: red;
-  }
-</style>
-```
-
-- script is used to define the script of the document:
-
-```html
-<script>
-  alert("Hello World!");
-</script>
-```
-
-- base is used to define the base URL of the document or targets for all links or URLs in the document or to define the default target for all links in the document using the target or rel or href attribute:
-
-```html
-<base href="http://example.com/" target="_blank" rel="nofollow" />
-```
-
-- target blank is used to open the linked document in a new window:
-
-```html
-<a href="http://example.com/" target="_blank">Example</a>
-```
-
-# body
-
-- defines the content of the document
-- contains the main content of the document, that is displayed in the browser window
-
-```html
-<body oncontextmenu="return false">
-  // oncontextmenu is used to prevent the right click menu from appearing on the
-  page
-</body>
-```
-
-# HTML Headings
-
-- used to describe the content, like the title of the document, the author, the date of creation, etc.
-- h1, h2, h3, h4, h5, h6 are used to define the heading of the document
-- headings are used mainly to define the content of the document as well as the structure of the document
-
-# Divs
-
-- short for division or a container that divides the document into sections
-
-# whitespace and identation
-
-- whitespace is the space between the tags. It is used to make the HTML code more readable.
-- identation is the space between the tags and the content. It makes parent-child relationships more clear.
-
-# Line Breaks
-
-- used to insert a line break in the document
-- modifying the spacing between lines of text
-
-# HTML Content Model
-
-- HTML content model is the structure of the document
-
-# block level elements
-
-- render to begin a new line (by default)
-- may contain other block level elements and inline elements
-- pushes next element to the next line
-- block elements group content into a single unit. They are used to create sections of content.
-- example:
-
-| Html Block Elements | Description                                                                     |
-| ------------------- | ------------------------------------------------------------------------------- |
-| address             | Defines contact information for the author or owner of a document or an article |
-| article             | Defines an article                                                              |
-| aside               | Defines content aside from the page content                                     |
-| blockquote          | Defines a section that is quoted from another source                            |
-| canvas              | Used to draw graphics, on the fly, via scripting (usually JavaScript)           |
-| p                   | Defines a paragraph                                                             |
-| div                 | Defines a section in a document                                                 |
-| header              | Defines a header for a document or section                                      |
-| footer              | Defines a footer for a document or section                                      |
-| nav                 | Defines navigation links                                                        |
-| section             | Defines a section in a document                                                 |
-| details             | Defines additional details that the user can view or hide                       |
-| main                | Specifies the main content of a document                                        |
-| summary             | Defines a visible heading for a details element                                 |
-| figure              | Specifies self-contained content                                                |
-| figcaption          | Defines a caption for a figure element                                          |
-| hr                  | Defines a thematic change in the content                                        |
-| pre                 | Defines preformatted text                                                       |
-| time                | Defines a date/time                                                             |
-
-# inline level elements
-
-- render to stay on the same line (by default)
-- cannot have block elements
-- inline elements are used to group content that is not part of a block element.
-- example:
-
-| Html Inline Elements | Description                                                              |
-| -------------------- | ------------------------------------------------------------------------ |
-| a                    | Defines a hyperlink                                                      |
-| abbr                 | Defines an abbreviation or an acronym                                    |
-| b                    | Defines bold text                                                        |
-| bdi                  | Isolates a part of text that might be formatted in a different direction |
-| bdo                  | Overrides the current text direction                                     |
-| br                   | Defines a single line break                                              |
-| cite                 | Defines the title of a work                                              |
-| span                 | Defines a section in a document                                          |
-| code                 | Defines a piece of computer code                                         |
-| cite                 | Defines the title of a work                                              |
-| data                 | Links the given content with a machine-readable translation              |
-| dfn                  | Indicates the defining instance of a term                                |
-| i                    | Defines a part of text in an alternate voice or mood                     |
-| kbd                  | Defines keyboard input                                                   |
-| em                   | Defines emphasized text                                                  |
-| mark                 | Defines marked/highlighted text                                          |
-| small                | Defines smaller text                                                     |
-| strong               | Defines important text                                                   |
-| sub                  | Defines subscripted text                                                 |
-| sup                  | Defines superscripted text                                               |
-| u                    | Defines text that should be stylistically different from normal text     |
-| big                  | Not supported in HTML5. Use CSS instead.                                 |
-| del                  | Defines text that has been deleted from a document                       |
-| q                    | Defines a short quotation                                                |
-
-# nested elements
-
-- nested elements are used to group content that is part of a block element.
-- example:
-
-| Html Nested Elements | Description                                                                    |
-| -------------------- | ------------------------------------------------------------------------------ |
-| ul                   | Defines an unordered list                                                      |
-| ol                   | Defines an ordered list                                                        |
-| li                   | Defines a list item                                                            |
-| dl                   | Defines a description list                                                     |
-| dt                   | Defines a term/name in a description list                                      |
-| dd                   | Defines a description of a term/name in a description list                     |
-| table                | Defines a table                                                                |
-| tr                   | Defines a row in a table                                                       |
-| th                   | Defines a header cell in a table                                               |
-| td                   | Defines a cell in a table                                                      |
-| caption              | Defines a table caption                                                        |
-| col                  | Specifies column properties for each column within a colgroup element          |
-| colgroup             | Specifies a group of one or more columns in a table for formatting             |
-| thead                | Groups the header content in a table                                           |
-| tbody                | Groups the body content in a table                                             |
-| tfoot                | Groups the footer content in a table                                           |
-| form                 | Defines an HTML form for user input                                            |
-| input                | Defines an input control                                                       |
-| textarea             | Defines a multiline input control (text area)                                  |
-| button               | Defines a clickable button                                                     |
-| select               | Defines a drop-down list                                                       |
-| optgroup             | Defines a group of related options in a drop-down list                         |
-| option               | Defines an option in a drop-down list                                          |
-| label                | Defines a label for an input element                                           |
-| fieldset             | Groups related elements in a form                                              |
-| legend               | Defines a caption for a fieldset element                                       |
-| iframe               | Defines an inline frame                                                        |
-| img                  | Defines an image                                                               |
-| map                  | Defines a client-side image-map                                                |
-| area                 | Defines an area inside an image-map                                            |
-| audio                | Defines sound content                                                          |
-| video                | Defines a video or movie                                                       |
-| embed                | Defines a container for an external (non-HTML) application                     |
-| object               | Defines an embedded object                                                     |
-| param                | Defines a parameter for an object                                              |
-| source               | Defines multiple media resources for media elements                            |
-| track                | Defines text tracks for media elements                                         |
-| canvas               | Used to draw graphics, on the fly, via scripting (usually JavaScript)          |
-| script               | Defines a client-side script                                                   |
-| noscript             | Defines an alternate content for users that do not support client-side scripts |
-| del                  | Defines text that has been deleted from a document                             |
-| ins                  | Defines a text that has been inserted into a document                          |
-| style                | Defines style information for a document                                       |
-
-# HTML Links or Hyperlinks or anchors
-
-- anchor tag is used to create a link to another document or to another part of the same document
-- href is the attribute of anchor tag which is used to specify the link. href stands for hyperlink reference. it is used to link to the path or the address to where the file is located.
-- links have two attributes: href and rel:
-
-```html
-<a href="http://example.com/" rel="nofollow">Example</a>
-```
-
-- links are used to link to other documents
-
-# Links
-
-- target specifies how or where to open the linked document:
-
-```html
-<a href="http://example.com/" target="_blank">Example</a>
-```
-
-- target is used to define the target of the link. It can be
-  - \_blank: open in a new window or tab
-  - \_self: open in the same frame as it was clicked
-  - \_parent: open in the parent frame
-  - \_top: open in the full body of the window
-  - framename: open in a named frame
-
-```html
-<a href="" target="_self"> </a>
-<p>opens the page in same browser window or tab</p>
-```
-
-- rel is used to define the relationship of the link. rel defines the relationship between document and external resource.
-- noopener is used to prevent the browser from opening a new window when the link is clicked and
-- noreferrer is used to prevent the browser from sending a referrer header when the link is clicked.
-- mailto is used to create a link to an email address
-
-```html
-<a href="mailto:"></a>
-<p>to define the email address and the subject of the email message</p>
-```
-
-```html
-<a href="tel:"></a>
-<p>to define a link to a telephone number</p>
-```
-
-```html
-- <a name=""></a>
-<p>to define a bookmark in a page</p>
-```
-
-# Absolute Link
-
-- absolute link is a link that contains the full URL of the page you want to link to. it is also called as full link.
-- are also called external links and are for links to other websites
-
-```html
-<a href="http://example.com/"></a>
-<p>to define the absolute link of the documents</p>
-```
-
-# Relative Link
-
-- if the files are stored in the same folder, you can use the file name to link to the file
-- are also called internal links and are links which are giving local pages from same website
-
-# HTML Images
-
-- images are used to display images
-- alt is used to define the alternative text of the image
-- the value of src must be a valid URL or Uniform Resource Locator of an image.(absolute or relative)
-
-```html
-<img src="image.jpg" alt="Image" />
-<p>
-  img tag is used to display images. alt attribute is used to define the
-  alternative text of the image. src attribute is used to define the source of
-  the image.
-</p>
-```
-
-# URL
-
-- Uniform Resource Locator is a string of characters used to identify a name or a web resource.
-- URL is used to define the location of a resource on the Internet.
-- is the web address or local address where file is stored.
-
-# Multimedia
-
-| Multimedia | Description                                                 |
-| ---------- | ----------------------------------------------------------- |
-| audio      | audio tag is used to display audio files.                   |
-| video      | video tag is used to display video files.                   |
-| track      | track tag is used to define text tracks for media elements. |
-
-# HTML Video
-
-- video is used to display video files
-
-```html
-<video src="video.mp4" controls></video>
-<p>
-  video tag is used to display video files. src attribute is used to define the
-  source of the video. controls attribute is used to display the video controls
-  such as play, pause, etc.
-</p>
-```
-
-# Displaying Text
-
-| HTML Element | Description                                                             |
-| ------------ | ----------------------------------------------------------------------- |
-| p            | paragraph                                                               |
-| span         | to group inline elements and separate the smaller parts of the document |
-
-# Text Content
-
-| HTML Element | Description                        | type   |
-| ------------ | ---------------------------------- | ------ |
-| h1           | heading 1                          | block  |
-| blockquote   | blockquote                         | block  |
-| q            | to create a short quotation        | inline |
-| cite         | to create a citation               | inline |
-| dd           | to create a definition description | block  |
-| dt           | to create a definition term        | block  |
-| figcaption   | to create a figure caption         | block  |
-| figure       | to create a figure                 | block  |
-| pre          | to create a preformatted text      | block  |
-| p            | to create a paragraph              | block  |
-| ul           | to create an unordered list        | block  |
-| ol           | to create an ordered list          | block  |
-| li           | to create a list item              | block  |
-| dl           | to create a definition list        | block  |
-| div          | to create a division               | block  |
-
-# Inline TextSemantics
-
-| HTML Element | Description                                   |
-| ------------ | --------------------------------------------- |
-| a            | anchor or to create a link                    |
-| abbr         | abbreviation                                  |
-| br           | line break                                    |
-| cite         | for referencing a citation or a piece of work |
-| code         | for displaying computer code                  |
-| em           | for emphasizing text                          |
-| mark         | for highlighting text                         |
-| small        | for displaying side comments                  |
-| strong       | for emphasizing text                          |
-| span         | for grouping inline elements                  |
-| time         | for displaying a date or time                 |
-
-# Styling Text
-
-| HTML Element | Description                                                             |
-| ------------ | ----------------------------------------------------------------------- |
-| b            | bold                                                                    |
-| i            | italic                                                                  |
-| u            | underline                                                               |
-| s            | strike through                                                          |
-| del          | deleted text                                                            |
-| ins          | inserted text                                                           |
-| sub          | subscript                                                               |
-| sup          | superscript                                                             |
-| small        | small text                                                              |
-| strong       | strong text                                                             |
-| em           | emphasized text                                                         |
-| mark         | marked text                                                             |
-| code         | code sample                                                             |
-| q            | quotation mark                                                          |
-| cite         | citation mark                                                           |
-| abbr         | abbreviation                                                            |
-| dfn          | definition                                                              |
-| var          | variable                                                                |
-| samp         | sample output                                                           |
-| kbd          | keyboard input                                                          |
-| bdi          | bidirectional isolation                                                 |
-| bdo          | bidirectional override                                                  |
-| span         | to group inline elements and separate the smaller parts of the document |
-| br           | line break                                                              |
-| wbr          | line break opportunity                                                  |
-| hr           | horizontal rule                                                         |
-| a            | link                                                                    |
-
-# formatting the text inside paragraphs or other elements
-
-| HTML Element | Description     |
-| ------------ | --------------- |
-| b            | bold            |
-| i            | italic          |
-| u            | underline       |
-| s            | strike through  |
-| del          | deleted text    |
-| ins          | inserted text   |
-| sub          | subscript       |
-| sup          | superscript     |
-| small        | small text      |
-| strong       | strong text     |
-| em           | emphasized text |
-| mark         | marked text     |
-| code         | code sample     |
-| q            | quotation       |
-| mark         | marked text     |
-| cite         | citation mark   |
-| abbr         | abbreviation    |
-| time         | time stamp      |
-
-# Scripting
-
-- script is used to create a script ```html
-
-<script src=""></script>
-<p>script tag is used to create a script</p>
-OR
-<script type="text/javascript" src="./javascript.js"></script>
-<p>script tag is used to create a script</p>
-````
-
-# Demarcating Edits
-
-- demarcating edits is used to indicate that a change has been made to a document
-- <del> is used to create a deleted text // <del> is an inline element
-- <ins> is used to create an inserted text // <ins> is an inline element
-
-# HTML Table
-
-| HTML Table | Description                                                                                     |
-| ---------- | ----------------------------------------------------------------------------------------------- |
-| table      | table tag is used to create a table.                                                            |
-| tr         | tr tag is used to create a table row.                                                           |
-| th         | th tag is used to create a table header. Table headings clearify the meaning of the table data. |
-| td         | td tag is used to create a table data.                                                          |
-| caption    | caption tag is used to create a table caption.                                                  |
-| thead      | thead tag is used to create a table header.                                                     |
-| tbody      | tbody tag is used to create a table body.                                                       |
-| tfoot      | tfoot tag is used to create a table footer.                                                     |
-| col        | col tag is used to create a table column.                                                       |
-| colgroup   | colgroup tag is used to create a table column group.                                            |
-| colspan    | colspan attribute is used to define the number of columns a cell should span.                   |
-| rowspan    | rowspan attribute is used to define the number of rows a cell should span.                      |
-
-## HTML Table Attributes
-
-| Attribute   | Description                                                                                     |
-| ----------- | ----------------------------------------------------------------------------------------------- |
-| align       | align attribute is used to align the table.                                                     |
-| bgcolor     | bgcolor attribute is used to define the background color of the table.                          |
-| border      | border attribute is used to define the width of the border of the table.                        |
-| cellpadding | cellpadding attribute is used to define the space between the cell content and the cell border. |
-| cellspacing | cellspacing attribute is used to define the space between the cells.                            |
-| height      | height attribute is used to define the height of the table.                                     |
-| width       | width attribute is used to define the width of the table.                                       |
-| scope       | scope attribute is used to define the scope of the header cell.                                 |
-| summary     | summary attribute is used to define a summary of the table.                                     |
-| valign      | valign attribute is used to define the vertical alignment of the table.                         |
-| colspan     | colspan attribute is used to define the number of columns a cell should span.                   |
-| rowspan     | rowspan attribute is used to define the number of rows a cell should span.                      |
-
-```html
-<table>
-  <caption>
-    Table Caption
-  </caption>
-  <thead>
-    <tr>
-      <th>Table Header 1</th>
-      <th>Table Header 2</th>
-      <th>Table Header 3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Table Data 1</td>
-      <td>Table Data 2</td>
-      <td>Table Data 3</td>
-    </tr>
-    <tr>
-      <td>Table Data 1</td>
-      <td>Table Data 2</td>
-      <td>Table Data 3</td>
-    </tr>
-    <tr>
-      <td>Table Data 1</td>
-      <td>Table Data 2</td>
-      <td>Table Data 3</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td>Table Footer 1</td>
-      <td>Table Footer 2</td>
-      <td>Table Footer 3</td>
-    </tr>
-  </tfoot>
-</table>
-```
-
-# HTML Form
-
-- form tag is used to create a form
-- Forms are used to collect user input and send it to a server.
-
-Q. How Forms work?
-
-- A internet is a network of networks. It is a network of computers that are connected to each other. When you send a form to a server, the form data is sent to the server as name/value pairs. The server processes the form data using a programming language such as PHP, C#, VB.NET, Java, Perl, Python, etc. The server then creates a new page to send back to the browser based on the information received.
-- Computer needs an HTTP protocol to send and receive data.
-
-## HTTP (Hyper Text Transfer Protocol)
-
-- HTTP is a protocol that is used to send and receive data over the internet. HTTP is a stateless protocol, which means that the server does not remember anything about the user. The server only remembers the current request. When the server receives a new request, it forgets everything about the previous request. This is why the server needs to know which page to send back to the browser. This is done with the help of HTML forms.
-
-| HTML Form element | Description                                 |
-| ----------------- | ------------------------------------------- |
-| form              | form tag is used to create a form.          |
-| input             | input tag is used to create an input field. |
-| textarea          | textarea tag is used to create a text area. |
-| select            | select tag is used to create a drop-down.   |
-| option            | option tag is used to create a drop-down.   |
-| button            | button tag is used to create a button.      |
-| label             | label tag is used to create a label.        |
-| fieldset          | fieldset tag is used to create a fieldset.  |
-| legend            | legend tag is used to create a legend.      |
-| datalist          | datalist tag is used to create a datalist.  |
-| output            | output tag is used to create a output.      |
-| optgroup          | optgroup tag is used to create a optgroup.  |
-
-```html
-<form action="https://www.google.com/search" method="GET">
-  <input type="text" name="q" />
-  <input type="submit" value="Search" />
-  <input type="checkbox'" name="q" />
-  <input type="radio" name="q" />
-  <input type="file" name="q" />
-  <input type="password" name="q" />
-  <input type="email" name="q" />
-  <input type="number" name="q" />
-  <input type="date" name="q" />
-  <input type="color" name="q" />
-  <input type="range" name="q" />
-  <input type="tel" name="q" />
-  <input type="url" name="q" />
-  <input type="search" name="q" />
-  <input type="time" name="q" />
-  <input type="week" name="q" />
-  <input type="month" name="q" />
-  <input type="datetime-local" name="q" />
-  <input type="hidden" name="q" />
-  <input type="image" name="q" />
-  <input type="reset" name="q" />
-  <input type="button" name="q" />
-  <input type="submit" name="q" />
-    <button type="submit">Search</button>
-
-  <textarea name="q" cols="30" rows="10"></textarea>
-  <select name="q">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-
-    <optgroup label="Group 1">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-
-      <optgroup label="Group 2">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-
-        <datalist id="q">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-
-          <output name="q" for="q"></output>
-        </datalist>
-      </optgroup>
-    </optgroup>
-  </select>
-</form>
-```
-
-# HTML Forms Attributes
-
-| Attribute      | Description                                                                                                                                         |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| action         | determines where to send the form-data when a form is submitted.                                                                                    |
-| method         | determines how to send the form-data (the form-data is sent to the page specified in the action attribute). is assigned with HTTP verb GET or POST. |
-| name           | specifies the name of an element (the name is submitted with the form-data).                                                                        |
-| value          | specifies the value of an element (the value is submitted with the form-data).                                                                      |
-| type           | specifies the type of an input element.                                                                                                             |
-| placeholder    | specifies a short hint that describes the expected value of an input field.                                                                         |
-| required       | specifies that an input field must be filled out before submitting the form.                                                                        |
-| autofocus      | specifies that an input field should automatically get focus when the page loads.                                                                   |
-| disabled       | specifies that an input field should be disabled.                                                                                                   |
-| readonly       | specifies that an input field is read-only.                                                                                                         |
-| maxlength      | specifies the maximum number of characters allowed in an input field.                                                                               |
-| minlength      | specifies the minimum number of characters allowed in an input field.                                                                               |
-| pattern        | specifies a regular expression that an input element's value is checked against.                                                                    |
-| size           | specifies the width, in characters, of an input field.                                                                                              |
-| src            | specifies the URL of the image to use as a submit button.                                                                                           |
-| alt            | specifies an alternate text for images, if the image for some reason cannot be displayed.                                                           |
-| height         | specifies the height of an image in pixels.                                                                                                         |
-| width          | specifies the width of an image in pixels.                                                                                                          |
-| checked        | specifies that an option should be pre-selected when the page loads.                                                                                |
-| selected       | specifies that an option should be pre-selected when the page loads.                                                                                |
-| multiple       | specifies that a user can enter more than one value in an input field.                                                                              |
-| rows           | specifies the visible number of lines in a text area.                                                                                               |
-| cols           | specifies the visible width of a text area.                                                                                                         |
-| wrap           | specifies how the text in a text area is to be wrapped when submitted in a form.                                                                    |
-| form           | specifies one or more forms the <input> element belongs to.                                                                                         |
-| formaction     | specifies where to send the form-data when a form is submitted.                                                                                     |
-| formenctype    | specifies how form-data should be encoded before sending it to a server.                                                                            |
-| formmethod     | specifies how to send the form-data (which HTTP method to use).                                                                                     |
-| formnovalidate | specifies that the form-data should not be validated on submission.                                                                                 |
-| formtarget     | specifies where to display the response that is received after submitting the form.                                                                 |
-| list           | specifies a list of pre-defined options for input controls.                                                                                         |
-| max            | specifies the maximum value for an input field.                                                                                                     |
-| min            | specifies the minimum value for an input field.                                                                                                     |
-| minlength      | specifies the minimum number of characters allowed in an input field.                                                                               |
-| maxlength      | specifies the maximum number of characters allowed in an input field.                                                                               |
-| step           | specifies the legal number intervals for an input field.                                                                                            |
-| accept         | specifies the types of files that the server accepts (only for type="file").                                                                        |
-| autocomplete   | specifies whether a form should have autocomplete on or off.                                                                                        |
-| autofocus      | specifies that a form should automatically get focus when the page loads.                                                                           |
-| novalidate     | specifies that the form-data should not be validated on submission.                                                                                 |
-| target         | specifies where to display the response that is received after submitting the form.                                                                 |
-| enctype        | specifies how the form-data should be encoded when submitting it to the server (only for method="post").                                            |
-| method         | specifies how to send form-data (which HTTP method to use).                                                                                         |
-| accept-charset | specifies the character encodings that are to be used for the form submission.                                                                      |
-| action         | specifies where to send the form-data when a form is submitted.                                                                                     |
-| accept         | specifies the types of files that the server accepts (only for type="file").                                                                        |
-
-# HTML Input Types
-
-| Type        | Description                                                                                        |
-| ----------- | -------------------------------------------------------------------------------------------------- |
-| text        | Defines a single-line text input field                                                             |
-| password    | Defines a password field (characters are masked)                                                   |
-| radio       | Defines a radio button                                                                             |
-| checkbox    | Defines a checkbox                                                                                 |
-| submit      | Defines a submit button (for submitting the form)                                                  |
-| reset       | Defines a reset button (resets all form values to default)                                         |
-| button      | Defines a clickable button (mostly used with a JavaScript to activate a script)                    |
-| hidden      | Defines a hidden input field                                                                       |
-| image       | Defines an image as the submit button                                                              |
-| email       | Defines a field for an e-mail address                                                              |
-| url         | Defines a field for an URL                                                                         |
-| search      | Defines a text field for entering a search string                                                  |
-| tel         | Defines a field for entering a telephone number                                                    |
-| number      | Defines a field for entering a number                                                              |
-| range       | Defines a control for entering a number whose exact value is not important (like a slider control) |
-| color       | Defines a control for entering a color                                                             |
-| date        | Defines a control for entering a date                                                              |
-| datetime    | Defines a control for entering a date and time                                                     |
-| datetime-   | Defines a control for entering a date and time (local date and time)                               |
-| month       | Defines a control for entering a month and year                                                    |
-| week        | Defines a control for entering a week and year                                                     |
-| time        | Defines a control for entering a time (no time zone)                                               |
-| file        | Defines a file-select field and a "Browse..." button (for file uploads)                            |
-| readonly    | Specifies that an input field is read-only                                                         |
-| disabled    | Specifies that an input field should be disabled                                                   |
-| required    | Specifies that an input field must be filled out before submitting the form                        |
-| autofocus   | Specifies that an input field should automatically get focus when the page loads                   |
-| placeholder | Specifies a short hint that describes the expected value of an input field                         |
-| multiple    | Specifies that a user can enter more than one value in an input field                              |
-| pattern     | Specifies a regular expression that an input element's value is checked against                    |
-| min         | Specifies the minimum value for an input field                                                     |
-| max         | Specifies the maximum value for an input field                                                     |
-| step        | Specifies the legal number intervals for an input field                                            |
-| list        | Specifies a list of pre-defined options for input controls                                         |
-| list        | Specifies a list of pre-defined options for input controls                                         |
-| url         | Specifies that the input field must contain a valid URL                                            |
-| id          | Specifies a unique id for an element                                                               |
-
-```html
-<form>
-  <input type="text" name="username" placeholder="Username" required />
-  <input type="password" name="password" placeholder="Password" required />
-  <input type="submit" value="Login" />
-</form>
-```
-
-# HTML Form Validation
-
-- HTML5 form validation is done by the browser, not by JavaScript.
-- Validation is the concept of checking user provided data against the required data.
-
-| Server-side validation                                | Client-side validation                                                                   |
-| ----------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| happens when data is sent to another machine (server) | happens if we want to check the data on browser (client) before sending it to the server |
-| example: login page                                   | example: registration page                                                               |
-
-# Input Validation
-
-- input validation is used to validate the input of the user.
-
-```html
-<input type="text" name="name" value="value" required />
-<input type="text" name="name" value="value" required pattern="[0-9]{3}" />
-<input
-  type="text"
-  name="name"
-  value="value"
-  required
-  pattern="[0-9]{3}"
-  maxlength="3"
-/>
-<input
-  type="text"
-  name="name"
-  value="value"
-  required
-  pattern="[0-9]{3}"
-  maxlength="3"
-  minlength="3"
-/>
-<input
-  type="text"
-  name="name"
-  value="value"
-  required
-  pattern="[0-9]{3}"
-  maxlength="3"
-  minlength="3"
-  autocomplete="off"
-/>
-<input
-  type="text"
-  name="name"
-  value="value"
-  required
-  pattern="[a-zA-Z0-9]+{3}"
-  maxlength="3"
-  minlength="3"
-  autocomplete="off"
-/>
-```
-
-## Regex
-
-- Regular expressions are patterns used to match character combinations in strings.
-- Regular expressions are used to perform all types of text search and text replace operations.
-- Regular expressions are used to validate form input.
-
-```html
-<form>
-  <input
-    type="text"
-    name="username"
-    placeholder="Username"
-    required
-    pattern="[a-z]{5,10}"
-  />
-  <input
-    type="password"
-    name="password"
-    placeholder="Password"
-    required
-    minlength="5"
-    maxlength="10"
-  />
-  <input type="submit" value="Login" />
-</form>
-```
-
-# HTML Lists
-
-- lists are used to create lists
-
-| HTMl List element | Description                                       |
-| ----------------- | ------------------------------------------------- |
-| ul                | unordered list or outlines list item with bullets |
-| ol                | ordered list or outlines list item with numbers   |
-| li                | list item                                         |
-| dl                | definition list or outlines list item with terms  |
-| dt                | definition term or outlines list item term        |
-| dd                | definition description or outlines list item      |
-
-# HTML List attributes
-
-| HTML List attribute | Description                                                                             |
-| ------------------- | --------------------------------------------------------------------------------------- |
-| type                | type is used to define the type of list: type="1" or type="a" or type="A"               |
-| start               | start is used to define the starting number of the list: start="number"                 |
-| value               | value is used to define the value of the list item: value="value"                       |
-| class               | class is used to define the class of the list: class="class"                            |
-| id                  | id is used to define the id of the list: id="id"                                        |
-| data-\*             | data-_ is used to define custom attributes: data-_="data-\*"                            |
-| style               | style is used to define the style of the list: style="style"                            |
-| title               | title is used to define the title of the list: title="title"                            |
-| lang                | lang is used to define the language of the list: lang="lang"                            |
-| dir                 | dir is used to define the direction of the list: dir="dir"                              |
-| hidden              | hidden is used to define whether the list is hidden: hidden="hidden"                    |
-| onclick             | onclick is used to define the onclick event of the list: onclick="event"                |
-| ondblclick          | ondblclick is used to define the ondblclick event of the list: ondblclick="event"       |
-| onmousedown         | onmousedown is used to define the onmousedown event of the list: onmousedown="event"    |
-| onmouseup           | onmouseup is used to define the onmouseup event of the list: onmouseup="event"          |
-| onmouseover         | onmouseover is used to define the onmouseover event of the list: onmouseover="event"    |
-| onmousemove         | onmousemove is used to define the onmousemove event of the list: onmousemove="event"    |
-| onmouseout          | onmouseout is used to define the onmouseout event of the list: onmouseout="event"       |
-| onkeypress          | onkeypress is used to define the onkeypress event of the list: onkeypress="event"       |
-| onkeydown           | onkeydown is used to define the onkeydown event of the list: onkeydown="event"          |
-| onkeyup             | onkeyup is used to define the onkeyup event of the list: onkeyup="event"                |
-| onmouseenter        | onmouseenter is used to define the onmouseenter event of the list: onmouseenter="event" |
-| onmouseleave        | onmouseleave is used to define the onmouseleave event of the list: onmouseleave="event" |
-
-# Interactive Elements
-
-- Interactive elements are elements that can be interacted with.
-- <details> is used to create a details element
-- <summary> is used to create a summary element
-- <menu> is used to create a menu element
-- <command> is used to create a command element
-- <dialog> is used to create a dialog element
-
-# Entity References
-
-- &;: creates an entity reference
-- Entity references are used for avoiding the rendering issues.
-- provides characters that are not available in keyboard layouts
-- safeguard against XSS attacks and more limited character encodings
-- symbols that are not available in keyboard layouts
-
-| Entity Reference                   | Description                         |
-| ---------------------------------- | ----------------------------------- |
-| <code>&amp; or &#38; </code>       | ampersand (amp;)                    |
-| <code>&lt; or &#60; </code>        | less than (lt;)                     |
-| <code>&gt; or &#62; </code>        | greater than (gt;)                  |
-| <code>&quot; or &#34; </code>      | double quote (quot;)                |
-| <code>&apos; or &#39; </code>      | single quote (apos;)                |
-| <code>&nbsp; or &#160; </code>     | non-breaking space (nbsp;)          |
-| <code>&copy; or &#169; </code>     | copy right (copy;)                  |
-| <code>&reg; or &#174; </code>      | registered (reg;)                   |
-| <code>&larr; or &#8592; </code>    | left arrow (larr;)                  |
-| <code>&rarr; or &#8594; </code>    | right arrow (rarr;)                 |
-| <code>&uarr; or &#8593; </code>    | up arrow (uarr;)                    |
-| <code>&darr; or &#8595; </code>    | down arrow (darr;)                  |
-| <code> &crarr; or &#8629; </code>  | carriage return (crarr;)            |
-| <code>&lArr; or &#8656; </code>    | left double arrow (lArr;)           |
-| <code>&rArr; or &#8658; </code>    | right double arrow (rArr;)          |
-| <code>&uArr; or &#8657; </code>    | up double arrow (uArr;)             |
-| <code>&dArr; or &#8659; </code>    | down double arrow (dArr;)           |
-| <code>&bull; or &#8226; </code>    | bullet (bull;)                      |
-| <code>&hellip; or &#8230; </code>  | horizontal ellipsis (hellip;)       |
-| <code> &forall; or &#8704; </code> | for all (forall;)                   |
-| <code>&part; or &#8706; </code>    | partial differential (part;)        |
-| <code>&exist; or &#8707; </code>   | there exists (exist;)               |
-| <code>&empty; or &#8709; </code>   | empty set (empty;)                  |
-| <code>&nabla; or &#8711; </code>   | nabla (nabla;)                      |
-| <code>&isin; or &#8712; </code>    | element of (isin;)                  |
-| <code>&notin; or &#8713; </code>   | not an element of (notin;)          |
-| <code>&ni; or &#8715; </code>      | contains as member (ni;)            |
-| <code>&prod; or &#8719; </code>    | n-ary product (prod;)               |
-| <code>&sum; or &#8721; </code>     | n-ary summation (sum;)              |
-| <code>&minus; or &#8722; </code>   | minus sign (minus;)                 |
-| <code>&lowast; or &#8727; </code>  | asterisk operator (lowast;)         |
-| <code>&radic; or &#8730; </code>   | square root (radic;)                |
-| <code>&prop; or &#8733; </code>    | proportional to (prop;)             |
-| <code>&infin; or &#8734; </code>   | infinity (infin;)                   |
-| <code>&ang; or &#8736; </code>     | angle (ang;)                        |
-| <code>&and; or &#8743; </code>     | logical and (and;)                  |
-| <code>&or; or &#8744; </code>      | logical or (or;)                    |
-| <code>&cap; or &#8745; </code>     | intersection (cap;)                 |
-| <code>&cup; or &#8746; </code>     | union (cup;)                        |
-| <code>&int; or &#8747; </code>     | integral (int;)                     |
-| <code>&there4; or &#8756; </code>  | therefore (there4;)                 |
-| <code>&sim; or &#8764; </code>     | tilde operator (sim;)               |
-| <code>&cong; or &#8773; </code>    | congruent to (cong;)                |
-| <code>&asymp; or &#8776; </code>   | almost equal to (asymp;)            |
-| <code>&ne; or &#8800; </code>      | not equal to (ne;)                  |
-| <code>&equiv; or &#8801; </code>   | identical to (equiv;)               |
-| <code>&le; or &#8804; </code>      | less-than or equal to (le;)         |
-| <code>&ge; or &#8805; </code>      | greater-than or equal to (ge;)      |
-| <code>&sub; or &#8834; </code>     | subset of (sub;)                    |
-| <code>&sup; or &#8835; </code>     | superset of (sup;)                  |
-| <code>&nsub; or &#8836; </code>    | not a subset of (nsub;)             |
-| <code> &euro; or &#8364; </code>   | euro (euro;)                        |
-| <code>&pound; or &#163; </code>    | pound (pound;)                      |
-| <code>&yen; or &#165; </code>      | yen (yen;)                          |
-| <code>&cent; or &#162; </code>     | cent (cent;)                        |
-| <code>&sect; or &#167; </code>     | section (sect;)                     |
-| <code>&uml; or &#168; </code>      | umlaut (uml;)                       |
-| <code>&ordf; or &#170; </code>     | feminine ordinal indicator (ordf;)  |
-| <code>&ordm; or &#186; </code>     | masculine ordinal indicator (ordm;) |
-| <code>&laquo; or &#171; </code>    | left angle quotation mark (laquo;)  |
-| <code>&raquo; or &#187; </code>    | right angle quotation mark (raquo;) |
-| <code>&frac14; or &#188; </code>   | fraction one-quarter (frac14;)      |
-| <code>&frac12; or &#189; </code>   | fraction one-half (frac12;)         |
-| <code>&frac34; or &#190; </code>   | fraction three-quarters (frac34;)   |
-| <code>&iexcl; or &#161; </code>    | inverted exclamation mark (iexcl;)  |
-| <code>&iquest; or &#191; </code>   | inverted question mark (iquest;)    |
-| <code>&deg; or &#176; </code>      | degree (deg;)                       |
-| <code>&plusmn; or &#177; </code>   | plus-minus sign (plusmn;)           |
-| <code>&sup2; or &#178; </code>     | superscript two (sup2;)             |
-| <code>&sup3; or &#179; </code>     | superscript three (sup3;)           |
-| <code>&micro; or &#181; </code>    | micro (micro;)                      |
-| <code>&para; or &#182; </code>     | pilcrow (para;)                     |
-| <code>&middot; or &#183; </code>   | middle dot (middot;)                |
-| <code>&cedil; or &#184; </code>    | cedilla (cedil;)                    |
-| <code> &not; or &#172; </code>     | not (not;)                          |
-| <code>&shy; or &#173; </code>      | soft hyphen (shy;)                  |
-
-## Greek letters
-
-| Greek Entity Reference           | Greek Description  |
-| -------------------------------- | ------------------ |
-| <code>&Alpha; or &#913;</code>   | Alpha (Alpha;)     |
-| <code>&Beta; or &#914;</code>    | Beta (Beta;)       |
-| <code>&Gamma; or &#915;</code>   | Gamma (Gamma;)     |
-| <code>&Delta; or &#916;</code>   | Delta (Delta;)     |
-| <code>&Epsilon; or &#917;</code> | Epsilon (Epsilon;) |
-| <code>&Zeta; or &#918;</code>    | Zeta (Zeta;)       |
-| <code>&Eta; or &#919;</code>     | Eta (Eta;)         |
-| <code>&Theta; or &#920;</code>   | Theta (Theta;)     |
-| <code>&Iota; or &#921;</code>    | Iota (Iota;)       |
-| <code>&Kappa; or &#922;</code>   | Kappa (Kappa;)     |
-| <code>&Lambda; or &#923;</code>  | Lambda (Lambda;)   |
-| <code>&Mu; or &#924;</code>      | Mu (Mu;)           |
-| <code>&Nu; or &#925;</code>      | Nu (Nu;)           |
-| <code>&Xi; or &#926;</code>      | Xi (Xi;)           |
-| <code>&Omicron; or &#927;</code> | Omicron (Omicron;) |
-| <code>&Pi; or &#928;</code>      | Pi (Pi;)           |
-| <code>&Rho; or &#929;</code>     | Rho (Rho;)         |
-| <code>&Sigma; or &#931;</code>   | Sigma (Sigma;)     |
-| <code>&Tau; or &#932;</code>     | Tau (Tau;)         |
-| <code>&Upsilon; or &#933;</code> | Upsilon (Upsilon;) |
-| <code>&Phi; or &#934;</code>     | Phi (Phi;)         |
-| <code>&Chi; or &#935;</code>     | Chi (Chi;)         |
-| <code>&Psi; or &#936;</code>     | Psi (Psi;)         |
-| <code>&Omega; or &#937;</code>   | Omega (Omega;)     |
-
-- entities are also specified by entity number:
-- UTF-8 - character set is default in HTML5.
-- It includes all the characters in the Unicode Basic Multilingual Plane (BMP) of the Unicode Standard.
-- UTF-8 shares some characters with the ISO-8859-1 character set, to ASCII, ANSI, and Windows-1252.
-- utf-8 have different characters from 256 to 65535.
-
-# Responsive Design
-
-- sites layout adapts to the screen size of the user.
-- we can use media queries to control the layout of our site.
-- different screen sizes have different layout.
-- screen modes (mobile, tablet, desktop, portrait, landscape)
-
-```css
- syntax: @media (conditions) and|or (conditions) {
-  rules
-  }
-```
-
-- conditions are width, height, orientation, and type of device.
-
-# Breakpoint Overlapping
-
-- when conditions of media queries overlap such that it becomes ambiguous to set style overlapping of breakpoints said to happen and it should be avoid carefully.
-
-# Alternative to responsive design
-
-- Server detects the type of browser compatibility and respective loads version of site as there are already many sites that are not compatible with all browsers.
-- even mobile devices have a different screen size configuration, hence to fit the page content properly, responsive design is important.
-
-# Abbreviations
-
-```html
-<abbr title="attribute">: creates an abbreviation</abbr>
-```
-
-# 12 Column Grid Responsive Design or layout
-
-- screen size or screen resolution is the basis of the layout or is divided into 12 columns because of the grid system.
-- grid system is a system that divides the screen into 12 columns. Each column has a width of 1/12 of the screen.
-
-```css
-@media (min-width: 768px) {
-  .col-md-1,
-  .col-md-2,
-  .col-md-3,
-  .col-md-4,
-  .col-md-5,
-  .col-md-6,
-  .col-md-7,
-  .col-md-8,
-  .col-md-9,
-  .col-md-10,
-  .col-md-11,
-  .col-md-12 {
-    float: left;
-  }
-  .col-md-12 {
-    width: 100%;
-  }
-  .col-md-11 {
-    width: 91.66666667%;
-  }
-  .col-md-10 {
-    width: 83.33333333%;
-  }
-  .col-md-9 {
-    width: 75%;
-  }
-  .col-md-8 {
-    width: 66.66666667%;
-  }
-  .col-md-7 {
-    width: 58.33333333%;
-  }
-  .col-md-6 {
-    width: 50%;
-  }
-  .col-md-5 {
-    width: 41.66666667%;
-  }
-  .col-md-4 {
-    width: 33.33333333%;
-  }
-  .col-md-3 {
-    width: 25%;
-  }
-  .col-md-2 {
-    width: 16.66666667%;
-  }
-  .col-md-1 {
-    width: 8.33333333%;
-  }
-}
-```
-
-# Classes
-
-- classes are non-unique and can be used multiple times in the same element.
-
-# IDS
-
-- IDs are unique and can be used only once in the same element.
-- it must be unique in the document
-- it must not contain any space characters
-- it must contain at least one character
-
-# Linking Resources
-
-| Attribute                        | Details                                                                                         |
-| -------------------------------- | ----------------------------------------------------------------------------------------------- |
-| charset                          | Specifies the character encoding of the linked document                                         |
-| href                             | Specifies the URL of the linked document                                                        |
-| hreflang                         | Specifies the language of the linked document                                                   |
-| media                            | Specifies the media type of the linked document                                                 |
-| rel                              | Specifies the relationship between the current document and the linked document                 |
-| sizes                            | Specifies the size of the linked document                                                       |
-| type                             | Specifies the media type of the linked document                                                 |
-| target                           | Specifies where to open the linked document                                                     |
-| rev                              | Specifies the relationship between the current document and the linked document                 |
-| ping                             | Specifies the URL of the linked document                                                        |
-| integrity                        | Specifies a base64 encoded hash (sha256, sha384, or sha512) of the linked resource allowing the |
-| browser to verify its legitimacy |
-
-# linking to CSS
-
-- external CSS files are linked to using the link element.
-- internal CSS files are linked to using the style element.
-
-# Favicon
-
-- favicon is a small image that is displayed next to the web page's title in the browser's address bar.
-
-```html
-<link rel="icon" type="image/x-icon" href="favicon.ico" />
-```
-
-# Resource Hint: dns-prefetch, prefetch, prerender
-
-## Preconnect
-
-- Preconnect: tells the browser to connect to a server before the page is loaded. It will also make the
-  TCP handshake, and optional TLS negotiation.
-- Preconnect is used to preload resources that are needed for the page to load quickly.
-  ```html
-  <link rel="preconnect" href="URL" />
-  ```
-
-## dns-prefetch
-
-- dns-prefetch: tells the browser to preload the DNS records for the domain name of the linked resource.
-- Informs browsers to resolve the DNS for a URL, so that all assets from that URL load faster
-  ```html
-  <link rel="dns-prefetch" href="URL" />
-  ```
-
-## prefetch
-
-- Informs the browsers that a given resource should be prefetched so it can be loaded more quickly.
-- DNS-Prefetch resolves only the domain name whereas prefetch downloads/stores the specified resources.
-  ```html
-  <link rel="prefetch" href="URL" />
-  ```
-
-## Prerender
-
-- Informs browsers to fetch and render the URL in the background, so that they can be delivered to the user
-  instantaneously as the user navigates to that URL
-  ```html
-  <link rel="prerender" href="URL" />
-  ```
-
-# HTML Images
-
-- img tag creates an image
-- Responsive image using the srcset attribute:
-
-```html
-<img srcset="URL" sizes="100vw" />
-```
-
-```html
-<img
-  src="https://picsum.photos/200/300"
-  srcset="
-    https://picsum.photos/400/600  400w,
-    https://picsum.photos/800/1200 800w
-  "
-  alt="This is a image"
-/>
-```
-
-# HTML Pictures
-
-```html
-<picture
-  >: creates a picture
-  <picture>
-    <source srcset="URL" media="(min-width: 600px)" />
-    <source srcset="URL" media="(min-width: 960px)" />
-    <img srcset="URL" sizes="100vw" /> </picture
-></picture>
-```
-
-# HTML Image Maps
-
-```html
-<img usemap="#mapname" />: creates an image map
-<img src="URL" usemap="#mapname" />
-<map name="mapname">
-  <area shape="rect" coords="0,0,100,100" href="URL" />
-</map>
-
-<map name="map">
-  <area
-    shape="rect"
-    coords="0,0,100,100"
-    href="https://www.google.com"
-    alt="This is a area"
-  />
-</map>
-```
-
-| Attribute | value | Details                                        |
-| --------- | ----- | ---------------------------------------------- |
-| usemap    | value | Specifies the name of the image map            |
-| name      | value | Specifies the name of the image map            |
-| shape     | value | Specifies the shape of the area                |
-| coords    | value | Specifies the coordinates of the area          |
-| href      | value | Specifies the URL of the linked document       |
-| alt       | value | Specifies the alternate text for the image map |
-
-# HTML Label Elements
-
-- label elements are used to label form controls.
-
-```html
-<label for="name">This is a label</label>
-<label for="name" class="classname">This is a label</label>
-<label for="name" style="color: red;">This is a label</label>
-```
-
-# Selection Menu Controls
-
-- selection menu controls are used to select a value from a list of options.
-
-# HTML Embed
-
-- Embed: embeds an object in the page.
-
-```html
-<embed
-  src="URL"
-  type="type"
-  name="name"
-  width="width"
-  height="height"
-  pluginspage="URL"
-/>
-```
-
-# HTML iframe
-
-- iframe: embeds a document in the page.
-
-```html
-<iframe
-  src="URL"
-  name="name"
-  width="width"
-  height="height"
-  scrolling="scrolling"
-  frameborder="frameborder"
-  marginheight="marginheight"
-  marginwidth="marginwidth"
-  allowfullscreen="allowfullscreen"
-  allow="allow"
->
-</iframe>
-```
-
-| attribute       | value | details                                              |
-| --------------- | ----- | ---------------------------------------------------- |
-| src             | value | Specifies the URL of the document to embed           |
-| srcdoc          | value | Specifies the document to embed                      |
-| anchor          | value | Specifies the name of the anchor                     |
-| name            | value | Specifies the name of the iframe                     |
-| width           | value | Specifies the width of the iframe                    |
-| height          | value | Specifies the height of the iframe                   |
-| scrolling       | value | Specifies whether the iframe should have scrollbars  |
-| frameborder     | value | Specifies whether the iframe should have a border    |
-| marginheight    | value | Specifies the margin height of the iframe            |
-| marginwidth     | value | Specifies the margin width of the iframe             |
-| allowfullscreen | value | Specifies whether the iframe should allow fullscreen |
-| allow           | value | Specifies the features allowed in the iframe         |
-
-- sandbox in iframe
-
-  | attribute            | value | details                                               |
-  | -------------------- | ----- | ----------------------------------------------------- |
-  | allow-forms          | value | Specifies that the iframe should allow forms          |
-  | allow-pointer-lock   | value | Specifies that the iframe should allow pointer lock   |
-  | allow-popups         | value | Specifies that the iframe should allow popups         |
-  | allow-same-origin    | value | Specifies that the iframe should allow same origin    |
-  | allow-scripts        | value | Specifies that the iframe should allow scripts        |
-  | allow-top-navigation | value | Specifies that the iframe should allow top navigation |
-
-# SVG
-
-- svg is a standard for scalable vector graphics.
-
-```html
-<svg
-  width="width"
-  height="height"
-  viewbox="viewbox"
-  preserveaspectratio="preserveaspectratio"
-  xmlns="xmlns"
-  version="version"
-></svg>
-```
-
-| attribute                   | value | details                                                        |
-| --------------------------- | ----- | -------------------------------------------------------------- |
-| width                       | value | Specifies the width of the svg                                 |
-| height                      | value | Specifies the height of the svg                                |
-| viewbox                     | value | Specifies the viewbox of the svg                               |
-| preserveaspectratio         | value | Specifies the preserveaspectratio of the svg                   |
-| xmlns                       | value | Specifies the xmlns of the svg. xmlns stands for XML Namespace |
-| version                     | value | Specifies the version of the svg                               |
-| path                        | value | Specifies the path of the svg                                  |
-| circle                      | value | Specifies the circle of the svg                                |
-| ellipse                     | value | Specifies the ellipse of the svg                               |
-| line                        | value | Specifies the line of the svg                                  |
-| polygon                     | value | Specifies the polygon of the svg                               |
-| polyline                    | value | Specifies the polyline of the svg                              |
-| rect                        | value | Specifies the rect of the svg                                  |
-| text                        | value | Specifies the text of the svg                                  |
-| tspan                       | value | Specifies the tspan of the svg                                 |
-| image                       | value | Specifies the image of the svg                                 |
-| defs                        | value | Specifies the defs of the svg                                  |
-| g                           | value | Specifies the g of the svg                                     |
-| mask                        | value | Specifies the mask of the svg                                  |
-| pattern                     | value | Specifies the pattern of the svg                               |
-| clipPath                    | value | Specifies the clipPath of the svg                              |
-| linearGradient              | value | Specifies the linearGradient of the svg                        |
-| radialGradient              | value | Specifies the radialGradient of the svg                        |
-| stop                        | value | Specifies the stop of the svg                                  |
-| symbol                      | value | Specifies the symbol of the svg                                |
-| use                         | value | Specifies the use of the svg                                   |
-| animate                     | value | Specifies the animate of the svg                               |
-| animateMotion               | value | Specifies the animateMotion of the svg                         |
-| id                          | value | Specifies the id of the svg                                    |
-| class                       | value | Specifies the class of the svg                                 |
-| style                       | value | Specifies the style of the svg                                 |
-| transform                   | value | Specifies the transform of the svg                             |
-| transform-origin            | value | Specifies the transform-origin of the svg                      |
-| visibility                  | value | Specifies the visibility of the svg                            |
-| display                     | value | Specifies the display of the svg                               |
-| overflow                    | value | Specifies the overflow of the svg                              |
-| clip                        | value | Specifies the clip of the svg                                  |
-| clip-path                   | value | Specifies the clip-path of the svg                             |
-| mask                        | value | Specifies the mask of the svg                                  |
-| filter                      | value | Specifies the filter of the svg                                |
-| opacity                     | value | Specifies the opacity of the svg                               |
-| fill                        | value | Specifies the fill of the svg                                  |
-| fill-opacity                | value | Specifies the fill-opacity of the svg                          |
-| fill-rule                   | value | Specifies the fill-rule of the svg                             |
-| stroke                      | value | Specifies the stroke of the svg                                |
-| stroke-opacity              | value | Specifies the stroke-opacity of the svg                        |
-| stroke-width                | value | Specifies the stroke-width of the svg                          |
-| stroke-linecap              | value | Specifies the stroke-linecap of the svg                        |
-| stroke-linejoin             | value | Specifies the stroke-linejoin of the svg                       |
-| stroke-miterlimit           | value | Specifies the stroke-miterlimit of the svg                     |
-| marker                      | value | Specifies the marker of the svg                                |
-| marker-start                | value | Specifies the marker-start of the svg                          |
-| marker-mid                  | value | Specifies the marker-mid of the svg                            |
-| marker-end                  | value | Specifies the marker-end of the svg                            |
-| mask                        | value | Specifies the mask of the svg                                  |
-| clip-path                   | value | Specifies the clip-path of the svg                             |
-| clip-rule                   | value | Specifies the clip-rule of the svg                             |
-| color                       | value | Specifies the color of the svg                                 |
-| color-interpolation         | value | Specifies the color-interpolation of the svg                   |
-| color-interpolation-filters | value | Specifies the color-interpolation-filters of the svg           |
-| color-profile               | value | Specifies the color-profile of the svg                         |
-| color-rendering             | value | Specifies the color-rendering of the svg                       |
-| cursor                      | value | Specifies the cursor of the svg                                |
-| direction                   | value | Specifies the direction of the svg                             |
-| display                     | value | Specifies the display of the svg                               |
-| dominant-baseline           | value | Specifies the dominant-baseline of the svg                     |
-| enable-background           | value | Specifies the enable-background of the svg                     |
-| fill                        | value | Specifies the fill of the svg                                  |
-
-# Embedding external SVG files in HTML
-
-- using image element
-
-```html
-<img src="attention.svg" width="50" height="50" />
-```
-
-- using object element
-
-```html
-<object
-  data="attention.svg"
-  type="image/svg+xml"
-  width="50"
-  height="50"
-></object>
-```
-
-# Canvas
-
-- canvas is used to draw amazing stuff like shapes, graphs, manipulate images, create engaging
-  games etc. with JavaScript.
-
-  ```html
-  <canvas width="width" height="height" id="id" style="style"> </canvas>
-  ```
-
-  | attribute | value | details                           |
-  | --------- | ----- | --------------------------------- |
-  | width     | value | Specifies the width of the canvas |
-
-# Marking up computer code
-
-- if e formatting (white space, new lines, indentation) of the code matters, use pre element
-
-```html
-<pre>
- <code>
- x = 42
- if x == 42:
- print "x is … … 42"
- </code>
-</pre>
-```
-
-# Inline with <code>
-
-```html
-<p>The <code>a</code> element creates a hyperlink.</p>
 <br />
-```
 
-# HTML ComputerCode
+## Introduction
+
+<a name="what-is-html"></a>
+What is HTML ?
+
+- HTML is the standard markup language for creating Web pages.
+
+  - HTML stands for Hyper Text Markup Language
+  - HTML describes the structure of Web pages using markup
+  - HTML elements are the building blocks of HTML pages
+  - HTML elements are represented by tags
+  - HTML tags label pieces of content such as "heading", "paragraph", "table", and so on
+  - Browsers do not display the HTML tags, but use them to render the content of the page
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="html-versions"></a>
+HTML versions
+
+- Since the early days of the web, there have been many versions of HTML：
+
+  <table>
+    <tr>
+      <th width="300px">Version</td>
+      <th width="50%">Year</td>
+    </tr>
+    <tr>
+      <td>HTML</td>
+      <td>1991</td>
+    </tr>
+    <tr>
+      <td>HTML 2.0</td>
+      <td>1995</td>
+    </tr>
+    <tr>
+      <td>HTML 3.2</td>
+      <td>1997</td>
+    </tr>
+    <tr>
+      <td>HTML 4.01</td>
+      <td>1999</td>
+    </tr>
+    <tr>
+      <td>XHTML</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <td>HTML 5</td>
+      <td>2014</td>
+    </tr>
+  </table>
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="html-tags"></a>
+HTML Tags
+
+- HTML tags are element names surrounded by angle brackets：
+
+  ![This image is from MDN](https://mdn.mozillademos.org/files/9347/grumpy-cat-small.png)
+
+  - HTML tags normally come in pairs like `<p>` and `</p>`
+  - The first tag in a pair is the start tag, the second tag is the end tag
+  - The end tag is written like the start tag, but with a forward slash inserted before the tag name
+  - The start tag is also called the **opening tag**, and the end tag the **closing tag**.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="web-browsers"></a>
+Web Browsers
+
+- The purpose of a web browser (Chrome, IE, Firefox, Safari) is to read HTML documents and display them.
+
+- The browser does not display the HTML tags, but uses them to determine how to display the document.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="html-page-structure"></a>
+HTML Page Structure
+
+- All HTML documents must start with a document type declaration：`<!DOCTYPE html>`.
+
+  > The <!DOCTYPE> declaration is not an HTML tag; it is an instruction to the web browser about what version of HTML the page is written in.
+
+  > The <!DOCTYPE> declaration is NOT case sensitive.
+
+- The HTML document itself begins with `<html>` and ends with `</html>`.
+
+- The visible part of the HTML document is between `<body>` and `</body>`.
+
+- Below is an HTML page structure：
+
+  ```html
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Page Title</title>
+    </head>
+
+    <body>
+      <h1>My First Heading</h1>
+      <p>My first paragraph.</p>
+    </body>
+  </html>
+  ```
+
+  > Only the content inside the `<body>` section (the white area above) is displayed in a browser.
+
+- Example Explained
+
+  - The `<!DOCTYPE html>` declaration defines this document to be HTML5
+  - The `<html>` element is the root element of an HTML page
+  - The `<head>` element contains meta information about the document
+  - The `<title>` element specifies a title for the document
+  - The `<body>` element contains the visible page content
+  - The `<h1>` element defines a large heading
+  - The `<p>` element defines a paragraph
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="how-html-elements-should-be-displayed"></a>
+How HTML elements should be displayed ?
+
+- Styling HTML with CSS
+
+- CSS is a language that describes the style of an HTML document.
+
+- CSS describes how HTML elements should be displayed.
+
+- CSS saves a lot of work. It can control the layout of multiple web pages all at once.
+
+- CSS can be added to HTML elements in 3 ways：
+
+  - Inline - by using the style attribute in HTML elements
+
+    ```html
+    <h1 style="color:blue;">This is a Blue Heading</h1>
+    ```
+
+  - Internal - by using a `<style>` element in the `<head>` section
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body {
+            background-color: powderblue;
+          }
+          h1 {
+            color: blue;
+          }
+          p {
+            color: red;
+          }
+        </style>
+      </head>
+
+      <body>
+        <h1>This is a heading</h1>
+        <p>This is a paragraph.</p>
+      </body>
+    </html>
+    ```
+
+  - External - by using an external CSS file
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <link rel="stylesheet" href="styles.css" />
+      </head>
+
+      <body>
+        <h1>This is a heading</h1>
+        <p>This is a paragraph.</p>
+      </body>
+    </html>
+    ```
+
+- The most common way to add CSS, is to keep the styles in separate CSS files.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="makes-html-pages-more-dynamic-and-interactive-by-javascript"></a>
+Makes HTML pages more dynamic and interactive by JavaScript
+
+- The `<script>` tag is used to define a client-side script (JavaScript).
+
+- The `<script>` element either contains scripting statements, or it points to an external script file through the src attribute.
+
+- Common uses for JavaScript are image manipulation, form validation, and dynamic changes of content.
+
+  > This JavaScript example writes "Hello JavaScript!" into an HTML element with id="demo"：
+
+  ```html
+  <script>
+    document.getElementById("demo").innerHTML = "Hello JavaScript!";
+  </script>
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Elements
+
+<a name="html-elements"></a>
+HTML Elements
+
+- An HTML element usually consists of a start tag and end tag, with the content inserted in between.
+
+- The HTML element is everything from the start tag to the end tag.
+
+- HTML elements with no content are called **empty elements**. Empty elements do not have an end tag, such as the `<br>` element (which indicates a line break).
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="nested-html-elements"></a>
+Nested HTML Elements
+
+- HTML elements can be nested (elements can contain elements).
+
+- All HTML documents consist of nested HTML elements.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="do-not-forget-the-end-tag"></a>
+Do Not Forget the End Tag
+
+- Some HTML elements will display correctly, even if you forget the end tag：
+
+  ```html
+  <html>
+    <body>
+      <p>This is a paragraph</p>
+      <p>This is a paragraph</p>
+    </body>
+  </html>
+  ```
+
+- The example above works in all browsers, because the closing tag is considered optional.
+
+> Never rely on this. It might produce unexpected results and/or errors if you forget the end tag.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="empty-html-elements"></a>
+Empty HTML Elements
+
+- HTML elements with no content are called empty elements.
+
+- `<br>` is an empty element without a closing tag (the `<br>` tag defines a line break).
+
+- Empty elements can be "closed" in the opening tag like this：`<br />`.
+
+- HTML5 does not require empty elements to be closed. But if you want stricter validation, or if you need to make your document readable by XML parsers, you must close all HTML elements properly.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="use-lowercase-tags"></a>
+Use Lowercase Tags
+
+- HTML tags are not case sensitive：`<P>` means the same as `<p>`.
+
+- The HTML5 standard does not require lowercase tags, but W3C **recommends** lowercase in HTML, and demands lowercase for stricter document types like XHTML.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Attributes
+
+<a name="html-attributes"></a>
+HTML Attributes
+
+- All HTML elements can have attributes.
+
+- Attributes provide additional information about an element.
+
+- Attributes are always specified in the start tag.
+
+- Attributes usually come in name/value pairs like：name="value".
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="use-lowercase-attributes"></a>
+Use Lowercase Attributes
+
+- The HTML5 standard does not require lowercase attribute names.
+
+- The title attribute can be written with uppercase or lowercase like Title and/or TITLE.
+
+- W3C recommends lowercase in HTML, and demands lowercase for stricter document types like XHTML.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="quote-attribute-values"></a>
+Quote Attribute Values
+
+- The HTML5 standard does not require quotes around attribute values.
+
+  ```html
+  <a href=http://www.w3schools.com>
+  ```
+
+- W3C **recommends** quotes in HTML, and demands quotes for stricter document types like XHTML.
+
+- Sometimes it is necessary to use quotes. This example will not display the title attribute correctly, because it contains a space：
+
+  ```html
+  <p title="About" W3Schools></p>
+  ```
+
+  > Using quotes are the most common. Omitting quotes can produce errors.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="single-or-double-quotes"></a>
+Single or Double Quotes ?
+
+- Double quotes around attribute values are the most common in HTML, but single quotes can also be used.
+
+- In some situations, when the attribute value itself contains double quotes, it is necessary to use single quotes：
 
 ```html
-<kbd>The <code>a</code> element creates a hyperlink.</kbd> <br />
+<p title='John "ShotGun" Nelson'></p>
 ```
 
-# Tabindex
+Or vice versa：
 
 ```html
-<div tabindex="0">This div is focusable, but not in the tabbing order</div>
+<p title="John 'ShotGun' Nelson"></p>
 ```
 
-- Remove an element from the tabbing order by setting the tabindex attribute to -1.
+**[⬆ back to top](#table-of-contents)**
 
-```html
-<button tabindex="-1">This button will not be reachable by tab</button>
+<br />
+<br />
+
+<a name="global-attributes"></a>
+Global Attributes
+
+- [The global attributes](http://www.w3schools.com/tags/ref_standardattributes.asp) can be used on **any** HTML element, such as `id`、`class` and `style`.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="data-attribute"></a>
+data-\* Attribute
+
+- The `data-*` attributes is a **global attribute** used to store custom data private to the page or application.
+
+- The `data-*` attributes gives us the ability to embed custom data attributes on all HTML elements.
+
+- The stored (custom) data can then be used in the page's JavaScript to create a more engaging user experience (without any Ajax calls or server-side database queries).
+
+- The `data-*` attributes consist of two parts：
+
+  1. The attribute name should not contain any uppercase letters, and must be at least one character long after the prefix "data-".
+
+  2. The attribute value can be any string.
+
+- The `*` may be replaced by any name following [the production rule of xml names](https://www.w3.org/TR/REC-xml/#NT-Name) with the following restrictions：
+
+  - the name must not start with xml, whatever case is used for these letters.
+
+  - the name must not contain any semicolon (`U+003A`).
+
+  - the name must not contain capital `A` to `Z` letters.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Comments
+
+<a name="html-comment"></a>
+HTML Comment
+
+- Comment tags are used to insert comments in the HTML source code.
+
+- You can add comments to your HTML source by using the following syntax：
+
+  ```html
+  <!-- Write your comments here -->
+  ```
+
+- There is an exclamation point `(!)` in the opening tag, but not in the closing tag.
+
+- Comments are not displayed by the browser, but they can help document your HTML source code.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="conditional-comments"></a>
+Conditional Comments
+
+- You might stumble upon conditional comments in HTML：
+
+  ```html
+  <!--[if IE 9]> .... some HTML here .... <![endif]-->
+  ```
+
+- Conditional comments defines some HTML tags to be executed by Internet Explorer only.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Block and Inline Elements
+
+> Every HTML element has a default display value depending on what type of element it is. The default display value for most elements is block or inline.
+
+> [Seeing examples of block-level and inline element on W3Schools](http://www.w3schools.com/html/html_blocks.asp)
+
+<a name="block-level-elements"></a>
+Block-level Elements
+
+- A block-level element always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can).
+
+- Some examples of block-level elements：
+
+  - `<div>`
+  - `<h1> - <h6>`
+  - `<p>`
+  - `<form>`
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="inline-elements"></a>
+Inline Elements
+
+- An inline element does not start on a new line and only takes up as much width as necessary.
+
+- Some Examples of inline elements：
+
+  - `<span>`
+  - `<a>`
+  - `<img>`
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Entities
+
+<a name="html-entities"></a>
+HTML Entities
+
+- Reserved characters in HTML must be replaced with character entities.
+
+- If you use the less than (`<`) or greater than (`>`) signs in your text, the browser might mix them with tags.
+
+- Characters that are not present on your keyboard can also be replaced by entities.
+
+- To display a less than sign (`<`) we must write：`&lt;` or `&#60;`
+
+  ```
+  &entity_name;
+
+  OR
+
+  &#entity_number;
+  ```
+
+  > Advantage of using an entity name：An entity name is easy to remember.
+
+  > Disadvantage of using an entity name： Browsers may not support all entity names, but the support for numbers is good.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="non-breaking-space"></a>
+Non-breaking Space
+
+- Another common use of the non-breaking space is to prevent that browsers truncate spaces in HTML pages.
+
+- If you write 10 spaces in your text, the browser will remove 9 of them. To add real spaces to your text, you can use the `&nbsp;` character entity.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Uniform Resource Locators
+
+<a name="html-url"></a>
+HTML URL
+
+- A URL is another word for a web address.
+
+- A URL can be composed of words (w3schools.com), or an Internet Protocol (IP) address (192.68.20.50).
+
+- Web browsers request pages from web servers by using a URL.
+
+- A Uniform Resource Locator (URL) is used to address a document (or other data) on the web.
+
+- A web address, like http://www.w3schools.com/html/default.asp follows these syntax rules：
+
+```
+scheme://prefix.domain:port/path/filename
 ```
 
-# Global Attributes
+Explanation：
 
-| attribute       | value | details                                      |
-| --------------- | ----- | -------------------------------------------- |
-| class           | value | Specifies the class of the element           |
-| id              | value | Specifies the id of the element              |
-| style           | value | Specifies the style of the element           |
-| title           | value | Specifies the title of the element           |
-| lang            | value | Specifies the lang of the element            |
-| dir             | value | Specifies the dir of the element             |
-| accesskey       | value | Specifies the accesskey of the element       |
-| tabindex        | value | Specifies the tabindex of the element        |
-| onclick         | value | Specifies the onclick of the element         |
-| ondblclick      | value | Specifies the ondblclick of the element      |
-| contenteditable | value | Specifies the contenteditable of the element |
-| contextmenu     | value | Specifies the contextmenu of the element     |
-| draggable       | value | Specifies the draggable of the element       |
-| dropzone        | value | Specifies the dropzone of the element        |
-| hidden          | value | Specifies the hidden of the element          |
-| spellcheck      | value | Specifies the spellcheck of the element      |
-| autocorrect     | value | Specifies the autocorrect of the element     |
-| autocomplete    | value | Specifies the autocomplete of the element    |
-| autocapitalize  | value | Specifies the autocapitalize of the element  |
-| autofocus       | value | Specifies the autofocus of the element       |
-| autoplay        | value | Specifies the autoplay of the element        |
-| controls        | value | Specifies the controls of the element        |
-| loop            | value | Specifies the loop of the element            |
-| transition      | value | Specifies the transition of the element      |
-| translate       | value | Specifies the translate of the element       |
+- **scheme** - defines the type of Internet service (most common is http or https)
+- **prefix** - defines a domain prefix (default for http is www)
+- **domain** - defines the Internet domain name (like w3schools.com)
+- **port** - defines the port number at the host (default for http is 80)
+- **path** - defines a path at the server (If omitted: the root directory of the site)
+- **filename** - defines the name of a document or resource
 
-# HTML 5 Cache
+**[⬆ back to top](#table-of-contents)**
 
-- Cache is a mechanism for storing data in the browser for later use.
-- we will create a cache with the following code:
+<br />
+<br />
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" manifest="index.appcache" />
-    >
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      var cache = {};
-      function getData(url, callback) {
-        if (cache[url]) {
-          callback(cache[url]);
-        } else {
-          var xhr = new XMLHttpRequest();
-          xhr.open("GET", url);
-          xhr.onload = function () {
-            cache[url] = JSON.parse(xhr.responseText);
-            callback(cache[url]);
-          };
-          xhr.send();
-        }
-      }
-    </script>
-  </body>
-</html>
-```
+<a name="urlencoding"></a>
+URL Encoding
 
-- then we will create index.appcache file with below codes
-- CACHE MANIFEST, index.html
-- The two files must be in the same folder in this example
+- URLs can only be sent over the Internet using the ASCII character-set. If a URL contains characters outsid the ASCII set, the URL has to be converted.
 
-# HTML Event Attributes
+- URL encoding converts non-ASCII characters into a format that can be transmitted over the Internet.
 
-## HTML Form Events
+- URL encoding replaces non-ASCII characters with a `%` followed by hexadecimal digits.
 
-| Attributes       | Description                                                             |
-| ---------------- | ----------------------------------------------------------------------- |
-| onabort          | Fires when the loading of an element is aborted.                        |
-| onblur           | Fires when an element loses focus.                                      |
-| oncanplay        | Fires when the user can play the media.                                 |
-| oncanplaythrough | Fires when the user can play through the media.                         |
-| onchange         | Fires when the value of an element is changed.                          |
-| onclick          | Fires when an element is clicked.                                       |
-| oncontextmenu    | Fires when the user right-clicks an element.                            |
-| oncuechange      | Fires when the active cue changes in a text track.                      |
-| ondblclick       | Fires when an element is double-clicked.                                |
-| ondrag           | Fires when the user drags an element.                                   |
-| ondragend        | Fires when the user drags an element and releases it.                   |
-| ondragenter      | Fires when the user drags an element onto another element.              |
-| ondragleave      | Fires when the user drags an element away from another element.         |
-| ondragover       | Fires when the user drags an element and moves it over another element. |
-| ondragstart      | Fires when the user starts to drag an element.                          |
-| ondrop           | Fires when the user drops an element.                                   |
-| ondurationchange | Fires when the duration of the media changes.                           |
-| onemptied        | Fires when the media has been emptied.                                  |
-| onended          | Fires when the media has reached the end.                               |
-| onerror          | Fires when an error occurs.                                             |
-| onfocus          | Fires when an element receives focus.                                   |
-| oninput          | Fires when the value of an element is changed.                          |
-| oninvalid        | Fires when a form is invalid.                                           |
-| onkeydown        | Fires when the user presses a key.                                      |
-| onkeypress       | Fires when the user presses a key.                                      |
-| onreset          | Fires when a form is reset.                                             |
-| onscroll         | Fires when the user scrolls.                                            |
-| onsubmit         | Fires when a form is submitted.                                         |
-| onselect         | Fires when text is selected.                                            |
+- URLs cannot contain spaces. URL encoding normally replaces a space with a plus (`+`) sign, or `%20`.
 
-## HTML Keyboard Events
+- Your browser will encode input, according to the character-set used in your page.
 
-| Attributes | Description                         |
-| ---------- | ----------------------------------- |
-| onkeydown  | Fires when the user presses a key.  |
-| onkeypress | Fires when the user presses a key.  |
-| onkeyup    | Fires when the user releases a key. |
+- The default character-set in HTML5 is UTF-8.
 
-# ARIA
+**[⬆ back to top](#table-of-contents)**
 
-- Accessible Rich Internet Applications (ARIA) is a set of accessibility features that enable web content to be more accessible to people with disabilities or other accessibility needs.
-- "role" attribute is used to identify the role of an element.
-- "aria-\*" attributes are used to provide additional information about an element to assist in its accessibility.
+<br />
+<br />
 
-- ARIA roles
+## HTML DOM
 
-| Role                      | Description                                                       |
-| ------------------------- | ----------------------------------------------------------------- |
-| role = "alert"            | A message with important, and usually time-sensitive, information |
-| role = "alertdialog"      | A dialog box that contains an alert message                       |
-| role = "application"      | A container for other content                                     |
-| role = "article"          | A self-contained composition                                      |
-| role = "banner"           | A large heading                                                   |
-| role = "button"           | A clickable button                                                |
-| role = "checkbox"         | A checkbox                                                        |
-| role = "columnheader"     | A header for a column in a table                                  |
-| role = "combobox"         | A listbox with an editable text field                             |
-| role = "complementary"    | Content that is complementary to the main content                 |
-| role = "contentinfo"      | Content about the page                                            |
-| role = "dialog"           | A dialog box                                                      |
-| role = "directory"        | A list of links to other documents                                |
-| role = "grid"             | A table with rows and columns                                     |
-| role = "gridcell"         | A cell in a grid                                                  |
-| role = "group"            | A group of objects                                                |
-| role = "heading"          | A large, main heading                                             |
-| role = "img"              | An image                                                          |
-| role = "link"             | A hyperlink                                                       |
-| role = "list"             | A list of items                                                   |
-| role = "listbox"          | A listbox                                                         |
-| role = "listitem"         | An item in a list                                                 |
-| role = "log"              | A system log                                                      |
-| role = "main"             | The main content of the document                                  |
-| role = "marquee"          | A scrolling text area                                             |
-| role = "menu"             | A menu of commands                                                |
-| role = "menubar"          | A menu bar                                                        |
-| role = "menuitem"         | An item in a menu                                                 |
-| role = "menuitemcheckbox" | A checkbox in a menu                                              |
-| role = "menuitemradio"    | A radio button in a menu                                          |
-| role = "navigation"       | Content for navigating the document                               |
-| role = "note"             | A note                                                            |
-| role = "option"           | An option in a select list                                        |
-| role = "presentation"     | Content for presenting the document                               |
-| role = "progressbar"      | A progress bar                                                    |
-| role = "radio"            | A radio button                                                    |
-| role = "radiogroup"       | A group of radio buttons                                          |
-| role = "region"           | A region of the document                                          |
-| role = "row"              | A row in a table                                                  |
-| role = "rowgroup"         | A group of rows in a table                                        |
-| role = "rowheader"        | A header for a row in a table                                     |
-| role = "scrollbar"        | A scroll bar                                                      |
-| role = "search"           | A search field                                                    |
-| role = "searchbox"        | A search field                                                    |
-| role = "separator"        | A separator                                                       |
-| role = "slider"           | A slider                                                          |
-| role = "spinbutton"       | A spin button                                                     |
-| role = "status"           | A status message                                                  |
-| role = "switch"           | A switch                                                          |
-| role = "tab"              | A tab                                                             |
-| role = "tablist"          | A list of tabs                                                    |
-| role = "tabpanel"         | A tab panel                                                       |
-| role = "term"             | A term                                                            |
-| role = "textbox"          | A text box                                                        |
-| role = "timer"            | A timer                                                           |
-| role = "toolbar"          | A toolbar                                                         |
-| role = "tooltip"          | A tooltip                                                         |
-| role = "tree"             | A tree                                                            |
-| role = "treegrid"         | A tree with rows and columns                                      |
-| role = "treeitem"         | An item in a tree                                                 |
-| role = "widget"           | A generic widget                                                  |
-| role = "window"           | A window                                                          |
-| role = "none"             | A generic container                                               |
-| role = "math"             | A mathematical expression                                         |
+<a name="what-is-html-dom"></a>
+What is HTML DOM ?
 
-# HTML URL Encode
+- The DOM is a W3C (World Wide Web Consortium) standard.
 
-- URL encoding is used to convert special characters into a format that can be transmitted over the Internet.
-- URL encoding is also known as percent encoding.
-- URL encoding is used to encode a string into a valid URL.
+- The W3C DOM standard is separated into 3 different parts
 
-## URL
+  - Core DOM - standard model for all document types
+  - XML DOM - standard model for XML documents
+  - HTML DOM - standard model for HTML documents
 
-- Uniform Resource Locator (URL) is a standard for identification of resources on the Internet.
-- URL is a text string that identifies a resource on the Internet.
-- is used to address a webpage or document on the Internet means our browser requests document from web server using this URL.
+    > We will dive into HTML DOM in following content
 
-- Web address follows the format:
-  scheme://prefix.domain:port/path/filename
+- When a web page is loaded, the browser creates a Document Object Model (_DOM_) of the page.
 
-| scheme   | prefix                               | domain                        | port                        |
-| -------- | ------------------------------------ | ----------------------------- | --------------------------- |
-| scheme   | type of internet service or protocol | http/https/ftp                | used to access the resource |
-| prefix   | prefix of the domain name            | www                           | port                        |
-| domain   | domain name                          | example.com                   | port                        |
-| port     | port number                          | 80                            | 8080                        |
-| path     | path of the resource                 | /index.html or path at server | /images/logo.png            |
-| filename | name of the resource                 | index.html                    | logo.png                    |
+- The HTML DOM model is constructed as a tree of Objects：
 
-# HTML URL Decode
+  ![The HTML DOM Tree of Objects](http://www.w3schools.com/js/pic_htmltree.gif)
 
-- URL decoding is used to convert a URL encoded string into a normal string.
-- URL decoding is also known as percent decoding.
-- URL decoding is used to decode a URL into a normal string.
+- With the object model, JavaScript gets all the power it needs to create dynamic HTML：
 
-- Web address follows the format:
-  scheme://prefix.domain:port/path/filename
+  - JavaScript can change all the HTML elements in the page
+  - JavaScript can change all the HTML attributes in the page
+  - JavaScript can change all the CSS styles in the page
+  - JavaScript can remove existing HTML elements and attributes
+  - JavaScript can add new HTML elements and attributes
+  - JavaScript can react to all existing HTML events in the page
+  - JavaScript can create new HTML events in the page
 
-# DNS
+- The HTML DOM is a standard object model and programming interface for HTML. It defines：
 
-- Domain Name System
-- is the phone book of the Internet.
-- the translator that translates domain names (that we use) into IP addresses (that browsers use).
+  - The HTML elements as objects
+  - The properties of all HTML elements
+  - The methods to access all HTML elements
+  - The events for all HTML elements
 
-# IP addresses
+**[⬆ back to top](#table-of-contents)**
 
-- unique 32-bit numbers assigned to every device connected to the web.
+<br />
+<br />
 
-## And how does this whole translation business happens?
+<a name="dom-methods"></a>
+DOM Methods
 
-1. User types a domain name in the browser and presses enter. (Ex- google . com)
-2. This is a request for the files of the homepage of google and is called a query.
-3. The browser queries this from a DNS server.
-4. The DNS server finds the IP address of the requested domain and returns it to the web browser.
-5. The browser makes an HTTP request to the received IP address.
-6. The server of that address returns the files (HTML, CSS, Javascript files) to the browser.
-7. The browser uses these files to render a page and displays it to the user.
+- The HTML DOM can be accessed with JavaScript (and with other programming languages).
 
-# Understand how the browser works
+- In the DOM, all HTML elements are defined as **objects**.
 
-- DOM Tree, Separation of concerns, request handling by servers, and more!
-- HTML, CSS, and Javascript are the three main components of the web.
-- HTML, CSS, and Javascript are coded and hosted on the server.
-- Now, The job of the server is to listen for requests & 'serve' these files up when requested.
-- When we go to a URL like 'google . com' a request is made to the server where the files for the homepage of Google live.
-- That server keeps listening for these requests and whoever makes these requests, the server sends back the relevant files to them.
-- Browsers are that piece of the puzzle that is used to make these requests.-
-- Browser, in addition to making these request, perform so other tasks.
+- The programming interface is the properties and methods of each object.
 
-# Other ways to make a request are:
+- A **property** is a value that you can get or set (like changing the content of an HTML element).
 
-- pressing a button on a page
-- refreshing a page
-- going to a link
-- Once a request is made, the browser 'requests' the server to send relevant files.
-- The server sends back those files and that's where the real job of a browser begins.
+- A **method** is an action you can do (like add or deleting an HTML element).
 
-1. HTML - is used for the content and 'what' will be displayed on a page is decided by it
-2. CSS - is used for prettying things up. It is like make-up and decides 'how' things will look on a page
-3. Javascript - is used for interactivity. 'What will happen if' is handled by it.
+  ```html
+  <html>
+    <body>
+      <p id="demo"></p>
 
-- This separating of files according to their role is called the 'seperation of concerns' approach.
+      <script>
+        document.getElementById("demo").innerHTML = "Hello World!";
+      </script>
+    </body>
+  </html>
+  ```
 
-# parsing
+  > In the example above, getElementById is a **method**, while innerHTML is a **property**.
 
-- When the browser receives an HTML file, it undergoes what is called parsing.
-- Parsing is what enables the browser to take HTML files & make a DOM tree out of it.
-- Parsing is itself composed of a process called 'Tokenization' in which the HTML file is broken into several sections.
+**[⬆ back to top](#table-of-contents)**
 
-# Tokenization
+<br />
+<br />
 
-- Tokenization essentially enables the browser to go through the entire code file, one section at a time, and make sense of it.
-- We get a parsing tree during parsing and that eventually ends up becoming the DOM tree that we see in the browser.
+<a name="dom-document"></a>
+DOM Document
 
-- everything is an Object in Javascript.
-- DOM tree or the 'Document Object Model' is basically a map of the entire page, which is made up of objects, nodes and elements and we can use Javascript to manipulate these objects.
-- The DOM tree is a representation of the HTML file that the browser receives from the server.
-- The Javascript code we write manipulates the nodes in this DOM tree and produces interactivity.
-- Nodes are the building blocks of the DOM tree or are the basic units of the DOM tree.
-- Nodes such as script tags and head tags are hidden as they don't affect the rendered version of the page.
+- The HTML DOM document object is the owner of all other objects in your web page.
 
-# Rendering
+- The document object represents your web page.
 
-- rendering is the process of displaying the content of a web page
-- rendering in HTML is done by the browser and the browser renders the content of the page in the browser window from top to bottom
-- Rendering a webpage is the process of turning HTML, CSS, and JavaScript code into an interactive page that website visitors expect to see when clicking on a link.
-- is used to calculate the layout of all the visible elements on a page.
-- After this computation, the process of 'painting' starts in which content is put on the screen.
+- If you want to access any element in an HTML page, you always start with accessing the document object.
 
-1. Traverse all visible nodes of DOM tree
-2. Nodes like script (which don't affect rendered output) and those that are hidden by CSS are skipped
-3. Apply relevant CSS rules to each node & compute the final layout.
-4. After the Render Tree construction, the process of layout computation takes place.
-5. So far, we have each visible node with its relevant CSS rules applied.
-6. But we don't know their position in the tree.
-7. That is calculated in the layout computation.
-8. The process of layout computation is recursive & begins at the root html element.
-9. It then recursively goes through the tree hierarchy & calculates geometric information for every renderer.
-10. Each renderer has a 'reflow' method & that's what's invoked in this process.
-11. Now that the browser knows the structure of the document, the style for each node, & the geometry of the page, it now tries to create a picture of the entire page.
-12. This is called 'Painting' & is aptly called so.
-13. The browser computes composites of the page in this step.
-14. The process of painting takes a lot of time and things like GIFs increase the painting time.
-15. After painting the browser knows everything it needs to & only converting what it knows into pixels on the screen is what is left.
-16. That happens in 'Composting.'
-17. Composting is the final step of the process and in this step, 'rasterising' happens.
-18. Rastersing is the process of drawing a picture on the screen using known information.
-19. In composting, the browser separates the page into different layers & rasters them individually
-20. Since the combined effect of rasterising is that the entire page has been rasterised, when the user scrolls on a page, the new layers are displayed quickly to the user.
-21. Chrome uses this technique.
-22. And this is how the page is displayed to the user!
+  - **document.getElementById(id)** - Find an element by element id
+  - **document.getElementsByTagName(name)** - Find elements by tag name
+  - **document.getElementsByClassName(name)** - Find elements by class name
 
-# Browser
+**[⬆ back to top](#table-of-contents)**
 
-Browsers functionality can be classified into four major sections and these include:
+<br />
+<br />
 
-- Fetch: A major subsystem called network layer plays a vital role in fetching data from subsequent web servers via the internet.
-  $ The network layer is responsible for the following:
-- Establishing a connection with the web server
-- Sending a request to the web server
-- Receiving a response from the web server
-- Parsing the response
-- Rendering the response
-- Accepts URLs from the browser user interface and is responsible for making network calls to fetch resources via HTTP/FTP protocols.
+<a name="dom-events"></a>
+DOM Events
 
-- Process
-- Display
-- Storage
-- Security
+- A JavaScript can be executed when an event occurs, like when a user clicks on an HTML element.
+
+- To execute code when a user clicks on an element, add JavaScript code to an HTML event attribute：
+
+  ```html
+  <!DOCTYPE html>
+  <html>
+    <body>
+      <h1 onclick="this.innerHTML = 'Ooops!'">Click on this text!</h1>
+    </body>
+  </html>
+  ```
+
+- To assign events to HTML elements you can use event attributes.
+
+  ```html
+  <button onclick="displayDate()">Try it</button>
+  ```
+
+  > In the example above, a function named displayDate will be executed when the button is clicked.
+
+- The HTML DOM allows you to assign events to HTML elements using JavaScript：
+
+  ```html
+  <script>
+    document.getElementById("myBtn").onclick = displayDate;
+  </script>
+  ```
+
+  > In the example above, a function named _displayDate_ is assigned to an HTML element with the id="myBtn".
+
+  > The function will be executed when the button is clicked.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="dom-event-listener"></a>
+DOM EventListener
+
+- The addEventListener() method attaches an event handler to the specified element.
+
+- The addEventListener() method attaches an event handler to an element without overwriting existing event handlers.
+
+- You can add many event handlers to one element.
+
+- You can add many event handlers of the same type to one element, i.e two "click" events.
+
+- You can add event listeners to any DOM object not only HTML elements. i.e the window object.
+
+- The addEventListener() method makes it easier to control how the event reacts to bubbling.
+
+- When using the addEventListener() method, the JavaScript is separated from the HTML markup, for better readability and allows you to add event listeners even when you do not control the HTML markup.
+
+- You can easily remove an event listener by using the removeEventListener() method.
+
+- addEventListener method syntax：
+
+  ```
+  element.addEventListener(event, function, useCapture);
+  ```
+
+  - The first parameter is the type of the event (like "click" or "mousedown").
+
+  - The second parameter is the function we want to call when the event occurs.
+
+  - The third parameter is a boolean value specifying whether to use event bubbling or event capturing. This parameter is optional.
+
+    > You don't use the "on" prefix for the event; use "click" instead of "onclick".
+
+- There are two ways of event propagation in the HTML DOM, **bubbling** and **capturing**.
+
+- Event propagation is a way of defining the element order when an event occurs. If you have a `<p>` element inside a `<div>` element, and the user clicks on the `<p>` element, which element's "click" event should be handled first?
+
+- In bubbling the inner most element's event is handled first and then the outer： the `<p>` element's click event is handled first, then the `<div>` element's click event.
+
+- In capturing the outer most element's event is handled first and then the inner： the `<div>` element's click event will be handled first, then the `<p>` element's click event.
+
+- With the addEventListener() method you can specify the propagation type by using the `useCapture` parameter
+
+- The default value is false, which will use the bubbling propagation, when the value is set to true, the event uses the capturing propagation.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="dom-nodes"></a>
+DOM Nodes
+
+- According to the W3C HTML DOM standard, everything in an HTML document is a node：
+
+  - The entire document is a document node
+  - Every HTML element is an element node
+  - The text inside HTML elements are text nodes
+  - Every HTML attribute is an attribute node
+  - All comments are comment nodes
+
+![DOM HTML tree](http://www.w3schools.com/js/pic_htmltree.gif)
+
+- With the HTML DOM, all nodes in the node tree can be accessed by JavaScript.
+
+- New nodes can be created, and all nodes can be modified or deleted.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="dom-node-relationships"></a>
+DOM Node Relationships
+
+- The nodes in the node tree have a hierarchical relationship to each other.
+
+- The terms parent, child, and sibling are used to describe the relationships.
+
+  - In a node tree, the top node is called the root (or root node)
+  - Every node has exactly one parent, except the root (which has no parent)
+  - A node can have a number of children
+  - Siblings (brothers or sisters) are nodes with the same parent
+
+    ```html
+    <html>
+      <head>
+        <title>DOM Tutorial</title>
+      </head>
+
+      <body>
+        <h1>DOM Lesson one</h1>
+        <p>Hello world!</p>
+      </body>
+    </html>
+    ```
+
+    ![node tree](http://www.w3schools.com/js/pic_navigate.gif)
+
+- You can use the following node properties to navigate between nodes with JavaScript：
+
+  - parentNode
+  - childNodes[nodenumber]
+  - firstChild
+  - lastChild
+  - nextSibling
+  - previousSibling
+
+  ex：
+
+  ```html
+  <title id="demo">DOM Tutorial</title>
+  ```
+
+  > The element node `<title>` (in the example above) does not contain text. It contains a text node with the value "DOM Tutorial".
+
+  > Accessing the innerHTML property is the same as accessing the nodeValue of the first child：
+
+  ```javascript
+  var myTitle = document.getElementById("demo").firstChild.nodeValue;
+  ```
+
+  OR
+
+  > Accessing the first child can also be done like this：
+
+  ```javascript
+  var myTitle = document.getElementById("demo").childNodes[0].nodeValue;
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="dom-node-list"></a>
+DOM Node List
+
+- The getElementsByTagName() method returns a node list. A node list is an array-like collection of nodes.
+
+- The following code selects all `<p>` nodes in a document：
+
+  ```javascript
+  var myNodelist = document.getElementsByTagName("p");
+  ```
+
+- The nodes can be accessed by an index number. To access the second `<p>` node you can write：
+
+  ```javascript
+  var y = myNodelist[1];
+  ```
+
+- The length property defines the number of nodes in a node list：
+
+  ```javascript
+  var myNodelist = document.getElementsByTagName("p");
+
+  var nodeListLength = myNodelist.length;
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## BOM
+
+<a name="what-is-bom"></a>
+What is BOM ?
+
+- Browser Object Model (_BOM_)
+
+- There are no official standards for the BOM.
+
+- Since modern browsers have implemented (almost) the same methods and properties for JavaScript interactivity, it is often referred to, as methods and properties of the BOM.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="the-window-object"></a>
+The Window Object
+
+- The window object is supported by all browsers. It represents the browser's window.
+
+- All global JavaScript objects, functions, and variables automatically become members of the window object.
+
+- Global variables are properties of the window object.
+
+- Global functions are methods of the window object.
+
+- Even the document object (of the HTML DOM) is a property of the window object：
+
+  ```javascript
+  window.document.getElementById("header");
+  ```
+
+  is the same as：
+
+  ```javascript
+  document.getElementById("header");
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="window-screen-object"></a>
+Window Screen Object
+
+- The window.screen object contains information about the user's screen.
+
+- The window.screen object can be written without the window prefix.
+
+  Properties：
+
+  - screen.width
+  - screen.height
+  - screen.availWidth
+  - screen.availHeight
+  - screen.colorDepth
+  - screen.pixelDepth
+
+  ex :
+
+  ```javascript
+  document.getElementById("demo").innerHTML = "Screen Width: " + screen.width;
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="window-location-object"></a>
+Window Location Object
+
+- The window.location object can be used to get the current page address (URL) and to redirect the browser to a new page.
+
+- The window.location object can be written without the window prefix.
+
+  Properties：
+
+  - window.location.href - returns the href (_URL_) of the current page
+  - window.location.hostname - returns the domain name of the web host
+  - window.location.pathname - returns the path and filename of the current page
+  - window.location.protocol - returns the web protocol used (http: or https:)
+  - window.location.assign - loads a new document
+
+  ex :
+
+  ```javascript
+  document.getElementById("demo").innerHTML =
+    "Page location is " + window.location.href;
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="window-history-object"></a>
+Window History Object
+
+- The window.history object contains the browsers history.
+
+- The window.history object can be written without the window prefix.
+
+- To protect the privacy of the users, there are limitations to how JavaScript can access this object.
+
+  Some methods：
+
+  - history.back() - same as clicking back in the browser
+  - history.forward() - same as clicking forward in the browser
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="window-navigator-object"></a>
+Window Navigator Object
+
+- The window.navigator object contains information about the visitor's browser.
+
+- The window.navigator object can be written without the window prefix.
+
+  Some Properties：
+
+  - navigator.appName
+  - navigator.appCodeName
+  - navigator.platform
+  - navigator.cookieEnabled
+
+  ex :
+
+  ```javascript
+  document.getElementById("demo").innerHTML =
+    "cookiesEnabled is " + navigator.cookieEnabled;
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="popup-boxes"></a>
+Popup Boxes
+
+- BOM has three kind of popup boxes：Alert box, Confirm box, and Prompt box.
+
+- those popup boxes can be written without the window prefix.
+
+  Methods：
+
+  - window.alert()
+  - window.confirm()
+  - window.prompt()
+
+  ex :
+
+  ```javascript
+  alert("I am an alert box!");
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="timing-events"></a>
+Timing Events
+
+- The window object allows execution of code at specified time intervals.
+
+- These time intervals are called timing events.
+
+- The two key methods to use with JavaScript are：
+
+  - **setTimeout(function, milliseconds)**
+
+    - Executes a function, after waiting a specified number of milliseconds.
+
+  - **setInterval(function, milliseconds)**
+
+    - Same as setTimeout(), but repeats the execution of the function continuously.
+
+  ex :
+
+  ```html
+  <button onclick="setTimeout(myFunction, 3000)">Try it</button>
+
+  <script>
+    function myFunction() {
+      alert("Hello");
+    }
+  </script>
+  ```
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="cookies"></a>
+Cookies
+
+- Cookies let you store user information in web pages.
+
+- Cookies are data, stored in small text files, on your computer.
+
+- When a web server has sent a web page to a browser, the connection is shut down, and the server forgets everything about the user.
+
+- Cookies were invented to solve the problem "how to remember information about the user"：
+
+- When a user visits a web page, his name can be stored in a cookie.
+
+- Next time the user visits the page, the cookie "remembers" his name.
+
+- Cookies are saved in name-value pairs like：
+
+  ```
+  username = John Doe
+  ```
+
+- When a browser requests a web page from a server, cookies belonging to the page is added to the request. This way the server gets the necessary data to "remember" information about users.
+
+- JavaScript can create, read, and delete cookies with the document.cookie property.
+
+  ```javascript
+  document.cookie =
+    "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+  ```
+
+  > You can also add an expiry date (in UTC time). By default, the cookie is deleted when the browser is closed
+
+  > With a path parameter, you can tell the browser what path the cookie belongs to. By default, the cookie belongs to the current page.
+
+- The document.cookie property looks like a normal text string. But it is not.
+
+- Even if you write a whole cookie string to document.cookie, when you read it out again, you can only see the name-value pair of it.
+
+- If you set a new cookie, older cookies are not overwritten. The new cookie is added to document.cookie, so if you read document.cookie again you will get something like：
+
+  ```
+  cookie1 = value; cookie2 = value;
+  ```
+
+- If you want to find the value of one specified cookie, you must write a JavaScript function that searches for the cookie value in the cookie string.
+
+- The `Domain` and `Path` directives define the scope of the cookie.
+
+- If Domain is specified, then subdomains are always included.
+
+  > For example, if `Domain=mozilla.org` is set, then cookies are included on subdomains like `developer.mozilla.org`.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## APIs
+
+<a name="geolocation"></a>
+Geolocation
+
+- The HTML Geolocation API is used to get the geographical position of a user.
+
+- Since this can compromise privacy, the position is not available unless the user approves it.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="web-storage"></a>
+Web Storage
+
+- With web storage, web applications can store data locally within the user's browser.
+
+- Before HTML5, application data had to be stored in cookies, included in every server request. Web storage is more secure, and large amounts of data can be stored locally, without affecting website performance.
+
+- Unlike cookies, the storage limit is far larger (at least 5MB) and information is never transferred to the server.
+
+- Web storage is per origin (per `domain` and `protocol`). All pages, from one origin, can store and access the same data.
+
+- Web storage provides two objects for storing data on the client：
+
+  - **window.localStorage** - stores data with no expiration date
+  - **window.sessionStorage** - stores data for one session (data is lost when the browser tab is closed)
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+<a name="web-worker"></a>
+Web Worker
+
+> When executing scripts in an HTML page, the page becomes unresponsive until the script is finished.
+
+- A web worker is a JavaScript that runs in the background, independently of other scripts, without affecting the performance of the page. You can continue to do whatever you want: clicking, selecting things, etc., while the web worker runs in the background.
+
+- Since web workers are in external files, they do not have access to the following JavaScript objects：
+
+  - The **window** object
+  - The **document** object
+  - The **parent** object
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Performance
+
+<a name="delay-javascript-loading"></a>
+Delay JavaScript Loading
+
+- Putting your scripts at the bottom of the page body lets the browser load the page first.
+
+- While a script is downloading, the browser will not start any other downloads. In addition all parsing and rendering activity might be blocked.
+
+> The HTTP specification defines that browsers should not download more than two components in parallel.
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## HTML Reference
+
+<a name="script"></a>
+&lt;script&gt;
+
+- `async` attribute : If the async attribute is present, then the script will be fetched in parallel to parsing and evaluated as soon as it is available (potentially before parsing completes).
+
+- `defer` attribute : If the defer attribute is present, then the script will be fetched in parallel and evaluated when the page has finished parsing.
+
+![](https://html.spec.whatwg.org/images/asyncdefer.svg)
+
+**[⬆ back to top](#table-of-contents)**
+
+<br />
+<br />
+
+## Reference Information
+
+HTML Tutorial (Website：[w3schools](http://www.w3schools.com/html/default.asp))
+
+How Browsers Work: Behind the scenes of modern web browsers (Author：Tali Garsiel、Paul Irish)
+
+Anatomy of an HTML element (Website：[Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics#Anatomy_of_an_HTML_element))
+
+Scripting (Website : [WHATWG HTML Living Standard](https://html.spec.whatwg.org/multipage/scripting.html#scripting-3))
+
+<br />

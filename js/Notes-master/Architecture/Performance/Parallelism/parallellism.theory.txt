@@ -1,0 +1,105 @@
+
+               
+   PARALLELISM  
+               
+
+
+
+GOAL ==>                          #Performance
+                                  #Often used with math-heavy computing, e.g. 3D graphics (quaternions), crypto, compression
+                                  #Related to concurrency (see its doc)
+
+FLYNN'S TAXINOMY ==>              #Level of parallelism:
+                                  #  - SISD (single instruction, single data): usual scheme
+                                  #  - SIMD (single instruction, multiple data)
+                                  #  - MISD (multiple instruction, single data): not often used
+                                  #  - MIMD (multiple instruction, multiple data): used by supercomputers
+
+ARRAY PROGRAMMING ==>             #I.e. SIMD|MIMD
+                                  #Using vector types and operations
+                                  #Requires vector|array CPU (as opposed to scalar CPU)
+                                  #"Vectorization optimization"/"automatic vectorization":
+                                  #  - making language compile to SIMD CPU instructions
+
+SUPERSCALAR ==>                   #I.e. MISD|MIMD
+                                  #Single clock cycle can perform several different instructions
+
+PIPELINING ==>                    #Dividing instruction into subparts:
+                                  #  - executing one subpart at a time
+                                  #  - executing next instructions at the same time, but their previous subpart
+                                  #Often used with superscalar CPU
+                                  #Classical RISC pipeline:
+                                  #  - instruction fetch (IF): get instruction from cache
+                                  #  - instruction decode (ID): parse instruction
+                                  #  - execute (EX): computation
+                                  #  - memory access (MEM)
+                                  #  - writeback (WB): write result to register
+                                  #Conditional branching can be problematic for pipelining:
+                                  #  - since next instructions cannot be known
+                                  #  - solution is "branch prediction", i.e. guessing what next instructions are most likely:
+                                  #     - based on compile-time test runs, or on runtime stats
+                                  #     - "predictive execution" is when executing those next instructions
+
+OUT-OF-ORDER EXECUTION ==>        #When CPU fetches memory (i.e. address operands) async (queueing) instead of sync (waiting)
+
+PARALLEL ALGORITHMS ==>           #"Parallel random-access machine" (PRAM):
+                                  #  - abstraction of CPUs accessing shared memory
+                                  #  - capacities:
+                                  #     - read can be allowed concurrently or be exclusive
+                                  #     - write can be allowed concurrently or be exclusive
+                                  #        - if concurrent, write can be:
+                                  #           - "common": conflicts are invalid
+                                  #           - "arbitrary": random CPU gets priority
+                                  #           - "priority": CPU have a specific priority number
+                                  #     - called "Exclusive|concurrent read exclusive|concurrent write"
+                                  #       ("EREW"/"CREW"/"ERCW"/"CRCW")
+                                  #         - "CRCW" also called "concurrent RAM"
+                                  #  - simplification:
+                                  #     - infinite CPUs and RAM
+                                  #  - time complexity:
+                                  #     - difference between:
+                                  #       - operations that can be run in parallel
+                                  #       - operations that cannot
+                                  #          - the longest is the "critical path"
+                                  #     - p: number of processors
+                                  #     - T₁:
+                                  #       - "work": amount of time of 1 CPU
+                                  #     - Tₚ:
+                                  #       - amount of time of p CPUs
+                                  #       - "cost" is p*Tₚ
+                                  #          - "work law": it is >= T₁ because of cost of critical path
+                                  #          - "span law": it is <= T∞
+                                  #     - T∞:
+                                  #       - amount of time of an infinite number CPUs
+                                  #       - i.e. reduced to critical path
+                                  #     - Sₚ:
+                                  #       - "speedup":
+                                  #          - T₁/Tₚ
+                                  #          - i.e. number of CPUs actually used, time-wise
+                                  #          - expressed in O() notation
+                                  #          - "linear"/"scalable": O(n)
+                                  #          - "perfect linear": when same as p
+                                  #          - can be divided between speedup in latency and in throughput
+                                  #       - "efficiency":
+                                  #          - speedup/p
+                                  #          - i.e. like speedup but as percentage
+                                  #       - "parallelism":
+                                  #          - T₁/T∞
+                                  #          - i.e. inverse of percentage critical path
+                                  #       - "slackness":
+                                  #          - parallelism/p
+                                  #          - i.e. like parallelism but as percentage
+                                  #In practice:
+                                  #  - only specific hardware allow concurrent memory read|write, e.g. SRAM
+                                  #  - must do at very low-level, e.g. using FPGA
+
+LOOP-LEVEL PARALLELISM ==>        #Breaking down instructions from a loop into subsets of instructions that have no dependencies,
+                                  #i.e. can be run in parallel.
+                                  #"Loop-carried dependence":
+                                  #  - when loops iterations depend on previous iterations, i.e. reducing possibilities of parallelizing iterations
+                                  #  - opposite is "loop-independent dependence"
+                                  #Can be:
+                                  #  - DOALL: everything is loop-independent
+                                  #  - DISTRIBUTED: no dependencies between loop-independent and loop-carried instructions
+                                  #  - DOACROSS: loop-carried instructions depend on loop-independent instructions
+                                  #  - DOPIPE: inverse

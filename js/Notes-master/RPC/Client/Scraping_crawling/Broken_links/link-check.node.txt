@@ -1,0 +1,42 @@
+
+              
+   LINK-CHECK  
+              
+
+
+
+VERSION ==>                       #5.1.0
+
+LINK-CHECK('URI'[, OPTS],         #Check if a URI is a dead link
+ FUNC(ERROR, OBJ))                #URI can be:
+                                  #  - http:, https: does a HEAD request
+                                  #  - file: does FS.access()
+                                  #  - mailto: check email against REGEXP
+                                  #OPTS:
+                                  #  - timeout NUM (def: '10s')
+                                  #  - retryOn429 BOOL (def: false). If 429, use Retry-After [S] (def: OPTS.fallbackRetryDelay)
+                                  #  - fallbackRetryDelay STR (def: '60s', using ms library)
+                                  #  - retryCount NUM (def: 2)
+                                  #  - aliveStatusCodes NUM_ARR (def: [200])
+                                  #  - baseUrl 'URI'
+                                  #  - anchors '#HASH'_ARR
+                                  #  - headers OBJ
+                                  #  - user_agent STR (def: 'link-check/X.Y.Z')
+                                  #OBJ:
+                                  #  - link 'URI'
+                                  #  - status 'alive|dead'
+                                  #  - statusCode NUM
+                                  #  - err ERROR
+
+MARKDOWN-LINK-CHECK               #Extract links from Markdown (using markdown-link-extractor, see its doc)
+ ('MARKDOWN'[, OPTS], FUNC)       #Then uses LINK-CHECK('URI', OPTS, FUNC)
+                                  #Extra OPTS:
+                                  #  - showProgressBar BOOL (def: false)
+                                  #Version 3.3.0
+
+markdown-link-check FILE|URI      #As CLI.
+--progress                        #On top of MARKDONW-LINK-CHECK:
+                                  #  - fetches FILE|URI
+                                  #  - sets OPTS.baseUrl 'file://PATH' if FILE
+                                  #  - nice console printing
+                                  #  - exit code 1 if any error

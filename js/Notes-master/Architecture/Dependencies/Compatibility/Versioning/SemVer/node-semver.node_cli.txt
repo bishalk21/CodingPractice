@@ -1,0 +1,176 @@
+
+               
+   NODE_SEMVER  
+               
+
+
+
+VERSION ==>                       #7.3.7
+
+OPTS                              #Optional last argument to all methods
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            VERSION            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SVERSION                          #'VERSION' following SemVer
+VERSION                           #Like SVERSION but can also:
+                                  #  - have trailing whitespaces
+                                  #  - start with 'v' or '='
+LVERSION                          #Like VERSION but can also:
+                                  #  - start|end with any non-confirming character
+                                  #  - be a NUM (major only)
+
+OPTS.loose                        #If true, looser parsing
+--ltr|rtl
+OPTS.rtl                          #BOOL (def: false). Allow LVERSION in reverse order
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             RANGE             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+RANGE || RANGE2                   #or
+
+RANGE RANGE2                      #and
+
+VERSION                           #Like =VERSION
+
+>|>=|<=|<|=VERSION                #Across major versions
+                                  #Versions with a prerelease tags:
+                                  #  - skipped by RANGE, even if satisfies it
+                                  #  - unless either:
+                                  #     - RANGE has exactly same A.B.C
+                                  #     - OPTS.includePrerelease true (def: false)
+
+WILDCARDS ==>                     #  - [x|X|*]                           -->  >=0.0.0
+                                  #  - A[.x|X|*]                         -->  >=A.0.0     <A++.0.0
+                                  #  - A.B[.x|X|*]                       -->  >=A.B.0     <A.B++.0
+                                  #When mixed with caret, caret is ignored
+
+DASHES ==>                        #  - A[.B][.C][-D] - A2[.B2][.C2][-D2] -->  >=A.B.C[-D] <=A2.B2.C2[-D2]
+                                  #     - B|C default to 0
+                                  #     - B2|C2 default to *
+
+TILDE ==>                         #  - ~A[.B][.C][-D]                    -->  >=A.B.C[-D] <A.B++.0
+                                  #     - B|C default to 0 (i.e. same as wildcards)
+
+CARET ==>                         #  - ^A.B.C[-D]                        -->  >=A.B.C[-D] <A++.0.0
+                                  #  - ^0.B.C[-D]                        -->  >=0.B.C[-D] <0.B++.0
+                                  #  - ^0.0.C[-D]                        -->  0.0.C[-D]
+
+GOOD PRACTICES ==>                #Use only tilde and carets ranges for dependencies.
+                                  #Prefer carets.
+                                  #When checking ranges, remember that they can be discontinuous.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             PARSE             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+valid(SVERSION)->SVERSION|null    #null if not valid
+clean(VERSION)->SVERSION|null     #
+coerce(LVERSION)->SVERSION|null   #
+
+major|minor|patch(VERSION)->NUM   #
+prerelease(VERSION)->STR_ARR|null #Prerelease tags, split on '.'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             DIFF              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+diff(VERSION, VERSION2)->STR|null #Among '[pre]major|minor|patch' and 'prerelease'
+                                  #  - 'pre*': when different major|minor|patch, and one VERSION has a prerelease tag
+                                  #null if same
+SEMVER-DIFF(VERSION, VERSION2)   ##Same except:
+ ->STR|undefined                 ##  - also compare build number ('build')
+                                 ##  - undefined if VERSION >= VERSION2
+                                 ##Version 4.0.0
+
+inc(VERSION, STR[, STR2])         #Increment where STR can be:
+ ->VERSION|null                   #  - 'major|minor|patch'
+                                  #  - 'premajor|minor|patch': same but with prerelease tag '[STR2]-0'
+                                  #  - 'prerelease': increment prerelease tag if any, same as pre-patch otherwise
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TEST              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+validRange(RANGE)->RANGE|null     #null if not valid
+                                  #Also normalize range
+
+intersects(RANGE, RANGE2)->BOOL   #
+subset(RANGE, RANGE2)->BOOL       #RANGE is same of is subset of RANGE2
+
+satisfies(VERSION, RANGE)->BOOL   #
+min|maxSatisfying
+ (VERSION_ARR, RANGE)->VERSIN|null#
+minVersion(RANGE)->VERSION        #
+gtr|ltr(VERSION, RANGE)->BOOL     #VERSION >|< any version within RANGE
+outside(VERSION, '>|<', RANGE)
+ ->BOOL                           #Same
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            COMPARE            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+gt|lt|gte|lte|eq|neq
+ (VERSION, VERSION2)->BOOL        #Check precedence
+comp(VERSION, '>|>=|<|<=|==|!=',
+ VERSION2)->BOOL                  #Same
+
+[r]compare(VERSION, VERSION2)
+ ->-1|0|1                         #If 'r', inverse
+compareBuild(VERSION, VERSION2)
+ ->-1|0|1                         #Same as compare() but also for build (A.B.C-D+BUILD)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           SERIALIZE           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+simplify(VERSION_ARR, RANGE)      #Providing RANGE applies to versions specified by VERSION_ARR, returns as simplified RANGE2
+ ->RANGE2                         #Helps to contracts many || >= < into a simpler form by knowing the VERSION_ARR a RANGE applies to
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CLI              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+semver VERSION...                 #Filter invalid ones, sort by precedence then print.
+                                  #Exit code 1 if no valid ones.
+--range|r RANGE                   #Filter by satisfies()
+--loose|l                         #
+--include-prerelease|p            #
+--coerce|c                        #coerce()
+
+semver --increment|i [STR] VERSION#Do inc() (def STR: 'patch')
+--preid STR2                      #

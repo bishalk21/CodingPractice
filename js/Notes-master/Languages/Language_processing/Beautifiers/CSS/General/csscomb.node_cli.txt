@@ -1,0 +1,163 @@
+
+           
+   CSSCOMB  
+           
+
+
+
+ALTERNATIVES ==>                  #Generic:
+                                  #  - csscomb (prefered): best code quality
+                                  #  - prettier: well maintained and good quality but very opinionated
+                                  #  - stylefmt: more maintained, has stylelint support but not enough features yet
+                                  #  - perfectionist: not maintained, less features
+                                  #Specific:
+                                  #  - beautifying PROP order, better than generic for that purpose:
+                                  #     - postcss-sorting (prefered): almost same as csscomb, but add support for nested rule sorting
+                                  #     - css-declaration-sorter: allow predefined orders like "concentric CSS"
+
+VERSION ==>                       #3.1.7
+                                  #CSS beautifier
+
+CONF ==>                          #Can be set:
+                                  #  - OBJ|STR:
+                                  #     - using:
+                                  #        - [../.../].csscomb.json
+                                  #        - csscomb --config FILE.json|STR
+                                  #        - new CSSCOMB(OBJ|STR)
+                                  #        - COMB.configure(OBJ|STR)
+                                  #     - STR is one of predefined configs (can be overriden by OBJ):
+                                  #        - 'csscomb': default
+                                  #        - 'yandex': only 'Yandex' sort order
+                                  #        - 'zen': only 'Zen' sort order
+                                  #  - FILE.css|'CSS':
+                                  #     - find out coding style from looking at CSS
+                                  #     - using:
+                                  #        - csscomb --detect
+                                  #        - COMB.detectInFile('FILE.css'[, OBJ])->CONF
+                                  #           - OBJ are options to detect (def: all)
+                                  #        - COMB.detectInString('CSS'[, OBJ])->CONF
+                                  #        - CONF.template 'FILE.css'
+                                  #Can be get:
+                                  #  - CSSCOMB.getConfig(STR)->CONF: for predefined configs
+CONF.FEATURE                      #VAL. See below for list
+CONF.exclude                      #'GLOB'_ARR
+
+csscomb DIR|FILE...               #As CLI
+--verbose                         #Can also use CONF.verbose BOOL
+
+new CSSCOMB([CONF])->COMB         #As Node module
+COMB.processString('CSS')         #
+COMB.processPath('FILE.css'|'DIR')#
+COMB.processFile('FILE.css')      #
+COMB.processDirectory('DIR')      #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            ERRORS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+remove-empty-rulesets             #BOOL. No empty block
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            NEWLINE            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+eof-newline                       #BOOL. Newline at end of line
+
+space-between-declarations        #NUM (number of spaces) or STR (e.g. '\n'). Whitespace after ;
+
+always-semicolon                  #BOOL. ; for the last rule of the rulset, unless it is a {...} mixin block
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         INDENT/WIDTH          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+tab-size                          #Non-nested rules indentation: NUM (number of spaces) or undefined (tabs)
+block-indent                      #Nested rules indentation: NUM (number of spaces) or STR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             SPACE             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+strip-spaces                      #BOOL. No trailing whitespaces
+
+space-after|before-
+selector-delimiter                #NUM|STR. Space before , in selectors
+space-after|before-combinator     #NUM|STR. Space after|before > + ~
+space-after|before-opening-brace  #NUM|STR. Space after|before {
+space-before-closing-brace        #NUM|STR. Space before }
+
+space-after|before-colon          #NUM|STR. Spaces after|before :
+
+vendor-prefix-align               #BOOL. Vertical align vendor prefixes
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           SELECTORS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+element-case                      #TAG selectors case: 'lower|upper'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             PROPS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+sort-order                        #PROPS order.
+                                  #Can be:
+                                  #  - ARR2_ARR:
+                                  #     - ARR: groups, two-newline separated
+                                  #     - ARR2: props, where VAL can be:
+                                  #        - 'PROP'
+                                  #        - '...':
+                                  #           - any PROP not specified (def: at end)
+                                  #           - if CONF.sort-order-fallback 'abc', are ordered alphabetically
+                                  #        - '$variable': $var|@var
+                                  #        - '$include': @include|extend(), .MIXIN()
+                                  #        - '$import': @import
+                                  #  - ARR: same as [ ARR ]
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            VALUES             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+color-case                        #COLOR case: 'lower|upper'
+color-shorthand                   #BOOL. COLO as short|long (true|false) as possible
+
+unitless-zero                     #BOOL. Unitless 0, for LEN
+leading-zero                      #BOOL. 0.5 or .5
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            QUOTES             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+quotes                            #Quotes: 'single|double'

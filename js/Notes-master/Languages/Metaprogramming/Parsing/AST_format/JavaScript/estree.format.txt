@@ -1,0 +1,582 @@
+
+          
+   ESTREE  
+          
+
+
+
+ALTERNATIVES ==>                  #  - ESTree (def): most supported
+                                  #  - Shift: less supported
+
+VERSION ==>                       #Last commit 28/05/2022
+                                  #JavaScript AST standard
+
+TYPESCRIPT/FLOW ==>               #See TSESTree doc
+
+JSX ==>                           #See JSX AST doc
+
+NOTATION ==>                     |#Pull requests
+                                 ##Non-standard
+                                 *#Non-standard but might become (ES proposals)
+                                  #Parsers (no parenthesis if absent, parenthesis if present):
+                                 s#  - esprima
+                                 a#  - acorn
+                                 e#  - espree
+                                 t#  - typescript-estree
+                                 m#  - meriyah
+                                 b#  - @babel/parser
+                                 l#  - @babel/parser with 'estree' PLUGIN
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             BASIC             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTIONAL VALUES ==>               #Are either defined or null
+
+any                               #NODE:
+                                  #  - type STR
+                                  #  - [loc] (position in source code):
+                             setbl#     - [source VAL]
+                             (bl)##     - [filename STR]
+                                  #     - start|end:
+                                  #        - line NUM (1-indexed)
+                                  #        - column NUM (0-indexed)
+                               st##  - start|end NUM (not line-wise)
+                                 ##  - range [NUM, NUM2] (not line-wise)
+                                  #It is root type, abstract:
+                                  #  - all other types inherit from it
+                                  #  - all redefine type STR, except if abstract types themselves
+
+EXPR                              #EXPR
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CST              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CONCRET SYNTAX TREE ==>          |#Like AST but includes information that is:
+                                 |#  - non-significant: whitespaces, comments, some parenthesis, semicolons
+                                 |#  - normalized: escape sequences, quote symbols, number formatting
+                                 |#On NODE:
+                                 |#  - [sourceElements TOKEN|NON_TOKEN|CHILD_REFERENCE_ARR]
+
+CHILD_REFERENCE                  |#Information to relate CST node to AST node:
+                                 |#  - reference 'TYPE[#next]'
+TOKEN                            |#Child of CHILD_REFERENCE, for CST node also present in AST:
+                                 |#  - element STR: parser-specific CST node type
+                                 |#  - [value STR]: raw source
+NON_TOKEN                        |#CST node not present in AST:
+                                 |#  - element|value: like TOKEN
+
+RAW VALUE ==>                   b##On EXPR:
+                                b##  - raw STR
+                              (b)##On *_LITERAL (except BOOL|null):
+                              (b)##  - extra.raw STR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          STATEMENTS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FILE                          (bl)##Type 'File':
+                              (bl)##  - program PROGRAM
+                              (bl)##  - [name STR]
+PROGRAM                           #Type 'Program':
+                                  #  - sourceType 'script|module'
+                                  #  - body STATEMENT|MODULE_DECLARATION_ARR
+STATEMENT                         #
+
+EXPR_STATEMENT                    #Child of STATEMENT, type 'ExpressionStatement':
+                                  #  - expression EXPR
+                                  #Statement with single EXPR.
+(EXPR)                       (am)##Child of EXPRESSION_STATEMENT, type 'ParenthesizedExpression'
+                             (bl)##On EXPR:
+                             (bl)##  - extra.parenthesized BOOL
+                             (bl)##  - extra.parenStart NUM
+
+#!/bin/bash                  (bl)##On PROGRAM:
+                             (bl)##  - [interpreter INTERPRETER_DIRECTIVE]
+                             (bl)##Type 'InterpreterDirective'
+                             (bl)##  - value STR
+'use strict'                     b#Child of EXPR_STATEMENT:
+                                 b#  - directive STR
+                                 b#  - expression LITERAL
+                              (b)##On PROGRAM|BLOCK_STATEMENT:
+                              (b)##  - directives DIRECTIVE_ARR
+                              (b)##Type 'Directive':
+                              (b)##  - value DIRECTIVE_LITERAL
+                              (b)##Child of STRING_LITERAL, type 'DirectiveLiteral'
+
+;                                 #Child of STATEMENT, type 'EmptyStatement'
+                                  #Empty statement, with only semicolon
+{...}                             #Child of STATEMENT, type 'BlockStatement':
+                                  #  - body STATEMENT_ARR
+
+// COMMENT                  (set)##On PROGRAM:
+/* COMMENT */               (set)##  - comments COMMENT_ARR
+                             (bl)##On FILE:
+                             (bl)##  - comments COMMENT_ARR
+                             (bl)##On NODE:
+                             (bl)##  - [leadingComment|trailingComments|innerComments COMMENT_ARR]
+                             (am)##As an onComment() option
+                                 ##COMMENT:
+                              (m)##  - type 'SingleLine|MultiLine'
+                           (aset)##  - type 'Line|Block'
+                             (bl)##  - type 'CommentLine|Block'
+                                 ##  - value STR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         DECLARATIONS          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+DECLARATION                       #Child of STATEMENT. Parent of *_DECLARATION
+
+QUAL VAR = VAL, ...               #Child of DECLARATION, type 'VariableDeclaration':
+                                  #  - declarations VARIABLE_DECLARATOR_ARR (type 'VariableDeclarator'):
+                                  #     - id PATTERN
+                                  #     - [init EXPR]
+                                  #  - kind 'var|let|const'
+
+PATTERN                           #Parent of IDENTIFIER, MEMBER_EXPR, OBJ_PATTERN, ARR_PATTERN, REST_ELEMENT,
+                                  #ASSIGNMENT_PATTERN, TS_PARAMETER_PROPERTY, PRIVATE_IDENTIFIER
+
+VAR                               #Child of EXPR+PATTERN, type 'Identifier':
+                                  #  - name STR
+#VAR                              #Child of EXPR+PATTERN, type 'PrivateIdentifier'
+                                  #  - name STR
+
+OBJ.VAR                           #Child of EXPR+PATTERN, type 'MemberExpression':
+OBJ[VAL]                          #  - object EXPR|SUPER (OBJ)
+class.VAR                        *#    or CLASS_OBJECT (type 'ClassObject')
+                                  #  - property EXPR (VAL) or IDENTIFIER (VAR)
+                              set|#    or PRIVATE_IDENTIFIER (#VAR)
+                                  #  - computed true (VAL) or false (VAR)
+OBJ?.VAR                     stmbl#On MEMBER_EXPRESSION:
+OBJ?.[VAL]                   stmbl#  - optional BOOL
+                            (blt)##Child of MEMBER_EXPRESSION, type 'OptionalMemberExpression'
+                            (blt)##  - optional BOOL
+                                 ##Child of EXPR, type 'ChainExpression'
+                                 ##  - expression MEMBER_EXPRESSION|CALL_EXPRESSION|SLICE_EXPRESSION
+                              (m)##Child of EXPR, type 'OptionalExpression'
+                              (m)##  - object EXPR
+                              (m)##  - chain OPTIONAL_CHAIN (type 'OptionalChain'):
+                              (m)##     - property EXPR
+                              (m)##     - base OPTIONAL_CHAIN (when recursive)
+                              (m)##     - [computed BOOL] (unless FUNC?.())
+                              (m)##     - [arguments] (if FUNC?.())
+
+{VAR, ...}                        #Child of PATTERN, type 'ObjectPattern' (deconstruction):
+{...OBJ, ...}                     #  - properties ARR of either:
+                                  #      ASSIGNMENT_PROPERTY (VAR), child of PROPERTY with differences:
+                                  #        - value PATTERN
+                                  #        - key EXPR|PRIVATE_IDENTIFIER
+                                 s#      REST_ELEMENT (...OBJ)
+
+[VAR,...]                         #Child of PATTERN, type 'ArrayPattern' (deconstruction):
+                                  #  - elements PATTERN_ARR (null for sparse array element)
+
+...VAR                            #Child of PATTERN, type 'RestElement' (when setting):
+                                  #  - argument PATTERN
+...VAR                            #Type 'SpreadElement' (when getting):
+                                  #  - argument EXPR
+
+VAR = VAL                         #Child of PATTERN, type 'AssignmentPattern' (default values)
+                                  #  - left PATTERN
+                                  #  - right EXPR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           FUNCTIONS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FUNC                              #FUNCTION:
+                                  #  - [id IDENTIFIER] (null if anonymous)
+                                  #  - params PATTERN_ARR
+                                  #  - body FUNCTION_BODY (child of BLOCK_STATEMENT):
+                                  #     - body STATEMENT|DIRECTIVE_ARR
+                                  #  - generator BOOL
+                                  #  - async BOOL
+
+[async] function [*]FUNC(...){}   #Child of FUNCTION+DECLARATION, type 'FunctionDeclaration'
+[async] function [*][FUNC](...){} #Child of FUNCTION+EXPR, type 'FunctionExpression'
+[async] () => {...}               #Child of FUNCTION+EXPR, type 'ArrowFunctionExpression':
+                                  #  - body FUNCTION_BODY or (if () => VAL) EXPR
+                                 b#  - expression BOOL (if () => VAL)
+
+return [VAL]                      #Child of STATEMENT, type 'ReturnStatement':
+                                  #  - [argument EXPR]
+
+yield [*] [VAL]                   #Child of EXPR, type 'YieldExpression':
+                                  #  - [argument EXPR]
+                                  #  - delegate BOOL (if *)
+
+await VAL                         #Child of EXPR, type 'AwaitExpression':
+                                  #  - argument EXPR
+await.all|any|race|allSettled VAL*#  - [operation IDENTIFIER]
+
+FUNC(...)                         #Child of EXPR, type 'CallExpression':
+                                  #  - callee EXPR|SUPER|IMPORT (FUNC)
+                                  #  - arguments ARR of EXPR|SPREAD_ELEMENT
+                             (bl)*#    or ARGUMENT_PLACEHOLDER
+                            stmbl|#  - optional BOOL (FUNC?.(...))
+                            (blt)##Child of CALL_EXPRESSION, type 'OptionalCallExpression'
+                            (blt)##  - optional BOOL (FUNC?.(...))
+                              (m)##Type 'OptionalExpression' (see above)
+new FUNC(...)                     #Child of EXPR, type 'NewExpression':
+                                  #  - callee EXPR (FUNC)
+                                  #  - arguments EXPR|SPREAD_ELEMENT_ARR
+
+@DECORATOR                     sae#On CLASS|METHOD_DEFINITION or
+                           seatmbl#PROPERTY or
+                              sae##ACCESSOR_PROPERTY|PROPERTY_DEFINITION:
+                               sae#  - decorators DECORATOR_ARR
+                               sae#Type 'Decorator':
+                               sae#  - expression EXPR
+
+[VAL]::VAL2                  (bl)*#Child of EXPR, type 'BindExpression':
+                             (bl)*#  - [object EXPR] (VAL)
+                             (bl)*#  - callee EXPR (VAL2)
+
+?                            (bl)*#Type 'ArgumentPlaceholder'
+
+[async] do { ... }             (b)#Child of EXPR, type 'DoExpression':
+                               (b)#  - body BLOCK_STATEMENT
+                               (b)#  - async BOOL
+
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          STRUCTURES           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+if (...) {...} [else {...}]       #Child of STATEMENT, type 'IfStatement':
+                                  #  - test EXPR
+                                  #  - consequent STATEMENT
+                                  #  - [alternate STATEMENT]
+
+switch (...) {...}                #Child of STATEMENT, type 'SwitchStatement':
+                                  #  - discriminant EXPR
+                                  #  - cases SWITCH_CASE_ARR
+case VAL: ...                     #Type 'SwitchCase':
+default: ...                      #  - [test EXPR] (case's VAL) (null if default case)
+                                  #  - consequent STATEMENT_ARR (if two following cases, the first one has no consequent)
+
+while (...) {...}                 #Child of STATEMENT, type 'WhileStatement':
+                                  #  - test EXPR
+                                  #  - body STATEMENT
+
+do {...} while (...)              #Child of STATEMENT, type 'DoWhileStatement':
+                                  #  - test EXPR
+                                  #  - body STATEMENT
+
+for (...;...;...) {...}           #Child of STATEMENT, type 'ForStatement':
+                                  #  - [init VARIABLE_DECLARATION|EXPR]
+                                  #  - [test EXPR]
+                                  #  - [update EXPR]
+                                  #  - body STATEMENT
+
+for ([QUAL] VAR in VAL) {...}     #Child of STATEMENT, type 'ForInStatement':
+                                  #  - left VARIABLE_DECLARATION|PATTERN
+                                  #  - right EXPR
+                                  #  - body STATEMENT
+
+for [await] ([QUAL] VAR of VAL)   #Child of STATEMENT, type 'ForOfStatement':
+ {...}                            #  - left VARIABLE_DECLARATION|PATTERN
+                                  #  - right EXPR
+                                  #  - body STATEMENT
+                                  #  - await BOOL
+
+break [LABEL]                     #Child of STATEMENT, type 'BreakStatement':
+                                  #  - [label IDENTIFIER]
+continue [LABEL]                  #Child of STATEMENT, type 'ContinueStatement':
+                                  #  - [label IDENTIFIER]
+
+with (...) {...}                  #Child of STATEMENT, type 'WithStatement':
+                                  #  - object EXPR
+                                  #  - body STATEMENT
+
+LABEL: ...                        #Child of STATEMENT, type 'LabeledStatement':
+                                  #  - label IDENTIFIER
+                                  #  - body STATEMENT
+
+do {...}                     (bl)*#Child of EXPR, type 'DoExpression':
+                             (bl)*#  - body BLOCK_STATEMENT
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          EXCEPTIONS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+try { ... }                       #Child of STATEMENT, type 'TryStatement':
+[catch (...) {...}]               #  - block BLOCK_STATEMENT
+[finally {...}]                   #  - [handler CATCH_CLAUSE] (type 'CatchClause'):
+                                  #     - param PATTERN
+                                 s#       (optional)
+                                  #     - body BLOCK_STATEMENT
+                                  #  - [finalizer BLOCK_STATEMENT]
+throw VAL                         #Child of STATEMENT, type 'ThrowStatement':
+                                  #  - argument EXPR
+
+debugger                          #Child of STATEMENT, type 'DebuggerStatement'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         NATIVE TYPES          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+STR|BOOL|NUM|BIGINT|null|REGEXP  b#Child of EXPR, type 'Literal':
+ |BIGDECIMAL                     b#
+                                 b#  - value STR|BOOL|NUM|null|REGEXP
+                               sbt#    or BIGINT
+                               (b)#    or BIGDECIMAL
+                                 b#  (REGEXP only)
+                                 b#  - regex:
+                                 b#     - pattern STR
+                                 b#     - flags STR
+                               sbl#  (BIGINT only)
+                               sbl#  - bigint STR (without 'n')
+                               (b)#  (BIGDECIMAL only)
+                               (b)#  - decimal STR
+                              (b)##Type 'String|Boolean|Numeric|Null|RegExpLiteral':
+                              (b)##  - value STR|BOOL|NUM|null|REGEXP|BIGINT
+                              (b)##  (not BOOL|null)
+                              (b)##  - extra.rawValue STR|BOOL|NUM|null|REGEXP: like value
+                              (b)##  (REGEXP only)
+                              (b)##  - pattern STR
+                              (b)##  - flags STR
+                               sae#NUM can use _ separators
+undefined                         #Considered a VAR
+
+TAG`...`                          #Child of EXPR, type 'TaggedTemplateExpression':
+                                  #  - tag EXPR
+                                  #  - quasi TEMPLATE_LITERAL
+`...`                             #Child of EXPR, type 'TemplateLiteral':
+                                  #  - quasis TEMPLATE_ELEMENT_ARR (non-${} parts), type 'TemplateElement':
+                                  #     - tail BOOL (if last one, including empty "" if ends with ${})
+                                  #     - value:
+                                  #        - [cooked STR]
+                               stm#          (null if contain invalid escape sequences)
+                                  #        - raw STR
+                                  #  - expressions EXPR_ARR (${} parts)
+
+{VAR[: VAL], ...}                 #Child of EXPR, type 'ObjectExpression':
+{[VAL]: VAL}                      #  - properties PROPERTY|SPREAD_ELEMENT_ARR
+{...OBJ}                         b#Type 'Property':
+{FUNC(...){...}}                 b#  - key EXPR (LITERAL if {[VAR]: VAL} or {NUM: VAL})
+                                 b#  - value EXPR
+                                 b#  - kind 'init|get|set' (get|set are for getters|setters)
+                                 b#  - method BOOL (if FUNC)
+                                 b#  - shorthand BOOL (if { VAR })
+                                 b#  - computed BOOL
+                              (b)##Type 'ObjectProperty' like PROPERTY but only for non-FUNCs and:
+                              (b)##  - extra.shorthand: like shorthand
+                              (b)##Type 'ObjectMethod' like PROPERTY but only for FUNCs and:
+                              (b)##  - child of FUNCTION_DECLARATION
+                              (b)##  - no value|shorthand
+                              (b)##  - kind 'init' -> 'method'
+                                 ##Type 'AccessorProperty' like PROPERTY but for decorators
+                                 ##  - no kind|shorthand|method
+
+#{VAR[: VAL], ...}                #Child of EXPR, type 'RecordExpression':
+#{[VAL]: VAL}                     #  - properties RECORD_PROPERTY|SPREAD_ELEMENT_ARR
+#{...OBJ}                         #Type 'RecordProperty':
+                                  #  - key EXPR (LITERAL if {[VAR]: VAL} or {NUM: VAL})
+                                  #  - value EXPR
+                                  #  - shorthand BOOL (if { VAR })
+                                  #  - computed BOOL
+
+[VAL...]                          #Child of EXPR, type 'ArrayExpression':
+                                  #  - elements EXPR2|SPREAD_ELEMENT_ARR (null for sparse ARR elements)
+
+#[VAL...]                         #Child of EXPR, type 'TupleExpression':
+                                  #  - elements EXPR2|SPREAD_ELEMENT_ARR
+
+ARR[...:...]                      #Child of EXPR, type 'SliceExpression':
+                                  #  - object EXPR (ARR)
+                                  #  [- lower EXPR2]
+                                  #  [- upper EXPR2]
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           OPERATORS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+-VAL
++VAL
+!VAL
+~VAL                              #Child of EXPR, type 'UnaryExpression':
+typeof VAL                        #  - operator '-|+|!|~|typeof|void|delete'
+throw VAL                    (bl)*#    or 'throw'
+void VAL                          #  - prefix BOOL (always true)
+delete VAL                        #  - argument EXPR
+
+++VAR                             #Child of EXPR, type 'UpdateExpression':
+VAR++                             #  - operator '--|++'
+--VAR                             #  - prefix BOOL
+VAR--                             #  - argument EXPR
+                            aembl|#    or PATTERN
+
+VAL == != === !== < <= > >= <<    #Child of EXPR, type 'BinaryExpression':
+>> >>> + - * / % ** | ^ & in      #  - operator '==|!=|===|!==|<|<=|>|>=|<<|>>|>>>|+|-|*|/|%|**|||^|&|in|instanceof'
+instanceof VAL2                   #
+VAL |> VAL2                  (bl)*#    or '|>'
+                                  #  - left EXPR
+                               (b)#    or PRIVATE_IDENTIFIER (operator 'in' only)
+                                  #  - right EXPR
+
+VAR = += -= *= /= **= %= <<= >>=  #Child of EXPR, type 'AssignmentExpression':
+>>>= |= ^= &= VAL                 #  - operator '=|+=|-=|*=|/=|**=|%=|<<=|>>=|>>>=||=|^=|&='
+VAR &&= ||= ??= VAL        (aetbl)#    or '&&=|||=|??='
+                                  #  - left PATTERN or (only on older JavaScript engines) EXPR
+                                  #  - right EXPR
+
+VAL || && VAL2                    #Child of EXPR, type 'LogicalExpression':
+                                  #  - operator '|||&&'
+VAL ?? VAL2                (aetbl)#   or '??'
+                                  #  - left EXPR
+                                  #  - right EXPR
+
+VAL ? VAL2 : VAL3                 #Child of EXPR, type 'ConditionalExpression':
+                                  #  - test EXPR
+                                  #  - alternate EXPR
+                                  #  - consequent EXPR
+
+VAL,...                           #Child of EXPR, type 'SequenceExpression':
+                                  #  - expressions EXPR_ARR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CLASS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+class [CLASS] [extends PARENT] {  #Type 'Class':
+  [static] FUNC(...) {...}        #  - [id IDENTIFIER]
+}                                 #  - [superClass EXPR]
+                                  #  - body CLASS_BODY
+                                  #Type 'ClassBody':
+                                tb#  - body ARR of METHOD_DEFINITION|PROPERTY_DEFINITION
+                                 *#    or STATIC_BLOCK
+                              (t)##  - body METHOD_DEFINITION|CLASS_PROPERTY_ARR
+                              (b)##  - body CLASS_METHOD|CLASS_PROPERTY_ARR
+                                 b#Type 'MethodDefinition':
+                                 b#  - key EXPR|PRIVATE_IDENTIFIER
+                                 b#  - value FUNCTION_EXPR
+                                 b#  - kind 'constructor|method|get|set'
+                                 b#  - static BOOL
+                                 b#  - computed BOOL
+                              (b)##Type 'Class[Private]Method' like METHOD_DEFINITION but:
+                              (b)##  - child of FUNCTION_DECLARATION
+                              (b)##  - no value
+  [static] VAR [= VAL]      setbl|#Type 'PropertyDefinition'
+                            (tbl)##or 'Class[Private]Property':
+                               se|#  - key EXPR|PRIVATE_IDENTIFIER
+                               se|#  - [value EXPR]
+                               se|#  - static BOOL
+                               se|#  - computed BOOL
+  static { STATEMENT... }         #Child of BLOCK, type 'StaticBlock'
+class CLASS ... {}                #Child of CLASS+DECLARATION, type 'ClassDeclaration'
+class [CLASS] ... {}              #Child of CLASS+EXPR, type 'ClassExpression'
+
+new.target                        #Child of EXPR, type 'MetaProperty':
+                                  #  - meta IDENTIFIER
+                                  #  - property IDENTIFIER
+import.meta                  (aes)#Same
+function.sent                (bl)*#Same
+
+this                              #Child of EXPR, type 'ThisExpression'
+
+super                             #Type 'Super'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            MODULES            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+import|export ...                 #MODULE_DECLARATION
+
+{VAR [as VAR2]}                   #MODULE_SPECIFIER:
+                                  #  - local IDENTIFIER (VAR2)
+                                  #Inside import|export
+
+export {}                         #Child of MODULE_DECLARATION, type 'ExportNamedDeclaration':
+export { VAR [as VAR2|default] }  #  - specifiers EXPORT_SPECIFIER_ARR (child of MODULE_SPECIFIER, type 'ExportSpecifier'):
+                                  #     - local IDENTIFIER (VAR)
+                                  #     - exported IDENTIFIER|LITERAL (VAR2|default)
+  assert { VAR: STR, ... }        #  - [assertions IMPORT_ATTRIBUTE_ARR]
+export QUAL VAR = VAL[, ...]      #
+export function VAR() {}          #
+export class CLASS {}             #  - [declaration DECLARATION]
+export {} from "MDL"
+export {...} from "MDL"           #  - [source LITERAL] ("MDL")
+
+export default VAL                #Child of MODULE_DECLARATION, type 'ExportDefaultDeclaration':
+                                  #  - declaration EXPR|FUNCTION|CLASS_DECLARATION
+                                  #     - "FUNCTION|CLASS_DECLARATION": id is optional
+export * [as VAR] from "MDL"      #Child of MODULE_DECLARATION, type 'ExportAllDeclaration':
+                                  #  - source LITERAL ("MDL")
+                                  #  - [exported IDENTIFIER|LITERAL] (VAR)
+  assert { VAR: STR, ... }        #  - [assertions IMPORT_ATTRIBUTE_ARR]
+export * as VAR from "MDL" (aeml)##Child of EXPORT_SPECIFIER, type 'ExportNamespaceSpecifier':
+                           (aeml)##  - no local
+                              (m)##  - exported -> specifier
+export VAL from "MDL"        (bl)##Child of EXPORT_SPECIFIER, type 'ExportDefaultSpecifier':
+                             (bl)##  - no local
+
+import ... from "MDL"             #Child of MODULE_DECLARATION, type 'ImportDeclaration':
+                                  #  - specifiers MODULE_SPECIFIER_ARR
+                                  #  - source LITERAL ("MDL")
+                              (b)##  - importKind 'type|typeof|value'|null
+  assert { VAR: STR, ... }    (b)*#  - [assertions IMPORT_ATTRIBUTE_ARR (type 'ImportAttribute')]
+                              (b)*#     - key IDENTIFIER|LITERAL
+                              (b)*#     - value STR
+import { VAR|default [as VAR2] }  #Child of MODULE_SPECIFIER, type 'ImportSpecifier':
+                                  #  - imported IDENTIFIER|LITERAL (VAR)
+                                  #  - local IDENTIFIER (VAR2, same as VAR by def)
+import VAR                        #Child of MODULE_SPECIFIER, type 'ImportDefaultSpecifier':
+                                  #  - local IDENTIFIER (VAR)
+import * as VAR                   #Child of MODULE_SPECIFIER, type 'ImportNamespaceSpecifier':
+                                  #  - local IDENTIFIER (VAR)
+import "MDL"                      #
+import {}                         #Those have empty ARR as specifiers
+
+import("MDL")                 stbl#Child of EXPR, type 'ImportExpression':
+                              stbl#  - source EXPR
+import("MDL", OPTS)           (b)*#  - [attributes EXPRESSION]
+                            (tbl)##Treated as a CALL_EXPRESSION
+
+module { ... }                   *#Child of EXPR, type 'ModuleExpression':
+                                  #  - body PROGRAM

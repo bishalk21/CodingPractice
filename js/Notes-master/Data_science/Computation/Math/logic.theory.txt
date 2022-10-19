@@ -1,0 +1,747 @@
+
+         
+   LOGIC  
+         
+
+
+
+Metalanguage
+  - formal language describing another
+
+Object language:
+  - formal language being described by a metalanguage
+
+Judgement:
+  - statement in the metalanguage about a string of symbols in the object language
+  - examples:
+     - judging that a string of symbols is syntactically valid, i.e. is a formula
+     - assertion
+        - "x is blue" is a statement, but '"x is blue" is true' is a judgement
+
+Assertion:
+  - judgement asserting that a statement is true
+
+Metavariable:
+  - also named schematic|synctactical|metalinguistic variable
+  - variable in a metalanguage
+
+Symbols:
+  - also named signs
+  - placeholder for semantics, without semantics of its own
+
+Alphabet:
+  - also named vocabulary
+  - list of available unique symbols
+
+String of symbols:
+  - 0-n symbols, position-significant, possibly duplicate
+
+Syntax:
+  - symbols and rules to combine them, regardless of their semantics
+
+Formal language:
+  - set of symbols + formal grammar
+
+Formal grammar:
+  - set of formation rules
+
+Formation rule:
+  - rule asserting which string of symbols are synctactically valid
+
+Production rule:
+  - formation rule asserting that a string of symbols is equivalent to another
+  - usually left side is shorter, i.e. meant to be substituted by right side
+  - empty strings of symbols:
+     - allowed, i.e. representing non-significant symbols
+     - noted ϵ or λ
+  - non-terminal symbol:
+     - named also synctactic variable
+     - symbol which can always be on the left side of at least one production rule, regardless of symbols before|after
+     - opposite: terminal symbols
+
+Context-free grammar:
+  - formal grammar using only production rules where left side is single non-terminal symbol
+
+Formula:
+  - also named well-formed formula (WFF) or expression
+  - string of symbols that are syntactically valid
+  - opposite is nonsense
+
+Semantics:
+  - meaning assigned to non-logical symbols
+  - truth is often the semantics, but not only possible one
+
+Interpretation:
+  - assigning semantics to non-logical symbols
+  - can be partial:
+     - e.g. assigning free variables
+     - but must at least define a domain of discourse
+
+Statement
+  - often noted:
+     - φ ψ ...
+     - p q ...
+  - notation for sequence of statements:
+     - Φ Ψ ...
+     - P Q ...
+     - Γ Σ ...
+  - also named closed formula, proposition or sentence
+  - formula true|false under a given interpretation
+  - requires no free variables
+  - example: ∃ x,y. x > y
+
+Open formula:
+  - opposite of statement
+  - formula neither true|false under a given interpretation
+  - has at least one free variable
+  - example: x > y
+
+Satisfiability:
+  - when formula true under at least one interpretation
+  - opposite: unsastisfiability
+
+Semantic validity:
+  - also named tautology or logical|analytic|necessary truth
+  - when formula true under any intepretation
+  - notation:
+     - ⊤ (any statement)
+     - x ⊢ ⊤ (specific statement)
+     - ⊢ x (specific statement)
+
+Semantic invalidity:
+  - also named contradiction
+  - when formula false under any intepretation
+  - notation:
+     - ⊥ (any statement)
+     - x ⊢ ⊥ (specific statement)
+     - x ⊢ (specific statement)
+
+Logical symbols:
+  - logical symbol:
+     - also named logical constant or syncategorematic
+     - semantics depend on formal language
+     - same for any interpretation
+     - examples:
+        - true|false
+        - logical operators, quantifiers
+        - programming language keyword
+        - punctuation
+  - non-logical symbol:
+     - also named categorematic or descriptive
+     - semantics depend on domain of discourse
+     - differ per interpretation
+     - can be:
+        - object
+        - object property, e.g. relation|function|predicate
+     - examples:
+        - 3, e
+        - relations|functions|predicates on domain of discourse
+        - programming language value
+
+Domain of discourse:
+  - set of all possible semantics of any non-logical symbol for a given formal language
+  - example: real numbers
+
+Variability:
+  - symbol can be:
+     - variable: many possible semantics
+     - constant: only one semantic
+  - variable|constant is logical or non-logical depending on the semantic it holds
+     - examples:
+        - logical constant: true
+        - logical variable: x (boolean)
+        - non-logical constant: 3
+        - non-logical variable: x (number)
+  - relations|functions|predicates are often constant, but can be variable too (e.g. in high-order functions)
+  - bound variable with only one semantic left becomes constant
+     - i.e. assigning specific value
+
+Bound variable:
+  - also named captured variables
+  - variable interpreted with constraints
+     - i.e. reduced number of possible semantics
+  - free variable:
+     - opposite
+     - variable interpreted but without constraints
+     - i.e. semantic can be any
+        - if non-logical: from domain of discourse
+  - variable-binding operator:
+     - binds a variable in a formula
+     - e.g. ∑ or quantifiers
+
+Inference:
+  - producing statements from other statements while preserving semantics (e.g. truth)
+
+Deduction:
+  - inference where premises are true
+
+Induction:
+  - inference where premises truth is not certain
+
+Inference rule:
+  - also named rule, rule of inference or transformation rule
+  - rule to infer a statement from other statements using synctactic consequence
+
+Admissibility:
+  - when adding a specific inference rule to a formal system does not modify it
+     - i.e  does not modify the semantics of any of its theorems
+
+Derivability:
+  - when an inference rule is admissible, and can be derived from a formal system axioms
+
+Premise:
+  - statement used to infer other statements
+
+Axiom:
+  - tautological premise
+  - can be:
+     - logical: of a formal system
+     - non-logical:
+        - of a specific domain, e.g. mathematical domain
+        - also named postulate|assumption
+  - set of axioms often try to:
+     - be consistent with each other
+     - not be redundant with each other
+
+Axiomatizing:
+  - finding minimal axioms that can infer several statements
+
+Law of thoughts:
+  - axiom due to the nature of logic|reasoning itself
+  - classical ones: law of identity, law of non-contradiction, law of excluded middle
+
+Theorem:
+  - also named derivation
+  - statement infered from a premise
+
+Argument:
+  - several premises and infered theorems
+
+Conclusion:
+  - last theorem of an argument
+
+Deductive|inductive system:
+  - set of deductive|inductive inference rules
+
+Formal system:
+  - notation:
+     - subscript letter next to any logical symbols
+        - e.g. ⊢fs (subscript)
+  - formal language + axioms + deductive|inductive system
+
+Proof system:
+  - also called [proof] calculus
+  - formal system + axioms
+     - but deductive system is already axioms???
+
+Logical form:
+  - also named logical schema (plural: schemata)
+  - removing ambiguity of natural language by formalizing it
+  - involves:
+     - declaring it using inference rules of a formal system
+        - using unambiguous words, not logical symbols
+     - using non-logical symbols for semantic contents
+  - argument form: logical form on an argument
+
+Consequence:
+  - logical or material consequence
+
+Antecedent:
+  - also named protasis
+  - first half of consequence
+
+Consequent:
+  - also named succedent or apodosis
+  - second half of consequence
+
+Unconditional assertion:
+  - like any consequence, but with empty antecedent
+     - means antecedent is assumed to be true
+     - example: ⊢ y
+     - i.e. like ⊤ ⊢ y
+  - opposite:
+     - conditional assertion
+     - when there is an antecedent
+     - example: x ⊢ y
+  - inverse:
+     - when no consequent
+     - means antecedent is assumed to be false
+     - example: x ⊢
+     - i.e. like x ⊢ ⊥
+  - neither consequent|antecedent:
+     - means contradiction
+     - example: ⊢
+     - i.e. like ⊤ ⊢ ⊥
+
+Sequent:
+  - notation for consequence where comma means:
+     - ∧ in antecedent
+     - ∨ in consequent
+  - example: v, w, x ⊢ y, z
+  - intuitionistic:
+     - also named simple conditonal assertion
+     - when not using comma in consequent
+     - dual-intuitionistic: when not using comma in antecedent either
+
+Logical consequence:
+  - also named entailment or logical implication
+  - inference rule where, in a specific formal system, if any statement x is true, then any statement y is true
+  - as opposed to material conditional which is, for a given statement x true, another statement y is true
+  - either synctactic consequence or semantic consequence
+
+Synctatic consequence:
+  - also named derivability|provability
+  - notation:
+     - x ⊢ y
+        - named turnstile, tee sign, right tack, assertion sign|symbol
+        - sometimes written x |- y
+     - x ∴ y (therefore sign)
+     - x => y (to avoid)
+     - horizontal line, when x and y are statements
+  - pronounced x entails|proves|yields|satisfies y, or y is a theorem of x
+  - logical consequence based only on synctatic rules without interpretation
+  - examples: using logical connectors
+
+Semantic consequence:
+  - notation:
+     - x ⊨ y (double turnstile sign)
+  - pronounced x models y
+  - logical consequence when, for any interpretation where statement x is true, statement y is true as well
+     - as opposed to synctactic consequence, relies on statements truth among interpretations
+
+Material consequence:
+  - also named [material] conditional, material implication or hypothetical proposition
+  - notation:
+     - x -> y
+     - x => y (to avoid)
+     - x ⊃ y
+     - x ≤ y
+     - Cxy (polish notation)
+  - pronounced: materially implies, or if x then y
+  - means when x is true, y is true
+  - is for a given interpretation, as opposed to semantic consequence (which is for any interpreations)
+
+Law of identity (LID):
+  - x ≡ x
+  - i.e. semantics of a given variable does not change
+
+Law of non-contradiction (LNC):
+  - also named principle|law of [non-]contradiction
+  - x ∧ !x ⊢ ⊥
+  - i.e. cannot be true and false at same time
+
+Principle of explosion:
+  - also named principle of Pseudo-Scotus, deductive explosion or ex falso quodlibet
+  - x, !x ⊢ y
+     - because x ⊢ x ∨ y and !x, x ∨ y ⊢ y
+  - if a system has a single contradiction, any statement becomes either true|false
+     - i.e. usual logical inference rules do not apply in a system with a single contradiction
+
+Law of excluded middle (LEM):
+  - also named principle of excluded middle, law|principle of the excluded third, principium tertii exclusi or tertium non datur
+  - x ∨ !x ⊢ ⊤
+  - i.e. any statement must be either true or false
+  - different from two-valued logic: e.g. there could be a third truth value "unknown" standing for either true|false
+
+Proof by contradiction:
+  - also named indirect proof, proof by assuming the opposite, apagogical arguments, appeal to extremes, or reductio|argumentum ad impossibile|absurdum
+  - (!x ⊢ ⊥ ) ⊢ (x ⊢ ⊤ )
+  - reason: law of non-contradiction + law of excluded middle
+  - i.e. proving truth by proving inverse is false
+
+Proof by contrapositive:
+  - (!x -> !y) ⊢ (y -> x)
+  - reason: proof by contradiction
+
+Negation introduction:
+  - (x -> y, x -> !y) ⊢ !x
+  - reason: law of non-contradiction + proof by contradiction
+
+Modus ponens:
+  - also named MP
+  - inference rule: (⊢ x, x->y) ⊢ (⊢ y)
+  - i.e. deducing a consequent from an antecedent
+
+Soundness:
+  - when every syntactically valid formula of a formal system is semantically valid
+  - i.e. if x ⊢ y then x ⊨ y
+  - i.e. every statement that can be expressed is true
+
+Completeness:
+  - when every semantically valid formula of a formal system is syntactically valid
+  - i.e. if x ⊨ y then x ⊢ y
+  - i.e. every true statement can be expressed
+
+Consistency:
+  - notation:
+     - Con P (where P are statements)
+  - synctatic: several formulas which do not infer synctatically invalid formulas, e.g. both x and !x
+  - semantic: several statements with at least one interpretation where they are all true
+
+Inconsistency:
+  - notation:
+     - Inc P (where P are statements)
+
+Truth:
+  - main theories:
+     - substantive:
+        - correspondence:
+           - when idea matches reality
+           - based an duality of idea vs realtity
+           - "matches": is an isomorphism
+           - often combined with realism (there exists a real world) as opposed to idealism (only ideas are real)
+        - coherence:
+           - when idea fits in a system of ideas
+           - in some theories, there is a single absolute system of ideas. In others, multiple
+           - in some theories, only consistency is needed. In others, the system must be comprehensive and complete too.
+        - pragmatic:
+           - when idea has been confirmed (or has not been rejected) by applying|experiencing it
+        - constructivist:
+           - when idea is useful
+           - is a social construct
+           - relative to a time and place
+     - minimalist:
+        - deflationary:
+           - redundant label attached to other properties
+           - semantic of a sentence is enough to describe it fully
+     - skeptic: there is no truth
+     - pluralist: there are several valid ways to define truth
+
+Uncertainty:
+  - includes: vagueness, ignorance
+
+Vagueness:
+  - when truth is gradual with no sharp boundaries
+
+Ignorance:
+  - when truth value is unknown
+
+Truth value:
+  - also named logical value
+  - semantical value related to truth
+
+Degrees of truth:
+  - number of truth values in a formal system
+  - can be:
+     - two-valued logic: 2
+        - also named principle of bivalence or bivalent logic
+     - many-valued logic: >2
+        - also named multi|multiple|n-valued logic
+        - three-valued logic: 3
+           - truth values: true, false, unknown
+        - infinite-valued logic: Infinite
+           - opposite: finite-valued logic
+           - fuzzy logic: >=0 and <=1
+              - describes vagueness, not uncertainty (which is described by probability)
+
+True:
+  - notation:
+     - true
+     - ⊤ (named|dual tee, verum or down tack)
+     - 1
+  - positive truth value in two-valued logic
+
+False:
+  - also named untrue
+  - notation:
+     - false
+     - ⊥ (falsum or up tack)
+     - 0
+     - O (polish notation)
+  - opposite of true
+
+Boolean domain:
+  - notation:
+     - B
+     - {⊤,⊥}
+  - set of truth values in two-valued logic
+
+Truth function:
+  - function whose domain and codomain are truth values
+
+Boolean function:
+  - also named switching function
+  - truth function in two-valued logic
+
+Truth table:
+  - mathematical table showing all possible domains|codomains of a truuth function
+
+Logical operators:
+  - also named sentential|logical operators|connective
+  - operator whose domain|codomain are logical symbols
+
+Negation:
+  - also named "not"
+  - notation:
+     - ¬x
+     - !x
+     - ~x
+     - -x
+     - x'
+     - x with bar overline
+     - Nx (polish notation)
+  - f(x) = y, where y is true|false if x is false|true
+
+Tautology|contradiction logical operators:
+  - Tautology:
+     - notation:
+        - ⊤
+        - Vxy (polish notation)
+     - f(x,y) = true
+  - Contradiction:
+     - notation:
+        - ⊥
+        - Oxy (polish notation)
+     - f(x,y) = false
+  - can also be considered nullary
+
+Propositional logical operators:
+  - also named projection and negation
+  - positive:
+     - on x:
+        - notation:
+           - x
+           - Ixy (polish notation)
+        - f(x,y) = x
+     - on y:
+        - notation:
+           - y
+           - Fxy (polish notation)
+        - f(x,y) = y
+  - negative:
+     - on x:
+        - notation:
+           - ¬x
+           - Hxy (polish notation)
+        - f(x,y) = !x
+     - on y:
+        - notation:
+           - ¬y
+           - Gxy (polish notation)
+        - f(x,y) = !y
+  - can also be considered unary: identity|negation
+
+Conjunction|disjunction-related logical operators:
+  - Conjunction:
+     - also named "and"
+     - notation:
+        - x ∧ y
+        - x & y
+        - x && y
+        - x • y
+        - x × y
+        - Kxy (polish notation)
+     - f(x,y) = z, where z is true if both x and y are true, false otherwise
+  - Inclusive disjunction:
+     - also named "or" or alternation
+     - notation:
+        - x ∨ y
+        - x | y
+        - x || y
+        - x + y
+        - Axy (polish notation)
+     - f(x,y) = z, where z is false is both x and y are false, true otherwise
+  - Exclusive disjunction:
+     - also named xor, eor, exor
+     - notation:
+        - x ⊻ y
+        - x v y (with dot above)
+        - x v y (with vertical bar in middle)
+        - x ⊕ y
+        - x ⇹ y
+        - x ≢ y
+        - x ^ y (programming)
+         - Jxy (polish notation)
+     - f(x,y) = z, where z is true is either x or y is true, but not both
+     - can also express non-equivalence, i.e. x and y have different truth values
+  - Alternative denial:
+     - also named nand, "not both" or sheffer stroke
+     - notation:
+        - x | y
+        - x ⊼ y
+        - x ↑ y
+        - Dxy (polish notation)
+     - means !(x∧y)
+  - Joint denial:
+     - also named nor, neither
+     - notation:
+        - x ↓ y (Peirce's arrow)
+        - x ⊽ y
+        - Xxy (polish notation)
+     - means !(x∨y)
+  - Logical equality:
+     - also named xnor or biconditional
+     - notation:
+        - x ∧ y (with underline)
+        - x <-> y
+        - x ≡ y
+        - Exy (polish notation)
+     - means !(x ⊻ y)
+     - can express "if and only if"
+        - abbreviated iff
+        - because x iff y is false if (x,y) is (true,false) or (false,true)
+     - can also express equivalence, i.e. both x and y have same truth value
+
+Implication logical operators:
+  - Material implication logical operator:
+     - like material consequence but as a logical operator
+        - same notation, e.g. x -> y
+     - f(x,y) = z where z is false if (x,y) is (true,false)
+     - contrapositive: !y -> !x, which is equivalent
+  - Abjunction:
+     - also named material nonimplication
+     - notation:
+        - x ⇸ y
+        - x ⊅ y
+        - x > y
+        - Lxy (polish notation)
+     - like x -> !y
+  - Converse implication
+     - notation:
+        - x ← y
+        - x ⊂ y
+        - x ≥ y
+        - Bxy (polish notation)
+     - like y -> x
+  - Converse abjunction:
+     - also named converse nonimplication
+     - notation:
+        - x ⇷ y
+        - x ⊄ y
+        - x < y
+        - Mxy (polish notation)
+     - like y -> !x
+
+Algebraic properties of boolean logical operators:
+  - commutativity:
+     - ⊤ ⊥ ∧ ∨ ↑ ↓ ≡ ≢
+  - adjoint function
+     - f(x,y) = g(y,x)
+     - ⊤ ⊥ ∧ ∨ ↑ ↓ ≡ ≢ <-> same
+     - p !p <-> q !q
+     - ← ↚ <-> → ↛
+  - negation:
+     - f(x,y) = !g(x,y)
+     - ⊤ <-> ⊥
+     - p q <-> !p !q
+     - ∧ ∨ ≢ <-> ↑ ↓ ≡
+     - ← → <-> ↚ ↛
+  - dual function:
+     - f(x,y) = !g(!x,!y)
+        - !f(x,y) = g(!x,!y)
+     - ⊤ <-> ⊥
+     - p q !p !q <-> same (self-dual)
+     - ∧ <-> ∨ (De Morgan's laws)
+     - ↑ ≢ <-> ↓ ≡
+  - algebraic division:
+     - all divisions are the same function
+     - left:
+        - f(x, f(x,y)) = y
+        - q !q ≡ ≢
+     - right:
+        - f(f(x,y), y) = x
+        - p !p ≡ ≢
+  - absorption:
+     - left:
+        - f(x, g(x,y)) = x and
+          g(x, f(x,y)) = x
+        - p <-> p q ∧ ∨
+        - ∨ <-> ∧
+     - right:
+        - f(g(x,y), y) = y and
+          g(f(x,y), y) = y
+        - q <-> p q ∧ ∨
+        - ∨ <-> ∧
+  - identity:
+     - left true:
+        - f(⊤,y) = y
+        - q ∧ ≡ →
+     - right true:
+        - f(x,⊤) = x
+        - p ∧ ≡ ←
+     - left false:
+        - f(⊥,y) = y
+        - q ∨ ≢ ↚
+     - right false:
+        - f(x,⊥) = x
+        - p ∨ ≢ ↛
+  - truth|falsity-preserving:
+     - truth:
+        - both:
+           - f(⊤,⊤) = ⊤
+           - ⊤ p q ∧ ∨ ≡ ← →
+        - left-any:
+           - f(⊤,y) = ⊤
+           - ⊤ p ∨ ←
+        - right-any:
+           - f(x,⊤) = ⊤
+           - ⊤ q ∨ →
+        - either:
+           - left-any or right-any
+           - ⊤ ∨
+     - falsity:
+        - both:
+           - f(⊥,⊥) = ⊥
+           - ⊥ p q ∧ ∨ ≢ ↚ ↛
+        - left-any:
+           - f(⊥,y) = ⊥
+           - ⊥ p ∧ ↛
+        - right-any:
+           - f(x,⊥) = ⊥
+           - ⊥ q ∧ ↚
+        - either:
+           - left-any or right-any
+           - ⊥ ∧
+ - monotonic:
+    - always weakly
+    - increasing:
+       - like truth-preserving on either side
+       - ⊤ ∨
+    - decreasing:
+       - like falsity-preserving on either side
+       - ⊥ ∧
+ - idempotence:
+    - left:
+       - f(x,y) = f(x, f(x,y))
+       - ⊤ ⊥ p q !q ∧ ∨ → ↚
+    - right:
+       - f(x,y) = f(f(x,y), y)
+       - ⊤ ⊥ p q !p ∧ ∨ ← ↛
+ - affinity:
+    - preserving:
+       - f(x,y) = f(!x,y) = f(x,!y)
+       - ⊤ ⊥
+    - inverting:
+       - !f(x,y) = f(!x,y) = f(x,!y)
+       - ≡ ≢
+
+Functional completeness:
+  - also named [expressively] adequate
+  - minimal set of boolean operators to define the other ones
+  - possible ones:
+     - ↓ ↑
+        - x ↓ x ⊢  ¬x
+        - !(x ↓ y) ⊢  x ∨ y
+     - ∧|∨ !
+        - !(!x ∧ !y) ⊢  x ∨ y
+     - ∧|∨ (≡ ≢ )|(≡ ⊥ )|(≢ ⊤ )
+     - ←|→  ↚ |↛
+     - ←|→  !|≢|⊥
+     - ↚|↛  !|≡|⊤
+
+Quantifier:
+  - operator asserting truth of a formula for a collection of variables
+  - variable-binding operator since it asserts possible semantics of variables
+  - universal quantifier:
+     - notation:
+        - ∀ VAR[,...]. FORMULA
+        - Π VAR[,...]. FORMULA (polish notation)
+     - means FORMULA is true for all combinations of VAR,...
+  - existential quantifier:
+     - notation:
+        - ∃ VAR[,...]. FORMULA
+        - ∑ VAR[,...]. FORMULA (polish notation)
+     - means FORMULA is true for at least one combination of VAR,...
+
+Paraconsistent:
+  - formal systems without law of non-contradiction

@@ -1,0 +1,17 @@
+
+                 
+   CIRCULAR-JSON  
+                 
+
+
+
+ALTERNATIVES ==>                  #See json-js cycle
+
+VERSION ==>                       #0.3.1
+                                  #Browser (AMD) or Node.js
+
+CIRCULARJSON.stringify(..., BOOL) #Like JSON.stringify(...) but replaces circular references by JSON-pointers-like,
+                                  #where ~ is delimiter, e.g. ~ is root and ~a~b is root.a.b
+                                  #If BOOL true, only replaces by "[Circular]" instead
+
+CIRCULARJSON.parse(...)           #Like JSON.parse(...) but restores circular references.

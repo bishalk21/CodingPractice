@@ -1,0 +1,41 @@
+
+                 
+   AVA_SNAPSHOTS  
+                 
+
+
+
+ALTERNATIVES ==>                  #See Jest snapshots
+
+VERSION ==>                       #Part of ava (see its doc)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          ASSERTIONS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TEST.snapshot(VAL)                #Compare against snapshot
+                                  #Write snapshot first time it is called
+                                  #Fail if run in CI and no snapshots found.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             FILES             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CONF.snapshotDir                  #'PATH'. Def:
+                                  #  - TEST_FILE/../snapshots/FILE.snap (binary file)
+                                  #  - TEST_FILE/../__snapshots__/... instead if inside __tests__/
+                                  #Also creates sibling FILE.md which contains description of snapshot
+                                  #  - used to show --update-snapshots's diff on new git commit
+                                  #When compiling test files and using source maps, use them (i.e. store snapshots as
+                                  #siblings to non-compiled test files)
+AVA.meta.snapshotDirectory        #'PATH'_URL
+
+--update-snapshots|u              #Write snapshot, and prune old ones

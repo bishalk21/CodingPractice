@@ -1,0 +1,20 @@
+
+                       
+   CONTENT-DISPOSITION  
+                       
+
+
+
+VERSION ==>                       #0.5.4
+
+
+CONTENT-DISPOSITION               #Stringify Content-Disposition [S]
+(['FILE'[, OPTS]])                #Correctly handles UTF-8 filenames using *=UTF-8''VAL notation
+->'TYPE[; filename="FILE"]'       #OPTS:
+                                  #  - type TYPE (def: 'attachment')
+
+CONTENT-DISPOSITION.parse         #Parse Content-Disposition [S]
+('TYPE[; filename="FILE"]')->OBJ  #OBJ:
+                                  #  - type 'TYPE'
+                                  #  - parameters:
+                                  #     - filename 'FILE'

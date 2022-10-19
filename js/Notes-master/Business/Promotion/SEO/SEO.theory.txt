@@ -1,0 +1,191 @@
+
+               
+   SEO_GENERAL  
+               
+
+
+
+SUMMARY ==>                                     #Ease crawler job:
+                                                #  - allow crawling and indexing: robots.txt, <meta>, X-Robot-Tags [S]
+                                                #  - give crawler instructions: sitemap
+                                                #  - accessibility
+                                                #Provide information:
+                                                #  - description: <title>, <meta>
+                                                #  - structure content: <h*>, <section>, etc.
+                                                #Good content:
+                                                #  - backlinks
+                                                #  - time to long click
+                                                #  - secure (HTTPS)
+                                                #Focused content:
+                                                #  - single URL, single content
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          VOCABULARY           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SERP ==>                                        #Search Engine Results Page
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       CRAWLING/INDEXING       :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CRAWLING/INDEXING ==>                           #Crawling:
+                                                #  - search bot fetches and stores page
+                                                #  - should never need to disallow
+                                                #Indexing:
+                                                #  - search engine uses either crawled page or "linked to" page to show search results
+                                                #  - should only disallow:
+                                                #     - when URL or response is confidential (e.g. URL confidential token)
+                                                #     - but not when response confidentiality is protected by authorization (e.g. 401)
+
+SEARCH BOTS USER AGENTS ==>                     #Googlebot, Twitterbot
+
+ORIGIN/robots.txt                               #INI format for crawling:
+                                                #  User-agent: USERAGENT
+                                                #  Disallow: DIR
+                                                #  Allow: DIR (priority over disallow) (def: /)
+                                                #  crawl-delay: NUM (rate limit one request per NUM seconds)
+                                                #  ...
+                                                #
+                                                #  ... (same for another USERAGENT)
+                                                #Globbing|regexp:
+                                                #  - * ? $
+                                                #  - only * in User-agent
+
+SITEMAP ==>                                     #Declared in robots.txt:
+                                                #  Sitemap: URL
+                                                #Is a XML file:
+                                                #  <?xml version="1.0" encoding="UTF-8"?>
+                                                #  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+                                                #    <url>
+                                                #      <loc>        URL                                               hints to what to visit.
+                                                #                                                                     Must be inside the same directory as Sitemap's parent's directory
+                                                #      (optional)
+                                                #      <lastmod>    YYYY[-MM[-DD[Thh:mm[:ss[.s]]TZ]]                  hints to when to visit
+                                                #      <changefreq> always|hourly|daily|weekly|monthly|yearly|never   hints to when to visit
+                                                #      <priority>   DOUBLE (from 0-1) (def: 0.5)                      when search engine picks between several possible pages
+                                                #Sitemap index is a directory of sitemaps:
+                                                #  <?xml version="1.0" encoding="UTF-8"?>
+                                                #  <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+                                                #    <sitemap>
+                                                #      <loc> SITEMAP_URL
+                                                #      (optional)
+                                                #      <lastmod> ...
+
+X-Robot-Tags: [useragent: ]"..." [S]            #Search engine hints for indexing:
+<meta name="robots" content="WORD,...">/        #  - [no]index (def: index): index current page
+                                                #  - [no]follow (def: follow):
+                                                #     - index linked pages
+                                                #     - nofollow sometimes used for user-generated content (e.g. comments) to avoid link spam
+                                                #     - can also use Link; rel="follow" [S] or <any rel="nofollow">
+                                                #  - none: like noindex, nofollow
+                                                #  - unavailable_after DATETIME: noindex after DATETIME (Google)
+                                                #  - noimageindex: do not index current page for image search (Google)
+                                                #  - noodp: do not used auto-generated description if missing <meta name="description">
+                                                #  - noydir: similar (Yahoo)
+                                                #  - nosnippet: do not show description (Google)
+                                                #  - noarchive: do not provide cached link in search result (Google, Yahoo)
+                                                #  - nocache: same as noarchive (Bing)
+                                                #Do not use if only using default
+<meta name="googlebot|slurp" content="STR">/    #Like "robots" but only for Google|Slurp
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        TRANSFORMATIONS        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<meta name="google" content="WORD,...">/        #Google-specific:
+                                                #  - notranslate: no Google translate
+                                                #  - nositelinkssearchbox: no search box below description (to search within the website, but using Google)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         ACCESSIBILITY         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ACCESSIBILITY ==>                               #Crawlers are simple, i.e. page should be optimized for them:
+                                                #  - should work with JavaScript, Java and Flash disabled
+                                                #  - use text more than images and Flash
+                                                #  - RESTful URLs
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          DESCRIPTION          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<title>                                         #Should be different for each page.
+                                                #Shown on search results
+<meta name="description" content="STR">/        #Description, used by search engines and browsers bookmarks.
+                                                #140 chars max.
+                                                #Should be different for each page. Should not use same words as the page content itself.
+<meta name="keywords" content="STR...">/        #Search engine keywords
+                                                #Not used by search engined (except for negative ranking (spamming))
+
+<h*>
+<section>                                       #And related tags are used to get information structure
+
+<iframe>                                        #To avoid
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        GOOD CONTENT           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+BACKLINKS ==>                                   #Links point to this site
+                                                #Avoid link farms (cheating)
+
+TIME TO LONG CLICK ==>                          #  - how long before user come back to search engine to trigger same query ("pogosticking")
+                                                #  - different from bounce rate, since some bounces do not trigger same query
+                                                #  - slow performance can make people give up, i.e. increasing time to long click
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:      FOCUSED CONTENT          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FOCUS ==>                                       #Should focus on specific topic
+
+URL ==>                                         #Have single URL
+                                                #Having different URLs, e.g. for mobile and desktop:
+                                                #  - will appear in search engines according to current device, e.g. mobile version only on mobile search:
+                                                #     - each version will have less ranking than both combined, e.g. backlinks will only point to one URL
+                                                #  - duplicated content also reduces SEO
+                                                #  - can reduce problem by using:
+                                                #     <link rel="alternate" media="..." href="MOBILE_SITE">
+                                                #     <link rel="canonical" href="DESKTOP_SITE">
+
+CLOAKING ==>                                    #Showing different content according to environment, e.g. user-agent:
+                                                #  - can be considered an attempt to trick search engines, unless Vary [S] is used
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           SECURITY            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+HTTPS ==>                                       #Should be used

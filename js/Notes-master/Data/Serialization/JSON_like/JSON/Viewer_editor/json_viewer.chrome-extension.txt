@@ -1,0 +1,26 @@
+
+               
+   JSON_VIEWER  
+               
+
+
+
+ALTERNATIVES ==>                  #  - tulios json-viewer (prefered): Chrome extension, many options
+                                  #  - callumlocke json-formatter: Chrome extension, less options, not maintained
+                                  #  - gildas-lormeau jsonview-for-chrome: Chrome extension, less options, not maintained
+
+VERSION ==>                       #0.17.0
+
+FEATURES ==>                      #Highlighting:
+                                  #  - Custom theming
+                                  #  - Showing raw or formatted
+                                  #Viewing:
+                                  #  - Collapsers
+                                  #  - Sort OBJ keys
+                                  #  - Line numbers
+                                  #  - Clickable URLs
+                                  #Manipulating:
+                                  #  - Data available in console
+                                  #  - Omnibox keyboard "json-viewer" for inline JSON
+                                  #  - Omnibox keyboard "json-viewer scratchpad" for JSON editing
+                                  #Max JSON limit

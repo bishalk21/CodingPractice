@@ -1,0 +1,29 @@
+
+             
+   JS-COOKIE  
+             
+
+
+
+ALTERNATIVES ==>                  #  - jquery-cookie: use jQuery
+                                  #  - cookie: used by Express
+                                  #  - js-cookie (prefer): more featureful
+
+VERSION ==>                       #3.0.1
+
+Cookie.withAttributes(OPTS)
+ ->Cookie                         #Set default OPTS
+OPTS.attributes                   #Defaults OPTS. Readonly. Def to {}
+
+Cookie.get()->{ VAR: 'VAL' }      #
+Cookie.get('VAR')->'VAL'          #
+Cookie.set('VAR', 'VAL'[, OPTS])  #OPTS: path|domain STR, expires DATE|NUM (in days), secure BOOL
+Cookie.remove('VAR'[, OPTS])      #Must specify OPTS.path|domain
+
+Cookie.converter                  #CONVERTER, i.e. OBJ with write|read() called to encode|decode 'VAL'
+Cookie.converter.write('VAL')
+ ->'VAL'                          #Call encodeURIComponent() on =;
+Cookie.converter.read('VAL')
+ ->'VAL'                          #Call decodeURIComponent() on =;
+Cookie.withConverter(CONVERTER)
+ ->Cookie                         #Adds a Cookie.converter (does not remove the default one, done before (on both write|read))

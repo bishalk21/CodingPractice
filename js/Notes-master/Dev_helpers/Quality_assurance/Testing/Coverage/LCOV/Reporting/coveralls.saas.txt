@@ -1,0 +1,84 @@
+
+             
+   COVERALLS  
+             
+
+
+
+ALTERNATIVES ==>              #See codecov
+
+LCOV ==>                      #Uses LCOV (see its doc)
+                              #  - only DA and BRDA records, i.e. 'html' Istanbul reporter is actually better
+                              #Parse with LCOV-PARSE (see its doc)
+
+coveralls                     #Command line (3.0.7)
+                              #Upload LCOV to Coveralls by using POST https://coveralls.io/api/v1/jobs
+                              #Read LCOV from stdin, and transform it to JOB.source_files
+-v|--verbose
+COVERALLS.options.verbose
+ENVVAR NODE_COVERALLS_DEBUG=1 #
+-s|--stdout
+COVERALLS.options.stdout      #Dry run
+
+COVERALLS.handleInput
+ ('LCOV_PATH', FUNC([ERROR])) #Programmatic usage
+
+ENVVAR COVERALLS_REPO_TOKEN   #JOB.repo_token (def: ./.coveralls.yml with content { repo_token: STR })
+ENVVAR COVERALLS_SERVICE_NAME #JOB.service_name
+ENVVAR
+ COVERALLS_SERVICE_JOB_ID     #JOB.service_job_id
+ENVVAR COVERALLS_GIT_COMMIT   #JOB.git.head (def: detect by looking for [.../].git/HEAD) (fetch git data using `git` CLI)
+ENVVAR COVERALLS_GIT_BRANCH   #JOB.git.branch
+ENVVAR COVERALLS_RUN_AT       #JOB.run_at (def: now)
+ENVVAR COVERALLS_PARALLEL     #JOB.parallel
+ENVVAR COVERALLS_FLAG_NAME    #JOB.flag_name
+ENVVAR COVERALLS_ENDPOINT     #Def: https://coveralls.io
+
+CI SUPPORT ==>                #When inside a CI, JOB.service_*|git are deduced from CI-specific ENVVARs
+                              #The CI itself is deduced using ENVVAR CI_PULL_REQUEST
+                              #Also pull request statuses are performed.
+                              #Coverage will not be updated if CI build failed
+                              #Supported CIs: Travis, Drone, Jenkins, CircleCI, Codeship, Wercker, GitLab, AppVeyor, Surf, Buildkite, Semaphore
+
+PARALLEL BUILDS ==>           #Incrementally send partial LCOV, which are merged at end
+                              #Often done with CIs parallel builds
+                              #Must:
+                              #  - use ENVVAR COVERALLS_PARALLEL=true
+                              #  - notify at end with:
+                              #       POST https://coveralls.io/webhook[?repo_token=REPO_TOKEN]
+                              #       { payload: { build_num: BUILD_ID, status: 'done' } }
+                              #     - can be done with Travis CONF.notifications.webhooks 'https://coveralls.io/webhook'
+
+REST API ==>                  #POST https://coveralls.io/api/v1/jobs with JOB:
+                              #  - repo_token STR:
+                              #     - repository secret access token
+                              #     - only required if no service_*
+                              #  - service_name STR: CI name (e.g. "travis[-pro]")
+                              #  - service_job_id STR: e.g. TRAVIS_JOB_ID
+                              #  - service_pull_request STR
+                              #  - source_files OBJ_ARR:
+                              #     - name 'PATH'
+                              #     - source_digest 'MD5'
+                              #     - coverage ARR for each line: NUM (number of execution) or null (none)
+                              #     - branches [LINE_NUM, BRANCH_ID, SIBLING_BRANCH, NUM]
+                              #  - git:
+                              #     - head: id COMMIT_ID, author|committer_name|email, message
+                              #     - branch LBRANCH
+                              #     - remotes: name, url
+                              #  - run_at 'DATE'
+                              #  - parallel BOOL (def: false)
+                              #  - flag_name STR
+                              #Common for the rest: https://coveralls.io/
+                              #GET /github/USER/REPO.json[?page=NUM]: commit information, summarized coverage information
+
+BADGES ==>                    #Either:
+                              #  - https://coveralls.io/repos/USER/REPO/badge.svg[?branch=LBRANCH]
+                              #  - https://img.shields.io/coveralls/github/USER/REPO[/LBRANCH].svg
+                              #Should link to https://coveralls.io/r/USER/REPO?branch=LBRANCH
+
+GULP-COVERALLS()              #Takes lcov files in input, do same thing as command line coveralls
+                              #Version 0.1.2
+
+KARMA-COVERALLS               #REPORTER that sends lcov (like command line coveralls).
+                              #Should be after "coverage" REPORTER, putting lcov[only] in ./coverage/
+                              #Version 0.1.4

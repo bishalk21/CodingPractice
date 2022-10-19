@@ -1,0 +1,23 @@
+
+               
+   GEMNASIUM   
+               
+
+
+
+FREE FEATURES ==>             #Show dependencies status:
+                              #  - green
+                              #  - yellow: outdated
+                              #  - red: really outdated or security alert
+                              #Can see dependencies'd dependencies status too
+                              #Also:
+                              #  - notifications (email|campfire)
+                              #  - REST API, command line
+
+PREMIUM FEATURES ==>          #  - private repo
+                              #  - teams/several users
+                              #  - security alerts
+                              #  - auto dependencies update
+                              #  - reports
+
+STATUS IMAGES ==>             #https://img.shields.io/gemnasium/USER/REPO.svg

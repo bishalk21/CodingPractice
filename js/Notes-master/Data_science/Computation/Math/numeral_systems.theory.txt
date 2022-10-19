@@ -1,0 +1,332 @@
+
+                   
+   NUMERAL_SYSTEMS  
+                   
+
+
+
+Number has:
+  - value
+  - numeral:
+     - representation|symbol|notation
+     - digit: in positional notation, each position's symbol
+
+Numeral systems:
+  - can represent a specific set of number values (e.g. integers)
+  - each number value has 1-n representations
+     - if several, one might be standard/canonical
+  - tries to represent the number value's arithmetic/algebraic properties
+     - e.g. higher value -> more numerals
+
+Main notation:
+  - sign types:
+     - arbitrary shape
+     - letter:
+        - either:
+           - alphabetic numerals: following alphabetical order
+           - acrophonic numerals: using number's word first letter
+        - sometimes a symbol indicates that the letters are intended as number instead
+     - lexical numerals: number word in full
+     - real-life object (e.g. abascus)
+  - notations:
+     - sign-value:
+        - each specific sign has a given value, regardless of position
+           - big numbers are represented by adding more signs
+        - radix|base is common divisor of signs
+        - signs can either:
+           - represent a single unit|exponent
+              - e.g. 1|5|10|50|100
+              - repeats to multiply
+              - smaller digits set
+              - called geometric numerals, because value is discontinuous
+                 - as opposed to arithmetic numerals (e.g. 1-9) which are continuous
+           - ciphered numerals: represent an exponated unit
+              - e.g. 1-9e0-2
+              - does not repeat
+              - smaller numbers
+     - multiplicative grouping systems:
+        - mix between sign-value and positional notation
+        - pairs of signs of unit[s] and exponent
+           - often exponent 1e0 has no sign
+        - unit[s] can be single|several
+        - exponent sign can either:
+           - be unique per exponent
+           - always same, but repeated
+     - positional|place-value:
+        - digit value depends on position
+        - makes arithmetic computation easier
+        - radix|base:
+           - exponentiation of each position
+           - i.e. number of possible digits
+           - notations:
+              - xₘ, where m is radix
+                - m can be b|o|d|h for 2|8|10|16
+              - <m,Zₙ>, where m is radix and Zₙ is set of available digits, from 0 to n
+                 - Zₙ can also be {DIGIT,...} instead
+           - mixed radix:
+              - when radix differs between position
+              - multiple radices: when radices sequence repeats
+                 - biquanary: when radices 5 and 2
+           - radix economy:
+              - information cost of using a specific base to represent a specific number
+              - is m * n  where m is base and n is:
+                 - ⌊log_m(n)⌋ + 1
+                 - if m,n∈ N: same as .number of digits in n
+              - e has lowest, followed by 2 and 3 (almost equal), 1 is very bad except for single digit, >3 gets worse and worse
+        - digit separator:
+           - separating each digit with always the same sign
+           - useful when digit base is different from number base
+              - e.g. base-60 numbers with base-10 digits
+           - notations:
+              - ' "
+              - :
+              - °
+        - digit grouping:
+           - grouping digits to quickly read any digit position
+           - number of digits:
+              - often 3
+              - but can differ, e.g.:
+                 - 4 in East Asia
+                 - 2|4|8 in base 2|16
+              - can vary, e.g. 3 then 2 in India
+           - integer part only, or also fractional part
+           - notations:
+              - space (preferred)
+              - ,
+              - .
+              - _
+              - '
+           - thousands separator: when grouping by 3 digits with a separator
+        - standard:
+           - when:
+              - using digits
+              - digits start at 0
+              - single radix
+              - radix is N
+              - radix point
+              - minus sign
+           - can represent R
+
+Big|small numbers:
+  - sign-value notation, multiplicative grouping systems, positional notation
+  - exponentiation:
+     - harder computation, but simpler representation of big|small numbers
+     - scientific notation:
+        - m * b^n
+           - m is significand|mantissa|coefficient
+           - n is order of magnitude
+        - unit of difference between two orders of magnitudes, according to b:
+           - octave|oct: 8
+           - decade|dec or decimal exponent|dex: 10
+           - bel|B|field level|root power: e
+           - neper|Np|power level: e^2
+        - normalized|exponential notation: when m integer part has single digit
+        - engineering notation: when b is 10 and n is divisible by 3
+     - notations:
+        - mⁿ m^n or m**n
+        - MeN
+           - also noted MEN MexpN MexN MeeN
+           - scientific e notation
+           - means M * b^N with b 10
+           - MbN|MoN|MhN: when b = 2|8|16
+           - MpN: when b = 2, M is base 16 and N is base 10
+        - SI prefixes:
+           - for m * 10^n
+           - where n is -24|-21|-18|-15|-12|-9|-6|-3|-2|-1|1|2|3|6|9|12|15|18|21|24
+           - yocto|zepto|atto|femto|pico|nano|micro|milli|centi|deci|deca|hecto|kilo|mega|giga|tera|peta|exa|zetta|yotta
+           - y|z|a|f|p|n|µ|m|c|d|da|h|k|M|G|T|P|E|Z|Y
+        - binary prefixes:
+           - for m * 1024^n
+              - i.e. m * 2^(n*10)
+           - for n 1-8:
+              - kibi|mebi|gibi|tebi|pebi|exbi|zebi|yobi
+              - Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi
+                 - first three sometimes K|M|G, although this makes it confusing with SI prefixes
+  - factoradic|factorial number system:
+     - value of digit n at position m (starting at 0) is n*m!
+     - notation: ...:DIGIT! (subscript !)
+     - each number has exactly one representation
+     - need a big DIGIT alphabet, or using integers with a delimiter
+
+Precision:
+  - precision definition:
+     - for single number:
+        - amount of information
+        - in positional notation: number of significant digits
+     - for several numbers:
+        - high precision of the shared information|digits among them
+        - i.e. low difference between each other
+     - as opposed to:
+        - trueness: difference between expected and actual number, if precision was exact
+        - accuracy: difference between expected and actual number
+           - i.e. precision * trueness
+  - significant digits:
+     - in positional notation, all but non-significant:
+        - repeating 0 in leading position
+        - repeating 0 in trailing position, unless meant to signify degree of precision
+        - spurious digits:
+           - produced beyond max precision of a sensor
+           - i.e. false|spurious precision
+     - most|least significant digit: with highest|lowest position
+     - notation for least significant digit:
+        - none|implied by context, e.g.:
+           - margin of error specified
+           - scientific notation
+        - bar over it
+        - underline
+        - radix point (if no decimals)
+        - ellipsis: 3.14159...
+  - repeating decimal:
+     - in positional notation, ending decimal sequence repeated infinitely
+     - repetend|reptend: repeating sequence
+     - repeating 0:
+        - implied both in leading|trailing position
+        - in trailing position, called terminating decimal
+     - infinite decimal expansion:
+        - when repetend is smallest|highest digit, e.g. 0.2000...|0.1999...
+        - has same value as removing repetend and (if highest digit) incrementing previous digit, e.g. 0.2
+     - notations:
+        - ellipsis: 0.121212...
+        - vinculum: 0.12 (bar above repetend)
+        - dot above repetend's first and last digit
+        - arc above repetend
+        - 0.(12)
+  - quote notation:
+     - alternative to repeating decimal
+     - optional NNN' prefix to number
+        - means number - NNN... where N is repeated over number until radix point and beyond
+           - e.g. 12'345 = 345 - 121.212...
+        - in other words: number - NNN0.../999 with as many 9s as N
+           - e.g. 12'345 = 345 - 12000/99
+           - 9 only in base 10. In base 8, this would be 7, etc.
+        - if number first digit is 0, keeps position exponent
+           - e.g 3'0 = 10 - 3.33...
+        - if ' is at radix point, represent both as single ! instead
+           - e.g. 3!1 = .1 - .33...
+     - advantages:
+        - represent negative numbers without signs
+        - compact notation for R
+  - rounding: see numerical analysis doc
+
+Zero:
+  - can be:
+     - number: value 0
+     - positional digit
+  - representation:
+     - space
+     - specific sign
+
+Signedness:
+  - goal: representing Z
+  - representations:
+     - specific sign:
+        - plus|minus sign
+           - sign bit: when represented by 0|1 in binary
+        - parenthesis
+        - color:
+           - in rod numerals, red|black for positive|negative
+     - signed digits:
+        - different symbols for positive|negative digits
+           - common notation: digit with bar above it for negative digit
+        - balanced form:
+           - when every positive digit has a corresponding negative digit
+           - balanced ternary:
+              - when base 3, with -1, 0 and 1
+              - used in some early computers as alternative to binary
+                 - while binary is better at representing|computing N, it is better for Z
+        - non-adjacent form (NAF):
+           - canonical representation with the highest number of 0 possible
+     - negative base:
+        - i.e. same as positive base but each position alternates signedness
+        - requires approx. an additional digit than plus|minus sign
+        - with specific radix, called negabinary|negadecimal|...
+
+Fractional part:
+  - allow representing Q
+  - representations:
+     - fractions:
+        - using:
+           - specific signs for given x/y
+           - fraction bar|slash: x/y
+           - ratio: x:y
+              - proportion a:b::c:d means a:b = c:d
+              - multiple x:y:z:...: each possible pair is a ratio
+           - percentage:
+              - x%: xe-2 (percent)
+              - x‰: xe-3 (per-thousand|mille)
+              - x‱   or xbps: xe-4 (per-ten-thousand|permyriad|basis point)
+              - xpcm (per-cent-mille): xe-5
+              - xppm (parts-per-million): xe-6
+              - xppb (parts-per-billion): xe-9
+              - xppt (parts-per-trillion): xe-12
+              - xppq (parts-per-quadrillion): xe-15
+              - xpp:
+                 - percentage|percent point
+                 - unit of difference between two percentages
+                 - as opposed to one percentage multiplying the other
+           - vertical stacking:
+              - used with rod numerals
+              - also used with egyptian fractions, but numerator is always 1 with a specific fraction hieroglyph
+        - x is numerator|dividend, y is denominator|divisor
+        - common|simple|vulgar: when x,y∈ Z
+           - proper: when |x| <= |y|
+           - improper|top-heavy: inverse
+        - compound: when x|y is a fraction itself
+        - unit: when x is 1
+           - adjacent fractions: when difference between two fractions is a unit fraction
+        - p-adic fraction|rational: given p∈ N, and m∈ Z, when y = p^m
+           - dyadic: when p = 2
+           - exact set of numbers that have a finite representation in base p
+     - fractions combinations:
+        - mixed numeral|number|fraction: z x/y, meaning z + x/y
+        - egyptian fraction: sum of several 1/z (unit fractions) to represent a single x/y
+     - specific position in-between digits:
+        - like egyptian fraction but:
+           - nominator is positional digit
+           - denominator is radix^position
+        - radix point|character:
+           - symbol separating integer and fractional part
+           - called decimal|binary point|separator|mark|marker|sign|comma in decimal|binary numeral system
+           - notations:
+              - .
+              - ,
+              - ·
+              - '
+              - line above last integer digit (middle ages)
+              - making fractional part subscript|superscript (in price tags)
+           - example: . or ,
+        - explicit number of integer|decimal digits:
+           - examples:
+               - Q... notation (see float doc)
+               - order of magnitude in suzhou numerals
+     - non-integer representation:
+        - also called β-expansion
+        - in positional numerals, when radix∈ Q
+        - digits are still integers, and not > radix
+        - can represent any R
+        - often used: √2, φ, e, π
+
+Bijective:
+  - every value has a unique numeral, and vice-versa
+  - decimal numerals are not bijective due to leading zeros and trailing zeros
+  - k-adic/base-NUM:
+     - like positional with base NUM, but without 0 digit (start at digit 1 instead)
+     - 0 is represented by empty string
+        - including in decimals where integer is 0
+     - goal: bijective
+
+Imaginary|complex numbers:
+  - notations:
+     - imaginary unit: i|ι, where i*i = -1
+     - complex-based system:
+        - when radix is complex number
+        - digits are still integers, <= radix
+        - quater-imaginary base: when base <2i,Z₄>
+
+Anti-forgery:
+  - not allowing modifying number by adding more strokes
+  - types:
+     - using complex shapes in signs|digits
+     - termination sign
+     - fixed number of positional digits
+        - requires leading|trailing 0

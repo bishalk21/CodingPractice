@@ -202,3 +202,174 @@ movies(function (movieName) {
   console.log("My favorite movie is " + movieName);
 }, "Finding Nemo");
 ```
+
+# Callback Functions
+
+A `Callback functions` is function that is performed after another function has completed its execution. <br>
+
+- It is typically supplied as an input to other function.
+- **Callbacks** are critical to understand, as they are used in array methods (such as **map()**, **filter()**, and so on), **setTimeout**, **eventlisteners** (such as **click**, **scroll**). <br>
+
+E.g.
+
+```JavaScript
+function orderPizza(type, name, callback) {
+    console.log('Pizza ordered');
+    console.log('Pizza is on preparation');
+
+    setTimeout(function() {
+        let msg = `Your ${type} ${name} Pizza is ready`;
+        callback(msg);
+    }, 3000);
+}
+```
+
+Now Invocation of orderPizza:
+
+```JavaScript
+orderPizza('veg', 'cheese', function (message) {
+    console.log(message);
+});
+```
+
+**Important points to Note:**
+
+- JavaScript function can accept other function as arguement.
+- passing function as arguement is powerful programming concept that can be used to notify caller that something happened. <br> It is also known as **callback function**.
+- Nesting too many callback function is not a great idea and it creates callback hell.
+
+## JavaScript Map
+
+The **Array.map()** allows you to iterate over array using loop.
+
+- This method allows you to **iterate** and **modify** its elements using a callback function.
+- The callback function will then be executed on **each of array's element.** <br>
+
+**For example:** <br>
+Now Imagine you have to multiply each element of array by 3.<br>
+You can use **for loop** also like this,
+
+```JavaScript
+let arr = [2, 3, 4, 5, 6];
+for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i] * 3;
+}
+console.log(arr); // [ 6, 9, 12, 15, 18 ]
+```
+
+By using **map** it will look like this,
+
+```JavaScript
+let arr = [2, 3, 4, 5, 6];
+let modifiedArr = arr.map(function(el){
+    return el * 3;
+});
+console.log(modifiedArr); // [ 6, 9, 12, 15, 18 ]
+```
+
+## How to use Map over Array of Object
+
+```JavaScript
+let users = [
+    { firstName: 'Deepa', lastName: 'Chaurasia' },
+    { firstName: 'Devesh', lastName: 'Chaurasia' },
+    { firstName: 'Crescent', lastName: 'Partha' }
+];
+
+// you can iterate as follow
+let userFullNames = users.map(function(el){
+    return `${el.firstName} ${el.lastName}`;
+});
+
+console.log(userFullNames);
+// ['Deepa Chaurasia', 'Devesh Chaurasia', 'Crescent Partha']
+```
+
+## The complete map() method syntax
+
+The syntax of **map()** as follows: <br>
+`arr.map(function(element, index, array{}, this);` <br>
+
+- The **Callback function()** is called on each array element, and the map() method always passes the current element, the index of current element and whole array object to it.
+- The **this** arguement will be used inside **Callback function**.
+- By default it's value is **undefined**. <br>
+
+E.g.
+
+```JavaScript
+let arr = [2, 3, 5, 7];
+arr.map(function(element, index, array){
+    console.log(this) // 80
+}, 80);
+```
+
+Here, you can see this value is **80** which is **default** value.
+
+## Reduce Method in JavaScript
+
+**Use it When:** You have array of numbers, you want to add them all. <br>
+E.g.
+
+```JavaScript
+const num = [23, 29, 40, 30];
+const sum = num.reduce((total, amount) => total + amount);
+console.log(sum) // 122
+```
+
+## filter() and find() in JavaScript
+
+`filter()` provides new array depending on certain criteria. <br>
+
+Unlike **map()**, it can alter size of new array, whereas **find()** return just a single instance. <br>
+
+E.g.
+
+```JavaScript
+let users = [
+    { firstName: 'Ram', age: 15 },
+    { firstName: 'Shyam', age: 17 },
+    { firstName: 'Jodu', age: 25 }
+];
+```
+
+You could choose to **sort** these data by age groups, such as young (1-15) adult (15-50). <br>
+
+Like this,
+
+```JavaScript
+const youngPeople = users.filter((person) => {
+    return person.age <= 15;
+});
+const adult = users.filter((person) => {
+    return person.age >= 50;
+});
+
+console.log(youngPeople); // [{firstName: 'Ram', age: 15}]
+console.log(adult); // []
+```
+
+And the example of **find** goes like this,
+
+```JavaScript
+const ram = users.find((person) => person.firstName === 'ram');
+console.log(ram); // undefined
+```
+
+## Unique Value - set() in JavaScript
+
+```JavaScript
+let animals = [
+    { name: 'Lion', category: 'wild' },
+    { name: 'Dog', category: 'pet' },
+    { name: 'Cat', category: 'pet' }
+];
+```
+
+If we loop through **map**, we will get repeated value. <br>
+But we don't want repeated value here, So we will use Unique value - **set()** <br>
+E.g.
+
+```JavaScript
+let category = [...new Set(animals.map((animal) => animal.category))];
+console.log(category); // [wild, pet]
+```

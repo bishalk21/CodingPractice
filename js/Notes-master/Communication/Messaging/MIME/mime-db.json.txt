@@ -1,0 +1,14 @@
+
+           
+   MIME-DB  
+           
+
+
+
+VERSION ==>                       #1.52.0
+                                  #JSON file with all MIME types
+
+OBJ.MIME.extensions               #'EXT'_ARR (file extensions), if present
+OBJ.MIME.source                   #"iana", "apache" or "nginx"
+OBJ.MIME.compressible             #true or undefined
+OBJ.MIME.charset                  #STR, default charset, if present.

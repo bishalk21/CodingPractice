@@ -1,0 +1,139 @@
+
+                    
+   DOCUMENTATION.JS  
+                    
+
+
+
+ALTERNATIVES ==>                  #See JSDoc
+
+VERSION ==>                       #14.0.0
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TAGS              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TAGS ==>                          #Use JSDoc tags
+
+TYPE                              #Any JSDoc TYPE
+                                  #TypeScript TYPEs not supported (but referring to them by name works)
+                                  #  - including in @param|returns type inference
+                                  #Flow TYPEs might be supported
+
+INFERENCE ==>                     #Many tags are automatically guessed from JavaScript:
+                                  #  - @type
+                                  #  - @default (ARG = VAL)
+                                  #  - @file
+                                  #  - @namespace|member|property
+                                  #  - @function|param
+                                  #  - @class
+                                  #Also inferred from TypeScript/Flow:
+                                  #  - @param|returns
+                                  #Only VARs with JSDoc comment blocks are documented
+                                  #  - also exported ones if --document-exported
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            CONFIG             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+-c|--config CONF_FILE             #No defaults. Usually called 'documentation.yml'
+                                  #CONF.* are camelCase
+
+--babel FILE                      #Babel CONF (def: hard-coded one) used for @babel/parser
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CLI              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+documentation build FILE...       #Create documentation output
+-o|--output 'FILE|DIR|stdout'     #Def: 'stdout'
+
+documentation readme FILE...      #Inject documentation into README
+                                  #Shares same options as documentation build, except following ones.
+--readme-file 'FILE'              #Def: 'README.md'
+-s|--section STR                  #Heading (required).
+-d|--diff-only                    #BOOL (def: false). Only exit code 0 or 1 depending on whether README changed
+-q|--quiet                        #BOOL (def: false)
+
+documentation lint FILE...        #Lint documentation tags.
+                                  #Only uses --shallow options of documentation build
+
+-w|--watch                        #BOOL (def: false)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         PROGRAMMATIC          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+DOCUMENTATION.*(...)              #Programmatic. Document it only if needed.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           SELECTION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+--pe|--parse-extension 'EXT'      #Include files with those extensions as well during parsing
+                                  #Def: ['.[m]js|ts[x]', '.es6']
+--re|--require-extension 'EXT'    #Include files with those extensions as well during --shallow
+                                  #Def: ['.[m]js|ts[x]', '.es6']
+
+--document-exported               #BOOL (def: false). Generate documentation to all exported VARs even with no comment blocks.
+-a|--access STR                   #STR_ARR. Include tags with @access public|protected|private|undefined
+--infer-private REGEXP            #Make VAR whose name matches REGEXP @private
+
+--resolve                         #Import resolution among 'browser' (def) or 'node'
+--shallow                         #If false (def), include imported files on top of input FILE...
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OUTPUT             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+-f|--format STR                   #Among: 'json' (def), 'md', 'remark' (Markdown AST), 'html'
+-g|--github                       #BOOL. Infer GitHub links to source code
+
+--favicon FILE                    #In HTML
+-t|--theme 'MODULE'               #Custom HTML theme. MODULE must export FUNC(OBJ_ARR, OPTS, FUNC(ERROR, VINYL))
+--np|--no-package                 #If false (def), use package.json
+                                  #Only for HTML output
+--project-name STR                #Def: PACKAGE.name
+--project-version STR             #Def: PACKAGE.version
+--project-description STR         #Def: PACKAGE.description
+--project-homepage STR            #Def: PACKAGE.homepage
+
+--markdown-toc                    #BOOL (def: true). Include ToC in Markdown
+--markdown-toc-max-depth          #NUM (def: 6)
+
+--sort-order STR                  #How variables are sorted: 'source' (def) (source order) or 'alpha' (alphabetically)
+CONF.toc                          #Allow:
+                                  #  - sorting
+                                  #  - including|excluding VARs
+                                  #  - custom sections (non-VARs)
+                                  #ARR of:
+                                  #  - OBJ:
+                                  #     - name 'NAME': either 'VAR' name or heading name (for custom section)
+                                  #     - children 'NAME'_ARR
+                                  #     - description STR
+                                  #     - file 'PATH.md': like description but in file
+                                  #  - 'NAME'

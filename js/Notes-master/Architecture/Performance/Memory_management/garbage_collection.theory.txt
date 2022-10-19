@@ -1,0 +1,36 @@
+
+                      
+   GARBAGE_COLLECTION  
+                      
+
+
+Reference:
+  - weak: refer to a value, but does not change its lifetime. If value gone, defaults to safe null value.
+  - strong: refer to a value, increasing its lifetime, e.g. incrementing refcount
+
+Root object: top-level variable that can be still referenced (e.g. local scope + global scope)
+
+Garbage collection:
+  - automatic memory management
+  - can only handle syntactic garbage, not semantic
+  - types:
+     - tracing:
+        - remove any variable not "reacheable", i.e. not a root object or one of its descendant
+        - performed periodically
+     - reference counting:
+        - remove any variable with refcount === 0
+        - refcount of a value is incremented when a variable refers to it, decremented when the variable is unset (e.g. out of scope)
+        - advantages:
+           - can be performed as soon as a variable is garbage, instead of relying on periodic runs
+           - only take small amount of times each time
+        - disadvantages:
+           - run continuously instead of being run during idle times
+           - takes more space
+           - does not free up reference cycles, i.e. object referencing to itself [in]directly
+              - e.g.:
+                 - direct: OBJ.self = OBJ
+                 - indirect: OBJ.a = OBJ2; OBJ2.b = OBJ;
+              - can solve this by combining with tracing, or by using weak references
+
+Heap trashing:
+  - too frequent garbage collection

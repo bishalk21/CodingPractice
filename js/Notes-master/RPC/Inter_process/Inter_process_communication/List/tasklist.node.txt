@@ -1,0 +1,28 @@
+
+            
+   TASKLIST  
+            
+
+
+
+ALTERNATIVES ==>                  #See ps-list
+
+VERSION ==>                       #5.0.0
+
+tasklist([OPTS])->PROMISE_OBJ_ARR #Run `cmd.exe` `tasklist` (list processes)
+tasklistStream([OPTS])            #Output as CSV (`/nh /fo csv` flags) (parses with NEAT-CSV)
+ ->ISTREAM_OBJ                    #OPTS:
+                                  #  - filter 'VAR OP VAL'[_ARR]: filters (/fi flags, see its doc)
+                                  #  - verbose BOOL (`/v` flag)
+                                  #  - system 'HOST' + username 'USER' + password 'PASSWORD': on remote host (/s /u /p flags)
+                                  #OBJ:
+                                  #  - imageName STR (e.g. 'taskhostex.exe')
+                                  #  - pid NUM (e.g. 1820)
+                                  #  - sessionName STR (e.g. 'Console')
+                                  #  - sessionNumber NUM (e.g. 1)
+                                  #  - memUsage NUM (in bytes)
+                                  #  (if OPTS.verbose)
+                                  #  - status 'Running|Suspended|Not Responding|Unknown'
+                                  #  - username 'DOMAIN\USER'
+                                  #  - cpuTime NUM
+                                  #  - windowTitle STR (e.g. 'Task Host Window')

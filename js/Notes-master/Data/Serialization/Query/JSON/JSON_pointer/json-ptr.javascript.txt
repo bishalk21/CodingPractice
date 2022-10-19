@@ -1,0 +1,95 @@
+
+            
+   JSON-PTR  
+            
+
+
+
+ALTERNATIVES ==>                  #  - flitbit json-ptr (preferred): good features, faster, supports URI fragment
+                                  #  - manuelstofer json-pointer: node.js only, good features
+                                  #  - janl node-jsonpointer: node.js only, only few features
+                                  #  - alexeykuzmin jsonpointer.js: very few features
+
+VERSION ==>                       #3.1.0
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            PARSING            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JSON POINTER FORMAT ==>           #For:
+                                  #  - get|set|has(): either JSON string or URI fragment (if starts with #)
+                                  #  - flatten|map(): JSON string if last argument false (def), URI fragment if true
+                                  #  - rel|listPointers|visit(): JSON string
+                                  #  - listFragmentIds(): URI fragment
+                                  #  - decode|encode[TYPE](): either one without TYPE or specific one if TYPE Pointer or UriFragmentIdentifier
+                                  #Every method throws if format|syntax is wrong
+PTR                               #JSON pointer STR
+RPTR                              #Relative JSON pointer STR
+
+ESCAPING|UNESCAPING ==>           #I.e. ~1 <-> / and ~0 <-> ~
+                                  #For URI fragment, also decode|encodeURIComponent()
+                                  #Done by all methods, including decode|encode[TYPE]()
+
+JSON-PTR.JsonPointer              #J
+
+J.decode[TYPE](PTR)->STR_ARR      #Returns JSON pointer individual parts without slash delimiters.
+                                  #Empty ARR for root JSON pointer "".
+J.encodeTYPE(STR_ARR)->PTR        #Inverse
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GET/SET            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+J.get(OBJ, PTR)->VAL|undefined    #undefined means either that key does not exist, or that value === undefined
+J.has(OBJ, PTR)->BOOL             #Checks that key exists and value !== undefined
+J.set(OBJ, PTR, VAL[, BOOL])->VAL2#VAL2 is previous value.
+                                  #If key does not exist or its value is undefined:
+                                  #  - do nothing if false (def)
+                                  #  - or create paths and set VAL if true.
+                                  #Throws if PTR is ""
+J.unset(OBJ, PTR)->VAL2           #Same as set() with undefined, but deletes property key too
+
+J.create(PTR)->JPTR               #Similar to J but faster
+JPTR.concat(JPTR2|PTR2)->JPTR3    #Same but using JTPR + JPTR2|PTR2
+
+JPTR.get(OBJ)->VAL                #Like J.get()
+JPTR.set(OBJ, VAL[, BOOL])->VAL   #Like J.set()
+JPTR.unset(OBJ)->VAL              #Like J.unset()
+JPTR.has(OBJ)->BOOL               #Like J.has()
+JPTR.path STR_ARR                 #Like J.decode()
+JPTR.pointer PTR
+JPTR.uriFragmentIdentifier PTR    #Like J.encodeTYPE()
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           RELATIVE            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+JPTR.relative(RPTR)->JPTR2        #Like concat() but using a relative JSON pointer
+
+JPTR.rel(OBJ, RPTR)->VAL          #Find value (or key if '#...') using relative JSON pointer
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          FLATTENING           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+J.listPointers(OBJ)->ARR_OBJ2     #Returns each OBJ member (recursively) as OBJ2: value VAL, pointer PTR
+J.listFragmentIds(OBJ)->ARR_OBJ2  #Returns each OBJ member (recursively) as OBJ2: value VAL, fragment PTR
+J.flatten|map(OBJ[, BOOL])
+ ->OBJ2|MAP                       #Returns each OBJ member (recursively) as OBJ2|MAP.PTR VAL
+J.visit(OBJ, FUNC(PTR, VAL))      #Fires FUNC for each OBJ member (recursively)

@@ -1,0 +1,442 @@
+
+            
+   TSESTREE  
+            
+
+
+
+VERSION ==>                       #Same as @typescript-eslint/typescript-estree
+
+ESTREE ==>                        #Extends ESTree (see its doc) for TypeScript
+
+SUPPORT ==>                       #Only @babel/parser and typescript-estree
+
+FLOW ==>                          #Not documented.
+                                  #Only supported by Babel
+
+NOTATION ==>                      #Like ESTree (see its doc)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        TYPESCRIPT/FLOW        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TYPE                              #Type 'typeAnnotation' (TypeScript|Flow)
+                                  #TYPE_VAR or TYPE_EXPR
+
+VAR: TYPE
+function (VAR: TYPE): TYPE {}
+...VAR: TYPE                      #TYPE assertion
+{...}: TYPE                       #On IDENTIFIER|FUNC|REST_ELEMENT|OBJ_PATTERN|ARR_PATTERN|ASSIGNMENT_PATTERN|CLASS_PROPERTY:
+[...]: TYPE                       #  - [typeAnnotation TYPE_ANNOTATION]
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERAL            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TYPE                              #Type 'TSType'. TypeScript TYPE value.
+                                  #Parent of lots of nodes.
+
+TYPE_VAR                          #Type 'TSEntityName'. Child of IDENTIFIER, for a TS_TYPE.
+                                  #TYPE_VAR identifier itself.
+
+TYPE_VAR                          #Child of TS_TYPE, type 'TSTypeReference':
+                                  #  - typeName TS_ENTITY_NAME
+                                  #TYPE_VAR reference.
+
+(TYPE)                            #Child of TS_TYPE, type 'TSParenthesizedType':
+                                  #  - typeAnnotation TS_TYPE
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       TYPE DECLARATIONS       :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+type TYPE_VAR = TYPE2             #Child of DECLARATION, type 'TSTypeAliasDeclaration':
+                                  #  - id IDENTIFIER
+                                  #  - typeAnnotation TS_TYPE
+
+typeof VAR                        #Child of TS_TYPE, type 'TSTypeQuery':
+                                  #  - exprName TS_ENTITY_NAME
+
+TYPE extends TYPE2 ? TYPE3 : TYPE4#Child of TS_TYPE, type 'TSConditionalType':
+                                  #  - checkType TS_TYPE (TYPE)
+                                  #  - extendsType TS_TYPE (TYPE2)
+                                  #  - trueType TS_TYPE (TYPE3)
+                                  #  - falseType TS_TYPE (TYPE4)
+infer TYPE                        #Child of TS_TYPE, type 'TSInferType':
+                                  #  - typeParameter TS_TYPE_PARAMETER
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           KEY TYPES           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+keyof TYPE
+unique symbol                     #Child of TS_TYPE, type 'TSTypeOperator':
+readonly TYPE[]                   #  - typeAnnotation TS_TYPE
+readonly [TYPE,...]               #  - operator: 'keyof|unique|readonly'
+
+{ readonly ...[: TYPE],... }      #On CLASS_PROPERTY|TS_MAPPED_TYPE|TS_PROPERTY_SIGNATURE|TS_INDEX_SIGNATURE:
+{ [+|-]readonly [T in TYPE]: ...} #  - [readonly BOOL|'+'|'-']
+
+TYPE[TYPE2]                       #Child of TS_TYPE, type 'TSIndexedAccessType':
+                                  #  - objectType TS_TYPE (TYPE)
+                                  #  - indexType TS_TYPE (TYPE2)
+
+{ [T in TYPE]: TYPE2 }            #Child of TS_TYPE, type 'TSMappedType':
+                                  #  - typeParameter TS_TYPE_PARAMETER (T in TYPE)
+                                  #  - [typeAnnotation TS_TYPE] (TYPE2)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          BASE TYPES           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+any                               #Child of TS_TYPE, type 'TSAnyKeyword'
+unknown                           #Child of TS_TYPE, type 'TSUnknownKeyword'
+never                             #Child of TS_TYPE, type 'TSNeverKeyword'
+
+undefined                         #Child of TS_TYPE, type 'TSUndefinedKeyword'
+null                              #Child of TS_TYPE, type 'TSNullKeyword'
+void                              #Child of TS_TYPE, type 'TSVoidKeyword'
+
+boolean                           #Child of TS_TYPE, type 'TSBooleanKeyword'
+number                            #Child of TS_TYPE, type 'TSNumberKeyword'
+string                            #Child of TS_TYPE, type 'TSStringKeyword'
+bigint                            #Child of TS_TYPE, type 'TSBigIntKeyword'
+symbol                            #Child of TS_TYPE, type 'TSSymbolKeyword'
+
+object                            #Child of TS_TYPE, type 'TSObjectKeyword'
+
+BOOL|NUM|STR                      #Child of TS_TYPE, type 'TSLiteralType':
+                                 b#  - literal LITERAL
+                               (b)#  - literal *_LITERAL
+BIGINT                           b#Same
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           OPTIONAL            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+{ VAR?[: TYPE],... }
+{ [T in TYPE][+|-]?: TYPE2 }      #On IDENTIFIER|TS_PROPERTY_SIGNATURE|TS_MAPPED_TYPE|TS_METHOD_SIGNATURE|TS_DECLARE_METHOD|TS_METHOD_SIGNATURE:
+(VAR?[: TYPE],...) => TYPE2       #  - [optional BOOL|'+'|'-']
+
+[TYPE?,...]                       #Child of TS_TYPE, type 'TSOptionalType':
+                                  #  - typeAnnotation TS_TYPE
+                                  #Only for TYPE?, not whole tuple
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             ENUM              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+[const] enum ENUM {}              #Child of DECLARATION, type 'TSEnumDeclaration':
+                                  #  - [const BOOL]
+                                  #  - id IDENTIFIER (ENUM)
+                                  #  - members TS_ENUM_MEMBER_ARR
+  NAME [= EXPR]                   #Type 'TSEnumMember':
+                                  #  - id IDENTIFER|LITERAL
+                                  #  - [initializer EXPR]
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OBJECT             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TS_TYPE_ELEMENT                   #TS_PROPERTY_SIGNATURE|TS_INDEX_SIGNATURE|TS_METHOD_SIGNATURE|TS_CALL_SIGNATURE_DECLARATION|TS_CONSTRUCT_SIGNATURE_DECLARATION
+
+{ ... }                           #Child of TS_TYPE, type 'TSTypeLiteral':
+                                  #  - members TS_TYPE_ELEMENT_ARR
+  VAR: TYPE [= VAL]               #Type 'TSPropertySignature':
+                                  #  - key EXPR
+                                  #  - [computed BOOL] (when key is [STR])
+                                  #  - [typeAnnotation TS_TYPE_ANNOTATION]
+                                  #  - [initializer EXPR]
+  [VAR: TYPE2]: TYPE              #Type 'TSIndexSignature':
+                                  #  - parameters IDENTIFIER_ARR (VAR: TYPE2, with single element, an IDENTIFIER with type assertion)
+                                  #  - [typeAnnotation TS_TYPE_ANNOTATION] (TYPE)
+
+OBJ_TYPE.VAR                      #Child of TS_ENTITY_NAME, type 'TSQualifiedName':
+                                  #  - left TS_ENTITY_NAME
+                                  #  - right IDENTIFIER
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        CLASS/INTERFACE        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+class CLASS {}
+  constructor                     #Child of PATTERN, type 'TSParameterProperty'
+   (QUAL VAR[?]: TYPE,...)        #  - parameter PATTERN
+                                  #  - [accessibility 'public|protected|private']
+                                  #  - [readonly BOOL]
+  public|protected|private VAR    #On CLASS_PROPERTY|CLASS_METHOD|TS_DECLARE_METHOD:
+                                  #  - [accessibility 'public|protected|private']
+abstract class ...                #On CLASS_DECLARATION:
+                                  #  - [abstract BOOL]
+  abstract VAR                  bl#Type 'TSAbstractClassProperty' (like CLASS_PROPERTY)
+                             (bl)##On CLASS_PROPERTY:
+                             (bl)##  - [abstract BOOL]
+  abstract FUNC()               bl#Type 'TSAbstractMethodDefinition' (like METHOD_DEFINITION)
+                             (bl)##On CLASS_METHOD|TS_DECLARE_METHOD:
+                             (bl)##  - [abstract BOOL]
+
+interface INTERFACE {}            #Child of DECLARATION, type 'TSInterfaceDeclaration':
+                                  #  - id IDENTIFIER
+                                  #  - body TS_INTERFACE_BODY (type 'TSInterfaceBody'):
+                                  #     - body TS_TYPE_ELEMENT_ARR
+
+extends PARENT                    #On INTERFACE:
+                                  #  - extends TS_INTERFACE_HERITAGE_ARR
+                                bl#Type 'TSInterfaceHeritage'
+                             (bl)##Type 'TSExpressionWithTypeArguments'
+                                  #Child of TS_TYPE:
+                                  #  - expression EXPR
+implements PARENT                 #On CLASS:
+                                  #  - implements TS_CLASS_IMPLEMENT_ARR
+                                bl#Type 'TSClassImplements'
+                             (bl)##Type 'TSExpressionWithTypeArguments'
+                                  #Child of TS_TYPE:
+                                  #  - expression EXPR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           FUNCTION            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+([...]VAR[?]: TYPE,...) => TYPE2  #Child of TS_TYPE, type 'TSFunctionType':
+                                  #  - [params IDENTIFIER|REST_ELEMENT_ARR] (parameters, including type assertions)
+                                  #  - [returnType TS_TYPE_ANNOTATION]
+                             (bl)##params -> parameters, returnType -> typeAnnotation
+new (...) => TYPE2                #Child of TS_TYPE, type 'TSConstructorType':
+                                  #  - [params IDENTIFIER|REST_ELEMENT_ARR] (parameters, including type assertions)
+                                  #  - [returnType TS_TYPE_ANNOTATION]
+                             (bl)##params -> parameters, returnType -> typeAnnotation
+{ FUNC(...)[: TYPE2] }            #Type 'TSMethodSignature':
+                                  #  - key EXPR
+                                  #  - [computed BOOL] (when key is [STR])
+                                  #  - [params IDENTIFIER|REST_ELEMENT_ARR]
+                                  #  - [returnType TS_TYPE_ANNOTATION]
+                             (bl)##params -> parameters, returnType -> typeAnnotation
+{ (...)[: TYPE2], ... }           #Type 'TSCallSignatureDeclaration':
+                                  #  - [params IDENTIFIER|REST_ELEMENT_ARR]
+                                  #  - [returnType TS_TYPE_ANNOTATION]
+                             (bl)##params -> parameters, returnType -> typeAnnotation
+{ new (...)[: TYPE2] }            #Type 'TSConstructSignatureDeclaration':
+                                  #  - [params IDENTIFIER|REST_ELEMENT_ARR]
+                                  #  - [returnType TS_TYPE_ANNOTATION]
+                             (bl)##params -> parameters, returnType -> typeAnnotation
+
+this                              #Child of TS_TYPE, type 'TSThisType'
+                                  #When used as return value type
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             ARRAY             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TYPE[]                            #Child of TS_TYPE, type 'TSArrayType':
+                                  #  - elementType TS_TYPE
+...ARR_TYPE                       #Child of TS_TYPE, type 'TSRestType':
+                                  #  - typeAnnotation TS_TYPE
+                                  #for [...ARR_TYPE]
+
+[TYPE[?][: VAR],...]              #Child of TS_TYPE, type 'TSTupleType':
+                                  #  - elementTypes TS_TYPE_ARR
+                                  #Element with :VAR is child of TS_TYPE, type 'TSNamedTupleMember':
+                                  #  - elementType TS_TYPE
+                                  #  - label IDENTIFIER
+                                  #  - optional BOOL
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          COMBINATION          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TYPE | TYPE2                      #Child of TS_TYPE, type 'TSUnionType':
+                                  #  - types TS_TYPE_ARR
+TYPE & TYPE2                      #Child of TS_TYPE, type 'TSIntersectionType':
+                                  #  - types TS_TYPE_ARR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERIC            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+type TYPE<T...> = ...
+class CLASS<T...> {}
+interface INTERFACE<T,...> {}
+[new] <T...>(...) => ...
+{ FUNC<T...>(...): ... }          #On FUNCTION_DECLARATION|FUNCTION_EXPRESSION|ARROW_FUNCTION_EXPRESSION|CLASS_DECLARATION|CLASS_EXPRESSION|CLASS_METHOD|OBJECT_METHOD
+{ [new] <T...>(...): ... }        #TS_TYPE_ALIAS_DECLARATION|TS_INTERFACE_DECLARATION|TS_FUNCTION_TYPE|
+function <T,...>(...) {...}       #TS_CONSTRUCTOR_TYPE|TS_DECLARE_FUNCTION|TS_DECLARE_METHOD|TS_METHOD_SIGNATURE|
+<T,...>(...) => ...               #TS_CALL_SIGNATURE_DECLARATION|TS_CONSTRUCT_SIGNATURE_DECLARATION:
+{ FUNC<T,...>(...) {} }           #  - [typeParameters TS_TYPE_PARAMETER_DECLARATION_ARR] (<...>)
+declare function <T,...>(...)     #     - params TS_TYPE_PARAMETER_ARR
+
+ T [extends TYPE3][ = TYPE4]      #Type 'TSTypeParameter':
+ T in TYPE3                     bl#  - [name IDENTIFIER]
+                             (bl)##  - [name STR]
+                                  #  - [constraint TYPE3]
+                                  #  - [default TYPE4]
+
+TYPE<TYPE2_VAR,...>               #On CALL_EXPRESSION|NEW_EXPRESSION|TS_TYPE_REFERENCE|TS_EXPRESSION_WITH_TYPE_ARGUMENT:
+                                  #  - [typeParameters TS_TYPE_PARAMETERS_INSTANTIATION]
+                                  #Type 'TSTypeParameterInstantiation':
+                                  #  - params TS_TYPE_ARR
+extends PARENT<...>               #On CLASS_DECLARATION|CLASS_EXPRESSION:
+                                  #  - [superTypeParameters TS_TYPE_PARAMETERS_INSTANTIATION]
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        TYPE ASSERTION         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+<TYPE>VAL                         #Child of EXPR, type 'TSTypeAssertion':
+<const>VAL                        #  - typeAnnotation TS_TYPE
+                                  #  - expression EXPR
+VAL as TYPE                       #Child of EXPR, type 'TSAsExpression':
+VAL as const                      #  - typeAnnotation TS_TYPE
+                                  #  - expression EXPR
+
+...: TYPE                         #Child of TYPE_ANNOTATION, type 'TSTypeAnnotation'
+                                  #  - typeAnnotation TS_TYPE
+                                  #TypeScript TYPE assertion
+
+function(...): TYPE2 {}
+declare function FUNC(): TYPE2
+(...): TYPE2 => ...
+{ FUNC(...): TYPE2 {} }           #On FUNCTION_DECLARATION|FUNCTION_EXPRESSION|METHOD_DEFINITION|TS_DECLARE_FUNCTION|ARROW_FUNCTION_EXPRESSION|OBJECT_METHOD:
+class { FUNC(...): TYPE2 }        #  - [returnType TYPE_ANNOTATION]
+
+VAL!                              #Child of EXPR, type 'TSNonNullExpression':
+                                  #  - expression EXPR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          UNITIALIZED          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+var|let VAR!: TYPE                #On VARIABLE_DECLARATOR|CLASS_PROPERTY:
+class ... { VAR!: TYPE; ... }     #  - [definite BOOL]
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          TYPE GUARDS          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+[asserts] VAR [is TYPE]           #Child of TS_TYPE, type 'TSTypePredicate':
+                                  #  - parameterName IDENTIFIER|TS_THIS_TYPE
+                                  #  - [typeAnnotation TS_TYPE_ANNOTATION]
+                                  #  - asserts BOOL
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:       NAMESPACE/AMBIENT       :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+namespace NAMESPACE {}            #Child of DECLARATION, type 'TSModuleDeclaration':
+declare module "MODULE" {}        #  - id IDENTIFIER|LITERAL
+declare module "MODULE"           #  - [body TS_MODULE_BLOCK]
+declare global {}                 #  - [global BOOL]
+                                  #Type 'TSModuleBlock':
+                                  #  - body STATEMENT_ARR
+
+declare QUAL VAR ...
+declare function FUNC() {}
+declare enum ...
+declare class ...
+declare CLASS_PROP: ...
+declare interface ...
+declare namespace ...             #On VARIABLE_DECLARATION|FUNCTION_DECLARATION|CLASS_DECLARATION|
+declare type ...                  #CLASS_*_PROPERTY|TS_TYPE_ALIAS_DECLARATION|TS_ENUM_DECLARATION|
+declare module ...                #TS_INTERFACE_DECLARATION|TS_MODULE_DECLARATION:
+declare global ...                #  - [declare BOOL]
+
+declare [async] function FUNC()   #Child of DECLARATION, type 'TSDeclareFunction'. Like FUNCTION_DECLARATION except no body
+                                  #'FunctionExpression' -> 'TSEmptyBodyFunctionExpression'
+
+class ... { FUNC() }            bl#METHOD_DEFINITION with no body
+                             (bl)##Type 'TSDeclareMethod'. Like CLASS_METHOD except no body
+                                  #'FunctionExpression' -> 'TSEmptyBodyFunctionExpression'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            MODULES            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+import(STR).VAR                   #Just a CALL_EXPRESSION
+
+export = VAL                      #Child of STATEMENT, type 'TSExportAssignment':
+                                  #  - expression EXPR
+[export] import VAR = NAMESPACE   #Child of STATEMENT, type 'TSImportEqualsDeclaration':
+[export] import VAR = require(STR)#  - id IDENTIFIER
+                                  #  - moduleReference TS_ENTITY_NAME (NAMESPACE) or TS_EXTERNAL_MODULE_REFERENCE (require(STR))
+                                  #  - [isExport BOOL]
+
+require(STR)                      #Type 'TSExternalModuleReference':
+                                  #  - expression EXPR
+                                  #Only in import VAR = require(STR)
+
+export as namespace NAME          #Child of STATEMENT, type 'TSNamespaceExportDeclaration':
+                                  #  - id IDENTIFIER
+
+import|export type ...            #On EXPORT_NAMED_DECLARATION|EXPORT_ALL_DECLARATION|IMPORT_DECLARATION:
+                                  #  - exportKind 'type' or 'value' (no type)

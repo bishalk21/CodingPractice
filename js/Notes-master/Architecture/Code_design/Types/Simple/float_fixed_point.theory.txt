@@ -1,0 +1,167 @@
+
+                     
+   FLOAT_FIXED_POINT  
+                     
+
+
+
+ALTERNATIVES ==>        #Floating point numbers:
+                        #  - most common
+                        #  - implemented hardware, i.e. faster
+                        #  - low space
+                        #Fixed point numbers:
+                        #  - lowest space
+                        #  - least variable precision
+                        #String of digits:
+                        #  - infinite precision
+                        #  - higest space
+                        #Rational numbers:
+                        #  - best precision for rational numbers (not irrational) with repeating decimals
+                        #Base 2 vs base 10:
+                        #  - base 2 more efficient, but decimal rounding errors to represent base 10
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TYPES             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REPRESENTATIONS ==>     #How Q is represented:
+                        #  - scientific notation:
+                        #     - m * bⁿ
+                        #     - b∈ N and m,n∈ Z
+                        #  - logarithmic number system (LNS)
+                        #     - bⁿ
+                        #     - b∈ N and n∈ Q
+                        #  - string of digits
+                        #     - allows for arbitrary precision (see doc for integers)
+                        #  - fractions:
+                        #     - two integers: nominator|denominator
+
+RADIX ==>               #Can be:
+                        #  - base 2 (binary)
+                        #     - more commonly used
+                        #     - more compact
+                        #  - base 10 (decimal)
+                        #Using 2 can lead to imprecise representation of base-10 decimal parts:
+                        #  - in string of digits
+                        #  - not in fractions
+                        #  - in scientific notation: not radix of m|n|b, but the value of b itself
+
+FLOATING-POINT VS       #Both represent with scientific notation m * bⁿ
+FIXED-POINT ==>         #Difference is whether b is:
+                        #  - floating-point: variable, i.e. stored in number
+                        #  - fixed-point: constant, i.e. stored in type ("scaling factor")
+
+FIXED-POINT NOTATIONS   #Notations:
+ ==>                    #  - QUINT1.UINT2
+                        #  - QUINT2
+                        #  - fxUINT1.UINT3
+                        #Where:
+                        #  - UINT1: number of digits before radix point
+                        #  - UINT2: number of digits after radix point
+                        #  - UINT3: UINT1 + UINT2
+
+IMPLEMENTATION ==>      #Floating points are usually the only ones with hardware support
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           IEEE 754            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+IEEE 754 STANDARD ==>   #Commonly used to represent floating point.
+                        #Three fields, contiguous in memory:
+                        #  - sign bit: +|- (0|1)
+                        #  - exponent
+                        #     - signedness:
+                        #        - either 2's complement or offset binary
+                        #        - i.e. one bit is for signedness
+                        #        - maximum exponent is reserved for infinity|NaN. Real one is 1 below
+                        #        - minimum exponent is reserved for 0|denormalized number. Real one is 2 above
+                        #  - significand|mantissa:
+                        #     - only decimal digits after implicit 1.* ("hidden|implicit bit")
+                        #     - i.e. >=1 and <2
+                        #Initially 1985, but extended in:
+                        #  - 2008: adds binary16|128 and decimal32|64|128
+                        #  - 2019
+
+DENORMALIZED NUMBERS ==>#Minimum exponent, significand not 0
+                        #Significand is implied to start with 0.* instead of 1.*
+                        #  - i.e. >0 and <1
+                        #  - i.e. better precision for very small 0.*
+                        #Also called denormal|subnormal
+
+ZERO ==>                #Minimum exponent, significand 0
+                        #Sign bit allows +0|-0
+
+INFINITY ==>            #Maximum exponent, significand 0
+                        #Sign bit allows +∞|-∞
+
+NAN/NOT-A-NUMBER ==>    #Maximum exponent, significand not 0
+                        #Meant to represent computation error
+                        #  - can use significand as error code
+                        #All numbers != NaN, including itself
+                        #sNaN|signaling NaN:
+                        #  - raise an exception
+                        #  - e.g. overflow|underflow
+                        #  - as opposed to quiet NaN
+                        #     - e.g. division by 0 or square root of -1
+                        #  - determined by first bit of significand
+
+PRECISION ==>           #Max [safe] integer:
+                        #  - above this, integers will not be precise
+                        #  - when significand full (including implicit 1) and using the right exponent to make it integer
+                        #  - 2 ** (SignificandBits + 1)
+                        #Min [safe] integer:
+                        #  - same with signed bit
+                        #  - -MaxInteger
+                        #Epsilon:
+                        #  - smallest difference|increment between two significands
+                        #  - i.e. max precision without exponation
+                        #  - 2 ** -SignificandBits
+                        #Exponent bias:
+                        #  - max value of the exponent field, minus 1
+                        #  - 2 ** (ExponentBits - 1) - 1
+                        #Max exponent:
+                        #  - how many base-10 zeros can be appended
+                        #  - base ** ExponentBias
+                        #Min exponent:
+                        #  - how many base-10 decimal zeros can be prepended
+                        #  - base ** -(ExponentBias - 1)
+                        #Max value:
+                        #  - above this, Infinity
+                        #  - 2 * MaxExponent
+                        #Min value (denormalized):
+                        #  - above this, -Infinity
+                        #  - Epsilon * MinExponent
+
+LONG DOUBLE ==>         #Is not standard. Differences:
+                        #  - no implied 1
+                        #  - no denormalized numbers
+                        #  - Infinity|NaN slightly different
+
+FORMATS ==>             #  STANDARD    NAME                  RADIX  SIZE    SIGNIFICAND  EXPONENT  MIN|MAX  EPSILON  MAX
+                        #                                          (bits)  (bits)                  INTEGER           EXPONENT
+                        #  no          bfloat16              2      16        7           8 bits   64       7e-3     2e38
+                        #  binary16    half                  2      16       10           5 bits   2e3      9e-4     3e4
+                        #  binary32    float|single          2      32       23           8 bits   2e7      1e-7     2e38
+                        #  binary64    double                2      64       52          11 bits   9e15     2e-16    9e307
+                        #  no          extended|long double  2      80       64          15 bits   2e19     5e-20    6e4931
+                        #  binary128   quad[ruple]           2      128     112          15 bits   1e34     2e-34    6e4931
+                        #  binary256   octuple               2      256     236          19 bits   2e71     9e-72    8e78912
+                        #  decimal32                         10     32        7          ±95       1e7      1e-7     1e95
+                        #  decimal64                         10     64       16          ±383      1e16     1e-16    1e383
+                        #  decimal128                        10     128      34          ±6143     1e34     1e-34    1e6143
+
+IMPLEMENTATION ==>      #In CPUs, done by a FPU (floating-point unit, ou "math coprocesser")
+                        #By formats:
+                        #  - bfloat16: high-end Intel CPUs
+                        #  - binary16|32|64: most CPUs
+                        #  - long double: x86 CPUs
+                        #  - binary128: some non-mainstream CPUs, some compilers with flags
+                        #  - binary256: no hardware support

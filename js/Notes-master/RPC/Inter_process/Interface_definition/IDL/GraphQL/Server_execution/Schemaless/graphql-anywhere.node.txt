@@ -1,0 +1,58 @@
+
+                    
+   GRAPHQL-ANYWHERE  
+                    
+
+
+
+VERSION ==>                       #3.1.0 (commit 91f9e9a)
+                                  #Uses graphQL query format, but schemaless.
+                                  #Good when schema is determined by client, not by server
+
+GRAPHQLANYWHERE.default           #Like GraphQL.js execute() except:
+(RESOLVER, DOCUMENT_NODE          #  - no SCHEMA:
+[, INITIALVALUE][, CONTEXT]       #     - use same SCHEMA as implied by query
+[, VARIABLES][, OPTS])->OBJ       #     - no validation, including:
+                                  #        - naming restrictions
+                                  #     - no typing:
+                                  #        - types are determined by resolver return value only, including
+                                  #          (according to GraphQL spec):
+                                  #           - null, which will stop recursion
+                                  #           - OBJ_ARR, which will multiply recursion
+                                  #        - no requiredness
+                                  #        - no coercion
+                                  #     - no introspection, including description|deprecation
+                                  #     - no default value
+                                  #     - query|mutation|subscription are handled the same way
+                                  #  - different resolver:
+                                  #     - can only specify single default RESOLVER
+                                  #     - RESOLVER is FUNC('ATTR', RPARENT, ARGS, CONTEXT, RESINFO)
+                                  #     - RESINFO is different and only has:
+                                  #        - isLeaf BOOL
+                                  #        - resultKey 'ALIAS|ATTR'
+                                  #        - directives.ATTR { DIRECTIVE: { ARG: VAL ... } ... }
+                                  #     - resolver errors are not handled, e.g. exceptions are propagated
+                                  #     - synchronous, no special handling of PROMISE, i.e. children resolvers are fired
+                                  #       after their parent, but synchronously
+                                  #  - client query cannot use operationName or it will throw
+                                  #Everything else handled including:
+                                  #  - fragments
+                                  #  - directives @skip|include
+                                  #  - query|mutation|subscription
+                                  #OPTS:
+                                  #  - resultMapper(OBJ, RPARENT)->OBJ:
+                                  #     - transform applied to every output [sub-]OBJ
+                                  #  - fragmentMatcher(RPARENT, 'TYPE', CONTEXT)->BOOL:
+                                  #     - filter whether a fragment should be used
+                                  #     - 'TYPE' is from '... on TYPE'
+
+filter(DOCUMENT_NODE[, OBJ])      #Uses GRAPHQLANYWHERE with:
+                                  #  - OBJ as INITIALVALUE
+                                  #  - RESOLVER returning RPARENT.ALIAS|ATTR
+                                  #I.e. uses graphQL to select subfields in OBJ
+check(DOCUMENT_NODE[, OBJ])       #Same but:
+                                  #  - throws error if RPARENT.ALIAS|ATTR not found
+                                  #  - cannot use fragments
+                                  #I.e. uses graphQL to check subfields existence in OBJ
+propType(DOCUMENT_NODE)
+ ->FUNC[.isRequired]              #Creates a React propType function that performs check(DOCUMENT_NODE, PROP_VAL)

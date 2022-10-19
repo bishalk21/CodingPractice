@@ -8,6 +8,8 @@
 - Access an element in an array
 - Delete an element from an array
 
+Arrays are a special type of object. They are a list of values, but the values don't have to be the same type. Arrays are zero-indexed, meaning the first element in the array is at index 0.
+
 Let's say that we have a list of ingredients for a kickin' grilled cheese (code along in console):
 
 ```javascript
@@ -83,16 +85,22 @@ Arrays are _ordered_, meaning that the elements in them will always appear in th
 ## Array properties
 
 - `length`
-  | Array | Property | Description |
-  | --- | --- | --- |
-  | `length` | Number | The number of elements in the array. |
-  | `prototype` | Object | Allows you to add properties and methods to an object. |
+
+  | Array       | Property | Description                                            |
+  | ----------- | -------- | ------------------------------------------------------ |
+  | `length`    | Number   | The number of elements in the array.                   |
+  | `prototype` | Object   | Allows you to add properties and methods to an object. |
 
 ## Array methods
 
-| Arrays   | Methods                               | Description                                                                               | Code                                                     |
-| -------- | ------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `push()` | `array.push(element1, ..., elementN)` | Adds one or more elements to the end of an array and returns the new length of the array. | `var arr = [1, 2]; arr.push(3); // arr is now [1, 2, 3]` |
+| Arrays       | Methods                                  | Description                                                                                             | Code                                                        |
+| ------------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| `push()`     | `array.push(element1, ..., elementN)`    | Adds one or more elements to the end of an array and returns the new length of the array.               | `var arr = [1, 2]; arr.push(3); // arr is now [1, 2, 3]`    |
+| `unshift()`  | `array.unshift(element1, ..., elementN)` | Adds one or more elements to the front of an array and returns the new length of the array.             | `var arr = [1, 2]; arr.unshift(3); // arr is now [3, 1, 2]` |
+| `pop()`      | `array.pop()`                            | Removes the last element from an array and returns that element.                                        | `var arr = [1, 2]; arr.pop(); // arr is now [1]`            |
+| `shift()`    | `array.shift()`                          | Removes the first element from an array and returns that element.                                       | `var arr = [1, 2]; arr.shift(); // arr is now [2]`          |
+| `indexOf()`  | `array.indexOf(element)`                 | Returns the first index at which a given element can be found in the array, or -1 if it is not present. | `var arr = [1, 2, 3]; arr.indexOf(2); // returns 1`         |
+| `includes()` | `array.includes(element)`                | Returns true if the array contains the element, false otherwise.                                        | `var arr = [1, 2, 3]; arr.includes(2); // returns true`     |
 
 - `reverse()` : reverse the order of the elements in the array
 - `sort()` : sort the elements in the array

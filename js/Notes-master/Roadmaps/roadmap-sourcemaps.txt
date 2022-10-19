@@ -1,0 +1,146 @@
+
+                      
+   ROADMAP-SOURCEMAPS  
+                      
+
+
+
+Should target Node 6.0
+
+Add REGEXP named groups (through babel)
+
+Universal JavaScript
+
+sourcemaps logo
+
+resolve('URI|PATH'[, 'BASE_URI|PATH'])->'URI|PATH2'
+  - find other name???
+  - BASE (in order):
+     - 'BASE_URI|PATH' specified:
+        - if absolute URI or (absolute PATH and Node.js): use it
+        - otherwise: use resolve('BASE_URI|PATH') (recursive call)
+     - Node.js: process.cwd()
+     - web: document.baseURI
+  - if:
+     - is absolute URI, return as is
+     - is PATH, and BASE is an absolute path: path.resolve(BASE, 'PATH')
+     - otherwise, considered relative URI: new URL('URI', BASE).href
+        - might throw if unresolvable, e.g. about:blank BASE
+  - can use '' as first argument to retrieve BASE
+
+fetch(location[, { base }])->STR:
+  - find other name???
+  - resolve(location, base)
+  - if:
+     - path, fs.readFile()
+     - HTTP[S], cross-fetch()
+     - data URI + base64, decode base64 + charset to UTF-8
+     - otherwise, error
+
+isLocation(content|location)->BOOL:
+  - return whether URI|PATH or not
+
+getContent(content|location[, { base }])->STR
+  - find other name???
+  - if isLocation(): fetch(location, { base })
+  - if content buffer: BUFFER.toString()
+  - if content string: return as is
+
+@sourcemaps/base(content|location[, { base }])->'URI|PATH'
+  - returns:
+     - if location: myResolve(location, base)
+     - if //# sourceURL: URL: myResolve(URL, base)
+        - unless it's 'foo.js'
+     - otherwise myResolve(base)
+  - def base is ''
+
+@sourcemaps/resolve(sourcemapLocation, content|location[, { base }])->'URI|PATH'
+  - returns myResolve(sourcemapLocation, base(content|location, { base }))
+
+@sourcemaps/regex
+
+@sourcemaps/has(content|location[, { base }])->BOOL
+  - getContent()
+  - if no sourceMappingURL and isLocation(), tries to see if sibling `.map` file exists
+     - i.e. getContent(location.map, { base })
+     - prefetch it right away
+
+@sourcemaps/get-url(content|location[, { base }])->{ location: sourcemapLocation, inline, multiline }
+  - same logic to retrieve content as has()
+  - no format nor mime check
+  - no base64 nor JSON parsing
+  - inline is boolean
+
+@sourcemaps/remove-url(content)->content
+
+@sourcemaps/set-url(content, sourcemapLocation[, { multiline }])->content
+  - remove() then append
+
+@sourcemaps/validate(sourcemapContent)[->ERROR]
+  - check source map syntax
+  - if index map, apply validate() recursively
+  - only support version >=3
+  - get inspiration from sourcemap-validator
+
+@sourcemaps/get(sourcemapContent|sourcemapLocation|headers[, { base, validate }])->sourcemap
+  - if headers, use headers['[X-]SourceMap'] (case-insensitively) as sourcemapLocation
+  - if sourcemapLocation and data URI: check format and MIME
+  - getContent(sourcemapContent|sourcemapLocation, { base })
+  - if gzipped, decompress it
+  - JSON parsing
+  - if index map, apply get() recursively
+  - validate() if true (def: false)
+
+@sourcemaps/read(content|location[, { base, validate }])->{ location, inline, multiline, sourcemap }
+  - get-url()
+  - get()
+
+@sourcemaps/write(path, sourcemap[, { base, inline, multiline, validate, compress }]):
+  - validate() if true (def: false)
+  - set-url()
+  - persist file
+  - persist source map (unless inline)
+     - gzip if compress true (def: false)
+     - if index map, create several source maps
+  - inline|multiline default to same as current one
+
+@sourcemaps/delete(path[, { base }]):
+  - remove-url() but persist file and remove source map file too
+     - if index map, remove all source maps
+
+@sourcemaps/transform(path|dir, function[, { base, inline, multiline, validate, compress, all }])
+  - read() then function then write()
+  - function is FUNC(sourcemap, path)[->sourcemap]
+     - can return `undefined` to remove sourcemap
+     - if opts.all true (def: false), called with `undefined` when no sourcemap (i.e. creates one)
+     - if index map, call once for each recursive sourcemap, but never for index map itself
+  - path can be dir, in which case:
+     - recursively called
+     - returns either promise or stream
+
+@sourcemaps/identity(srcPath, destPath)->sourcemap:
+  - if there is a source map, modify its sourceRoot:
+     - if sourceRoot absolute: do nothing
+     - if sourceRoot relative: set as path.posix.relative(sourceRoot, dirname(SRC_FILE))
+        - note: source map format only allows forward slashes
+     - if sourceRoot absent:
+        - if all "sources" are absolute: do nothing
+        - set as path.posix.relative(dirname(DEST_FILE), dirname(SRC_FILE))
+  - if there is no source map, generate one:
+     - version: 3
+     - sourceRoot: SRC_DIR
+     - file: path.posix.relative(SRC_DIR, SRC_FILE)
+     - sources: [basename(SRC_FILE)]
+     - sourcesContent: [JSON.stringify(readFile(SRC_FILE, { encoding: 'utf-8' }))]
+     - names: nothing
+     - mappings:
+        - if supported language-specific parser, map token-by-token like IDENTITY-MAP does
+        - otherwise, map line-by-line like SOURCE-LIST-MAP does
+
+@sourcemaps/copy(srcPath|Dir, destPath|Dir[, { base, inline, multiline, validate, compress }])
+  - transform() using identity()
+
+@sourcemaps/concat()
+  - optionally write as index maps
+
+Vinyl support???

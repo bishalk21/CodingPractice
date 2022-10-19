@@ -1,0 +1,59 @@
+
+          
+   GO_DOC  
+          
+
+
+
+VERSION ==>                       #See Go language
+RELATED DOCUMENTATION ==>         #See Go language
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        COMMENTS FORMAT        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+PACKAGE COMMENT ==>               #Comment above "package PACKAGE"
+                                  #Only on one file per PACKAGE
+                                  #  - if big, convention is to have a doc.go file with only the package comment and "package PACKAGE"
+                                  #Should start with "Package PACKAGE ..." with a short description
+                                  #Longer description should go after an empty comment line
+
+VARIABLE COMMENT ==>              #Comment above variable declaration
+                                  #Should be on any exported variable
+                                  #Should start with "VAR ..."
+
+BUG(AUTHOR): ...                  #Bug note, inside variable comment
+TODO(AUTHOR): ...                 #Same for todo. Not shown by go doc, but shown by godoc -notes=TODO
+Deprecated: ...                   #Convention for deprecated message
+
+FOLDING ==>                       #Newlines in comments require an empty comment line. Otherwise folded to a space.
+CAPITALIZING ==>                  #Should start with uppercase and end with period.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              CLI              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+go doc IMPORT_PATHS|PACKAGE[.VARR]#Prints all|one exported variables of a PACKAGE
+go doc IMPORT_PATHS|PACKAGE [VARR]#If no IMPORT_PATHS|PACKAGE: current one
+go doc VARR                       #For each, it also prints:
+                                  #  - type definition
+                                  #  - any variable comment, providing -all CLI flag
+                                  #For whole PACKAGE, it also prints:
+                                  #  - PACKAGE comment
+                                  #  - PACKAGE name
+                                  #  - MODULE_PATH
+-all                              #Show all variables comments
+                                  #Also separates variables by type
+-src                              #Print full source code. Only when VARR is used.
+-u                                #Also show non-exported package-scope variables
+-short                            #Only print type definitions
+-cmd                              #Unless set, main PACKAGEs only shown when VARR is used
+-c                                #Unless set, VARR is case-insensitive

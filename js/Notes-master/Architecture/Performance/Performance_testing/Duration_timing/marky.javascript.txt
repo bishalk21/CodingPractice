@@ -1,0 +1,21 @@
+
+         
+   MARKY  
+         
+
+
+
+ALTERNATIVES ==>                  #  - marky: polyfill over PERFORMANCE.mark|measure()
+                                  #  - Node.js built-in (preferred)
+                                  #  - hirestime: use process.hrtime(), performance.now() or Date.now()
+                                  #  - perfy: use process.hrtime() or Date.now()
+                                  #  - nanotimer: not maintained
+
+VERSION ==>                       #1.2.5
+
+mark('NAME')                      #PERFORMANCE.mark('start NAME')
+stop('NAME')->PERFENTRY           #PERFORMANCE.mark('end NAME') + PERFORMANCE.measure('NAME', 'start NAME', 'end NAME')
+getEntries()->PERFENTRY_ARR       #PERFORMANCE.getEntriesByType('measure')
+clear()                           #PERFORMANCE.clearMarks() + PERFORMANCE.clearMeasures()
+
+POLYFILL ==>                      #If PERFORMANCE does not exist, use process.hrtime() (Node) or Date.now() (browser)

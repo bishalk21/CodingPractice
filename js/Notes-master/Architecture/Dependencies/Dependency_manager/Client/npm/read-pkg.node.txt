@@ -1,0 +1,47 @@
+
+            
+   READ-PKG  
+            
+
+
+
+VERSION ==>                       #7.1.0
+
+readPackage([OPTS])->PROMISE_OBJ  #Read and parse PWD/package.json
+readPackageSync([OPTS])->OBJ      #Throws if not found
+                                  #OPTS:
+                                  #  - cwd 'PATH'|URL (def: process.cwd())
+                                  #  - normalize BOOL (def: true): use `normalize-package-data`
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          READ-PKG-UP          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+VERSION ==>                       #9.1.0
+
+readPackageUp([OPTS])             #Read and parse package.json (using `find-up` and `read-pkg`)
+ ->PROMISE_OBJ                    #OPTS: same as FIND-UP() + READ-PKG()
+readPackageUpSync([OPTS])->OBJ    #Returns undefined if not found
+                                  #Returns OBJ:
+                                  #  - packageJson PACKAGE
+                                  #  - path 'PATH'
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           WRITE-PKG           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+VERSION ==>                       #5.1.0
+
+writePackage[Sync]                #Write PACKAGE to PWD/package.json
+ (['PWD', ]PACKAGE[, OPTS])       #Def 'PWD': '.'
+ [->PROMISE]                      #OPTS:
+                                  #  - normalize BOOL (def: true): sort *dependencies alphabetically
+                                  #  - indent STR|NUM (def: '\t')

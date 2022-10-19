@@ -1,0 +1,154 @@
+
+                
+   CLOUDWATCH   
+                
+
+
+GOAL ==>                      #Check stats/metrics (e.g. performance), and send alarms
+
+VERSION ==>                   #2013/02/22
+
+PRICING ==>                   #  - AWS included metrics: free
+                              #  - 0.5$/month per custom metric (first 10 free)
+                              #     - metric = combination MetricData + Namespace + Dimensions
+                              #  - 0.1$/month per alarm (first 10 free)
+                              #     - first 1000 SNS notifications free
+                              #  - 1$/month per 100000 GetMetricStatistics(), ListMetrics() or PutMetricData() 
+                              #    (first 1000000 free)
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:              API              :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+API ==>                       #  - ARR is actually VAR.member.NUM instead of VAR.NUM in REST API
+                              #  - Domains: monitoring.REGION.amazonaws.com
+                              #  - CLI: cloudwatch 
+                              #JSON not XML
+
+PAGINATION ==>                #  - Use NextToken STR as request variable and in response body
+                              #  - Use MaxRecords as request variable.
+
+LIMIT ==>                     #  - 40KB PutMetricData() request
+                              #  - 10 dimensions per metric
+                              #  - 5000 alarms
+                              #  - metric data kept for two weeks
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            METRICS            :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+PutMetricData()               #Adds a datapoint to a metric (timeserie), usually over a AWS resource performance 
+                              #(e.g. CPU usage) but can be custom.
+                              #If metric does not exist, creates it.
+                              #AWS SERVICE automatically send metrics, with Namespace "AWS/SERVICE"
+                              #  - to enable Billing metrics, go to AWS Console parameters
+                              #Request variables:
+                              #  - Namespace STR: put in front of METRIC_STR
+                              #  - MetricData OBJ_ARR (max 20):
+                              #     - MetricName METRIC_STR
+                              #     - Dimensions OBJ_ARR: like Namespace and METRIC_STR, part of the identifier.
+                              #       Example: Name=EC2_Instance,Value=IP
+                              #        - Name STR 
+                              #        - Value STR
+                              #     - Timestamp DATE (def: now): if more than one day backward, might take time to become 
+                              #       available
+                              #     - Value DOUBLE
+                              #     - Unit UNIT_STR
+                              #        - "[Micro|Milli]Seconds"
+                              #        - "Percent"
+                              #        - "Count[/Second]"
+                              #        - "[Kilo|Mega|Giga|Tera]bits|bytes[/Second]"
+                              #        - "None"
+                              #     - StatisticValues:
+                              #        - idea is to put aggregates for periods instead of datapoints (so less requests/cheaper)
+                              #        - must then use regular frequency
+                              #        - Minimum|Maximum|SampleCount|Sum DOUBLE
+GetMetricStatistics()         #Request variables: 
+                              #  - MetricName, Namespace, Unit
+                              #  - Dimensions (optional)
+                              #  - Statistics STR_ARR: required
+                              #  - Period NUM (in sec., must be multiple of 60, def 60): on which periods the Statistics 
+                              #    in applied (e.g. averages of every 10 mins)
+                              #  - StartTime|EndTime DATE (def: last hour)
+                              #Response body:
+                              #  - Label STR
+                              #  - Datapoints OBJ_ARR:
+                              #     - Minimum|Maximum|SampleCount|Sum|Average DOUBLE
+                              #     - Timestamp DATE
+                              #     - Unit UNIT_STR
+ListMetrics()                 #Request variables METRICS_OBJ_ARR:
+                              #  - Dimensions OBJ_ARR: Name STR, Value STR
+                              #  - MetricName STR
+                              #  - Namespace STR
+                              #Response body: Metrics METRICS_OBJ_ARR
+                              #Paginates
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            ALARMS             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+PutMetricAlarm()              #Request variables METRIC_ALARM:
+                              #  - MetricName STR
+                              #  - Namespace STR
+                              #  - Statistic "SampleCount|Average|Sum|Minimum|Maximum"
+                              #  - Dimensions OBJ_ARR: Name STR, Value STR
+                              #  - Unit UNIT_STR: all previous members select which metric to check
+                              #  - Period NUM: the alarm chooses which period to apply the Statistic on
+                              #  - ComparisonOperator "Greater|LessThan[OrEqualTo]Threshold": together with Threshold,
+                              #    triggers "ALARM" state
+                              #  - Threshold DOUBLE
+                              #  - EvaluationPeriods NUM: number of periods before ComparisonOperator+Threshold can change 
+                              #    state
+                              #  - AlarmDescription STR
+                              #  - AlarmName STR
+                              #  - ActionsEnabled BOOL: can disable an alarm
+                              #  - OKAlarm|InsufficientDataActions STR_ARR: 
+                              #     - what to do when state changes
+                              #     - STR is ARN of the action, either:
+                              #        - SNS_TOPIC_ARN: send SNS notification
+                              #        - "arn:aws:automate:REGION:ec2:stop|terminate": stop|terminate the EC2 instance
+DeleteAlarms()                #Request variables: AlarmNames STR_ARR
+DescribeAlarmsForMetric()     #Request variables:
+                              #  - Dimensions, MetricName, Namespace, Period, Unit, Statistics STR_ARR
+                              #Response body: MetricAlarms METRIC_ALARM_ARR
+DescribeAlarms()              #Request variables:
+                              #  - ActionPrefix STR
+                              #  - AlarmNamePrefix STR
+                              #  - AlarmNames STR_ARR
+                              #  - StateValue:
+                              #     - "OK"
+                              #     - "ALARM": problem
+                              #     - "INSUFFICIENT_DATA": pending feedback
+                              #Response body: MetricAlarms OBJ_ARR:
+                              #  - Same members as METRIC_ALARM and ALARM_STATE
+                              #  - AlarmConfigurationUpdatedTimestamp DATE
+                              #  - StateUpdatedTimestamp DATE
+                              #Paginates.
+Enable|DisableAlarmActions()  #Request variables: AlarmNames STR_ARR
+SetAlarmState()               #Manually triggers an alarm (for testing).
+                              #Request variables ALARM_STATE:
+                              #  - AlarmName STR
+                              #  - StateReason[Data] [JSON_]STR
+                              #  - StateValue "OK|ALARM|INSUFFICIENT_DATA"
+DescribeAlarmHistory()        #Request variables:
+                              #  - AlarmName STR
+                              #  - StartDate|EndDate DATE (only preserves two weeks)
+                              #  - HistoryItemType "ConfigurationUpdate|StateUpdate|Action"
+                              #Response body: AlarmHistoryItems OBJ_ARR:
+                              #  - AlarmName STR
+                              #  - Timestamp DATE
+                              #  - HistoryItemType "ConfigurationUpdate|StateUpdate|Action"
+                              #  - HistorySummary|Date [JSON_]STR
+                              #Paginates.

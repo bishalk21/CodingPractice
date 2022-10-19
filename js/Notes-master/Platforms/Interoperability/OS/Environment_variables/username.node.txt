@@ -1,0 +1,21 @@
+
+            
+   USERNAME  
+            
+
+
+
+VERSION ==>                       #6.0.0
+
+USERNAME()->PROMISE_STR           #Returns (in priority):
+USERNAME.sync()->STR              #  - ENVVAR SUDO_USER (original user that called sudo)
+                                  #  - ENVVAR C9_USER (Cloud9)
+                                  #  - ENVVAR LOGNAME (Unix)
+                                  #  - ENVVAR USER (Unix)
+                                  #  - ENVVAR LNAME (Unix)
+                                  #  - ENVVAR USERNAME (Windows)
+                                  #  - os.userInfo().username (make syscall)
+                                  #  - whoami (Windows)
+                                  #  - id -u[n] (Unix)
+
+username                          #CLI (3.0.0)

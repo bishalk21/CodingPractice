@@ -1,0 +1,68 @@
+
+         
+   HJSON  
+         
+
+
+
+ALTERNATIVES ==>                  #See serialization formats summary
+
+VERSION ==>                       #24/01/2018
+
+EXTENSION ==>                     #.hjson
+                                  #MIME type application/hjson, +hjson
+
+SYNTAX ==>                        #Superset of JSON, with the following additions
+                                  #In short: comments, no|trailing commas, unquoted VAR|STR, multiline STR
+                                  #Extensions: Inf|NaN, DATE
+
+ENCODING ==>                      #Restrict to UTF-8
+
+EXTENSION ==>                 EXT##Noted like this
+                                 ##Only supported by some parser|serializers, including hjson-js
+                                 ##Can create custom ones, i.e. new types
+                                 ##Is for HJSON file <-> JavaScript translation and only for quoteless STR:
+                                 ##  - i.e. JavaScript -> JSON follows JSON rules:
+                                 ##     - e.g. Inf|NaN -> null, 0x... -> NUM, DATE -> "DATE"
+                                 ##     - this means type is lost while JSON serializing
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            SYNTAX             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+//COMMENT
+#COMMENT
+/* COMMENT */                     #Cannot include (unescaped) U+0000-U+001F
+
+NEWLINE ==>                       #Can be used instead of commas
+TRAILING COMMAS ==>               #Allowed
+
+VAR: VAL                          #Instead of "VAR": VAL
+                                  #VAR can include anything except (unescaped) , : [ ] { } U+0000-U+001F whitespace|newline
+                                  #Automatically escapes " \ i.e. no backslash sequence possible
+
+"STR"                             #Can contain newline
+'STR'                             #Instead of "STR"
+STR                               #Can include anything:
+                                  #  - except (unescaped) U+0000-U+001F newline
+                                  #  - cannot start with , : [ ] { }
+                                  #  - cannot look like NUM|BOOL|null
+                                  #Automatically escapes " \ i.e. no backslash sequence possible
+                                  #Stops at newline
+                                  #Leading|trailing whitespaces ignored
+'''...                            #Instead of "STR"
+...                               #Can include anything, except (unescaped) U+0000-U+001F
+...'''                            #Newline + leading whitespaces converted to single space
+
+
+[+|-]Inf|inf
+NaN|nan                      math##Parsed as NUM
+
+0x...                         hex##Parsed as NUM
+
+YYYY-MM-DD[THH:MM:SS[.S...][TZ]]
+                             date##Parsed as DATE

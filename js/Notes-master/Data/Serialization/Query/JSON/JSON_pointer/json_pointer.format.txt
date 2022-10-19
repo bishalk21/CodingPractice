@@ -1,0 +1,54 @@
+
+                
+   JSON_POINTER  
+                
+
+
+
+STANDARD ==>                      #RFC 6901
+                                  #Standard way to reference a member of a JSON OBJ|ARR, i.e. VARR
+
+/VAR/VAR2/...                     #References OBJ.VAR.VAR2...
+                                  #Special values:
+                                  #  - NUM: for ARR
+                                  #  - -: for ARR, after-last element, i.e. meant for appending
+                                  #  - trailing slash:
+                                  #     - last VAR will be "", i.e. will look at a property with name ""
+                                  #     - i.e. usually trailing slash should be avoided
+                                  #  - whole reference is "": root OBJ|ARR
+
+ENCODING ==>                      #Can be represented either:
+                                  #  - as JSON string itself
+                                  #  - as URI fragment, for the URI of some JSON-based Content-Type/MIME
+                                  #     - that MIME must explicitely allow JSON pointers (e.g. application/json does not allow)
+
+ESCAPING ==>                      #First:
+                                  #  ~ -> ~0
+                                  #  / -> ~1
+                                  #Then:
+                                  #  - if used as JSON string, normal JSON escaping, i.e. \-escape " \ and U+0000-U+001F
+                                  #  - if used as URI fragment, HASH percent encoding
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           RELATIVE            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+RELATIVE JSON POINTER ==>         #Draft RFC draft-bhutton-relative-json-pointer-00
+
+NUM[-|+NUM2][#]/...               #/... is JSON_POINTER
+                                  #NUM is theorically equivalent to number of .., e.g.:
+                                  #  - 0/... -> ./...
+                                  #  - 1/... -> ../...
+                                  #  - 2/... -> ../../...
+                                  #Since it is relative, a base reference (i.e. current value) must be used
+                                  #Going above root is an error.
+                                  #Going inside another JSON pointer is an error.
+                                  #When targetting an ARR:
+                                  #  - re-uses base reference index
+                                  #  - adds|subtracts NUM2 to it (def: 0)
+                                  #If #, targets the key (include ARR index) instead of the value
+                                  #Cannot be used as URI fragment

@@ -1,0 +1,381 @@
+
+        
+   REST  
+        
+
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           RESOURCES           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+ID:
+  - always use attribute id, unique and used in URI
+  - opaque vs human-friendly:
+     - opaque:
+        - e.g. incremental integer or UUID
+        - prefer decentralized, e.g. UUID, as it allows client to specify new id
+        - more stable, i.e. best for lookups
+     - human-friendly:
+        - e.g. name
+        - more subject to change because tied to actual meaning
+        - best for search
+     - can use both
+  - RES_ARR should be array of items with id as attribute, as opposed to object with id as key
+
+Resource relations:
+  - subcolls:
+    - /COLLS/ID/SUBCOLLS/ID
+    - should avoid, use inter-resources links only instead:
+      - more flexible to change
+      - allow consumers to define own schemas
+      - can replace filtering by query e.g. ?coll=ID
+
+Types:
+  - time:
+    - timestamp ISO8601 YYYY-MM-DDTHH:MM:SSZ
+    - specify timezone: default one, with possibly allowing customizing per request
+  - coordinates: NUM, NUM2
+  - numbers: NUM, not "NUM"
+  - should denote typing with suffix to attributes:
+    - *_hours|mins|seconds|millis|micros|nanos NUM
+    - *_date|time DATE|DATETIME
+    - *_bytes|width_pixels|height_pixels
+    - *_count
+
+Data model:
+  - must match client consumption, not just reflect database
+  - attribute names should never be user-provided
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CRUD              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+Semantics:
+  - resource-based:
+     - goal:
+        - simpler interface (knowing the data -> knowing the API)
+        - generic enough to provide abstraction layer
+     - actions are generic (HTTP methods):
+        - GET|HEAD /COLLS -> RES_ARR
+        - POST /COLLS -> RES (non-idempotent, e.g. create)
+        - PUT /COLLS/ID -> RES (idempotent, e.g. update|upsert)
+        - PATCH /COLLS/ID -> RES
+           - can just send subsets (e.g. how JSON merge patch works)
+           - or define patch operations (e.g. how JSON patch does)
+        - DELETE /COLLS/ID -> {}
+        - DELETE /COLLS -> {} (dangerous)
+        - OPTIONS
+     - manipulation through representation (as opposed to using arguments different from RES attributes)
+  - should allow X-HTTP-Method-Override, but for POST only
+  - upsert:
+     - can force update semantics with If-Match [C] or insert semantics with If-None-Match [C]
+  - undelete behavior:
+     - use DELETE as normal, but updates attribute deleted BOOL instead
+     - not shown by queries, except if query parameter show_deleted BOOL
+  - status codes: see HTTP doc
+
+Input|output:
+  - content type:
+    - usually JSON, sometimes YAML, XML, HTML (for humans, e.g. <table>)
+    - MIME can be:
+       - application/x-collection|resource+json|yaml|xml or text/html
+       - application/vnd.VENDOR+json|yaml|xml or text/html
+  - input:
+    - URI: for identity only
+       - avoid: versioning prefix, query variables
+    - request body: for contents
+    - headers, query variable: for parameters, metadata (prefer headers)
+  - input|output:
+    - can be wrapped in an "envelope", e.g. under a field (like "data", or "COLL" in singular):
+       - pros: allows to add metadata fields to response
+       - cons: less intuitive response
+
+Parameters:
+  - usual query (usually for GET|HEAD):
+    - pagination:
+       - max size:
+          - limit|page_size|per_page=NUM -> total_size NUM, page_size NUM, page_count NUM
+       - offset:
+          - request:
+             - random access (best when retrieving only part of resource)
+                - offset-based (client specifies possible indexes)
+                   - offset|page=NUM
+                   - or Range [C], Accept-Ranges [S]
+                - query-based (client specifies possible values)
+                   - timestamp-based:
+                      - since|until TIMESTAMP
+             - serial access (best when retrieving whole resource in batch)
+                - cursor-based:
+                   - page_token|before|after=CURSOR|""
+                - can make it bidirectional (e.g. with before|after)
+          - response:
+             - offset-based:
+                - offset|page
+             - offset|query-based:
+                - previous|next link (e.g. next|previous)
+             - cursor-based:
+                - previous|next token (e.g. next|previous_page_token or cursors.before|after CURSOR|"") +
+                  full link with token (e.g. next|previous)
+                - CURSOR is often id|offset base64'd
+                - can add human-friendly name (or resource.name) next to each TOKEN
+             - all:
+                - has_previous|next_page BOOL, to avoid extra request
+             - encapsulating those information is an object called connection|edges|pageInfo
+       - through:
+          - response body
+          - headers, e.g. Link: <URL>; rel="first|last|prev|next|self" [S]
+       - should have default and max values
+    - filtering (ATTR=VAL, query|filter=OBJ)
+    - selecting (fields=ATTR[(SUBATTR2,...)],...)
+    - sorting (sort_by|order_by=ATTR[-|+| asc| desc],..., order=asc|desc)
+    - views (server-predefined query) (view=VIEW)
+    - populating (populate|embed=VARR,...):
+       - return non-populated as child: { id ID } instead of child_id ID as it allows populated response to look more similar
+    - aggregating
+    - logical order: populating, filtering, sorting, aggregating, paginating, selecting
+  - less usual query:
+    - i18n (see HTTP doc)
+    - datetime (see HTTP doc)
+  - usual mutation parameters:
+    - dry-run (validate_only=true)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              RPC              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+RPC/actions:
+  - try to avoid, but sometimes REST makes no sense for some type of action/resource
+  - should use [/...][/actions]/ACTION
+  - should use method that hast best semantics, but generally is POST
+  - e.g.:
+     - API status, monitoring
+     - rate limits
+  - alternative is to map to an entity attribute, and fire action on attribute value change
+
+Async:
+  - can:
+     - keep status in an attribute of same model, e.g. status
+     - return status in response, with 202
+     - return status, as separate "operation" [sub]resource, with 202
+  - status|operation attributes:
+     - status: at least not_started, running, succeeded, error, but potentially more
+     - created_time
+     - updated_time
+     - percent_complete FLOAT
+     - resource_location: target resource
+  - might allow cancelling, e.g. DELETE "operation" resource
+  - client either:
+     - poll, e.g. Retry-After [C]
+     - wait for push (including web hooks)
+  - too long running operations should become tombstones, i.e. cannot be queried but are still persisted for debug
+
+Concurrency:
+  - idempotency|retries:
+    - can be achieved with non-idempotent methods by:
+       - including unique ID in request
+       - returning cached response if matches a previous request ID
+  - see HTTP doc for conflicts resolution
+
+Realtime:
+  - see HTTP doc
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:     DISCOVERY/DOCUMENTING     :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+
+URL:
+  - root URL should be short|simple, e.g.:
+     - https://api.DOMAIN/
+        - better security-wise, with same-origin policy
+        - easier with the tools that think DOMAIN-wise
+     - https://DOMAIN/api/
+        - easier to setup
+  - /COLLS[/ID]
+
+Naming:
+  - COLLS plural
+  - not too generic, but easy to understand for non-native speakers
+  - only [:alnum:]_, both path names and attributes underscored
+  - use names, not verbs (unless RPC action)
+
+Documentation:
+  - document:
+    - response codes
+    - error messages
+    - type
+    - allowed values|chars|regexp
+    - value constraints|validation
+    - default value
+    - example value
+    - value units (e.g. milliseconds)
+    - idempotency
+    - side effects
+    - authentication
+    - versioning scheme
+    - deprecation, stability
+  - provide:
+    - API console for experimentation
+    - example of client code in different codes (including CLI, e.g. curl)
+  - do not truncate examples
+
+Hypermedia/HATEOAS:
+  - client discover URLs endpoints at runtime:
+     - no need to know beforehand
+     - can change URLs without breaking compatibility
+  - how:
+     - root URL gives:
+        - list of possible resources/collections
+        - list of versions
+        - list of features
+     - each resource give links to others:
+        - each resource (including subresource) has its own URL as attribute (e.g. href|self attribute)
+        - each subresource has its link type, related to parent, as attribute (e.g. link attribute)
+           - example link types: collection/COLL, resource/RES
+        - can render only href+link, and let client populate, follow or neither
+        - can also use Link [S]
+  - self-documentation:
+     - OPTIONS -> Allow [S]: allowed methods
+     - OPTIONS -> Link: <DOC_URI>; rel="help"
+     - any other way to get same info as documentation, using HATEOAS principle
+  - self-describing resources:
+     - contains their type as attribute (e.g. _type "TYPE", or !TYPE in YAML)
+
+Third-party:
+  - provide a sandbox environment:
+     - similar to a "stage" environment, but for third-party developers only
+     - URI e.g. api.DOMAIN -> api.sandbox.DOMAIN
+  - if will create integration, i.e. must act on behalf of user, use OAuth or similar
+
+Formatting:
+  - can provide pretty=BOOL parameter, to beautify output:
+     - pros: easier to read|debug
+     - cons: bigger payload, but not too much of an issue with compression
+  - should beautify by default
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OTHERS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+State:
+  - should enforce stateless:
+     - goals:
+        - scalable: server does not need to store state
+        - simple:
+           - server does not have to deal with state
+           - proxies do not need to remember session information
+        - reliable: failure has smaller granularity (partial request)
+        - monitoring|debugging: no need to track sessions
+     - exceptions:
+        - rate limiting
+        - protocol-specific multi-request actions (e.g. OAuth)
+     - cookies are stateless (sent with every request) providing server does not store session
+
+Proxies:
+  - should think that there might be proxies in the middle
+
+Decoupling:
+  - protocol-independent: not only HTTP (e.g. WebSocket)
+  - transformation layers:
+    - from|to REST API consumers (view layer)
+    - from|to backend|database (model layer)
+  - use middleware: clear division in input|output stages
+  - content negotiation:
+     - input: can accept several types, using Content-Type [C]
+     - output: can accept several types, using Accept [C]
+
+Observability:
+  - analytics:
+     - including to deprecated endpoints|parameters
+     - create[d]|update[d]|delete[d]_time|at TIMESTAMP
+  - logging:
+     - use request|response_id
+
+Errors:
+  - "problem detail":
+    (standard "application/problem+json|xml"):
+    - status NUM:
+       - HTTP status code
+       - might be different from response's if a proxy changed it
+    - type 'URI':
+       - error generic identifier
+       - points to human-readable description, e.g. HTML
+       - specific to a given status code
+       - "about:blank" (def):
+          - use status code number
+          - title should be status code string (possibly i18n'd)
+    - title STR:
+       - short description
+       - 1 type === 1 title
+       - can be i18n'd, but should avoid (makes it harder to debug)
+    - description STR (long): no i18n
+    - instance 'URI' (object)
+       - resource that created the error
+    (non standard)
+    - code NUM (generic identifier)
+    - innererror OBJ (recursive sub-OBJ, for precedent exceptions)
+    - more_info|url|error_uri URL
+    - details STR:
+       - longer debug info, e.g. stack trace
+       - goal is to help end-user fix the problem
+          - should not try to help developer debug nor contain trace info
+          - meant for end-user not programatic|parsing usage
+     - any other VAR:
+        - unprefixed [[:alnum:]_]
+        - min 3 chars
+  - status code: see HTTP doc
+  - everything might be enclosed in error attribute, e.g. { error: { status ... } }
+  - should validate input
+
+Security:
+  - Authentication
+  - Authorization
+  - Rate limiting, using X-RateLimit-Limit|Remaining|Reset [S]
+  - Timeout
+  - HTTPS only, no redirect
+  - CORS
+
+Performance:
+  - use caching
+  - use byte serving
+  - use compression
+  - use delta encoding
+  - use prefetching, server push
+  - send header before body
+  - use partial body, empty body
+  - use stream prioritization
+
+Compatibility
+  - versioning can be put in either:
+     - URL: https://DOMAIN/vMAJOR/: more developer-friendly, and easy to see when use wrong one
+     - header: Accept: TYPE; version=MAJOR [C]: more semantically correct
+        - can also respond with X-Version: MAJOR.MINOR [S]
+  - no default version, must be explicit
+  - general (see compatiblity doc, this is summary):
+     - provide forward compatibility
+     - use versioning (changelog, semver)
+     - introduce breaking changes in stages
+     - document stability level
+     - use support branches
+  - can:
+     - use redirects

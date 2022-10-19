@@ -1,0 +1,24 @@
+
+                      
+   INTERCHANGEABILITY  
+                      
+
+
+
+LOCK-IN ==>                       #Also called "product-dependent architecture"
+                                  #Low interchangeability:
+                                  #  - i.e. high switching cost|barriers
+                                  #     - can be perceived only, e.g. because of sunk cost
+                                  #Can be pushed by:
+                                  #  - a vendor, in order to increase revenue
+                                  #     - called "vendor|proprietary lock-in" or "connector conspiracy"
+                                  #     - wolf ticket:
+                                  #        - vendor declaring using standards, but actually doing different implementation, i.e. vendor lock-in
+                                  #        - can be defeated with standards test suite or certification
+                                  #  - the technology itself ("technology lock-in")
+                                  #     - e.g. QWERTY keyboards
+
+GOLDEN HAMMER ==>                 #Making much worst architecture choices in order to avoid switching costs
+                                  #I.e. trying to fit existing tools/architecture into new requirements although it badly fits
+                                  #E.g.: using Excel for everything
+                                  #Usually pushed by vendors using vendor lock-in

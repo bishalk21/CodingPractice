@@ -1,0 +1,277 @@
+
+            
+   NODE_TAP  
+            
+
+
+
+ALTERNATIVES ==>                  #See Mocha
+
+VERSION ==>                       #14.11.0
+
+ASSERTIONS ==>                    #See node-tap assertions doc
+DIFF TESTING ==>                  #See node-tap snapshots doc
+TEST COVERAGE ==>                 #See istanbul doc
+REPORTERS ==>                     #See node-tap reporters doc
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TESTS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TAP                               #Is also a TEST (the top-level one), with few exceptions documented below
+
+TEST.test(['TEST_TITLE', ][TOPTS,]#Define a test
+ FUNC(TEST2))->PROMISE_TEST       #Def 'TEST_TITLE': FUNC.name or ''
+                                  #Thrown exceptions make test fail using TEST.threw(), but are not propagated
+TEST.name                         #'TEST_TITLE'
+
+TEST.end()                        #Must be done
+                                  #Automatically done when test's FUNC() return a PROMISE
+TEST.plan(NUM[, 'COMMENT'])       #Automatically calls TEST.end() after NUM assertions
+                                  #Assertion failure if plan does not match assertion count
+TEST|TOPTS.autoend BOOL           #Automatically calls TEST.end() on next microtask
+                                  #Def: false except on TAP when TAP.tearDown() is defined
+TEST.endAll()                     #Call TEST.end() on all children then itself
+
+TEST.tearDown(FUNC())[->PROMISE]  #Called after TEST.end()
+TEST.beforeEach|afterEach         #Called before|after each child
+ (FUNC([FUNC2][, TEST2]))         #Must be async: firing FUNC2([ERROR]) or return PROMISE
+
+TEST.context                      #OBJ inherited by children
+
+--before|after MODULE             #Run before|after all tests
+
+mocha.describe|context
+ ('TEST_TITLE', FUNC()[, TOPTS])  #Same as TEST.test() except using FUNC() (TEST is `this.test`)
+mocha.it[.skip|todo]('TEST_TITLE',
+ FUNC([FUNC2])[, TOPTS])          #Same as TEST.test() except using FUNC([FUNC2]) with TEST as `this`
+mocha.before|after
+ (FUNC([FUNC2])[, TOPTS])         #
+mocha.beforeEach|afterEach
+ (FUNC([FUNC2])[, TOPTS])         #
+mochaGlobals()                    #Assign mocha.* to global.*
+mocha.deglobal()                  #Removes it
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           FIXTURES            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TEST.fixture('TYPE', STR)->FIXTURE#Create a file with contents|link STR
+                                  #TYPE can be 'link' (hard link), 'symlink', 'dir' or 'file'
+TEST.testdir(OBJ)->'DIR'          #Create files, and remove them in tearDown()
+                                  #OBJ:
+                                  #  - keys are filenames
+                                  #  - values can be:
+                                  #     - FIXTURE
+                                  #     - STR: file contents
+                                  #     - nested OBJ2: directory
+TEST.testDirName                  #'DIR'
+--save-fixture
+TOPS.saveFixture
+ENVVAR TAP_SAVE_FIXTURE=1         #BOOL (def: false). Do not remove files created by TEST.testdir()
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            CONFIG             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+CONFIG ==>                        #Can be:
+                                  #  - ENVVAR TAP_RCFILE YAML_FILE
+                                  #  - PACKAGE.tap CONF
+                                  #  - tap --rcfile YAML_FILE
+                                  #  - ./.taprc YAML_FILE
+                                  #  - tap --FLAG
+                                  #Can be created from tap ... --dump-config
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           SELECTION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TEST.todo(...)                    #Pending test
+TOPTS|AOPTS.todo BOOL             #Can also omit FUNC
+
+TEST.skip(...)
+TOPTS|AOPTS.skip BOOL             #Skipped test
+
+TEST.only(...)                    #Only run that test
+TEST|TOPTS.only BOOL              #Noop unless direct parent TEST.runOnly true (see below)
+TEST|TOPTS.runOnly BOOL           #Def: false. For children, not recursively.
+--only|O
+TAP_ONLY 1|0                      #Same as setting TAP.runOnly BOOL
+
+tap [FILE...]                     #FILE can be - (for stdin)
+                                  #Def: test[s]/**, **/*.spec|test.js and test[s].js
+--files FILE...                   #
+
+--grep|g REGEXP
+TEST|TOPTS.grep REGEXP_ARR
+ENVVAR TAP_GREP 'REGEXP\n...'     #Only include tests with matching title
+
+--invert|i
+ENVVAR TAP_GREP_INVERT 1|0        #Inverts --grep
+
+--test-include|ignore REGEXP      #Same as --grep|invert but only when no FILE... is specified in CLI
+
+TEST.stdin(['TEST_TITLE'])        #Use stdin as TAP input for this TEST
+ ->PROMISE_TEST                   #Def 'TEST_TITLE' '/dev/stdin'
+TEST.stdinOnly()                  #Execute stdin as TAP input for all TESTs
+
+TEST.spawn(...[, 'TEST_TITLE'])   #Uses CHILD_PROCESS.spawn(...) as TAP input for this TEST
+ ->PROMISE_TEST                   #Can specify TOPTS.* in spawn() OPTS
+
+TAP_NO_ESM=0
+--[no-]esm                        #Use ESM module to allow ESM syntax (def: true)
+TAP_NO_TS=0
+--[no-]ts                         #Same for TypeScript
+--[no-]flow                       #Same for Flow
+TAP_NO_JSX=0
+--[no-]jsx                        #Same for JSX
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           EXECUTION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TEST RUN ==>                      #Test functions are run as they are defined (i.e. synchronously)
+                                  #Tests are performed serially, i.e. each test wait for previous one to end.
+
+PROCESS EXIT ==>                  #On process 'exit' event:
+                                  #  - make tests still running fail
+                                  #  - exit code 1 if one assertion failed
+                                  #On process 'uncaughtException|unhandledRejection' events: test fail
+
+--bail|b
+--no-bail|B
+ENVVAR TAP_BAIL=0|1
+TOPTS.bail                        #BOOL (def: false): stop all tests on first test failure
+TEST.bailout(['COMMENT'])         #Stops all tests
+
+--test-arg=ARG                    #Pass CLI argument to each node FILE ...
+                                  #Can be done several times
+
+--node-arg=FLAG                   #Pass node --FLAG
+                                  #Can be done several times
+--[expose-]gc
+--debug[-brk]
+--harmony
+--strict                          #Same for those FLAGs
+
+--test-env=ENVVAR=VAL             #Set ENVVAR
+
+--save|s FILE                     #FILE is a newline-separated list of FILE2... to run
+                                  #If some tests fail, it will written to FILE, i.e. next run will only re-test failed tests.
+--changed                         #Only run tests that failed in last run.
+                                  #Use nyc temporary files, i.e. must not use --no-coverage
+
+--watch|-w                        #Watch mode
+                                  #Implies --changed
+                                  #Can use commands:
+                                  #  r [FILE]: re-run
+                                  #  p: pause|resume
+                                  #  u [FILE]: update snapshots
+                                  #  c [FORMAT]: coverage reporting
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           REPORTING           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TEST.comment(STR)                 #TAP comment
+--comments                        #Print comments to stderr (def: ignored)
+
+TEST.pragma({ VAR: BOOL, ... })   #TAP pragma
+                                  #Including pragma strict (see TAP-PARSER doc)
+
+TOPTS.buffered                    #BOOL (def: TOPTS.jobs > 1): whether TAP child is buffered or not (see TAP format doc)
+ENVVAR TAP_BUFFER=0|1             #Must be true if TOPTS.jobs > 1
+
+TOPTS|AOPTS.diagnostic BOOL
+ENVVAR TAP_DIAG=0|1               #Set YAML error properties even if assertion passes
+
+STACK ==>                         #Stack trace in YAML error properties:
+                                  #  - using (new Error).stack
+                                  #  - removes node modules using STACK-UTILS (see its doc)
+                                  #  - handle source maps with NODE-SOURCE-MAP-SUPPORT (see its doc)
+
+TEST                              #Is an ISTREAM, piped to their parent
+                                  #TAP is piped to stdout
+
+REPORTING ==>                     #Tap output (see TAP format for details) if not CLI, --reporter if CLI.
+                                  #However:
+                                  #  - TAP output is not great quality, because it outputs things that most libraries don't
+                                  #    handle well:
+                                  #     - nested tests
+                                  #     - nested plans
+                                  #     - duration directives|comments
+                                  #     - '- ' prepended to all 'ASSERT_TITLE'
+                                  #     - non-standard|varied YAML error properties
+                                  #     - no final # tests|pass|fail|ok
+                                  #  - i.e. should only use --reporter option.
+
+--output-file|o FILE              #Def: stdout
+--output-dir|d DIR                #Output each TEST in a separate TEST.tap file
+
+--color|c
+--no-color|C
+ENVVAR TAP_COLORS=0|1             #
+
+TEST.counts.pass|fail|skip|todo   #NUM of children
+TEST.counts.total                 #pass + fail + skip + todo
+TEST.lists.fail|skip|todo         #TEST2_ARR children
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             SPEED             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+--timeout|t NUM
+--no-timeout|T
+TEST.setTimeout(NUM)
+TOPTS.timeout NUM                 #In seconds. Def: 0 (not CLI), 30 (CLI), 240 (CLI with --cov)
+ENVVAR TAP_TIMEOUT NUM            #0 to disable
+
+DURATION ==>                      #Tests each|total duration added to TAP output (see TAP format doc for details)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          PARALLELISM          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+--jobs|j NUM                      #I/O parallelism:
+TEST|TOPTS.jobs NUM               #  - run test children in parallel, with maximum NUM tests running at once
+                                  #CPU parallelism:
+                                  #  - run test files in parallel, in different processes, with maximum NUM processes at once
+                                  #  - if an empty file named 'test-parallel-[not-]ok' exists, use it to enable|disable
+                                  #    parallelism on all sibling files recursively
+                                  #Tests are executed out of order, but are buffered so they remain in order in the output
+--jobs-auto|J                     #Same as --jobs NUMBER_OF_CPUS. Default.
+
+ENVVAR TAP_CHILD_ID
+TAP.childId                       #File's index NUM

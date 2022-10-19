@@ -1,0 +1,18 @@
+
+                   
+   FAST-DEEP-EQUAL  
+                   
+
+
+
+ALTERNATIVES ==>                  #See fast-equals
+
+VERSION ==>                       #3.1.3
+
+FAST-DEEP-EQUAL(VAL, VAL2)->BOOL  #Deep equal
+                                  #Iterate over enumerated own properties
+                                  #Handles NaN, DATE, REGEXP, MAP|SET, TYPED_ARR
+                                  #Use VAL.valueOf|toString() when available
+require('fast-deep-equal/es6')    #To support MAP|SET|TYPED_ARR
+require
+ ('fast-deep-equal[/es6]/react')  #To support React

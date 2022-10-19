@@ -1,0 +1,64 @@
+
+                  
+   REACT-ENGINE   
+                  
+
+
+
+VERSION ==>                       #4.2.1 (not compatible with latest versions of React and React-Router yet)
+                                  #Library for server-side rendering for React
+                                  #Can work with React-Router
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            SERVER             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+RENGINE.server.create([CONF])     #Returns FUNC that can be used as an Express view engine:
+->FUNC(FILE[, PROPS], FUNC2(...)) #  - can put as default view engine for .jsx:
+                                  #     - APP.engine('jsx', FUNC)
+                                  #     - APPVAR "view engine" 'jsx'
+                                  #It produces HTML:
+                                  #  - starting with CONF.docType (def: '<!DOCTYPE html>')
+                                  #  - content is REACT.renderToString(RELEM):
+                                  #     - RELEM = REACT.createElement(require(FILE), PROPS)
+                                  #        - PROPS omits CONF.renderOptionsKeysToFilter VAR_ARR
+                                  #     - must include <head> and <body>
+                                  #     - use REACT.renderToStaticMarkup() instead if CONF.staticMarkup true
+                                  #  - inject <script id="react-engine-props"> var __REACT_ENGINE__ = PROPS;</script>
+                                  #     - before CONF.scriptLocation "body" (def) or "head"
+                                  #CONF:
+                                  #  - routes OBJ:
+                                  #     - when FILE starts with '/', treated as URL
+                                  #     - RELEM will be the component rendered by a React-Router <Router>:
+                                  #        - for current location URL
+                                  #        - <Router> props taken from CONF, RELEM taken from PROPS
+                                  #     - works by using undocumented Express option in order to patch APP|RES.render(), so must do:
+                                  #         APP.set('view', RENGIN_EXPRSSVIEW)
+                                  #  - performanceCollector(OBJ): at each render, is fired with OBJ:
+                                  #     - name FILE
+                                  #     - startTime|endTime DATE
+                                  #     - duration NUM (in ms)
+                                  #FUNC throws exception:
+                                  #  - RENGINE.reactRouterServerErrors.MATCH_REDIRECT: should redirect to ERROR.redirectLocation (e.g. 302)
+                                  #  - RENGINE.reactRouterServerErrors.MATCH_NOT_FOUND: FILE not found (e.g. 404)
+                                  #  - RENGINE.reactRouterServerErrors.MATCH_INTERNAL_ERROR: e.g. 500
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            CLIENT             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+RENGINE.client.data()             #Returns __REACT_ENGINE__
+
+RENGINE.client.boot               #Does REACT.render(RELEM, CONF.mountNode) (def: document)
+(CONF[, FUNC(PROPS, HISTORY)])    #RELEM is REACT.createElement(CONF.viewResolver(FILE), PROPS)
+                                  #If CONF.routes was used, use same RELEM and <Router> as on the server instead.
+                                  #Then uses RENGINE.client.data()
+                                  #HISTORY can be customized with CONF.history

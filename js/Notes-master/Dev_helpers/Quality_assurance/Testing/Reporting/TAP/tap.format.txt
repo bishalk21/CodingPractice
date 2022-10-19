@@ -1,0 +1,309 @@
+
+       
+   TAP  
+       
+
+
+
+VERSION ==>                       #14
+                                 ##Non-standard
+
+GOAL ==>                          #Test reporting format
+                                  #Streaming-friendly
+                                  #Fairly generic and easy to parse
+
+MIME TYPE ==>                     #application/tap
+ENCODING ==>                      #UTF-8
+STDOUT ==>                        #Should be used, not stderr
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            SYNTAX             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TAP version NUM                   #
+                                13#Required
+
+# COMMENT                         #
+
+1..NUM [# COMMENT]                #"plan": this file should have NUM assertions
+                                  #Must be at beginning or end
+                                  #NUM can be 0
+                                14#Required
+                               <14#Before, 1 could be any NUM2 to start from
+
+# TEST_TITLE                     ##Beginning of a test (i.e. a group of assertions)
+
+[not] ok [INDEX]                  #Single assertion
+ [[- ] ASSERT_TITLE]              #INDEX is incrementing from 1 for each assertion (def: auto-incrementing)
+ [# DIRECTIVE [COMMENT]]          #ASSERT_TITLE:
+                                  #  - should not start with dot
+                                  #DIRECTIVE:
+                                  #  - case-insensitive
+                                  #  - can be:
+                                  #     - SKIP:
+                                  #        - tested but skipped
+                                  #        - should be "ok"
+                                  #     - TODO: not tested yet:
+                                  #        - should be "not ok"
+                                  #        - however be treated as ok
+  ---                             #Error properties, as YAML
+  VAR: VAL                       ##Often used:
+  ...                            ##  - operator STR: assertion function
+                                 ##  - expected|actual VAL
+                                 ##     - sometimes called wanted|found
+                                 ##  - message|Failure STR: error message
+                                 ##  - stack STR:
+                                 ##     - multiline starting next line
+                                 ##     - must be last property
+                                 ##     - each line must be "at: NAME (PATH:LINE:COL)"
+                                 ##  - at 'NAME (PATH:LINE:COL)'
+                                 ##  - severity 'warn|error|fail'
+                                 ##  - data OBJ
+
+NESTED TESTS ==>                14#E.g. when using describe()
+                                14#Parent assertion is the describe()
+                                14#Have same structure as above (including plan) except:
+                                14#  - TEST_TITLE prepended with 'Subtest[: ]'
+                                14#  - 4-space indented, after their parent assertion
+                                 ##     - sometimes before parent assertion
+                                 ##     - sometimes enclosed with {}
+                                14#  - version optional and not recommended
+                                14#Avoid because:
+                                14#  - they are handled by tap-parser but not by tap-out
+                                14#  - most reporters don't handle them (except tap-mocha-reporters)
+
+# tests: NUM
+# pass: NUM
+# fail: NUM
+# skip: NUM                      ##At end of file. In that order.
+# ok                             ##Counts the number of assertions (not tests)
+
+Bail out! [COMMENT]               #Testing was interrupted
+
+pragma +VAR|-VAR                 ##Parser-specific directive
+
+UNKNOWN LINES ==>                 #Are allowed but ignored (for future compatibility)
+
+ESCAPING ==>                      #\-escape for # \ on # COMMENT|DIRECTIVE
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           PRODUCERS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+MOCHA 5 ==>                       #  - no TAP version
+                                  #  - no TEST_TITLE
+                                  #  - plan
+                                  #  - assertions:
+                                  #     - ASSERT_TITLE contains describe() and test title
+                                  #     - can use # SKIP (no # TODO)
+                                  #     - YAML error properties: ERROR.toString() + ERROR.stack as is
+                                  #  - # tests|pass|fail NUM (but not # ok)
+                                  #  - no Bail out!
+
+MOCHA 6 ==>                       #Not documented yet
+
+JASMINE ==>                       #  - TAP version 13
+                                  #  - no TEST_TITLE
+                                  #  - plan at the end
+                                  #  - assertions:
+                                  #     - ASSERT_TITLE contains describe() and test title
+                                  #     - can use # SKIP (no # TODO)
+                                  #     - YAML error properties: ERROR.toString() + ERROR.stack as Failure property
+                                  #  - # NUM spec, NUM failure, NUM skipped, NUM disabled in NUMs
+                                  #  - no Bail out!
+
+JEST-JSON-TO-TAP ==>              #  - no TAP version
+                                  #  - plan
+                                  #  - no TEST_TITLE
+                                  #  - assertions:
+                                  #     - ASSERT_TITLE
+                                  #     - can use # SKIP (no # TODO)
+                                  #     - error messages added as # COMMENTs afterwards
+                                  #  - # tests|pass|fail NUM (but not # ok)
+                                  #  - no Bail out!
+
+JEST-TAP-REPORTER ==>             #  - no TAP version
+                                  #  - plan
+                                  #  - no TEST_TITLE
+                                  #  - assertions:
+                                  #     - ASSERT_TITLE
+                                  #     - can use # SKIP (no # TODO)
+                                  #     - YAML error properties:
+                                  #        - Received|Expected STR
+                                  #        - Difference STR
+                                  #        - raw STR for ERROR.toString() + ERROR.stack
+                                  #  - no # tests|pass|fail|ok
+                                  #  - no Bail out!
+
+ESLINT ==>                        #  - TAP version 13
+                                  #  - plan
+                                  #  - no TEST_TITLE
+                                  #  - assertions:
+                                  #     - ASSERT_TITLE is path
+                                  #     - no # SKIP|TODO
+                                  #     - YAML error properties:
+                                  #        - message STR
+                                  #        - severity 'error|warning'
+                                  #        - data: line|column NUM, ruleId 'NAME'
+                                  #        - messages ERROR_ARR (same as above)
+                                  #  - no # tests|pass|fail|ok
+                                  #  - no Bail out!
+
+TAPE ==>                          #  (beginning)
+                                  #  - TAP version 13
+                                  #  (TAPE.test())
+                                  #  - # TEST_TITLE
+                                  #  (TOPTS.skip)
+                                  #  - # SKIP TEST_TITLE|STR, then skipped from output
+                                  #  (TAPE.skip())
+                                  #  - skipped from output
+                                  #  (TEST.skip())
+                                  #  - [not] ok INDEX ASSERT_TITLE # SKIP [STR]
+                                  #  (TOPTS.todo)
+                                  #  - # TODO [STR]
+                                  #  (assertions)
+                                  #  - [not] ok INDEX ASSERT_TITLE
+                                  #  - YAML error props:
+                                  #     - operator 'FUNC_NAME'
+                                  #     - expected|actual VAL: on all but TEST.fail|pass()
+                                  #     - at STR, stack STR from either:
+                                  #        - thrown ERROR by TEST.throws|doesNotThrow()
+                                  #        - (new Error).stack
+                                  #  (TEST.comment())
+                                  #  - # COMMENT
+                                  #  (end)
+                                  #  - plan 1..NUM (automatically done even without TEST.plan())
+                                  #  - # tests|pass|fail NUM
+                                  #  - # ok
+
+TAPE-MODERN ==>                   #  (beginning)
+                                  #  - TAP version 13
+                                  #  (test())
+                                  #  - # TEST_TITLE
+                                  #  (test.skip())
+                                  #  - # skip TEST_TITLE
+                                  #  (assertion)
+                                  #  - [not] ok INDEX - ASSERT_TITLE
+                                  #  - '- ' prepended to all ASSERT_TITLE
+                                  #  - YAML error props:
+                                  #     - operator 'FUNC_NAME'
+                                  #     - expected|actual VAL (serialized with UTIL.format())
+                                  #     - stack STR (from (new Error).stack)
+                                  #  (end)
+                                  #  - plan 1..NUM
+                                  #  - # tests|pass|fail|skip NUM
+
+SUPERTAP ==>                      #  (start())
+                                  #  - TAP version 13
+                                  #  (test())
+                                  #  - # TEST_TITLE
+                                  #  - [not] ok INDEX - ASSERT_TITLE
+                                  #  - '- ' prepended to all ASSERT_TITLE
+                                  #  - TEST_TITLE is also ASSERT_TITLE
+                                  #  - can use # TODO|SKIP
+                                  #  - unknown line '  * COMMENT'
+                                  #  - YAML error props:
+                                  #     - name, message, at STR: from ERROR
+                                  #     - any ERROR.* property
+                                  #  (finish())
+                                  #  - plan 1..NUM (passed + failed + skipped + todo)
+                                  #  - # tests (passed + failed + skipped)
+                                  #  - # pass (passed)
+                                  #  - # skipped (skipped)
+                                  #  - # fail (failed + todo)
+
+AVA ==>                           #Uses Supertap:
+                                  #  (beginning)
+                                  #  - TAP version 13
+                                  #  (test)
+                                  #  - # TEST_TITLE
+                                  #  - '- ' prepended to all ASSERT_TITLE
+                                  #  - single assertion: [not] ok INDEX - TEST_TITLE
+                                  #  - can use # TODO|SKIP
+                                  #  - YAML error properties:
+                                  #     - name STR (ERROR name)
+                                  #     - message ASSERT_TITLE
+                                  #     - at STR
+                                  #     - values STR (arguments) (if custom assertion library, ERROR.* properties)
+                                  #     - assertion 'FUNC' (not if using custom assertion library)
+                                  #  (TEST.log())
+                                  #  - unknown lines, indented with '  * '
+                                  #  (end)
+                                  #  - plan 1..NUM
+                                  #  - # tests|pass|skipped|fail NUM
+
+NODE-TAP ==>                      #  (beginning)
+                                  #  - TAP version 13
+                                  #  (each assertion)
+                                  #  - TEST_TITLE:
+                                  #     - only for nested tests
+                                  #     - using # Subtest: PARENT_TEST_TITLE
+                                  #  - '- ' prepended to all ASSERT_TITLE
+                                  #  - uses nested tests (see problems with them above), either buffered or not
+                                  #  - YAML error properties:
+                                  #     - at STR, stack STR
+                                  #     - source STR: source line of code (added by reading file)
+                                  #     - found VAL: with TEST.equal|notEqual|strictSame|strictNotSame|same|notSame|error|match|notMatch|type|snapshot()
+                                  #     - wanted VAL2: with TEST.equal|strictSame|same|type|snapshot()
+                                  #     - doNotWant VAL2: with TEST.notEqual|strictNotSame|notSame()
+                                  #     - pattern VAL2: with TEST.match|notMatch()
+                                  #     - error ERROR: with TEST.doesNotThrow()
+                                  #     - type ERROR_TYPE: with TEST.doesNotReject
+                                  #     - compare STR: '===' for TEST.equal|type|snapshot(), '!==' for TEST.notEqual()
+                                  #  - plan 1..NUM [# COMMENT]
+                                  #     - at beginning if TEST.plan(), automatically added at end otherwise
+                                  #  - DIRECTIVE # time=NUMms, providing it has children
+                                  #  (TEST.only|skip(), grep)
+                                  #  - directive # SKIP filter: /REGEXP/ (or only)
+                                  #  - comment # skip: NUM at end of parent
+                                  #  (TEST.todo())
+                                  #  - directive # TODO
+                                  #  (TEST.comment())
+                                  #  - # COMMENT
+                                  #  (TEST.bailout())
+                                  #  - Bail out! [COMMENT]
+                                  #  (TEST.pragma())
+                                  #  - pragma
+                                  #  (end)
+                                  #  - comment # time=NUMms
+                                  #  - no # tests|pass|fail|ok
+
+NODE TEST ==>                     #  - TAP version 13
+                                  #  - no TEST_TITLE
+                                  #     - except top file, also preceded by # Subtest ...
+                                  #  - plan, but cannot be controlled
+                                  #  - assertions:
+                                  #     - ASSERT_TITLE contains describe() and test title
+                                  #     - '- ' prepended to all ASSERT_TITLE
+                                  #     - skipped|todo tests are ignored, i.e. do not print #DIRECTIVEs
+                                  #     - TAML error properties:
+                                  #        - error 'MESSAGE'
+                                  #        - failureType STR
+                                  #        - code STR
+                                  #        - duration_ms NUM
+                                  #        (only bottom tests)
+                                  #        - stack STR
+                                  #        (only parent tests)
+                                  #        - stdout STR
+                                  #        - stderr STR
+                                  #        (only top tests)
+                                  #        - exitCode NUM
+                                  #  - nested tests:
+                                  #     - only printed if errors
+                                  #     - printed as TAP output in error stdout
+                                  #  - # COMMENT (only if test failed)
+                                  #  - no pragma
+                                  #  - # tests|pass|fail|cancelled NUM
+                                  #     - # skip -> # skipped
+                                  #     - no # ok
+                                  #     - #duration_ms NUM
+                                  #  - no Bail out!
+

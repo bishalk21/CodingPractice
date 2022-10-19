@@ -1,0 +1,190 @@
+
+            
+   VCDIFF   
+            
+
+
+STANDARDS ==>                     #RFC 3284
+
+GOAL ==>                          #Produces a "delta file", i.e. a diff between a source and a target
+                                  #General focus on easy/fast decoding (but hard encoding), quite efficient and for any format:
+                                  #  - ease of decoding
+                                  #     - instead of ease of encoding
+                                  #     - decoding is straight-forward, but not encoding
+                                  #  - decoding speed
+                                  #     - instead of encoding speed
+                                  #     - instead of encoding efficiency
+                                  #     - do not use bit operations (only bytes) so it is faster to decode (but less efficient)
+                                  #  - encoding efficiency
+                                  #     - instead of resource consumption
+                                  #     - need to keep whole window in memory
+                                  #  - generic
+                                  #     - instead of specifying more about the implementation
+                                  #     - allow flexibility (but more work) for encoders
+                                  #  - any format (text/binary)
+                                  #     - instead of specialized/more efficient for a format
+                                  #  - portability
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:          ALGORITHMS           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+ENCODING ALGORITHM ==>            #I/O:
+                                  #  - input: source file + target file
+                                  #  - output: delta file (start with empty string)
+                                  #Instructions:
+                                  #  - ADD SIZE, BYTE_ARR: 
+                                  #     - append BYTE_ARR (of length SIZE)
+                                  #  - RUN SIZE, BYTE: 
+                                  #     - append BYTE SIZE times
+                                  #  - COPY SIZE, ADDRESS: 
+                                  #     - append SIZE bytes from ADDRESS
+                                  #     - ADDRESS is byte index inside concatenation of source window + target window
+                                  #        - can copy parts of target window as long as it will already have been decoded
+                                  #Max SIZE: 255
+                                  #Target|source windows: target|source chunks compared against each other
+
+ENCODING IMPLEMENTATION ==>       #Implementation-dependant (not specified):
+                                  #  - how to figure out instructions ("string matching")
+                                  #  - windows (e.g. their sizes)
+                                  #     - the bigger the window, the most efficient, but the more resource-hungry
+                                  #     - source window should be a bit larger than target window to increase matching chances
+                                  #  - custom code table
+                                  #  - secondary compressor
+
+DECODING ALGORITHM ==>            #I/O:
+                                  #  - input: source file + delta file
+                                  #  - output: target file
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            FORMAT             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+GOAL ==>                          #Only specifies list of instructions (e.g. RUN SIZE, BYTE) but:
+                                  #  - efficiently:
+                                  #     - secondary compressor
+                                  #     - code table data for often-used instructions
+                                  #     - efficient COPY addresses:
+                                  #        - SAME_CACHE for often used addresses
+                                  #        - NEAR_CACHE for addresses close to each other
+                                  #        - "MODE 1" for addresses close to source segment current pointer
+                                  #  - use windows
+
+FORMAT ==>                        #Header:
+                                  #  - 'VCD' (magic number)
+                                  #  - Version BYTE: 0x00
+                                  #  - Header indicator BYTE_FLAG
+                                  #  - [Secondary compressor ID] BYTE
+                                  #  - [Length]
+                                  #  - [Code table data]
+                                  #Each window:
+                                  #  - Window indicator BYTE
+                                  #  - [Source segment size] NUM
+                                  #  - [Source segment position] NUM
+                                  #  - Delta encoding of target window:
+                                  #     - length
+                                  #     - delta encoding:
+                                  #        - length of target window NUM: length of whole window, after decompression
+                                  #        - delta indicator BYTE_FLAG
+                                  #        - length (for each of next three sections)
+                                  #        - data for ADDs and RUNs BYTE_ARR
+                                  #        - instructions and sizes BYTE_ARR
+                                  #        - addresses for COPYs BYTE_ARR
+                                  #Interleaving (non-standard):
+                                  #  - interleaving last three sections, so that can start to decode right away when streaming instead of
+                                  #    waiting for first two sections to be downloaded
+
+TYPES ==>                         #  - NUM -> base128 -> each digit === 1 byte (with MSB 0 for last digit, 1 for others)
+                                  #  - BYTE
+                                  #  - BYTE_FLAG: or'd flag of one byte
+
+LENGTH ==>                        #Means: length NUM of the segment that follows
+
+PORTABILITY ==>                   #  - byte order is defined
+                                  #  - the highest unit is a single byte 
+                                  #     - this is why NUM is encoded like this
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:        FORMAT DETAILS         :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+INSTRUCTIONS AND SIZES ==>        #Three fields (describing two encoded instructions):
+                                  #  - inst BYTE: index in "code table"
+                                  #  - [size1 BYTE]
+                                  #  - [size2 BYTE]
+
+CODE TABLE ==>                    #Code table:
+                                  #  - 256 entries
+                                  #  - each entry describes 2 encoded instructions
+                                  #  - there is a default one with common instructions:
+                                  #     - RUN|ADD|COPY 0 (i.e. size1|size2)
+                                  #     - ADD 1-17
+                                  #     - COPY 4-18
+                                  #     - ADD 1-4 + COPY 4-6
+                                  #     - COPY 4 + ADD 1
+                                  #Custom:
+                                  #  - if Header indicator 0x02
+                                  #  - Code table data:
+                                  #     - Size of near cache BYTE:
+                                  #        - instead of 4
+                                  #        - if different, will change lower-upper limits used in MODE
+                                  #     - Size of same cache BYTE: same for "same cache"
+                                  #     - code table:
+                                  #        - VCDIFF delta of default code table with custom one
+                                  #        - default|custom code table being encoded as each column (i.e. 256 bytes)
+                                  #          after another: command1, command2, firstArg1, firstArg2, secondArg1, secondArg2
+
+ENCODED INSTRUCTIONS ==>          #Three fields (describing an instruction efficiently):
+                                  #  - command COPY|ADD|RUN|NOOP
+                                  #  - first argument, either:
+                                  #     - SIZE
+                                  #     - 0, which means it should be taken from following size1|size2
+                                  #  - MODE, describing second argument:
+                                  #     - for ADD|RUN: 
+                                  #        - SIZE next bytes in "data for ADDs and RUNs"
+                                  #        - MODE is 0
+                                  #     - for COPY:
+                                  #        - ADDR_NUM = next byte in "address for COPYs"
+                                  #        - ADDRESS depends on MODE:
+                                  #           - 0: ADDRESS = ADDR_NUM
+                                  #           - 1: ADDRESS = HERE - ADDR_NUM
+                                  #              - HERE is source segment current pointer
+                                  #           - 2-5: ADDRESS = ADDR_NUM - NEAR_CACHE[0-3]
+                                  #           - 6-8: ADDRESS = SAME_CACHE[(0-2)*256 + ADDR_NUM]
+
+SOURCE SEGMENT ==>                #Used for COPY instructions with MODE 1
+                                  #According to:
+                                  #  - window indicator:
+                                  #     - 0x00: the window itself
+                                  #     - 0x01: the source file
+                                  #     - 0x02: the target file
+                                  #  - source segment size|position
+
+CACHES ==>                        #NEAR_CACHE: 
+                                  #  - ARR of 4 ADDRESSes 
+                                  #  - filled after each COPY with new ADDRESS as a circular bugger
+                                  #  - used for relative positioning with recent addresses
+                                  #SAME_CACHE:
+                                  #  - ARR of 3*256 ADDRESSes
+                                  #  - filled with each COPY with new ADDRESS at ADDRESS % ((0-2)*256)
+                                  #  - used for absolute positioning with recent addresses
+
+SECONDARY COMPRESSOR ==>          #  - compresses each of the three last sections of "delta encoding" section
+                                  #     - if Header indicator 0x01
+                                  #     - delta indicator specifies which section is compressed:
+                                  #        - 0x01: data for ADDs and RUNs
+                                  #        - 0x02: instructions and sizes
+                                  #        - 0x04: addresses for COPYs
+                                  #  - Secondary compressor ID: to indicate which algo is used

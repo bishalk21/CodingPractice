@@ -1,0 +1,88 @@
+
+        
+   CONF  
+        
+
+
+
+ALTERNATIVES ==>                  #  - conf (preferred): more features
+                                  #  - configstore
+
+VERSION ==>                       #10.2.0
+
+new Conf(OPTS)                    #
+
+CONF.store                        #Arbitrary OBJ with application config data.
+                                  #Is a getter/setter that persists to config file with sync I/O.
+                                  #Throws on access errors
+OPTS.defaultValues                #Initial OBJ for CONF.store
+                                  #Merged to OPTS.schema `default` values
+
+CONFIG LOCATION ==>               #File is at '{OPTS.cwd}/{OPTS.configName}.{OPTS.fileExtension}':
+                                  #I.e. def is:
+                                  #  - Linux: ~/.config/PROJECT_NAME/config.json
+                                  #  - Mac: ~/Library/Preferences/PROJECT_NAME/config.json
+                                  #  - Windows: ~/AppData/Roaming/PROJECT_NAME/Config/config.json
+OPTS.cwd                          #STR
+                                  #Def: ENV-PATHS(OPTS.projectName, {suffix: OPTS.projectSuffix}).config (see its doc)
+OPTS.projectName                  #'PROJECT_NAME'.
+                                  #Def: does PKG-UP (see its doc) on MODULE.parent.filename (i.e. file was called CONF) then use PACKAGE.name
+OPTS.projectSuffix                #STR (def: 'nodejs')
+OPTS.configName                   #'FILENAME' (def: 'config')
+OPTS.fileExtension                #'EXT' (def: 'json')
+OPTS.configFileMode               #NUM (def: 0o666)
+
+CONF.size                         #Object.keys(CONFIGSTORE.all).length
+
+CONF.get('VARR'[, VAL2])->VAL     #VAL2 is default value
+CONF.set('VARR', VAL)
+CONF.has('VARR')->BOOL
+CONF.delete('VARR')
+CONF.clear()                      #Get|set CONF.store
+CONF.set(OBJ)                     #Shallow merge. However keys can be 'VARR'
+CONF.reset('VARR',...)            #Set back to default value
+
+OPTS.accessPropertiesByDotNotation#If false (def: true), 'VARR' is 'VAR' instead
+
+for (const [KEY, VAL] of CONF)    #CONF is ASYNC_ITERATOR
+
+OPTS.serialize                    #FUNC(VAL)->STR (def: JSON.stringify()) used on CONF.store set
+                                  #Note: setting undefined|SYM|FUNC always throws even with a different OPTS.serialize()
+OPTS.deserialize                  #FUNC(STR)->VAL (def: JSON.parse()) used on CONF.store get
+
+OPTS.schema                       #{ 'VAR': JSON_SCHEMA, ... }
+                                  #Validates values on get|set, with AJV + AJV-FORMATS (see its doc) and throw error if issue.
+                                  #Uses AJV useDefaults true, i.e. assigns defaults
+
+OPTS.encryptionKey                #STDBUFFER.
+                                  #Encrypt data with CRYPTO.createCipheriv('aes-256-cbc', 'PASSWORD', RANDOM)
+                                  #  - RANDOM is CRYPTO.pbkdf2(STDBUFFER, RANDOM, 1e4, 32, 'sha512')
+
+CONF.handleChange                 #Sets a listener FUNC(NEW_VAL, OLD_VAL) fired on CONF.store set, when !deepEqual(NEW_VAL, OLD_VAL)
+ (FUNC2()->VAL, FUNC())->FUNC3()  #FUNC `this` is CONF
+                                  #FUNC2() returns the VAL being used.
+                                  #FUNC3() removes listener.
+                                  #If OPTS.watch true, also fired when file is directly modified
+CONF.onDidAnyChange(FUNC())       #Like CONF.handleChange but triggered when any value in CONF.store changes
+CONF.onDidChange('VARR', FUNC())  #Same but for specific 'VARR'
+
+OPTS.clearInvalidConfig           #BOOL. What to do when CONF.store is syntactically invalid:
+                                  #  - true: sets to empty object
+                                  #  - false (def): throw
+
+OPTS.migrations                   #Performs data migration logic
+                                  #OBJ:
+                                  #  - 'KEY' is semver 'VERSION|RANGE'
+                                  #  - value is FUNC(CONF)
+                                  #'VERSION':
+                                  #  - current is persisted in the data as __internal__.migrations.version 'VERSION'
+                                  #  - new one is OPTS.projectVersion
+                                  #     - def: does PKG-UP (see its doc) on MODULE.parent.filename (i.e. file was called CONF) then use PACKAGE.version
+                                  #Performs migration FUNC() exactly once until it reaches the new 'VERSION',
+                                  #then updates the current 'VERSION' accordingly.
+                                  #Does this by performing any OPTS.migrations where:
+                                  #  - if 'KEY' 'VERSION': > current 'VERSION' + <= new 'VERSION'
+                                  #  - if 'KEY' 'RANGE': does not match current 'VERSION' + matches new 'VERSION'
+OPTS.beforeEachMigration          #Called before any migration with OBJ:
+ (CONF, OBJ)                      #  - fromVersion|toVersion|finalVersion 'VERSION'
+                                  #  - versions 'VERSION'_ARR

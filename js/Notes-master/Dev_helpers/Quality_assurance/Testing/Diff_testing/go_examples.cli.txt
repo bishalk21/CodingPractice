@@ -1,0 +1,18 @@
+
+               
+   GO_EXAMPLES  
+               
+
+
+
+TESTING ==>                       #See go_test documentation
+
+go test                           #Run like normal Go tests, except named Example*()
+Example[VARR][_SUFFIX]()          #Example function
+
+DOCUMENTATION ==>                 #Documented by godoc (see its doc)
+
+SNAPSHOT TESTING ==>              #Can become a test function by adding a comment asserting stdout equals a specific STR
+// Output: [...]                  #... is expected stdout
+                                  #Can be multiline, omitting "Output:"
+// Unordered output: [...]        #Same but line order is not significant

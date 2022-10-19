@@ -1,0 +1,24 @@
+
+             
+   P-TIMEOUT  
+             
+
+
+
+ALTERNATIVES ==>                  #See delay
+
+VERSION ==>                       #6.0.0
+
+P-TIMEOUT(PROMISE, OPTS)->PROMISE2#Calls OPTS.fallback() after OPTS.milliseconds ms (required) (using setTimeout())
+                                  #If PROMISE.cancel() is defined, fire it (see p-cancelable doc)
+PROMISE2.clear()                  #clearTimeout()
+
+OPTS.signal                       #ABORT_SIGNAL. On abort, reject PROMISE2, but does not call OPTS.fallback() nor PROMISE.cancel()
+OPTS.fallback                     #Def: reject PROMISE2
+OPTS.message                      #ERROR|'ERROR' rejecting PROMISE2
+                                  #Def: TimeoutError with 'Promise timed out after NUM milliseconds'
+OPTS.customTimers.
+ setTimeout|clearTimeout          #Custom FUNC
+
+TimeoutError                      #
+TIMEOUT_ERROR.name                #'TimeoutError'

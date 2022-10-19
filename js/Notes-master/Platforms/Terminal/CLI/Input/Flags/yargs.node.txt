@@ -1,0 +1,368 @@
+
+         
+   YARGS  
+         
+
+
+
+ALTERNATIVES ==>                  #  - yargs (prefered): has more features related to config file, help messages (including i18n)
+                                  #  - utils.parseArgs (prefered if need small package): minimalistic, few features, but builtin Node.js
+                                  #  - caporal.js: has more features related to logging, colors
+                                  #    Not maintained
+                                  #  - commander: less features
+                                  #  - minimist: very few features. not maintained
+                                  #     - meow: wrapper around minimist
+
+VERSION ==>                       #17.5.1
+                                  #Parse CLI input
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERAL            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SHABANG ==>                       #Top file should probably have #!/usr/bin/env node
+
+CLI_OPTS                          #Mean either '-O[=]OPT_VAL' or '--OPT[=]OPT_VAL'
+                                  #OPT can be:
+                                  #  - OPT.OPT2, to nest OPT: { OPT2 }
+                                  #  - dasherized or camelized, both will be created
+                                  #    E.g. --aB and --a-b will both be converted to both
+                                  #Short options can be grouped, e.g. -abc instead of -a -b -c
+
+CHAINED COMMANDS ==>              #All commands, unless specified otherwise, return YARGS
+
+EXIT CODE ==>                     #0 if success, 1 if failure
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            PARSING            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+yargs(CLI_OPTS[_ARR][, DIR])      #Parse CLI_OPTS to tell YARGS.parse() which CLI options to use
+ ->[PROMISE_]YARGS                #DIR is current directory (def: process.cwd())
+                                  #PROMISE only if using async check|coerce
+import { hideBin }                #Like process.argv.slice(2) but works with Electron.
+ from 'yargs/helpers'             #Should be passed as yargs(hideBin(process.argv))
+YARGS.parse[Sync|Async]()         #Parse options as [PROMISE_]OBJ:
+YARGS.argv                        #  - OPT OPT_VAL
+                                  #  - COMMAND_ARG VAL
+                                  #  - _ STR_ARR:
+                                  #     - anything that is not an OPT or an OPT_VAL
+                                  #     - includes COMMAND (as the first element), if using them
+                                  #     - also anything after --
+                                  #  - $0 STR: main file name
+                                  #     - can be changed with YARGS.scriptName(STR)
+                                  #argv is same but as a getter function
+YARGS.parse[Sync|Async]           #Same as YARGS(...).parse(), except:
+ (...[, OBJ2][, FUNC])            #  - if OBJ2, is merged to YARGS.argv
+ ->[PROMISE_]OBJ                  #  - if FUNC, FUNC(ERROR, YARGS.argv, STR) is also fired:
+                                  #     - ERROR is exit error if any
+                                  #     - STR is what is printed on console
+
+YARGS.parserConfiguration(OBJ)    #Allows to turn off some features, among:
+ ->YARGS                          #  - short-option-groups BOOL: short options grouping
+YRGS.getParserConfiguration()->OBJ#  - camel-case-expansion BOOL: dasherized -> camelcase
+                                  #  - dot-notation BOOL: nesting with dot notation
+                                  #  - parse-numbers BOOL (def: true): auto-transtyping of NUM OPT_VAL
+                                  #  - boolean-negation BOOL: --no-*
+                                  #  - negation-prefix STR (def: 'no-')
+                                  #  - duplicate-arguments-array BOOL: duplicate OPT becomes ARR OPT_VAL
+                                  #  - flatten-duplicate-arrays BOOL: duplicate OPT, with some having several OPT_VAL,
+                                  #    becomes flatten ARR OPT_VAL
+                                  #  - populate-- BOOL: --
+                                  #  - sort-commands BOOL (def: false): sort commands
+                                  #  - deep-merge-config BOOL (def: false): whether `extends` is recursive
+                                  #  - unknown-options-as-args BOOL (def: false): allow unknown options, put in YARGS.argv._
+                                  #  - greedy-array BOOL (def: true): if false, ARR options stop at 1 element
+                                  #They are all on by default (except indicated otherwise), and probably should stay so, as they are good features
+
+YARGS.middleware                  #Fire FUNC(ARGV)[->PROMISE] before returning it
+ (FUNC[_ARR][, BOOL])             #If true, run before parsing instead of after.
+
+YARGS.global('OPT'[_ARR][, BOOL]) #Persist OPTs between YARGS.parse() calls (which is the default)
+
+YARGS.fail(BOOL)                  #On error, exit code 1 + error message (def: true) (default behavior)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OPTIONS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.option[s]({ OPT: OPTS ... } #Adds a possible OPT, or several.
+YARGS.option[s]('OPT'[, OPTS])    #OPTS:
+                                  #  - shorcuts for YARGS.FUNC(...):
+                                  #     - available:
+                                  #        - alias
+                                  #        - global
+                                  #        - boolean|string|number|count|array
+                                  #        - nargs|requiresArg
+                                  #        - choices
+                                  #        - demandOption|implies|conflicts
+                                  #        - skipValidation
+                                  #        - default|defaultDescription|coerce|normalize
+                                  #        - hidden
+                                  #        - config|configParser
+                                  #        - describe|group
+                                  #        - deprecated BOOL
+                                  #     - values depend on FUNC arguments:
+                                  #        - no arg -> BOOL
+                                  #        - (OBJ) -> OBJ
+                                  #        - ('OPT'[_ARR], VAL) -> VAL
+                                  #        - ('OPT'[_ARR], VAL, VAL2) -> two different words,
+                                  #          e.g. config|configParser, default|defaultDescription
+                                  #  - type: 'boolean|string|number|count|array': like OPTS.* true
+
+YARGS.positional('OPT'[, OPTS])   #Same but positional argument
+                                  #YARGS must be a command-wise YARGS, i.e. from FUNC(YARGS2) in YARGS.command()
+
+YARGS.alias
+ ('OPT'[_ARR], 'OPT2'[_ARR])
+YARGS.alias
+ ({ OPT: 'OPT2'[_ARR] ... })      #Create alternative OPT names.
+                                  #On parsing, both OPT and OPT2 will be set.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           COMMANDS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.command|usage               #Add a COMMAND
+('COMMAND [ARG]...'[_ARR], STR,   #Can specify an ARR for aliases
+[OBJ or FUNC(YARGS)->             #ARG can be:
+[PROMISE_]YARGS[, FUNC2]])        #  - '<COMMAND_ARG>': required
+YARGS.command                     #  - '[COMMAND_ARG]': optional
+ (COMMAND_MODULE[_ARR])           #  - '<COMMAND_ARG|...>', '[COMMAND_ARG|...]': aliases
+                                  #  - '<COMMAND_ARG...>', '[COMMAND_ARG...]': variadic, producing array VAL
+                                  #STR is description.
+                                  #Each COMMAND has its own YARGS instance, using YARGS.reset():
+                                  #  - using OBJ fires YARGS.option(OBJ)
+                                  #  - FUNC is fired with YARGS
+                                  #  - FUNC2 is fired with YARGS.parse()
+                                  #COMMAND can be '*' for default command
+                                  #When fired with COMMAND_MODULE, gets same arguments but named:
+                                  #  - command STR
+                                  #  - aliases STR[_ARR]
+                                  #  - describe STR
+                                  #  - builder OBJ|FUNC
+                                  #  - handler FUNC2
+                                  #  - deprecated BOOL|STR
+YARGS.commandDir('DIR'[, OBJ])    #Add multiple COMMANDs at once by using DIR/*.js
+                                  #Each file must export a COMMAND_MODULE
+                                  #COMMAND_MODULE.builder can call YARGS.commandDir() too, targetting a sub-directory,
+                                  #for nested commands.
+                                  #OBJ affects how files are picked:
+                                  #  - recurse BOOL
+                                  #  - extensions STR_ARR (def: ['js'])
+                                  #  - visit(COMMAND_MODULE, 'PATH', 'FILE')->COMMAND_MODULE|false: transform or skip a file
+                                  #  - include|exclude REGEXP|FUNC('PATH')->BOOL
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TYPE              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+DEFAULT TYPE ==>                  #Is guessed between boolean, string and number
+
+YARGS.boolean('OPT'[_ARR])        #Make OPT_VAL BOOL.
+                                  #Using OPT will set to true, using --no-OPT set to false
+                                  #Defaults to false
+YARGS.string('OPT'[_ARR])         #Make OPT_VAL STR. Defaults to ''.
+YARGS.number('OPT'[_ARR])         #Make OPT_VAL NUM.
+                                  #Defaults to undefined. NaN if cannot be parsed as NUM.
+YARGS.count('OPT'[_ARR])          #Make OPT_VAL NUM, but set to the number of times OPT is specified.
+YARGS.array('OPT'[_ARR])          #Make OPT_VAL ARR. Is variadic (unless YARGS.nargs())
+                                  #Also, any following positional argument is interpreted as an additional ARR item.
+                                  #Is compatible with YARGS.boolean|string|number()
+                                  #Note that with or without array(), repeating OPT will turn OPT_VAL into array
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             ARITY             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.nargs('OPT'[_ARR], NUM)     #Number of arguments after OPT.
+                                  #This allows for:
+                                  #  - several arguments per OPT, in which case OPT_VAL will be ARR
+                                  #  - validating strict number of arguments
+                                  #  - arguments that looks like options
+                                  #By default, is only 0 or 1 argument
+YARGS.requiresArg('OPT'[_ARR])    #Same as nargs(..., 1)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          VALIDATION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.choices
+ ('OPT'[_ARR], OPT_VAL_ARR)
+YARGS.choices
+ ({ OPT: OPT_VAL_ARR, ... })      #Limit possible OPT_VALs
+YARGS.check
+ (FUNC(YARGS.argv)                #If FUNC() returns|throws STR, prints it and fails.
+ ->[PROMISE_]true|STR[, BOOL])    #Is global (see YARGS.global()) unless BOOL false.
+
+YARGS.strict([BOOL])              #Enables|disables that unknown arguments|commands are forbidden
+                                  #(def: true, but disabled by def)
+                                  #To not be "unknown", options must have either a describe(), demandOption() or alias()
+YARGS.strictCommands([BOOL])      #Like YARGS.strict() but only for positional arguments|commands
+YARGS.strictOptions([BOOL])       #Like YARGS.strict() but not for positional arguments|commands
+YARGS.demandOption
+ ('OPT'[_ARR][, STR])             #Make OPT required.
+YARGS.demandOption                #Not compatible with YARGS.default()
+ ({ OPT: true|STR, ... })         #STR is extra error message.
+YARGS.demandCommand               #Requires a min|max of COMMANDs. Def NUM: 1
+ ([NUM][, NUM2][, STR[, STR2]])   #STR|STR2 are the min|max error messages
+YARGS.implies('OPT', 'OPT2'[_ARR])
+YARGS.implies
+ ({ OPT: 'OPT2'[_ARR] ... })      #If OPT is defined, OPT2 must be defined too
+YARGS.conflicts(...)              #Inverse
+
+YARGS.skipValidation('OPT'[_ARR]) #Do not run: choices(), check(), requiresArg(), strict(), demandOption(), demandCommand(),
+                                  #implies(), conflicts().
+                                  #They will still be used for error msessages.
+                                  #The following will still be validated: nargs()
+                                  #The following do not validate, only influence parsing: boolean(), string(), number(),
+                                  #count(), array()
+                                  #For some reason, it seems to only work if OPT is a BOOL, and was specified by user.
+
+YARGS.deprecateOption
+ ('OPT'[, 'DESCRIPTION'])         #Print deprecation [deprecated [DESCRIPTION]] on --help
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        TRANSFORMATION         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.default                     #Sets default value
+ ('OPT'[_ARR], OPT_VAL[()][, STR])#Is true if type boolean, unless OPT_VAL undefined is used with default()
+
+YARGS.default({OPT: OPT_VAL, ...})#STR is default value is displayed in help()
+YARGS.config(OBJ)                 #Works like YARGS.default(), except:
+                                  #  - not displayed in help() and higher priority
+                                  #  - can use OBJ.extends 'PATH.json|rc' to merge another object
+YARGS.coerce('OPT'[_ARR],
+ FUNC(OPT_VAL)->[PROMISE_]OPT_VAL)#Modifies OPT_VAL.
+YARGS.coerce({ OPT: FUNC, ... })  #Can throw ERROR to notify of validation error.
+YARGS.normalize('OPT'[_ARR])      #Like YARGS.coerce(..., PATH.normalize)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            CONFIG             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.config                      #Means OPT (def: 'config') will be a path to a config file
+ (['OPT'][, STR][, FUNC('PATH')]) #STR is option description
+                                  #File content is merged into YARGS.argv
+                                  #FUNC() is fired to load the file content, by def require(), i.e. can use *.js|json
+YARGS.pkgConf('PROP'[, 'DIR'])    #Like YARGS.config(), but using DIR/package.json PROP property
+                                  #DIR is process.cwd() by default
+YARGS.env(['PREFIX'])             #Use environment variables.
+                                  #Have less priority than CLI options, but more than config() and default()
+                                  #Converted to both dasherized and camelized.
+                                  #__ is converted to dot notation, i.e. nested OBJ.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             HELP              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.help(['OPT'|BOOL][, STR])   #Add --OPT (def: 'help') option
+                                  #STR is --OPT description
+                                  #Is enabled by default
+YARGS.showHelp(['FUNC'|FUNC])     #Manually prints --help message, using console.FUNC() (def: 'error')
+YARGS.usage|epilog[ue](STR)       #Adds STR on top|bottom of --help message
+                                  #STR can contain $0, replaced by argv.$0
+                                  #Can be called several times
+YARGS.example('COMMAND', STR)     #Adds "COMMAND  STR" on bottom of --help message, before YARGS.epilog()
+YARGS.example(['COMMAND', STR]...)#STR can contain $0, replaced by argv.$0
+YARGS.describe('OPT', STR)        #Add OPT description in --help message
+YARGS.describe({ OPT: STR })      #False to hide command
+YARGS.group('OPT'[_ARR], 'STR:')  #Group those options together in --help message, under heading 'STR:'
+
+YARGS.hidden('OPT', BOOL)         #If false, will not be shown in help|completion.
+YARGS.showHidden('OPT')           #Add a --OPT (def: --show-hidden) which make hidden options visible
+
+YARGS.showHelpOnFail(BOOL[, STR]) #If BOOL true (def), show --help message before error messages
+                                  #If STR, adds STR (def: nothing) after error messages
+YARGS.fail(FUNC(STR, ERROR,YARGS))#Error handler fired instead of printing error message
+
+YARGS.exitProcess(false)          #Do not exit process after --help, --version or when validation fails.
+
+YARGS.version                     #Add --OPT (def: 'version') option
+ ([['OPT', [STR, ]] 'VERSION'])   #'VERSION' def is read from package.json
+                                  #STR is --OPT description
+                                  #Is enabled by default
+YARGS.showVersion(['FUNC'|FUNC])  #Manually prints --version message, using console.FUNC() (def: 'error')
+
+YARGS.wrap(NUM)                   #Set terminal width
+                                  #By def, min(80, process.stdout.columns)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             I18N              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.detectLocale(BOOL)          #If BOOL (def: true), automatically calls YARGS.locale()
+YARGS.locale(['LANG'])            #Set locale.
+                                  #If no 'LANG', guesses locale using OSLOCALE.sync({ spawn: false }) (see its doc)
+YARGS.updateLocale(OBJ)           #Update translations for current 'LANG', for core messages
+                                  #Many languages are already supported though
+                                  #Internally uses a i18n library called Y18N which:
+                                  #  - look up ./locales/LANG.json:
+                                  #     - should be { STR: STR2 } or { STR: { one|other STR2 } }
+                                  #     - updated on new strings encountered by __[n]()
+                                  #  - uses __(STR, ...) and __n(STR, STR2, NUM, ...), which uses UTIL.format()
+                                  #  - to use for own strings (e.g. OPT descriptions), must create own Y18N instance,
+                                  #    or more likely use another, proper, i18n library
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          COMPLETION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+YARGS.completion('COMMAND'[, STR] #Add COMMAND (def: 'completion'), which outputs a Bash|ZSH completion script for both
+[, FUNC('COMMAND2', YARGS.argv)   #commands, options and choices
+ ->[PROMISE_]'OPT'_ARR])          #STR is COMMAND description
+                                  #FUNC() allows to customize completion.
+YARGS.showCompletionScript()      #Prints the Bash completion script directly
+YARGS.getCompletion               #Programatically try completion: given input STR_ARR, will suggest auto-complete STR2_ARR
+(STR_ARR, FUNC(ERROR, STR2_ARR))  #Returns undefined
+
+YARGS.recommendCommands()         #Provides auto-suggestion of COMMANDs in case of typos

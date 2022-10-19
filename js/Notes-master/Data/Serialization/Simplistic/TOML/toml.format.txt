@@ -1,0 +1,111 @@
+
+        
+   TOML  
+        
+
+
+
+ALTERNATIVES ==>                  #See serialization formats summary
+
+VERSION ==>                       #0.4.0
+
+SUMMARY ==>                       #Types: OBJ|ARR|STR|INT|FLOAT|BOOL|DATE[TIME] (no null|undefined)
+                                  #Focus on simplicity: INI-inspired syntax, hard for deeply nested data, restrictive INT|FLOAT
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             BASIC             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+EXTENSION ==>                     #.toml
+
+CASE ==>                          #Case-sensitive
+
+ENCODING ==>                      #UTF-8
+
+WHITESPACES/NEWLINES ==>          #Whitespace: tab or space
+                                  #Newline: LF or CRLF
+                                  #Ignore whitespaces between any tokens, including leading|trailing or around = , .
+                                  #Newlines between any tokens forbidden:
+                                  #  - including around = , or { }
+                                  #  - except in [VAR,...]
+
+#COMMENT                          #Can be on its own line, or at end of line
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         COMPLEX TYPES         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+[VAR]                             #Is { VAR: { VAR2: VAL } }
+VAR2 = VAL                        #VAR is optional (def: root), and so is second line
+...                               #Quoting of VAR[2]:
+                                  #  - can be "" or ''
+                                  #     - apply same constraints as "STR" or 'STR'
+                                  #     - including escaping dots
+                                  #  - for VAR can quote dot-delimited parts, e.g. VAR."VAR3"
+                                  #  - can be empty string (but discouraged)
+                                  #  - if unquoted, [:alnum:]_-
+                                  #VAR can be VARR:
+                                  #  - unescaped dots mean nesting
+                                  #  - do not need to create parent to define children
+
+{VAR2 = VAL,...}                  #Alternative syntax for OBJ
+                                  #Same rules for VAR2 quoting
+
+[VAL,...]                         #Is ARR
+                                  #Plain objects must use {VAR2 = VAL,...} syntax
+                                  #Can use trailing commas
+
+[[VAR]]                           #Is { VAR: [OBJ] }, where each new [[VAR]] appends to same array
+...                               #Uses same rules as [VAR] otherwise
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         SCALAR TYPES          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+"..."                             #Is STR
+                                  #Must escape " \ U+0000-U+001F
+                                  #Can use backslash sequences: \b \t \n \f \r \" \\ \uNNNN \UNNNNNNNN
+                                  #Can include non-ASCII unescaped.
+                                  #All whitespaces|newlines kept as is
+
+"""..."""                         #Same as "..." except better for multi-line:
+                                  #  - if starts with newline, removed
+                                  #  - can use trailing backslashes, which escapes all following whitespaces|newlines
+                                  #  - must escape """ not "
+
+'...'                             #Is STR
+                                  #Cannot include nor escape '
+                                  #Can include \ unescaped
+                                  #Cannot include U+0000-U+001F (except tab, unescaped)
+                                  #Can include non-ASCII unescaped.
+                                  #All whitespaces|newlines kept as is
+
+'''                               #Like """ but with '...' semantics
+
+INT                               #64 bits signed integer
+                                  #Only base10
+                                  #_ are ignored
+
+FLOAT                             #64 bits double floats
+                                  #Can use e|E exponation
+                                  #No NaN|Inf
+                                  #_ are ignored
+
+true|false                        #Is BOOL. Always lowercase
+
+[YYYY-MM-DD]T[HH:MM:SS]           #Is [DATE][TIME]
+ [.SSSSSS][TZ]                    #RFC 3339
+                                  #If no TZ, local time
+                                  #Some implementations only supports full DATETIME with timezone

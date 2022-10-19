@@ -1,0 +1,80 @@
+
+                 
+   PRETTY-FORMAT  
+                 
+
+
+
+ALTERNATIVES ==>                  #  - pretty-format (sometimes preferred)
+                                  #  - util.inspect() (sometimes preferred)
+                                  #  - concordance: Node.js only
+                                  #  - jsfmt: not maintained
+
+VERSION ==>                       #Same as Jest (monorepo)
+
+format(VAL[, OPTS])->STR          #Serializes JavaScript value.
+                                  #Output is human-friendly, not machine-friendly.
+                                  #As fast as JSON.stringify()
+                                  #Circular references -> [Circular]
+                                  #Handles most JavaScript types:
+                                  #  - BOOL|NUM -> like JSON except:
+                                  #     - -0 -> -0
+                                  #  - BIGINT -> NUMn
+                                  #  - SYM -> Symbol(STR)
+                                  #  - undefined|null -> undefined|null
+                                  #  - FUNC -> [Function NAME|anonymous]
+                                  #  - DATE -> YYYY-MM-DDTHH:MM:SS.SSSZ or Date { NaN }
+                                  #  - ERROR -> [NAME: MESSAGE]
+                                  #  - REGEXP -> /REGEXP/FLAGS
+                                  #  - ARR|ARRBUFFER|DATAVIEW|TYPED_ARR -> [VAL, ...]
+                                  #  - OBJ -> CLASS {"KEY": VAL, ...}
+                                  #     - own enumerable + SYMs
+                                  #     - KEYs are sorted
+                                  #  - MAP -> Map {KEY => VAL}
+                                  #  - SET -> Set {VAL, ...}
+                                  #  - WEAKMAP|WEAKSET -> WeakMap|WeakSet {}
+                                  #Also handles:
+                                  #  - DOM types:
+                                  #     - WINDOW -> 'Window'
+                                  #     - DOM NODE (ELEM|TEXT|COMMENT_NODE|DOCUMENT_FRAGMENT) (requires PLUGIN plugins.DOMElement)
+                                  #     - ELEM.dataset, ELEM.attributes, HTMLCOLL, NODELIST (requires PLUGIN plugins.DOMCollection)
+                                  #  - React: RELEM (requires PLUGIN plugins.ReactElement)
+                                  #  - Immutable: I* (requires PLUGIN plugins.Immutable)
+                                  #  - Jest: custom MATCHER (requires PLUGIN plugins.AsymmetricMatcher)
+                                  #OPTS:
+                                  #  - callToJSON BOOL (def: true): call OBJ.toJSON() if defined
+                                  #  - escapeString BOOL (def: true): escape " \
+                                  #  - escapeRegex BOOL (def: false)
+                                  #  - indent NUM (def: 2)
+                                  #  - maxDepth NUM (def: Infinity):
+                                  #     - stops recursion at maxDepth
+                                  #     - top level is depth 0, its children 1, etc.
+                                  #  - maxWidth NUM (def: Infinity): max number of ARR elements
+                                  #  - min BOOL (def: false):
+                                  #     - no newlines nor indentation
+                                  #     - no spaces around {} [] ,
+                                  #     - does not print OBJ prototype name except for *Map|Set
+                                  #  - compareKeys('KEY_A', 'KEY_B')->-1|0|1 (def: alphabetical)
+                                  #     - returning 0 means keep same order
+                                  #  - printBasicPrototype BOOL (def: false)
+                                  #  - printFunctionName BOOL (def: true)
+                                  #  - highlight BOOL (def: false):
+                                  #     - color syntax highlighting
+                                  #     - only with NODE|RELEM|TESTELEM
+                                  #  - theme OBJ:
+                                  #     - colors with highlight true
+                                  #     - keys are: prop, value, content, comment, tag
+                                  #     - values are CHALK 'STYLE' (see its doc)
+                                  #     - default: { prop: 'yellow', value: 'green', content: 'reset', comment: 'gray', tag: 'cyan' }
+                                  #  - plugins PLUGIN_ARR (def: [])
+
+PLUGIN                            #Extend serialization for extra types
+PLUGIN.test(VAL)->BOOL            #If true, use that PLUGIN
+PLUGIN.serialize(VAL, OPTS, STR,  #Serialization logic:
+ NUM, ARR, FUNC)->STR             #  - STR is indentation
+                                  #  - NUM is current depth
+                                  #  - ARR are parents (for circular checks)
+                                  #  - FUNC is like PRETTYFORMAT() for recursive printing
+                                  #OPTS also gets:
+                                  #  - spaceInner|Outer STR: space outside|inside {} []
+                                  #Can throw

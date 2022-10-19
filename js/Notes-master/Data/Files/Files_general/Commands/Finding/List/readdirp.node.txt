@@ -1,0 +1,44 @@
+
+            
+   READDIRP  
+            
+
+
+
+VERSION ==>                       #3.6.0
+
+ALTERNATIVES ==>                  #  - readdirp (prefered):
+                                  #     - most high-profile
+                                  #     - streaming, filtering, maxDepth, symlinks
+                                  #  - recursive-readdir:
+                                  #     - filtering
+                                  #  - fs-readdir-recursive:
+                                  #     - filtering
+                                  #  - readdir-enhanced:
+                                  #     - less high-profile
+                                  #     - streaming, filtering, maxDepth
+
+READDIRP('PATH'[, OPTS])          #Calls FS.readdir() recursively.
+ ->FILEINFO_STREAM                #STREAM:
+                                  #  - is closed when all files have been processed successfully or not
+                                  #  - emits 'warn|error' ERROR
+                                  #OPTS:
+                                  #  - fileFilter|directoryFilter VAL among:
+                                  #     - FUNC(FILEINFO)->BOOL
+                                  #     - 'GLOB'[_ARR] against filename (using micromatch)
+                                  #        - can use '!GLOB'
+                                  #  - type STR: whether to call FUNC() on:
+                                  #     - 'files' (def)
+                                  #     - 'directories'
+                                  #     - 'files_directories'
+                                  #     - 'all': anything, including character devices, etc.
+                                  #  - depth NUM (def: none): max depth
+                                  #  - lstat BOOL (def: false): use FS.lstat() instead of FS.stat()
+                                  #Uses OPTS.bigint true of FS.[l]stat() if Windows
+FILEINFO.basename                 #Filename
+FILEINFO.path                     #Path relative to OPTS.root
+FILEINFO.fullPath                 #Absolute path
+FILEINFO.stats                    #STAT or DIRENT according to OPTS.alwaysStat (def: false)
+
+READDIRP.promise('PATH'[, OPTS])
+ ->PROMISE_FILEINFO_ARR           #Same but all at once

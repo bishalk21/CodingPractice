@@ -1,0 +1,48 @@
+
+                  
+   REACT-HELMET   
+                  
+
+
+VERSION ==>                       #4.0.0
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            CLIENT             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+<Helmet/>                         #Modifies current <head> when rendered:
+                                  #  - can be placed anywhere in the DOM tree.
+                                  #  - tag conflicts:
+                                  #     - innermost override outermost
+                                  #     - in same component: merged
+                                  #OBJ are HTML attributes
+  htmlAttributes=OBJ              #
+  title=STR                       #
+  titleTemplate=STR               #'%s' is replaced by STR from title=STR
+  defaultTitle=STR                #Used when titleTemplate used with %s, but not title=STR specified
+  titleAttributes=OBJ             #
+  base=OBJ                        #
+  meta=OBJ_ARR                    #
+  link=OBJ_ARR                    #
+  script=OBJ_ARR                  #Including OBJ.innerHTML STR
+  noscript=OBJ_ARR                #
+  style=OBJ_ARR                   #Including OBJ.cssText STR
+  onChangeClientState(HEAD)       #On props change
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            SERVER             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+HELMET.rewind()->HEAD             #Must be done after REACTDOM.renderTo*()
+HELMET.peek()->HEAD               #Can be done at any point. Only for testing.
+HEAD.htmlAttributes|title|base|
+meta|link|script|noscript|style.
+toString|Component()->'HTML'|RTYPE#

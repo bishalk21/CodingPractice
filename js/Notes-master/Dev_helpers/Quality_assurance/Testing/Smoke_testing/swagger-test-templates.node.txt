@@ -1,0 +1,94 @@
+
+                          
+   SWAGGER-TEST-TEMPLATES  
+                          
+
+
+
+ALTERNATIVES ==>                  #See Dredd
+
+VERSION ==>                       #1.4.2
+
+FEATURES ==>                      #  - OpenAPI 2.0
+                                  #  - creates Mocha + Chai tests from templates based on OpenAPI specification.
+                                  #  - each OPERATION + RESP + sets of parameters values are performed, then checked against
+                                  #    RESP.schema and status code
+                                  #  - can also do load testing
+
+SETUP ==>                         #Templating using Handlebars (see its doc)
+                                  #Many rendered values are '...HERE', which must be replaced manually
+
+TESTS ==>                         #One per combination of:
+                                  #  - OPERATION
+                                  #  - RESP
+                                  #  - OPERATION|SPEC.produces|consumes (def: 'application/json')
+                                  #  - REQ_DATA (i.e. parameters values)
+                                  #it('should respond with STATUS_CODE RESP.description')
+                                  #HTTP request:
+                                  #  - URL according to SPEC.basePath|schemes|host (def: http://localhost:10010)
+                                  #  - METHOD according to SPEC
+                                  #  - parameters:
+                                  #     - according to PATHDEF|OPERATION.parameters:
+                                  #        - if Content-Type [C]:
+                                  #           - application/json: uses body PARAM
+                                  #           - application/x-www-form-urlencoded or multipart/form-data: uses formData PARAM
+                                  #        - query|headers|body|formData|path: value is REQ_DATA
+                                  #        - Content-Type [C] according to OPERATION|SPEC.consumes
+                                  #        - GET|DELETE do not send any request body
+                                  #     - according to SPEC|OPERATION.security and SECURITY_DEF:
+                                  #        - value is process.env.SEC_NAME:
+                                  #           - a '.env' file is generated with SEC_NAME=YOUR_TOKEN_GOES_HERE
+                                  #           - DOTENV.load() is fired
+                                  #        - if 'basic|oauth2', uses Authorization: Basic|Bearer [C], otherwise use query|headers
+                                  #  - validates:
+                                  #     - HTTP request does not fail
+                                  #     - response's status code
+                                  #        - if "default", uses 'DEFAULT RESPONSE CODE HERE'
+                                  #     - response's body against RESP.schema (using Z-SCHEMA):
+                                  #        - unless no RESP.schema or HEAD, in which case, validates it is empty
+
+OPTS.requestData./PATH.METHOD     #REQ_DATA_ARR
+ .STATUS_CODE                     #Parameters values for a specific test:
+                                  #  - { name: 'PATH_PARAM_NAME', description STR } (path PARAM)
+                                  #     - can also use OPTS.pathParams.VAR, which has priority
+                                  #  - { body: OBJ, description STR } (body PARAM)
+                                  #  - { 'PARAM_NAME': VAL, description STR } (header|query|formData PARAMs)
+                                  #Will run it() once per REQ_DATA
+                                  #  - description is appended to each it()
+                                  #If not supplied, value will be 'DATA_GOES_HERE'
+
+SWAGGER-TEST-TEMPLATES            #OBJ_ARR (one per PATHDEF):
+ .testGen(SPEC_OBJ, OPTS)->OBJ_ARR#  - name 'PATH-test.js'
+                                  #  - tests STR_ARR (all rendered templates)
+                                  #Dereferences SPEC's JSON references (using JSON-SCHEMA-DEREF-SYNC)
+                                  #OPTS:
+                                  #  - pathName '/PATH'_ARR (def: all paths)
+                                  #  - statusCodes 'STATUS_CODE'_ARR (def: all)
+                                  #  - testModule 'request|superagent': HTTP request module
+                                  #  - assertionFormat 'should|expect|assert': Chai's assertion format
+                                  #  - maxLen NUM (def: 80): truncate it() descriptions
+                                  #  - templatePath 'TEMPLATE_DIR' (def: library default templates):
+                                  #     - directory containing tests templates
+                                  #     - can be changed to customize templates
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         LOAD TESTING          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+LOAD TESTING ==>                  #For each it(), generates a sibling test:
+                                  #  - it('load tests with STATUS_CODE RESP.description')
+                                  #  - same HTTP request but performed many times (using library "arete")
+                                  #  - not with DELETE
+                                  #Validates:
+                                  #  - all requests were successful
+                                  #  - average|total response time under a threshold 'TIME DATA HERE'
+
+OPTS.loadTest                     #OBJ_ARR (def: none):
+                                  #  - pathName '/PATH'
+                                  #  - operation 'METHOD'
+                                  #  - load.requests NUM (def: 1000): number of requests
+                                  #  - load.concurrent NUM (def: 100)

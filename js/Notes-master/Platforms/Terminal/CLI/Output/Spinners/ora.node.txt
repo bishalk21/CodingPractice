@@ -1,0 +1,61 @@
+
+       
+   ORA  
+       
+
+
+
+VERSION ==>                       #6.1.2
+
+ORA([OPTS|STR])->SPINNER          #STR is OPTS.text
+
+oraPromise
+ (PROMISE[(SPINNER)][, OPTS|STR]) #Same but calls start() then succeed|fail() on PROMISE resolve|reject
+ ->PROMISE_VAL                    #OPTS: successText STR[(VAL)], failText STR[(ERROR)]: passed to succeed|fail()
+
+SPINNER|OPTS.text                 #Text shown after (def: '')
+SPINNER|OPTS.prefixText           #STR[()]. Text shown before (def: '')
+SPINNER|OPTS.spinner              #CLISPINNERS.NAME or SPINNER_DATA (see below) (def: 'dots')
+SPINNER|OPTS.interval             #NUM (def: SPINNER_DATA.interval or 100)
+SPINNER|OPTS.indent               #Indentation NUM (def: 0)
+SPINNER|OPTS.color                #'FUNC' (def: 'cyan') from CHALK.FUNC()
+OPTS.hideCursor                   #BOOL (def: true)
+OPTS.discardStdin                 #BOOL (def: true). Do not echo stdin on terminal.
+                                  #Do it by consuming stdin in a dummy stream.
+                                  #CTRL-C still works though.
+                                  #Removes both on SPINNER.stop()
+                                  #Noop on non-TTY. Noop on Windows.
+OPTS.stream                       #OSTREAM (def: stderr)
+OPTS.isEnabled                    #BOOL (def: IS-INTERACTIVE, see its doc)
+                                  #When false, it still shows '- TEXT' after SPINNER.start()
+OPTS.isSilent                     #BOOL (def: false)
+                                  #Disables, and does not show '- TEXT' after SPINNER.start()
+
+SPINNER.*()->SPINNER              #
+SPINNER.start([OPTS.text])        #
+SPINNER.stop()                    #
+SPINNER.isSpinning                #BOOL
+
+SPINNER.stopAndPersist([OPTS])    #Stops the spinner (i.e. cannot be used anymore), prepending an icon and start a new spinner on next line
+                                  #OPTS: text STR, symbol 'CHAR' (def: ' ')
+SPINNER.succeed|fail|warn|info
+ ([OPTS.text])                    #Same with specific symbols
+
+SPINNER.clear()                   #Clears line (but does not stop, i.e. shown in next frame)
+SPINNER.render()                  #Force a new frame
+SPINNER.frame()->STR              #Gets symbol + OPTS.text
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         CLI-SPINNERS          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+VERSION ==>                       #2.7.0
+                                  #Raw data behing ora CLI spinners
+
+CLISPINNERS.NAME|random           #SPINNER_DATA
+SPINNER_DATA.interval             #NUM (fps)
+SPINNER_DATA.frames               #'CHAR'_ARR

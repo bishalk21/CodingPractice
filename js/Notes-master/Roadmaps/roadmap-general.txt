@@ -1,0 +1,132 @@
+gulp-shared-tasks (see roadmap)
+
+demoo (see roadmap)
+
+unicode (see roadmap)
+
+shrimpit
+  - add it and redocument it
+
+@babel/minify
+  - @babel-preset-minify
+
+portable-path (see roadmap)
+
+validate-path (see roadmap)
+
+json-schema (see roadmap)
+
+copyconf (see Google notes)
+
+better-cli (see roadmap)
+
+cutting-edge (see roadmap)
+
+Go through "dependencies" documentation
+
+WebAssembly
+
+Try to use Univeral JavaScript:
+  - promote once using Universal JavaScript:
+     - fast-cartesian
+     - test-each
+  - make test-examples test JavaScript in browsers too
+  - consider using c8 instead of nyc
+     - unless it is not possible with Universal JavaScript
+     - document https://github.com/bcoe/v8-coverage
+  - libraries meant to work in browser too should use ESM in doc/examples
+
+Go through "Code review" documentation
+
+Go through "Git/GitHub/coding" documentation
+  - Probot:
+     - check documentation
+     - check available ones (any GitHub app, not just Probot)
+     - use it (unless already available) for after every closed issue/PR:
+        - add templated content. For our use case:
+           - encourage starring and promoting
+           - fill in a survey
+        - can use conditions for skipping. For our use case:
+           - only the first time a user contributed
+
+finish babel (see roadmap)
+
+Go through documentation of:
+  - markdown
+  - textlint
+  - check for dead links projects
+     - including awesome_bot
+     - add to all my projects markdown
+     - do it as a cron task for portable-node-guide
+  - validate/fix markdown links so they use footnotes:
+     - i.e. use [...][] links instead of [...](...) in Markdown
+  - documentation
+  - static website generators
+
+Go through Async documentation
+  - fix log-process-errors exit issue (see its roadmap)
+
+Go through Functional documentation
+  - replace my functional utilities found in most of my projects by a library
+
+autoformat (see roadmap)
+
+extract and complete JSON references tool
+  - use it in test-openapi
+
+publish-check (see roadmap)
+
+package.json validation:
+  - syntax check
+  - semantics check (e.g. `bin` path points to non-existing file)
+  - best practices
+
+eslint-plugin-portable (see roadmap)
+
+Fix task.validate in test-openapi (see Google note)
+
+JSON schema v4/v7 v7/v4 converters
+  - add support to v7 in test-openapi
+
+sourcemaps (see roadmap)
+
+test-openapi OpenAPI 3.0 support
+
+Go through "testing" documentation
+
+Memory leak testing tool:
+  - run a function in a loop and check if there's a memory leak
+
+extract logging from autoserver / "autogging"
+  - also see Google note
+
+API system information:
+  - extract the `serverinfo` part of autoserver
+  - goal: host information for API logs
+  - check what can be added
+     - check `systeminformation` library I documented
+     - check if bug error message of `test-openapi` can be improved
+
+Turn gulp-shared-tasks into its own project:
+  - goal: opinionated 0-config build system
+  - rebrand it
+  - hide the gulp dependency
+  - should be 0-config
+  - should default ESLint + prettier config to ESLint standard + ESLint-prettier
+     - but allow overridding if an ESLint config or Prettier config file is present
+        - e.g. I would use it to use eslint-config-standard-prettier-fp instead
+
+Awesome lists:
+ - awesome-source-maps
+ - awesome-stack-traces
+ - awesome-coverage
+
+New gulp (see roadmap)
+
+Async abstraction (see roadmap)
+
+Enhanced stack trace (see roadmap)
+
+Open source analytics (see roadmap)
+
+check-speed (see roadmap)

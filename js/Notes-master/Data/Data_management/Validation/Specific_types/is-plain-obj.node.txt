@@ -1,0 +1,16 @@
+
+                
+   IS-PLAIN-OBJ  
+                
+
+
+
+ALTERNATIVES ==>                  #  - is-plain-obj (preferred)
+                                  #  - is-plain-object
+
+VERSION ==>                       #4.1.0
+
+ISPLAINOBJ(VAL)->BOOL             #True if plain object.
+                                  #Including Object.create(null)
+                                  #Excluding Object.create(OBJ), null|undefined, ARR, REGEXP|MAP|..., FUNC, CLASS, Math|JSON|..., arguments
+                                  #Works cross-realm

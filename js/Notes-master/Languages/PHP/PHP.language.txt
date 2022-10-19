@@ -1,0 +1,1355 @@
+
+         
+   PHP   
+         
+
+
+VERSION ==>                       #7.1.2
+                                  #There is a spec mostly maintained by Zend
+
+PSR ==>                           #PHP standards, developed by PHP-FIG, group composed of members of important PHP frameworks/projects
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             STACK             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+INTERPRETER/VM ==>                #Parse/execute PHP core language
+                                  #Main ones:
+                                  #  - Zend engine, historical one, interpreter
+                                  #  - HHVM, virtual machine
+                                  #Expose an API to extensions:
+                                  #  - Zend API is in C
+                                  #  - HNI is HHVM's, in C++
+                                  #Compatibility of HHVM towards Zend:
+                                  #  - few PHP core language differences
+                                  #  - some extensions are not available
+                                  #  - some configuration variables are not available
+                                  #  - HNI has a compatibility layer towards Zend API (but not inverse)
+
+EXTENSIONS ==>                    #PHP libraries written in C (using interpreter/VM API)
+                                  #Normal "extension" vs "Zend extension": 
+                                  #  - only difference is they use different data structure to register to Zend API
+
+CORE/BUNDLED/EXTERNAL EXTENSIONS  #Static libraries:
+  ==>                             #  - bundled with interpreter/VM
+                                  #     - developed by the interpreter/VM, and regularly updated
+                                  #  - must be activated compile-time, i.e. using compile flags
+                                  #Types:
+                                  #  - core: always enabled by default
+                                  #  - bundled: sometimes enabled by default, sometimes not
+                                  #  - external: same, but also requires another library to be installed on host, usually binary or shared library
+
+PECL EXTENSIONS ==>               #Dynamic libraries (can be static if needed)
+                                  #  - must be downloaded
+                                  #  - must be loaded with CONFVAR [zend_]extension
+                                  #Standardized:
+                                  #  - has a repository
+                                  #  - use package format
+                                  #  - use CLI tool to facilitate download and compilation
+
+PACKAGE MANAGER ==>               #  - composer:
+                                  #     - for PECL extensions or PHP normal library
+                                  #     - has its own repository
+                                  #  - pickle: for PECL extensions. Not really maintained anymore
+                                  #  - PEAR: old deprecated competitor of composer
+
+RUNTIME ==>                       #Software that run PHP interpreter/VM
+                                  #Uses SAPI, a C API interface
+                                  #Interpreter/VM must support each SAPI implementation, and be built with corresponding compile flag
+                                  #Types:
+                                  #  - CLI (enabled by default)
+                                  #  - CGI:
+                                  #     - FastCGI (enabled by default)
+                                  #  - Apache
+                                  #  - IIS
+                                  #  - Java servlet
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:         CONFIGURATION         :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+php.ini                           #CONF file, looked up in:
+                                  #  - ENVVAR PHPRC
+                                  #  - php -c FILE|DIR
+                                  #  - $PWD (unless CLI)
+                                  #Can also use:
+                                  #  - php -d VAR[=VAL]
+                                  #  - extra ini files specified with:
+                                  #     - ENVVAR PHP_INI_SCAN_DIR "DIR:..."
+                                  #        - for DIR/*.ini
+                                  #     - compile-time flag --with-config-file-scan-dir:
+                                  #        - overriden by PHP_INI_SCAN_DIR unless specifying empty DIR, e.g. "DIR::DIR2"
+                                  #     - can show all the ones parsed with php --ini
+                                  #Ini format is usual except:
+                                  #  - can use ${VAR} (for CONF.VAR) or ${ENVVAR}
+php -n                            #Do not use php.ini
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:          BASE SYNTAX          :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+<?php ... [?>]                    #Anything outside is left as is.
+                                  #... is parsed by PHP, and replaced by its stdout
+                                  #If ?> is end of file, do not use it, to avoid unwanted trailing whitespaces
+<?= ... ?>                        #Same as <?php echo ... ?>
+<?php STRUCTURE ?>                #Same as: 
+...                               #  <?php
+<?php ENDSTRUCTURE ?>             #  STRUCTURE
+                                  #    echo ...
+                                  #  ENDSTRUCTURE
+                                  #  ?>
+                                  #Usually use colon syntax for structures, but not mandatory
+
+STATEMENT;                        #Semi-colon terminated
+VAL_LIT                           #Constant
+EXPR                              #Expression, i.e. anything that returns a value, including but not limited to VAL_LIT
+VAL                               #Implied unless *_LIT, VAR or $VAR is specified, e.g. STR means STR expression
+
+// COMMENT
+# COMMENT                         #Single-line. Stops at next ?>
+/* COMMENT */                     #Multiple-line.
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             TYPES             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE SYSTEM ==>                   #Nominative. Class-based OOP.
+                                  #Weakly typed + type inferred: 
+                                  #  - auto-typecasting, including at definition-time
+                                  #  - optional "manifest typing" or "strict typing" on function arguments and return values
+                                  #Dynamic/runtime type checking
+                                  
+(TYPE) VAL                        #Explicit type casting.
+                                  #TYPE: string|b[inary], bool[ean], int[eger], float|double|real, array, object, unset (null)
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:           VARIABLES           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+VAR                               #[[:alnum:]_]+, can use Unicode chars. Should not start with __
+                                  #FUNC, CLASS, INTERFACE, TRAIT, NS names are case-insensitive
+                                  #Keywords, normal variables, const variables and LABEL are case-sensitive
+
+$VAR,...                          #Declaration. Optional.
+$VAR = VAL                        #[Declaration +] Assignment, by value
+                                  #Is an EXPR, i.e. returns new value
+$VAR                              #Dereferencement
+
+
+define("VAR", VAL[, BOOL])        #"d-constant". Same as global variables except:
+                                  #  - read-only
+                                  #  - cannot resolve to OBJ
+                                  #  - referenced as VAR, not $VAR
+                                  #     - i.e. ${EXPR} or $$VAR cannot be used
+                                  #     - if undefined, defaults to "VAR" itself, with a notice or (if namespaced) an exception
+                                  #  - uppercase by convention
+                                  #  - cannot use instanceof
+                                  #If BOOL true, VAR name is case-insensitive
+const VAR = VAL,...               #"c-constant". Same but evaluated compile-time not runtime.
+                                  #This implies following restrictions:
+                                  #  - VAL cannot contain FUNC(), but can contain builtin operators like + -
+                                  #  - must be top-level scope, and not in any block
+                                  #They also have different behavior when it comes to namespaces (see below)
+
+
+UNDEFINED VALUES ==>              #I.e. not assigned, or after unset()
+                                  #Resolves to null. Difference with variables with actual null values:
+                                  #  - prints notice when dereferenced, except if rvalue of an assignment by reference
+unset(VAR)                        #Removes a variable, i.e. make it undefined
+
+
+UNDERLYING MODEL ==>              #The spec defines following concepts:
+                                  #  - VAR ("VSlot"): pointer to VAL
+                                  #  - VAL ("VStore", "zval"): either scalar value or pointer to OBJ|RES|ARR_VAL
+                                  #  - OBJ|ARR_VAL ("Hstore") ("zobj"): VARs container
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:      EXPRESSION-ORIENTED      :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+${STR}                            #Can be used like $VAR, but VAR name is STR
+$$VAR                             
+$$$VAR                            #Same as ${$VAR}, ${${$VAR}}, etc.
+
+$$VAR[NUM]                        #Operator priority (from high to low): {} $ []
+${$VAR}[NUM]                      #I.e. first two conceptually mean ($$VAR)[NUM], last means $($VAR[NUM])
+${$VAR[NUM]}                      #Same thing for $$VAR->KEY
+
+
+FUNK                              #"Callable|callback", higher-level FUNC, that can be used anywhere FUNC can.
+                                  #Can be:
+                                  #  - FUNC, inluding closure
+                                  #  - OBJ with OBJ.__invoke()
+                                  #  - variable name pointing to one of the above, as:
+                                  #     - normal variable: 'VAR'
+                                  #     - class variable: [OBJ, '[parent|self|static::]VAR']
+                                  #     - class static variable: 
+                                  #        - ['CLASS', '[parent|self|static::]VAR']
+                                  #        - 'CLASS::[parent|self|static::]VAR'
+                                  #  - $VAR containing any of the above
+
+
+CLASSS                            #Used for static methods, i.e. CLASSS::*, new CLASSS, instaceof CLASSS
+                                  #Can be:
+                                  #  - CLASS
+                                  #  - $VAR containing 'CLASS', and not 'self|parent|static'
+                                  #  - OBJ, whose type is CLASS
+                                  #Or (not with instanceof CLASSS):
+                                  #  - self|parent|static
+                                  #Or (not with new CLASSS):
+                                  #  - "CLASS"
+OBJ->{STR}                        
+CLASSS::${STR}
+CLASSS::{STR}                     #Using object properties|methods with an EXPR, evaluating to "VAR" or "FUNC". Not for const members.
+OBJ->$VAR                         
+CLASSS::$$VAR
+CLASSS::$VAR                      #Same as OBJ->{$VAR}, CLASSS::${$VAR}, CLASSS::{$VAR}
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:          REFERENCES           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+REFERENCE ==>                     #There is no directionality:
+                                  #  - $VAR referencing $VAR2 is same as $VAR2 referencing $VAR
+                                  #  - i.e. they both point to same content
+                                  #Can work either like:
+                                  #  - an alias-reference:
+                                  #      - VAR (VSlot) reference to VAL (VStore)
+                                  #      - references share content but also new assignments
+                                  #  - a pointer-reference:
+                                  #      - VAL (VStore) reference to OBJ|RES_VAL or ARR[*]_VAL (HStore)
+                                  #      - references share only content
+                                  #E.g.:
+                                  #  - content change: 
+                                  #     $a = new stdClass; $b = $a; $a->c = 1; $b->c === 1; $b->c = 2; $a->c === 2;
+                                  #  - new assignment:
+                                  #     - pointer-reference: $a = new stdClass; $b = $a; $b = null; $a !== null;
+                                  #     - alias-reference: $a = new stdClass; $b =& $a; $b = null; $a === null;
+                                  #The only way to remove referencing for alias-references is unset(), e.g.:
+                                  #  $a = new stdClass; $b =& $a; unset($b); $a !== null;
+                                  #Do not use for performance optimization, as the engine automatically does it
+
+VALUE VS REFERENCE ==>            #Arguments|return values|assignment are done:
+                                  #  - &-syntax (see below): by alias-reference
+                                  #  - OBJ|RES: by pointer-reference
+                                  #  - ARR: container by value, but each element by pointer-reference, e.g. after ARR = ARR2:
+                                  #     - all ARR2[KEY] and ARR[KEY] are pointer-references to each other
+                                  #     - but adding keys to ARR|ARR2 would not add it to other array
+                                  #  - others: by value
+
+
+$VAR =& $VAR2
+$VAR = &$VAR2                     #Assignment by alias-reference
+
+function [FUNC]([TYPE] &$VAR,...) #Argument by alias-reference
+ {...}                            #FUNC call must use as arguments:
+function [FUNC]([TYPE] &...$ARR)  #  - variables: FUNC(&$VAR)
+ {...}                            #  - function return values by alias-reference: FUNC(FUNC2())
+                                  #  - FUNC(new CLASS)
+function (...) use (&$VAR,...)
+ {...}                            #Argument by alias-reference
+
+function &[FUNC](...) {...}       #Return value by alias-reference
+
+foreach 
+(ARR|OBJ as [$KEY =>] &$VAL) {...}#Assignment by alias-reference. It is recommended to unset($VAL) after the loop.
+
+[&$VAR, ...]                      #By alias-reference.
+
+
+(&$VAR)                           #Since (...) returns by value, this is same as $VAR (i.e. loses alias-reference)
+
+GLOBAL/STATIC VARIABLES ==>       #Assigning a value by alias-reference to global|static $VAR makes it non-global|static.
+                                  #For global, can avoid it by assigning alias-reference to $GLOBALS["VAR"] instead
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:      GARBAGE COLLECTION       :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE ==>                          #Use reference-counting garbage collection, with periodic tracing gargage collection
+
+REFERENCE COUNTING GC ==>         #Increments refcount:
+                                  #  - alias-reference ("is_ref=1")
+                                  #     - incremented by any VAL assignment by reference:
+                                  #        - including $FUNC = function () use (&$VAR) {...}; ($FUNC will carry a reference to $VAR)
+                                  #     - if the rval is not a reference yet, it will be made one
+                                  #        - i.e. will increment by 2
+                                  #        - e.g.:
+                                  #           $VAR = "a";    // $VAR      refcount=0, is_ref=0
+                                  #           $VAR2 &= $VAR; // $VAR[2]   refcount=2, is_ref=1
+                                  #           $VAR3 &= $VAR; // $VAR[2|3] refcount=3, is_ref=1
+                                  #  - pointer-reference ("is_ref=0")
+                                  #     - incremented by OBJ|RES|ARR assignment by value
+                                  #     - when an OBJ|RES becomes a reference, it keeps its pointer-reference (since it actually references a pointer)
+                                  #        - e.g.:
+                                  #           OBJ = new stdClass; // OBJ    refcount=1, is_ref=0
+                                  #           OBJ2 = OBJ;         // OBJ[2] refcount=2, is_ref=0
+                                  #           OBJ3 =& OBJ;        // OBJ2   refcount=2, is_ref=0; OBJ[3] refcount=2, is_ref=1
+                                  #                               // Because OBJ[3] are 2 references to first pointer, and OBJ2 is second pointer
+                                  #Decrements refcount:
+                                  #  - on unset()
+                                  #  - when out of scope, i.e. exit of function where it was declared
+                                  #When refcount === 0:
+                                  #  - cleans memory
+                                  #  - OBJ|ARR unset() their members
+
+REFERENCE CYCLES ==>              #Reference cycles are not cleared by reference-counting gc, but are by tracing gc
+                                  #E.g.: OBJ.self = OBJ; unset(OBJ); // OBJ.self not unset by reference-counting gc, i.e. refcount === 1
+
+TRACING GC ==>                    #Fired:
+                                  #  - at program exit
+                                  #  - when there are 10000 root objects
+enable_gc                         #CONFVAR 0|1 (def: 1)
+gc_enable|disable()               #Sets CONFVAR enable_gc
+gc_enabled()->BOOL                #
+gc_collect_cycles()->NUM          #Forces tracing gc now. Returns number of cycles found
+
+
+xdebug_debug_zval('VAR',...)      #See XDebug
+debug_zval_dump(VAL,...)          #Similar to var_dump(), except also shows refcounts and is_ref (with & symbol)
+                                  #Since it makes a copy of VAL, and counts the copy as reference, it gives strange results: prefer xdebug_debug_zval()
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             SCOPE             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+SCOPE ==>                         #Function-level lexical scope.
+                                  #No inheritance from parent function, except optional closure "use" structure.
+
+SUPERGLOBAL ==>                   #PHP-defined global variable
+$GLOBALS                          #Global scope, as ARR
+                                  #I.e. any global variable will available at both $GLOBALS["VAR"] and $VAR
+$GLOBALS["GLOBALS"]               #Same as $GLOBALS (recursion)
+global $VAR,...                   #Global variable declaration (no assigning)
+                                  #Is same to $VAR =& $GLOBALS["VAR"], i.e. this declaration:
+                                  #  - must be present in scopes that use $VAR
+                                  #  - does not have to be present in parent|global scope
+
+static $VAR [= VAL],...           #Declaration|assignment with a normal (i.e. function) scope, but:
+                                  #  - only done during the first current function call
+                                  #  - $VAR value is persisted for the next current function calls
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:           FUNCTIONS           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+function [FUNC]                   #Declaration.
+([TYPE] $VAR[ = VAL_LIT],...)     #Scope:
+[: TYPE2] { ... }                 #  - uses function scope
+                                  #  - can be declared after being used, if used in same scope
+                                  #  - can be inside a structure or conditional block
+                                  #Semicolon optional after }
+                                  #Can fire FUNC(...), but not use FUNC as a normal variable
+                                  #Cannot redefine already existing functions.
+                                  #Arguments:
+                                  #  - VAL_LIT: default value
+                                  #  - ...ARR:
+                                  #     - variadic argument
+                                  #     - must be last argument
+                                  #     - can use TYPE: refers to each individual argument
+return [VAL]                      #Def: null
+
+function (...) [use ($VAR,...)]   #Closure/anonymous function. Difference:
+ {...}                            #  - is an EXPR, not a statement, i.e.:
+                                  #     - follow normal variable scope|assignment rules
+                                  #     - can be used as VAL, including being assigned
+                                  #  - is OBJ, of class Closure, immutable
+                                  #  - semicolon not optional
+                                  #"use" $VAR:
+                                  #  - inherits parent scope $VAR
+                                  #     - lexical scope, evaluated at definition time
+                                  #  - can use $VAR that closure is assigned to, when need recursive closure, i.e.:
+                                  #      $VAR = function (...) use ($VAR) {...}
+CLOSURE.__invoke(...)             #Same as CLOSURE(...)
+
+STRICT TYPING ==>                 #Using TYPE for function arguments or return value, among:
+                                  #  - string, bool, int|float, array
+                                  #  - CLASS|self|parent: including descendants
+                                  #  - iterable: TRAVERSABLE
+                                  #  - callable: FUNK
+                                  #  - void: no return statement
+                                  #To allow null as well, add null as default value
+                                  #DIRECTIVE strict_types 0|1:
+                                  #  - effect:
+                                  #     - if 0 (def), only "manifest typing", i.e. tries to typecast STR|NUM|BOOL
+                                  #     - otherwise, also "strong typing", i.e. only allow INT->FLOAT typecast
+                                  #  - must be first statement in file
+                                  #  - affects current file, not calling file, i.e.
+                                  #     - functions calls parameters, but not function definitions arguments
+                                  #     - return value: all definitions, not function calls
+                                  #  - not in CLI
+                                  #Enforced runtime, by throwing TypeError
+
+FUNK(VAL,...)                     
+call_user_func(FUNK, ...)         #Function call
+FUNK(...ITERABLE)                 #Same as FUNK(ITERABLE[0],...)
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:          STRUCTURES           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+(EXPR)                            #Same as EXPR, but with higher operator precedence
+
+VARIABLE SCOPE ==>                #Are function-scope, not block-scope
+                                  #E.g. for ($VAR = VAL;...) {...}, $VAR is still defined after the loop
+
+
+{
+  ...  
+}                                 #Same as ...
+
+
+NO-CURLY BRACE SYNTAX ==>         #Curly braces can be skipped when their content is only a single statement
+
+COLON SYNTAX ==>                  #Can replace:
+                                  #  - colon instead of opening brace
+                                  #  - endWORD (e.g. endif) instead of last closing brace
+                                  #Not for "do while" structures
+
+
+if (BOOL) { ... } 
+elseif (BOOL) { ... } 
+else { ... }                      #
+
+while (BOOL) { ... }              #
+
+do { ... } while (BOOL)           #
+
+switch (VAL) {                    
+  case VAL2:... ...; break;       #Uses ==
+  default: ...; break;            #Can use case VAL2; instead of case VAL2:
+}                                 #continue means same as break in switch loop, except start loop again
+
+for ([EXPR,...]; [EXPR2,...];
+ [EXPR3,...]) { ... }             #
+
+foreach 
+(TRAVERSABL|OBJ as [$KEY =>] $VAL) 
+{...}                             #
+
+LABEL: [{ ... }]                  #
+goto LABEL;                       #Must be within same function
+                                  #Cannot jump inside a structure block (but can jump out)
+
+break [NUM]                       #For any loop. Not for if structures
+continue [NUM]                    #NUM (def: 1) is for nesteed loops
+
+
+BOOL ? [VAL] : VAL2               #VAL defaults to first part (the one that evaluates to BOOL)
+
+VAL ?? VAL2                       #Same as VAL !== null ? VAL : VAL2
+                                  #"null coalescing operator"
+
+
+declare (DIRECTIVE=VAL_LIT) {...} #Sets compiler DIRECTIVE during that block
+                                  #Done compile-time
+declare (DIRECTIVE=VAL_LIT);      #Same but for all following statements
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             NULL              :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE CASTING ==>                  #Cast anything to null
+
+
+null                              #Case-insensitive
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            STRING             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+
+TYPE CASTING ==>                  #To STR:
+                                  #  - BOOL: false -> "", true -> "1"
+                                  #  - INT: "INT"
+                                  #  - FLOAT: 
+                                  #     - "FLOAT"
+                                  #     - might use exponent notation
+                                  #     - decimal point uses locale
+                                  #  - NULL: ""
+                                  #  - ARR: invalid
+                                  #  - OBJ: uses CLASS.__toString()->STR (must be defined, cannot throw exceptions), otherwise invalid
+                                  #  - RES: implementation-specific, usually "Resource id #ID"
+
+
+'...'                             #STR
+                                  #Escaping:
+                                  #  - \ to escape \ '
+                                  #     - \ not considered an escaping character, i.e. kept as is, if not followed by valid character
+                                  #  - newlines always escaped
+                                  #Can contain any byte, incuding \0, so is used for binary data too.
+"..."                             #Like '...', with extra parsing: 
+                                  #  - VARR (see below)
+                                  #  - backslash-escaping sequences:
+                                  #     - among: \n \r \t \v \f \e \[0]N[N[N]] \xN[N] \u{[N[N[N[N[N]]]]]}
+                                  #Must escape " $ instead of '
+
+"...$VARR..."                     #Variable expansion. $VARR can be:
+                                  #  - $VAR[VAL_LIT]
+                                  #  - $VAR->VAR2
+"...${VARR}..."                   #Same as $VARR, except it delimitate variable names from surrounding characters
+"...{$VARR}..."                   #As opposed to above:
+                                  #  - $VAR[VAL] (not VAL_LIT)
+                                  #Also $VARR can be:
+                                  #  - multidimensional indexing, e.g. VAR[...]->...->...
+                                  #  - ${STR} or $VAR->{STR}
+
+<<<["]DELIM["]
+...                               
+DELIM[;]                          #"Heredoc" (first), "Newdoc" (second)
+<<<'DELIM'                        #Like "..." or '...' except no need to escape " or '
+...                               #First line should have no trailing whitespaces
+DELIM[;]                          #Last line should have no leading|trailing whitespaces
+
+
+CHARSET/UNICODE ==>               #String operations are byte-wise, not character-wise, except:
+                                  #  - if encoding can be specified as argument
+                                  #  - if current locale is used
+
+STR[NUM]                          #NUM can be: 
+STR{NUM}                          #  - negative: from end of string
+                                  #  - overflow: padds with spaces
+
+
+STR . STR2                        #Concatenation
+STR .= STR2                       #
+
+STR++                             #Increment ASCII value:
+++STR                             #  - among allowed ones: a-z, A-Z or 0-9
+                                  #  - each character remain in its class, i.e. z rotates to a, Z to A, 9 to 0
+                                  #  - last non-allowed characters and anything before are never modified
+                                  #STR-- and --STR not available
+
+~STR                       
+STR << >> & ^ | STR2      
+$VAR <<= >>= &= ^= |= STR         #Bitwise operation, using ASCII binary (as opposed to converting to number)
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            BOOLEAN            :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE CASTING ==>                  #To BOOL:
+                                  #  - STR: "" or "0" -> false, else true
+                                  #  - NUM: 0 -> false, else true
+                                  #  - ARR: length > 0
+                                  #  - NULL: false
+                                  #  - OBJ|RES: true
+
+
+true
+false                             #BOOL. Case-insensitive
+
+!BOOL
+BOOL and BOOL2
+BOOL && BOOL2                     
+BOOL or BOOL2
+BOOL || BOOL2                     #and|or|xor have lower operator precendence than && || or even =
+BOOL xor BOOL2                    #Can be used to chain statements|expressions, but expression will result to boolean
+
+VAL == VAL2
+VAL != <> VAL2                    #Type casts
+VAL === VAL2
+VAL !== VAL2                      #Must be same type (no type cast)
+VAL < <= > >= VAL2                #
+VAL <=> VAL2                      #Same as VAL < VAL2 ? -1 : VAL > VAL2 ? 1 : 0
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            NUMBERS            :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE CASTING ==>                  #To NUM:
+                                  #  - STR:
+                                  #     - tries to parse as INT first, then as FLOAT
+                                  #     - non-numerical characters at end are ignored
+                                  #     - otherwise -> 0
+                                  #  - BOOL: false -> 0, true -> 1
+                                  #  - FLOAT -> INT:
+                                  #     - round towards zero
+                                  #     - overflow -> not defined
+                                  #     - NAN|INF -> 0
+                                  #  - NULL: 0
+                                  #  - ARR: [] -> 0, otherwise -> 1
+                                  #  - RES: resource ID
+                                  #  - OBJ: not possible
+
+
+[-|+]NUM                          #INT (signed integers)
+                                  #NUM can be prefixed by 0 (octal), 0x|0X (hex) or 0b|0B (binary)
+                                  #Limits:
+                                  #  - PHP_INT_SIZE (in bytes), PHP_INT_MIN|MAX
+                                  #  - depends if OS is 32 or 64 bits
+                                  #  - if overflow, parsed as FLOAT instead
+
+[-|+]NUM[.NUM2][e|E[-|+]NUM3]     #FLOAT
+                                  #Size: OS dependent, but at least double
+NAN                               #FLOAT
+                                  #NAN != NAN
+                                  #Case sensitive
+[-|+]INF                          #FLOAT
+                                  #Case sensitive
+
+
++NUM
+-NUM                              #
+NUM + - * / % NUM2                #Returns INT|FLOAT, depending on result
+NUM ** NUM2                       #Exponation
+
+$VAR++ $VAR-- ++$VAR --$VAR       #
+$VAR += -= *= /= %= **= NUM       #
+
+~NUM                              
+NUM << >> & ^ | NUM2              
+$VAR <<= >>= &= ^= |= NUM         #Bitwise
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             ARRAY             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE CASTING ==>                  #To ARR:
+                                  #  - STR|BOOL|NUM|RES: like [STR|...]
+                                  #  - NULL: []
+                                  #  - OBJ:
+                                  #     - reuse keys|values
+                                  #     - special members:
+                                  #        - protected OBJ->VAR becomes OBJ->\0*\0VAR
+                                  #        - private OBJ->VAR becomes OBJ->\0CLASS\0VAR
+
+COMPARISON ==>                    #Any OBJ > any ARR > any other VAL
+                                  #ARR == != <> === !== ARR2:
+                                  #  - values + keys deep comparison using the same operator
+                                  #ARR < <= => > ARR2:
+                                  #  - if same size and same keys, value by value comparison
+                                  #  - if different size, length comparison
+                                  #  - otherwise, cannot compare
+
+
+KEY                               #EXPR evaluating to INT|STR. INT prevails.
+[[KEY => ]VAL,...]                #ARR
+array([KEY => ]VAL,...)           #Is an associative array. As opposed to OBJ, is ordered. 
+                                  #Allows mixed types
+                                  #Trailing comma allowed.
+                                  #If KEY appears several times, last one prevails
+                                  #Default KEY: 
+                                  #  - 1 + max KEY_INT (including deleted keys)
+                                  #  - or 0
+                                  #  - i.e. increments
+ARR[KEY]                          #Can be assigned
+ARR{KEY}                          #If overflow, NULL + notice
+ARR[KEY][KEY2]...                 #
+
+ARR[KEY] = VAL                    #If ARR does not exist, creates it (avoid)
+ARR[] = VAL                       #Appends
+
+[[KEY => ]$VARR,...] = ARR        #Deconstruction, i.e. $VAR = ARR[KEY]; $VAR2 = ARR[KEY2]; ...
+list([KEY => ]$VARR,...) = ARR    #$VARR is same as in "...{$VARR}..."
+                                  #Each $VARR can be ommitted
+                                  #Can be nested
+                                  #Can be used to deconstruct OBJ, by typecasting it to 
+                                  
+unset(ARR[KEY])                   #Removes key + value
+
+
+ARR + ARR2                        
+ARR += ARR2                       #Union, i.e. merge according to keys, with ARR having priority
+
+
+ArrayAccess                       #Interface to implement to allow a CLASS to use array operators:
+                                  #  - including OBJ[KEY], deconstruction, appending
+                                  #  - excluding union
+                                  #As opposed to ARR, KEY can also be BOOL|FLOAT|null
+ARRAYACCESS.offsetGet(VAL)->VAL2  #OBJ[KEY]
+ARRAYACCESS.offsetSet(VAL, VAL2)  #OBJ[KEY] = VAL
+                                  #Assignment will properly return VAL
+ARRAYACCSS.offsetExists(VAL)->BOOL#isset(OBJ[KEY]) or empty(OBJ[KEY])
+ARRAYACCESS.offsetUnset(VAL)      #unset(OBJ[KEY])
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            OBJECTS            :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE CASTING ==>                  #To OBJ:
+                                  #  - ARR: reuse key|values, but beware of KEY_NUM:
+                                  #     - numbers are not proper VAR:
+                                  #        - OBJ->{"1"} !== OBJ->{1} 
+                                  #        - OBJ->{1} and OBJ->1 are illegal syntax, i.e. cannot be accessed
+                                  #     - but can be iterated over
+                                  #  - NULL: {}
+                                  #  - STR|BOOL|NUM|RES: { scalar: VAL }
+stdClass                          #CLASS with no properties.
+                                  #Used when typecasting object to CLASS
+                                  #Not used as a base class otherwise. There is no base class.
+
+COMPARISON ==>                    #OBJ === OBJ2: true if same instance
+                                  #OBJ == OBJ2: deep comparison, i.e. same class, keys and values (using ==), recursively, but not necessarily same instance
+
+
+[abstract|final] class CLASS 
+ [extends CLASS2]
+{ 
+  VISIBILITY $VAR = VAL,...;
+  [VISIBILITY] static $VAR = VAL,...;
+  [VISIBILITY] const VAR = VAL,...;
+  [final] [VISIBILITY] [static] 
+   function FUNC(...) {...}       #Class definition, in current scope
+  abstract [VISIBILITY]           #VAL (const, static or normal) is resolved compile-time, i.e.:
+   function FUNC(...);            #  - can only resolve to STR|BOOL|NUM|ARR|RES
+}                                 #  - cannot contain FUNC(), but can contain builtin operators like + -
+
+STATIC MEMBERS ==>                #Can be:
+                                  #  - const VAR: static properties, that behave like const variables (e.g. readonly, etc.)
+                                  #  - static $VAR: static properties, that behave like normal variables (e.g. read-write)
+                                  #  - static function
+                                  #Are inherited by reference for classes|interfaces, by value for traits
+
+CLASS.__*()                       #"Magic methods", i.e. methods given specific names by PHP, that adds behavior to a class
+                                  #Cannot be static except __callStatic()
+                                  #Cannot be protected|private except __construct|destruct()
+                                  
+                                  
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:     OBJECT INSTANTIATION      :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+new CLASSS[(...)]                 #OBJ instantiation, using defined class
+new class[(...)] [...] { ... }    #OBJ instantiation, using anonymous class. CLASS is "class@anonymous/RANDOM"
+(object) ["VAR" => VAL, ...]      #Emulates anonymous class
+
+
+clone OBJ                         #Returns copy OBJ2:
+                                  #  - shallow copy, i.e. iterate over first level of OBJ, doing OBJ2.VAR = OBJ.VAR
+                                  #  - keep alias-references, i.e. if OBJ.VAR alias-reference, does OBJ2.VAR &= OBJ.VAR instead
+                                  #Does not call OBJ2 constructor, but could call it from __clone()
+CLASS.__clone()                   #Called after clone OBJ completion, if defined
+                                  #Can e.g. be used to implement deep copy
+CLASS.__construct(...)            #Constructor, i.e. fired by new CLASS
+                                  #When redefining inherited constructor, should call parent::__construct(...) first
+                                  #VISIBILITY affects "new" accessibility
+CLASS.__destruct()                #Destructor, i.e. fired when variable is destroyed, i.e. when refcount === 0
+                                  #If reference cycles are present, refcount will only be 0 after tracing gc is triggered.
+                                  #When redefining inherited destructor, should call parent::__destruct() last
+                                  #Exits will wait for all __destruct() to end, unless exit was called from within a __destruct()
+                                  #Cannot throw exception
+                                  
+VAL instanceof CLASSS             #True if VAL is OBJ whose type is CLASSS (or a descendant)
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:         OBJECT ACCESS         :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+VISIBILITY                        #Can be:
+                                  #  - public (def):
+                                  #     - "var" (deprecated) is same as public, but only for non-static $VAR properties
+                                  #  - protected|private: can only be accessed by class methods
+                                  #  - private: will be undefined for descendants' class methods, i.e. out of scope
+                              
+                                  
+OBJ->VAR                          #Accessing a normal property
+OBJ->FUNC(...)                    #Accessing a normal function, defined as class definition time
+(OBJ->FUNC)(...)
+(OBJ->FUNC)->call(OBJ, ...)       #Accessing a normal function, assigned to OBJ after its creation
+CLASSS::VAR                       #Accessing a const property
+CLASSS::$VAR                      #Accessing a static property
+CLASSS::FUNC                      #Accessing a static function
+
+
+$this                             #Current OBJ
+                                  #In static functions:
+                                  #  - $this is null
+                                  #  - cannot use bind(), call(), etc.
+                                  #In dynamically added class methods, $this is null
+[static] function (...) {...}     #Closures automatically bind current context, i.e. imply "use (&$this)", unless "static"
+CLOSUR.bind(OBJ[,CLASSS])->CLOSUR2#Copies but with different:
+Closure::bindTo                   #  - $this OBJ
+(CLOSURE, OBJ[, CLASSS])->CLOSURE2#    Can use null to remove binding
+                                  #  - VISIBILITY context ("class scope") CLASSS
+                                  #     - cannot be "self" or "parent"
+                                  #     - "static" (def) means keep current one
+CLOSURE.call(OBJ, ...)            #Like CLOSURE.bind(OBJ, get_class(OBJ))(...) except:
+                                  #  - OBJ cannot be null nor stdClass instance
+                                  #  - faster because does not create copy
+
+parent                            #Used as CLASSS, inside a class method.
+self                              #Mean:
+static                            #  - parent: parent class
+                                  #  - self|static: current class
+                                  #When inside a non-redefined inherited method, consider the "current" class to be:
+                                  #  - static: the class that inherited that method
+                                  #  - parent|self: the class that defined that method
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:          INHERITANCE          :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+INHERITANCE ==>                   #Subtyping.
+                                  #There is no common ancestor to all CLASS.
+                                  #Child must reuse:
+                                  #  - return value:
+                                  #     - same TYPE, unless not specified
+                                  #     - same referencing
+                                  #  - arguments:
+                                  #     - arity: cannot remove, can only add optional arguments
+                                  #     - same TYPE, including not specified
+                                  #     - same referencing
+                                  #     - optional values: can add|change but not remove
+                                  #  - >= VISIBILITY
+                                  #  - TYPE comparison:
+                                  #     - int !== float
+                                  #     - CLASS must be same, parent|child relationship not considered
+                                  #  - does not apply to __construct(), except >= VISIBILITY
+                                  #If "final":
+                                  #  - method: child cannot redefine method (even if private)
+                                  #  - class: cannot have children
+                                  
+                                  
+ABSTRACT MEMBERS ==>              #Abstract functions:
+                                  #  - no implementation:
+                                  #     - cannot be fired
+                                  #     - non-abstract descendants classes must redefine it
+                                  #  - VISIBILITY cannot be private
+                                  #Abstract class:
+                                  #  - cannot be instantiated (but non-abstract descendants can)
+                                  #  - required if at least one abstract function
+interface INTERFACE 
+ [extends INTERFACE2,...]         
+{                                 #Is exactly like an abstract CLASS (and can be used the same) except:
+  [VISIBILITY] const VAR = VAL;   #  - only const variables and abstract functions (do not require "abstract" keyword)
+  [VISIBILITY] function FUNC(...);#  - only public VISIBILITY
+}                                 #Conceptually, an INTERFACE is like an abstract trait
+class CLASS [extends CLASS2]      #Inheritance:
+ implements INTERFACE,...         #  - a CLASS inheriting from an INTERFACE must use "implements" instead of "extends"
+                                  #  - INTERFACEs can only inherit from other INTERFACEs, but multiple inheritance possible
+
+
+trait TRAIT {                     #Is exactly like an abstract CLASS (and can be used the same) except:
+  ...                             #  - can be multiple inherited, i.e. geared towards generic programming traits
+}                                 #  - can only inherit from other TRAITs (i.e. cannot use "extends|implements")
+                                  #  - no const VARs
+                                  #  - VISIBILITY can be private
+                                  #  - is conceptually merged|copied into, as opposed to being a parent reference:
+                                  #     - can access class's private members
+                                  #     - static members inherited by value instead of reference
+                                  #     - can redefine traits members, but not conceptually meant to (as opposed to interfaces):
+                                  #        - child redefinition rules (e.g. same arguments arity, TYPE, etc.) do not apply
+class|trait ... {
+  use TRAIT,...;                  #Short and long syntaxes for inheriting from a trait
+  use TRAIT,... {                 #Name conflict:
+    TRAIT::FUNC insteadof TRAIT2; #  - priority: current class > trait > parent classes
+    TRAIT::FUNC as [VISIBILITY]   #  - can fix for functions only using:
+     [FUNC2];                     #     - "TRAIT::FUNC insteadof": override one
+  }                               #     - "TRAIT::FUNC as": rename one
+}                                 #Can also use "TRAIT::FUNC as" to change visibility
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             PROXY             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+PROXY MEMBERS ==>                 #When accessing undefined members, proxy functions are fired instead of default behavior (throwing an error)
+                                  #Proxy functions:
+                                  #  - cannot use arguments by alias-reference
+                                  #  - are not fired when accessing static|const members (except __callStatic())
+                                  #Improperly called "overloading" by PHP
+CLASS.__get("VAR")->VAL           #Proxies OBJ->VAR (except assignments)
+CLASS.__set("VAR", VAL)           #Proxies OBJ->VAR = VAL
+                                  #If defined, assignment will return null, not VAL
+CLASS.__isset("VAR")->BOOL        #Proxies isset(OBJ->VAR) or empty(OBJ->VAR)
+CLASS.__unset("VAR")              #Proxies unset(OBJ->VAR)
+CLASS.__call("FUNC", ARGS_ARR)    #Proxies OBJ->FUNC(ARGS...)
+CLASS.__callStatic
+ ("FUNC", ARGS_ARR)               #Proxies OBJ::$FUNC(ARGS...)
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:         SERIALIZATION         :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+serialize(VAL)->STR               #PHP serialization format:
+                                  #  INT       -> i:INT;
+                                  #  FLOAT     -> d:FLOAT;
+                                  #  STR       -> s:LEN:"STR";
+                                  #  BOOL      -> b:0|1;
+                                  #  null      -> N;
+                                  #  ARR       -> a:LEN:{KEY;VAL;...}
+                                  #  OBJ       -> O:CLASSNAME_LEN:"CLASS":LEN:{KEY;VAL;...}
+                                  #  recursion -> r:1
+                                  #OBJ:
+                                  #  - VISIBILITY is serialized using same syntax as OBJ->ARR typecasting
+                                  #  - static|const members not serialized
+                                  #STR might contain null bytes
+                                  #Cannot serialize anonymous classes, functions|methods, resources
+                                  #Prefer JSON serialization:
+                                  #  - faster
+                                  #  - more portable
+                                  #  - more secure, because unserialize() can execute code (through autoloading)
+unserialize(STR[, ARR])->VAL      #If error, prints notice and returns false
+                                  #ARR.allowed_classes VAL:
+                                  #  - "CLASS"_ARR of allowed classes in deserialization
+                                  #    If not allowed, will still instantiate but use __PHP_Incomplete_Class CLASS
+                                  #  - true (def) or false means all|none
+                                  #Does not call constructor, but could call it from __wakeup()
+                                  
+CLASS.__sleep()->"VAR"_ARR        #If defined, called before serialize(), e.g. for cleanup.
+                                  #Returns the names of the members to include in serialization
+CLASS.__wakeup()                  #If defined, called after unserialize()
+
+Serializable                      #INTERFACE to implement for custom [un]serialize() behavior
+                                  #Makes OBJ serialization -> O:CLASSNAME_LEN:"CLASS":LEN:{CUSTOM_STR}
+                                  #Not compatible with __sleep|wakeup()
+SERIALIZBL.serialize()->CUSTOM_STR#Called on serialize(OBJ)
+SERIALIZBL.unserialize(CUSTOM_STR)#Called on unserialize(STR). __construct() will not be called.
+
+
+var_dump(VAL,...)                 #Prints to stdout VAL, with a debugging-friendly serialization format
+                                  #  INT       -> int(INT)
+                                  #  FLOAT     -> float(FLOAT)
+                                  #  STR       -> string(LEN) "STR"
+                                  #  BOOL      -> bool(BOOL)
+                                  #  null      -> NULL
+                                  #  ARR       -> array(LEN) { [KEY]=>VAL ... }
+                                  #  OBJ       -> object(CLASS)#ID (NUM) { [KEY[:VISIBILITY]]=>VAL ... }
+                                  #               or CLASS.__debugInfo()->ARR
+                                  #  recursion -> *RECURSION*
+                                  #OBJ:
+                                  #  - static|const members and methods not serialized
+print_r(VAL[, BOOL])              #Similar to var_dump(), but with different format, more human-friendly:
+                                  #  INT|FLOAT -> INT|FLOAT
+                                  #  STR -> STR (no quotes)
+                                  #  BOOL -> 0|1
+                                  #  NULL -> nothing
+                                  #  ARR -> Array ( [KEY]=>VAL ... )
+                                  #  OBJ -> CLASS Object ( [KEY]=>VAL ... )
+                                  #         or CLASS.__debugInfo()->ARR
+                                  #  recursion -> *RECURSION*
+                                  #BOOL: like var_export()
+
+
+var_export(VAL[, BOOL])           #Prints to stdout VAL, with a serialization format meant to be deserialized with eval(), or copy-pasted into PHP code:
+                                  #  ARR       -> array(...)
+                                  #  OBJ       -> CLASS::__set_state(array(...))
+                                  #  recursion -> null
+                                  #  others    -> as is
+                                  #If BOOL true, returns instead of printing
+                                  #OBJ:
+                                  #  - static|const members and methods not serialized
+                                  #  - CLASS::__set_state(ARR)->OBJ must be defined for deserialization
+                                  #Cannot serialize resources
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:           ITERATION           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+ITERATION ==>                     #Is done with foreach(...) {...}
+
+VISIBILITY ==>                    #Note that when interating over an OBJ, only accessible (according to visibility) members will be interated through.
+
+Traversable                       #Base interface of Iterator and IteratorAggregate
+                                  #Implementing either interface allows custom OBJ iteration behavior
+                                  #ARR are considered TRAVERSABLE
+                                  
+Iterator                          #Child of Traversable
+ITERATOR.current()->VAL           #Current element value
+ITERATOR.key()->VAL               #Current element key, or null if none
+ITERATOR.next()                   #Goes to next element. Called in beginning of each loop, except first one
+ITERATOR.rewind()                 #Goes to first element. Called in beginning of first loop
+ITERATOR.valid()->BOOL            #Should return false when looping is over
+                                  #Called after each next|rewind()
+
+IteratorAggregate                 #Child of Traversable
+ITERATORAGGREGATE.getIterator()
+ ->TRAVERSABLE                    #
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:          GENERATORS           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+Generator                         #Implements Iterator
+                                  #Special ITERATOR class that iterates over a GENERATOR_FUNC, i.e. a FUNC that uses "yield" statements as a stop.
+                                  #Note also:
+                                  #  - GENERATOR.rewind():
+                                  #     - goes to first yield
+                                  #     - can only be fired once
+                                  #     - fired at first ITERATOR.*()
+                                  #  - cannot be serialized
+GENERATOR.getReturn()->VAL        #Returns GENERATOR_FUNC's actual return value (not yield).
+                                  #Throws exception if GENERATOR_FUNC has not returned yet.
+GENERATOR.send(VAL)               #Make current yield, inside GENERATOR_FUNC, return VAL. Also calls GENERATOR.next()
+GENERATOR.throw(EXCEPTION)        #Throws exception from inside GENERATOR_FUNC, where current yield is
+
+GENERATOR_FUNC                    #FUNC containing yield statements
+                                  #GENERATOR_FUNC(...) will return an instance of GENERATOR
+                                  #Can yield by reference with same syntax as returning by reference
+yield [VAL]                       #Current element is VAL (def: null), current key is NUM (0-based index)
+yield KEY=>VAL                    #Same but current element is VAL, current key is KEY
+yield from TRAVERSABLE|GEN_FUNC   #Does a series of yield, by iterating over argument
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:           RESOURCES           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+TYPE CASTING ==>                  #Not allowed
+
+RES                               #Resource, i.e. handle with an unspecified binary format, extension-specific.
+                                  #E.g. file or network connection
+                                  #Behaves like OBJ when it comes to assignment, references, etc.
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:          EXCEPTIONS           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+NOTICES ==>                       #PHP errors, printing to stderr
+                                  #Are not THROWABLE, i.e. cannot be caught
+
+
+throw THROWABLE                   #
+
+try { ... } 
+[catch (TYPE $VAR) { ... }]...
+[finally { ... }]                 #TYPE check uses instanceof
+
+THROWABLE                         #Base INTERFACE for ERROR and EXCEPTION
+                                  #User code can only derive from EXCEPTION, not from ERROR
+                                  #Cannot be cloned
+ERROR|EXCEPTION                   #Child of THROWABLE. Only difference: ERROR is for internal PHP errors, EXCEPTION for user-defined
+
+new ERROR|EXCEPTION
+([MESSAGE[, CODE[, THROWABLE2]]]) #THROWABLE2: see THROWABLE.getPrevious()
+
+THROWABLE.__toString()->STR       #Def: "TYPE: MESSAGE in FILE:LINE" + "Stack trace: STR"
+ERROR|EXCEPTION.__clone()         #Cannot be cloned
+
+THROWABLE.getMessage()->STR       
+ERROR|EXCEPTION.$message          #Must not contain \0
+
+THROWABLE.getCode()->VAL          
+ERROR|EXCEPTION.$code             #
+
+THROWABLE.getFile()->STR          
+ERROR|EXCEPTION.$file             #
+
+THROWABLE.getLine()->NUM          
+ERROR|EXCEPTION.$line             #
+
+THROWABLE.getPrevious()->THROWBL2 #From same exception chain, i.e. if current exception was thrown from another catch block
+
+THROWABLE.getTraceAsString()->STR #
+THROWABLE.getTrace()->STACKTRACE  #
+STACKTRACE                        #ARR
+STACKTRACE.function               #Like __FUNCTION__
+STACKTRACE.line                   #Like __LINE__
+STACKTRACE.file                   #Like __FILE__
+STACKTRACE.class                  #Like __CLASS__
+STACKTRACE.object                 #Current OBJ, if a class method
+STACKTRACE.type                   #Can be: "::" (static class method), "->" (normal class method), "" (not class method)
+STACKTRACE.args                   #Function arguments, as ARR
+
+
+ErrorException                    #Child of EXCEPTION. For exceptions that signals something went wrong.
+new ErrorException([MESSAGE[, CODE
+[, SEVERITY[, FILE[, LINE
+[, EXCEPTION2]]]]]])              #
+ERROREXCEPTION.$severity          
+ERROREXCEPTION.getSeverity()->NUM #Should use E_* levels
+
+
+ParseError                        #Child of ERROR. Thrown on wrong PHP syntax
+ArithmeticError                   #Child of ERROR. Thrown e.g. by NUM << -1
+DivisionByZeroError               #Child of ARITHMETICERROR
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:           NAMESPACE           :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+NAMESPACE ==>                     #Used for const variables, classes, functions. Not used for normal variables.
+                                  #When accessing a variable, namespace resolution:
+                                  #  - \NS\VAR: use NS
+                                  #  - NS\VAR: use current namespace + NS
+                                  #  - VAR: try current namespace, then global namespace
+                                  #     - exception: CLASS: does not try global namespace
+                                  #Declaring a variable:
+                                  #  - name cannot contain namespace, e.g. cannot do: function \NS\FUNC(...) {...}
+                                  #  - always use current namespace
+                                  #  - the following are considered "access" not "declaration":
+                                  #     - extends CLASS2 (but not class CLASS)
+                                  #     - define("VAR", ...) (but not const VAR)
+NS                                #Namespace, without leading|trailing \
+                                  #Case-insentive
+                                  #Can contain subpart, \-separated
+
+
+namespace [NS] {...}              #Sets current namespace inside that block
+                                  #Def NS: global namespace
+                                  #Must be first statement:
+                                  #  - file must start with <?php, with nothing before
+                                  #  - no comments before
+                                  #  - exception: "declare" statement
+                                  #Cannot be nested
+namespace NS;                     #Same for the rest of the file. Does not work in CLI
+
+
+\                                 #Global namespace, e.g. \VAR
+                                  #Is the current namespace by default
+namespace                         #Current namespace, as a NS
+__NAMESPACE__                     #Current namespace, as a STR
+
+CLASS::class                      #Returns "[NS\]CLASS"
+
+
+use NS [as NS2][,...]             #Aliases, i.e. compile-time substitution. Only meant as a shortcut.
+use CLASS [as CLASS2][,...]       #Often used after including a namespaced library, i.e. looks like an import statement (but is just an alias)
+use function FUNC [as FUNC2][,...]#First part:
+use const VAR [as VAR2][,...]     #  - can contain namespaces
+                                  #  - a leading \ is implicitely prepended, so should be omitted
+                                  #  - can include {VAL,...} which will expand to several "use ..." with each VAL
+                                  #Second part (i.e. aliases declaration):
+                                  #  - cannot contain any namespace nor be prepended by \
+                                  #  - def: first part without namespaces, e.g. \A\B\C -> C
+                                  #Aliases access:
+                                  #  - can only be accessed in the same namespace they are declared
+                                  #  - cannot be prepended by \, e.g. no \NS2, but can do NS2\...
+                                  #Done at compile-time, i.e.:
+                                  #  - does not affect dynamic expression-oriented like $VAR()
+                                  #  - cannot be inside a structure|block or a function body
+use NS\ { ... };                  #Same as use ..., but prepending NS\ to each first part
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             FILES             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+CONF.include_path                 #Same format as Unix $PATH
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            MODULES            :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+include|require[_once] "PATH"     #Include files behave like if they were inserted inline (same scope), except:
+                                  #  - new parsing context, i.e. each module must use its own <?php ... ?>
+                                  #  - __*__ variables
+                                  #  - expressions affecting whole file like declare ...; or namespace ...;
+                                  #  - class|const|function declarations are top-level even if include|require is not
+                                  #Returns VAL|false on success|error
+                                  #PATH is relative to (in order):
+                                  #  - CONF.include_path
+                                  #  - __DIR__
+                                  #  - $PWD
+                                  #Only difference between include|require is:
+                                  #  - if file cannot be found, emits notice|error
+                                  #If "_once" and module was already included, does not include it and returns true
+return [VAL];                     #Stops execution of current script, and pass return value
+                                  #Def: 1
+
+__FUNCTION__                      #Current function name. "" if top-level
+                                  #Prepended by "NS\" if not in global namespace
+__CLASS__                         #Current class|trait, when inside a method. "" otherwise
+                                  #Prepended by "NS\" if not in global namespace
+__TRAIT__                         #On non-redefined inherited methods, uses the class|trait that defined the method, not the one that inherited it
+__METHOD__                        #Current method name, i.e. __CLASS__::__FUNCTION__. "" if none
+
+__LINE__                          #Line number. 1 if CLI
+__FILE__                          #Current file path. "php shell code" if CLI
+__DIR__                           #Current file directory. $PWD if CLI
+
+
+__autoload('CLASS')               #If defined in current scope, and trying to use undefined CLASS, will be fired.
+                                  #Usually does an include. Prefer using spl_autoload*
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \ 
+                                            )==:             SHELL             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+`...`                             #Fires ... in current shell
+shell_exec("...")->STR            #Return value is:
+                                  #  - null if parsing error
+                                  #  - otherwise, stdout+stderr
+                                  #     - if "" -> null
+                                  #`...` works like "..." including for variable expansion
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:              I/O              :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+echo STR,...                      #Prints STR to stdout
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            EVENTS             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+DIRECTIVE tick=NUM                #
+register_tick_function(FUNK[,...])#Calls FUNK(...) every NUM statement
+unregister_tick_function(FUNK)    #
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:            ENVVAR             :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+$argv                             #ARR of arguments
+$_SERVER["argv"]                  #Is global variable
+$argc                             #Same as count($argv)
+$_SERVER["argc"]                  #Is global variable
+
+$_ENV                             #Global variable???
+
+
+                                             /=+===============================+=\ 
+                                            /  :                               :  \  
+                                            )==:             HTTP              :==(   
+                                            \  :_______________________________:  /    
+                                             \=+===============================+=/
+
+
+All this chapter: ???
+
+CGI??? Including RFC 3875
+
+$php_errormsg                     #Global
+
+$_SERVER                          #Global ARR. Contains all ENVVAR, plus additional documented here
+                                  #Plus others???
+$_SERVER["DOCUMENT_ROOT "]        #STR
+$_SERVER["PATH_TRANSLATED"]       #STR
+$_SERVER["PHP_SELF"]              #STR
+$_SERVER["REQUEST_TIME[_FLOAT]"]  #INT|FLOAT
+$_SERVER["SCRIPT_FILENAME"]       #STR
+$_SERVER["SCRIPT_NAME"]           #STR
+
+$_POST                            #Global ARR with request body variables
+$_GET                             #Global ARR with request query variables
+$_COOKIE                          #Global
+$_FILES                           #Global
+$_REQUEST                         #Global ARR with request body|query variables
+                                  #Variable names:
+                                  #  - dots and spaces are converted to _
+                                  #  - can be:
+                                  #     - VAR[VAR2]: parsed as ARR
+                                  #     - VAR[]: appended to ARR
+$http_response_header             #Global
+
+$_SESSION                         #Global

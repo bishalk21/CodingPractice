@@ -1,0 +1,77 @@
+
+         
+   EXECA  
+         
+
+
+
+ALTERNATIVES ==>                  #  - execa (preferred)
+                                  #  - node-cross-spawn (preferred): cross-browser CHILD_PROCESS.spawn() (used by execa)
+                                  #  - npm-run-path (preferred): cross-browser PATH that includes local binary (used by execa)
+                                  #  - path-key (preferred): cross-browser PATH name (used by npm-run-path)
+                                  #  - npm-path:
+                                  #     - like npm-run-path + path-key
+                                  #     - also adds node-gyp-bin/ which makes it async
+                                  #  - npm-run: CHILD_PROCESS.exec|spawn() (not cross-browser) + npm-path
+
+VERSION ==>                       #6.1.0
+
+execa[Sync](...)                  #Like CHILD_PROCESS.spawn[Sync](...) but:
+                                  #  - cross-browser (uses NODE-CROSS-SPAWN, see its doc)
+                                  #     - also add /q to cmd.exe
+                                  #  - includes local binary (uses NPM-RUN-PATH, see its doc)
+                                  #     - if OPTS.preferLocal true (def: false)
+                                  #     - can specify current directory (def: process.cwd()) with either OPTS.cwd or OPTS.localDir
+                                  #  - prepends OPTS.execPath (def: process.execPath) in front of the PATH:
+                                  #     - i.e. enforce re-using that Node.js executable (def: same as current)
+                                  #     - only if OPTS.preferLocal true (def: false)
+                                  #  - returned EVENTLISTENER can also be used as PROMISE:
+                                  #     - resolved on CHILD_PROCESS 'exit' event with RESULT
+                                  #     - rejected on CHILD_PROCESS|streams 'error' event or exit code !== 0 or terminated by signal, with ERROR:
+                                  #        - has RESULT properties
+                                  #        - is normalized if not ERROR instance
+                                  #        - if OPTS.reject false, is returned instead of rejecting promise
+                                  #  - emit 'SIGTERM' on child if parent is exiting (using SIGNAL-EXIT, see its doc)
+                                  #     - unless OPTS.cleanup false or OPTS.detached true
+                                  #  - OPTS.maxBuffer defaults to 100MB (instead of 200KB)
+                                  #  - OPTS.windowsHide defaults to true
+                                  #  - uses STRIP-FINAL-NEWLINE (see its doc)
+                                  #     - unless OPTS.stripFinalNewline false
+                                  #  - force CHILD_PROCESS.kill() (see below)
+                                  #  - CHILD_PROCESS.cancel() (see below)
+                                  #Extra OPTS:
+                                  #  - timeout, killSignal: like spawnSync()
+                                  #  - input: like spawnSync() but with STREAM|STR
+                                  #  - stdin|stdout|stderr|all STR: same as OPTS.stdio [...]
+                                  #  - buffer BOOL (def: true):
+                                  #     - when retrieving stdout|stderr|all content
+                                  #     - if false, stdout|stderr|all must be fully read (if stdio 'pipe'), otherwise PROMISE will never resolve|reject
+                                  #  - extendEnv BOOL: if false (def: true), do not use OPTS.env
+RESULT                            #Properties:
+                                  #  - [exitCode NERROR_NUM]
+                                  #  - stdout|stderr STR (only if OPTS.stdout|stderr 'pipe' (def))
+                                  #  - all STR: interleaved stdout|stderr (only if OPTS.all true (def: false))
+                                  #  - command STR
+                                  #  - escapedCommand STR: same but does some basic shell quoting
+                                  #  - failed BOOL (true if PROMISE resolved, false otherwise)
+                                  #  - killed BOOL
+                                  #  - timedOut BOOL (when using OPTS.timeout)
+                                  #  - isCanceled BOOL (if CHILD_PROCESS.cancel())
+                                  #  - [signal 'SIGNAL']
+                                  #  - [signalDescription STR]
+                                  #  - message: ERROR.message including stderr|stdout
+                                  #  - shortMessage: ERROR.message excluding stderr|stdout
+                                  #  - originalMessage STR: underlying ERROR.message if an `error` was trigger on the CHILD_PROCESS or a timeout happened
+                                  #  - any ERROR.* properties if underlying ERROR, e.g. code|errno
+
+execaCommand[Sync](...)           #Same as execa[Sync](...) but using single STR 'COMMAND ARG ...'
+                                  #Significant spaces escaped with \
+execaNode('FILE.js', ...)         #Like execa('node', ['FILE.js', ...]) but:
+                                  #  - uses current Node binary|options (process.execPath|execArgv)
+                                  #     - can override with OPTS.nodePath|nodeOptions
+                                  #  - add 'ipc' as last stdio channel (unless already present)
+                                  #  - OPTS.shell always false
+
+CHILD_PROCESS.kill
+ (['SIGNAL'][, KOPTS])            #If does not work after KOPTS.forceKillAfterTimeout NUM ms (def: 5000), send SIGKILL
+CHILD_PROCESS.cancel()            #Like CHILD_PROCESS.kill() except with better error message.

@@ -1,0 +1,191 @@
+
+                
+   CLI-PROGRESS  
+                
+
+
+
+ALTERNATIVES ==>                  #  - cli-progress (preferred):
+                                  #     - fast
+                                  #     - schemas
+                                  #     - custom text
+                                  #     - clear on completion
+                                  #     - custom bar
+                                  #     - no TTY output (e.g. files)
+                                  #     - custom output (e.g. not terminal)
+                                  #     - ETA
+                                  #  - ascii-progress:
+                                  #     - not maintained
+                                  #     - slow
+                                  #     - shows weird characters
+                                  #     - custom text
+                                  #     - clear on completion
+                                  #     - gradients
+                                  #  - node-progress: not maintained
+                                  #  - gauge: not maintained
+
+VERSION ==>                       #3.11.2
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            METHODS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+new SingleBar(OPTS[, PRESET])     #
+SINGLEBAR.start([TOTAL][,CURRENT])#Def CURRENT: 0, TOTAL: 100
+SINGLEBAR.update([CURRENT])       #
+SINGLEBAR.increment([NUM])        #Add NUM (def: 1) to CURRENT
+SINGLEBAR.setTotal(TOTAL)         #
+SINGLEBAR.stop()                  #
+SINGLEBAR.on
+ ('start', FUNC(TOTAL, CURRENT))  #On start()
+SINGLEBAR.on
+ ('update', FUNC(TOTAL, CURRENT)) #On update()
+SINGLEBAR.on
+ ('stop', FUNC(TOTAL, CURRENT))   #On stop()
+SINGLEBAR.on
+ ('redraw-pre|post', FUNC())      #Before|after drawing update
+
+new MultiBar(OPTS[, PRESET])      #Show multiple SINGLBAR stacked on top of each other
+MULTIBAR.create                   #TOTAL|CURRENT is default for SINGLEBAR.start()
+ ([TOTAL][, CURRENT][, OPTS])     #SINGLEBAR.start() must be called
+ ->SINGLEBAR                      #SINGLEBAR is undefined is not TTY (unless OPTS.noTTYOutput true)
+MULTIBAR.remove(SINGLEBAR)        #
+MULTIBAR.stop()                   #
+MULTIBAR.on('start', FUNC())      #On child SINGLEBAR.start()
+MULTIBAR.on                       #On stop().
+ ('stop[-pre-clear]', FUNC())     #*-pre-clear is before the drawing update but after cursor position change
+SINGLEBAR.on                      #Before|after drawing update
+ ('update|redraw-pre|post',FUNC())#update-* is with initial cursor position, redraw-* with cursor position used during update
+
+MULTIBAR.log(STR)                 #Print STR on top of multibar.
+                                  #Multibar will be one row lower.
+                                  #If done multiple times, does not replace previous one.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            PRESETS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+PRESET                            #Same as OPTS, merged with lower priority
+                                  #The following PRESETs work on Windows cmd.exe
+
+Presets.legacy                    #progress [===========----------] PERC% | ETA: ETAs | CURRENT/TOTAL
+                                  #Default for OPTS.format
+Presets.rect                      # ■■■■■■■■■■■■■■■■■            ■  PERC% | ETA: ETAs | CURRENT/TOTAL
+Presets.shades_classic            # █████████████████░░░░░░░░░░░░░░ PERC% | ETA: ETAs | CURRENT/TOTAL
+Presets.shades_grey               #Same as shades_classic but bar is gray
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          FORMATTING           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.barsize                      #NUM (def: 40). Bar width (in characters)
+OPTS.align                        #Position of OPTS.barsize inside full terminal width
+                                  #Among 'left' (def), 'right', 'center'
+
+OPTS.format                       #STR[(OPTS, PARAMS, CUSTOM_PARAMS)]. What is printed.
+                                  #Def: 'progress [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}'
+                                  #Can contain placeholder {PARAM}:
+                                  #  - bar STR
+                                  #  - value 'CURRENT'
+                                  #  - total 'TOTAL'
+                                  #  - percentage 'NUM'
+                                  #  - duration 'NUM': elapsed seconds
+                                  #  - eta 'NUM': remaining seconds
+                                  #  - duration_formatted, eta_formatted STR: same with unit (s|h|m)
+                                  #Can pass CUSTOM_PARAMS as last argument to start|update|increment():
+                                  #  - to add new PARAMS or override existing ones
+OPTS.bar[In]CompleteChar          #STR (def: '=' and '-')
+OPTS.barGlue                      #STR after complete bar and before incomplete bar. For example color ANSI sequence
+OPTS.autopadding                  #BOOL. Whether to pad placeholders:
+                                  #  - duration_formatted|eta_formatted (always true): 2 chars
+                                  #  - percentage (def: false): 3 chars
+OPTS.autopaddingChar              #STR (def: '   ') used when padding.
+                                  #Must be 3 repeated chars for performance optimization reasons.
+OPTS.formatBar(NUM, OPTS)->STR    #Override value of placeholder bar
+OPTS.formatTime(NUM, OPTS, NUM2)  #Override value of placeholders duration_formatted|eta_formatted
+ ->STR                            #NUM2 is rounding
+OPTS.formatValue(NUM, OPTS,'NAME')
+ ->STR                            #Override value of placeholders value|total|percentage|duration|eta
+
+OPTS.progressCalculationRelative  #BOOL (def: false). Use percentage from the first|initial CURRENT, as opposed to 0.
+
+OPTS.emptyOnZero                  #BOOL (def: false). If TOTAL 0, show progress bar as empty.
+
+OPTS.hideCursor                   #BOOL (def: false). Hide CLI cursor on start(), revert on stop()
+OPTS.gracefulExit                 #BOOL (def: false). Stop on SIGINT|SIGTERM
+OPTS.linewrap                     #BOOL. If false (def), disable terminal line wrapping (if any) on start(), revert on stop()
+
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            RENDER             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.stopOnComplete               #BOOL (def: false). Call stop() if CURRENT >= TOTAL
+OPTS.clearOnComplete              #BOOL (def: false). Remove progress bar from UI on stop()
+
+OPTS.fps                          #NUM (def: 10).
+                                  #CLI updates per second.
+                                  #CLI updates|writes are done at regular interval, throttled.
+
+OPTS.etaBuffer                    #NUM (def: 10). Number of CLI updates to use to calculate ETA.
+                                  #Higher is more stable, lower is more responsive to change of speed
+OPTS.etaAsynchronousUpdate        #BOOL. If false (def), only update ETA when CURRENT changes.
+                                  #If true, also do it on any CLI updates (OPTS.fps)
+SINGLEBAR.updateEta()             #Force recalculating ETA.
+
+OPTS.forceRedraw                  #BOOL (def: false). Do CLI update even if progress is same.
+                                  #Useful if there are other things printed on output.
+OPTS.synchronousUpdate            #BOOL (def: true). Do CLI update if last repaint was more than twice OPTS.fps
+                                  #Only for SINGLEBAR, not MULTIBAR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OUTPUT             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPTS.stream                       #STREAM (def: process.stderr) for output.
+
+OPTS.noTTYOutput                  #BOOL (def: false).
+                                  #If false (def), prints nothing if not TTY.
+                                  #If true, prints even if not TTY (e.g. if redirected to a file):
+                                  #  - print each progress bar on new lines
+                                  #  - use OPTS.notTTYSchedule NUM (def: 2000) (regular interval in ms) instead of OPTS.fps
+                                  #  - OPTS.synchronousUpdate false
+                                  #  - OPTS.forceRedraw true
+
+OPTS.terminal                     #Customize how output is written.
+                                  #By default it writes to OPTS.stream using ANSI sequences.
+                                  #OBJ:
+                                  #  - write(STR): write to output. Def: OPTS.stream.write(STR) and truncate with getWidth() on line wrapping
+                                  #  - newline(): print newline
+                                  #  - isTTY()->BOOL: Def: OPTS.stream.isTTY
+                                  #  - getWidth()->NUM: terminal width. Def: OPTS.stream.columns or 80 (200 if not TTY)
+                                  #  - lineWrapping(BOOL): enable|disable line wrapping. Def: \e[?7h and \e[?7l
+                                  #  - cursorSave(): save cursor position. Def: prints \e7
+                                  #  - cursorRestore(): load cursor position. Def: prints \e8
+                                  #  - cursor(BOOL): show|hide cursor. Def: prints \e[?25h and \e[?25l
+                                  #  - cursorTo(NUM, NUM2): move cursor absolutely. Def: \eNUMa and \eNUMb
+                                  #  - cursorRelative(NUM, NUM2): move cursor relatively. Def: \eNUMc and \eNUMd
+                                  #  - cursorRelativeReset(): revert previous cursorRelative() then put to beginning of line
+                                  #  - clearLine(): clear full line. Def: \e2k
+                                  #  - clearRight(): clear line to the right. Def: \e0k
+                                  #  - clearBottom(): clear lines to down. Def: \e0j

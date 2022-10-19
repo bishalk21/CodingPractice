@@ -1,0 +1,118 @@
+
+             
+   FUNCTIONS  
+             
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERAL            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OPERATIONS ==>                    #Abstraction of a function.
+                                  #Can be: operators (e.g. +), function, compiler directives, etc.
+OPERATORS ==>                     #Less verbose function name:
+                                  #  - more convenient (syntactic sugar)
+                                  #  - but harder to communicate precise purpose|contract
+                                  #     - e.g. consumers might introduce different purpose|contract by overloading
+                                  #If allow no parenthesis, harder to parse, e.g. need to establish implicit operator priority order
+
+OPERANDS ==>                      #Values used by operations
+                                  #Can be: literal values, variables, constants, etc.
+                                  #Called "parameters" in operation definition, "arguments" during operation evaluation
+POSITIONAL VS NAMED ==>           #Whether operands key is integer (position) or string (name)
+                                  #Notations:
+                                  #  - infix: OPERANDS OPERATOR OPERANDS
+                                  #     - more natural
+                                  #     - harder to parse
+                                  #     - even if fixed number of arguments, requires parenthesis, etc. to determine order
+                                  #  - prefix / polish: OPERATOR OPERANDS
+                                  #  - postfix / reverse polish: OPERANDS OPERATOR
+COMMUTATIVITY ==>                 #When operand position does not matter
+ARITY ==>                         #Number of parameters.
+                                  #nullary, unary, binary, ternary, etc.
+
+EXPRESSION ==>                    #Operation + its operands
+                                  #Evaluation/call: producing a result
+                                  #  - result can be void|null
+                                  #  - can produce side effects
+                                  #Complex expression: when some operands are expressions themselves
+STATEMENTS ==>                    #Expressions resulting in side-effects
+                                  #  - are "executed" instead of evaluated
+                                  #Usually supported by programming languages, using keywords
+                                  #Side effects can relate to:
+                                  #  - control flow: function calls, if|while|etc., goto, exceptions
+                                  #  - memory: assignments
+                                  #Can be simple or compound (e.g. with braces or identations)
+
+ORDER ==>                         #In which order sub-expressions are evaluated
+                                  #Often shown with () [] {}, with upper bars "vinculums" (e.g. in square roots) or middle bars (e.g. in fractions)
+ASSOCIATIVITY ==>                 #When an operation uses itself in a sub-expression, and it does not matter whether operands
+                                  #are in the upper or lower operation
+                                  #E.g. FUNC(x, FUNC(y, z)) == FUNC(y, FUNC(x, z))
+DISTRIBUTIVITY ==>                #When FUNC(..., FUNC2(y, z)) === FUNC2(FUNC(..., y), FUNC(..., z)) (left-distributivity)
+                                  #or FUNC(FUNC2(y, z), ...) === FUNC2(FUNC(y, ...), FUNC(z, ...)) (right-distributivity)
+                                  #If FUNC is commutative, left-distributivity and right-distributity are same
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:     FIRST-CLASS FUNCTIONS     :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+FIRST-CLASS FUNCTION ==>          #Function that can be assigned to a variable
+                                  #Usually can also:
+                                  #  - be passed as function parameter
+                                  #  - be return value
+
+LAMBDA CALCULUS ==>               #Mathematical|programming model where functions:
+                                  #  - are anonymous, i.e. not assigned to variables
+                                  #  - take single argument
+                                  #     - can workaround limitations by:
+                                  #        - using complex types, e.g. OBJ
+                                  #        - using compositions
+                                  #Usually written:
+                                  #  - (VAR[ x ...]) -> VAL
+                                  #Goal:
+                                  #  - easy to reason with first-class functions
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:     HIGH-ORDER FUNCTIONS      :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+HIGH-ORDER FUNCTION ==>           #Also called "functor". Opposite is "first-order function"
+                                  #Function that takes another function as argument, e.g. FUNC(FUNC2)->VAL
+FUNCTION COMPOSITION ==>          #High-order function that returns another function, e.g. FUNC(FUNC2)->FUNC3
+
+CURRYING ==>                      #When:
+                                  #  - (VAR, VAR2)->VAL becomes (VAR)->(VAR2)->VAL
+                                  #  - FUNC(VAR, VAR2) becomes FUNC(VAR)(VAR2)
+                                  #Uncurrying is inverse
+
+BINDING / PARTIAL APPLICATION ==> #When:
+                                  #  - (VAR, VAR2)->VAL becomes (VAR)->VAL, with VAR2 changed to a constant
+                                  #  - FUNC(VAR, VAR2) becomes FUNC(VAR)
+
+REDUCE ==>                        #Also called "fold", "aggregate", "accumulate"
+                                  #Iterating over a list, with FUNC(MEMO, VAL)->NEW_MEMO
+                                  #Can be done from left to right, or inverse
+
+MAP ==>                           #Also called "apply to all"
+                                  #Applying|returning FUNC(VAL) to each element in a list
+
+FILTER ==>                        #Excluding elements in a list if FUNC(VAL)->false
+
+LIST COMPREHENSION ==>            #Syntactic sugar over map + filter
+                                  #E.g. MAP_FUNC for VAL in LIST if FILTER_FUNC
+
+ZIP ==>                           #Also called "convolution"
+                                  #Map function that takes each second-order element of a two-dimensional list, effectively inverting dimensions
+                                  #E.g. [[1,2],[3,4]]->[[1,3],[2,4]]

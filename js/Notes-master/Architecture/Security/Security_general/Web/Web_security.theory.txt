@@ -1,0 +1,411 @@
+
+                
+   WEB SECURITY  
+                
+
+
+Code injection :
+  - injecting code where data is expecting
+  - problem is wrong assumption data
+    - won't exceed size or min/max (buffer overflow)
+      - pervention :
+        - bound checking (including in most programming languages, but not C/C++ pointers)
+    - won't include special characters/type (XSS, SQL injections, etc.)
+      - prevention :
+        - refusing input :
+          - of a certain type : validation
+          - of a certain user/domain : same origin policy, CSP
+        - accepting input but changing it :
+          - escaping/sanatirizing
+    - will be legitimous or can't be modified by client
+  - types :
+    - XSS (cross-site scripting):
+       - ORIGIN2 injects HTML/CSS/JavaScript in ORIGIN resource, so that it executes within ORIGIN context
+       - abuse user trust in ORIGIN
+       - types:
+          - active/persistent/stored vs passive/not persistent/reflected: persisted or not on server
+          - server-side (traditional) vs client-side (DOM-based)
+       - ex
+          - HTML injection: user-generated content (e.g. blog/forum post)
+          - JavaScript injection: eval(STR), setTimeout|Interval(STR), Function(STR)
+          - URI template injection
+    - SQL injection :
+       - inject SQL command as argument of another SQL command (which was expecting STR/NUM/etc.)
+       - by POST/GET variables to server
+    - Header injection:
+       - Header response splitting:
+          - inserting a \r\n\r\n in header value (then rest is response|request body)
+       - Location [C] redirections
+       - Set-Cookie [C]
+    - PHP injection
+    - ASP injection
+    - Shell injection
+    - Buffer overflow
+
+CSRF|XSRF (Cross-site request forgery):
+  - steps:
+     - in a first context (page 'ORIGIN'), requests to ORIGIN creates confidential state (e.g. cookie authentication)
+     - in a second context (page 'ORIGIN2'), requests to ORIGIN reuses that state
+  - abuse ORIGIN trust in user
+  - types:
+     - login CSRF: CSRF requests with logging side-effect
+  - preventions:
+     - not keeping confidential state client-side
+        - e.g. never caching login credentials
+     - same origin policy: see below
+     - CSRF token:
+        - nonce sent together with ORIGIN's confidential state
+           - e.g. hash with salt of authentication data
+        - used to authenticate further requests to ORIGIN
+        - if in a HTTP header, often called X-CSRF|XSRF-TOKEN
+     - checking Referer [C]
+        - problems:
+           - client can forge Referer [C]
+           - client can remove Referer [C] in private browsing mode
+
+Same origin policy (SOP):
+  - RFC 6454
+  - goal: protection against CSRF
+  - how:
+     - resource can only interact with subresources with same ORIGIN:
+        - "interact with":
+           - reading subresource, e.g. programmatically read content
+           - writing subresource, e.g. HTTP request with side-effect
+        - interactions exceptions:
+           - depends on subresource MIME type
+           - embedding is ok if cannot programmatically read content
+           - navigation is ok since it changes ORIGIN
+        - exact same ORIGIN, including HOST subdomains
+     - subresources run with same ORIGIN as parent resource
+  - browsers behavior:
+     - HTTP:
+        - enforced:
+           - because can write|read resource:
+              - XHR
+              - DATATRANSFER (drag&drop, copy/cut/paste)
+                 - programmatically only, not with browser default action for selection, links and images
+           - because can read resource:
+              - IFRAME.contentDocument|Window
+                 - can be relaxed with <iframe sandbox="allow-same-origin">
+              - Canvas images, WebGL textures
+           - for obscure reasons:
+              - @font-face { src: URI } (Firefox only)
+        - not enforced:
+           - because cannot write|read resource:
+              - embedded:
+                 - <link href="URI">
+                 - <img|input|video|audio|source|iframe src="URI">
+                 - <script src="URI">
+                 - any URI in CSS (except @font-face)
+              - changes ORIGIN:
+                 - links: <a|area|base href="URI">, LOCATION, HISTORY, WINDOW.open|alert()
+           - for historical reasons (but can write resource):
+              - <form action="URI">
+           - because protocol force checking Origin [C] server-side:
+             - WebSocket
+        - problems:
+           - allow GET requests using <any href|src> with side-effects
+           - does not cover POST requests using <form>
+           - <script type="text/javascript" src="URI">:
+              - not enforced because embedded, but embedding can be circumvented if:
+                 - <script> make GET request to JSON array
+                 - Array constructor is overriden with FUNC()
+                 - then FUNC(...) will be called with JSON array content
+              - can prevent by prefixing JSON with exactly )]}',\n and require client to strip it
+     - file://
+        - depends on browser:
+           - Chrome: ORIGIN2 can never access ORIGIN, including itself
+           - Firefox: ORIGIN2 can access ORIGIN if ORIGIN's DIR is ORIGIN2 ancestor
+  - circumventing restriction:
+     - CORS:
+        - goal:
+           - server at ORIGIN whitelists a specific client at ORIGIN2 from same-origin policy
+           - allowed because client sends Origin [C], and prevent for forging it
+           - headers automatically sent by browsers on requests not same origin
+        - final request:
+           - Origin: ORIGIN ... [C]
+              - can be several ORIGIN, e.g. when request processed by several ORIGIN
+           - Access-Control-Allow-Origin: ORIGIN [S] (can be *, but avoid it)
+        - preflight request:
+           - to do before the final request
+           - can be skipped if:
+              - GET|POST|HEAD
+              - Content-Type: "application/x-www-urlencoded", "multipart/form-data" or "text/plain"
+              - only HTTP headers: Accept, Accept-Language, Content-Language, Content-Type,
+                Last-Event-ID, Downlink, client hints
+           - client (OPTIONS method):
+              - Origin: ORIGIN [C]
+              - Access-Control-Request-Method: METHOD [C]
+              - Access-Control-Request-Headers: HEADER,... [C]
+              - must use XHR.withCredentials true if want to send HTTP auth., cookies or client-side SSL certificates
+           - server (status code 204):
+              - Access-Control-Allow-Origin: ORIGIN [S]
+              - Access-Control-Allow-Method: METHOD,... [S]
+              - Access-Control-llow-Headers: HEADER,... [S]
+              - Access-Control-Allow-Credentials: true [S] (not allowed if Access-Control-Allow-Origin: *)
+              - Access-Control-Max-Age: NUM [S], how many seconds client should cache preflight response
+              - Access-Control-Expose-Headers: HEADER,... [S]:
+                 - by default, client should not show to end-user other headers than:
+                     Content-Type, Cache-Control, Content-Language, Expires, Pragma, Last-Modified
+                 - can specify other to show with HEADER,...
+     - JSONP ("JSON with padding"):
+        - using <script src="URL?callback=FUNC"> with response returning FUNC(OBJ):
+           - should validate that response returns FUNC(OBJ) and not arbitrary JavaScript
+        - should prefer CORS
+     - postMessage():
+        - use Origin check
+        - for communication with IFRAME
+     - change ORIGIN by manipulating document.domain:
+        - can only change to superdomain, so must be between two ORIGIN that share superdomain
+        - modifying document.domain will set PORT to null (which is !== default port number), so both document.domain must be
+          changed
+     - using browser flags:
+        - e.g. Chrome --disable-web-security --user-data-dir
+        - only for development
+
+CSP (Content Security Policy) :
+  - same origin policy still allows potential threat (XSS) :
+    - instead of pointing to other website, injecting code (<script>, links) to website itself, e.g. a <script> which src
+      points to another domain (not affected by same origin policy)
+  - Content-Security-Policy: TYPE-src STR...;[...;] [sandbox;][report-uri STR] [S]
+     - restrict TYPE resources to STR
+     - TYPE can be :
+       - default : default STR... for all TYPE (sinon "*")
+       - script : <script>
+       - connect : XHR.open(), WebSocket(), EventSource() (server-sent event)
+       - font : @font-face
+       - frame : <iframe>
+       - image : <img>
+       - media : <audio>, <video>, <source>, <track>
+       - object : <object>
+       - style : <style>, but not CSS <link>
+     - STR is space-separated list
+     - STR can be :
+       - [PROTOCOL:][DOMAIN[:PORT][/PATH]]
+         - wildcard * accept, but if DOMAIN, only in beginning of DOMAIN, and followed by "." or "/"
+       - special values :
+         - 'self' : same origin
+         - 'none' : completly disabled
+         - 'unsafe-inline|eval' : using CSP bans HTML-inline JavaScript and CSS and eval() (and the like :
+           setTimeout|Interval(STR), Function(STR), etc.), unless using this
+     - STR is not quoted, except special values (single-quoted)
+     - only one occurence for a given TYPE
+     - sandbox gives same restrictions as in a <iframe sandbox>
+     - report-uri will:
+        - POST - URL everytime a client sees attempts to circumvent CSP rules.
+        - use Content-Type: "application/csp-report" and JSON body:
+           - csp-report:
+              - document-uri URL (origin)
+              - blocked-uri
+              - referrer URL
+              - violated-directive, e.g. "img-src STR"
+              - original-policy (full directive)
+              - status-code
+  - Content-Security-Policy-Report-Only: ... [S]: same but only sends reports via report-uri.
+    sed to test first before deploying.
+  - CSP 1.1 features :
+    - instead of HTTP headers, using HTML tags :
+      - <meta http-equiv="Content-Security-Policy" content="...">, same as Content-Security-Policy: ...
+      - others less interesting (JavaScript manipulation, etc.)
+  - browser implementation
+    - not by IE10
+    - X-Webkit-CSP instead of Content-Security-Policy for Safari 7
+    - <meta> only by Chrome
+
+URI:
+  - only location:
+     - does not provide resource|provider authentication:
+        - URI are transient. E.g. someone can buy out a domain name.
+        - control can be stolen
+     - does not guarantee security of resource it locates
+  - URI spoofing:
+     - creating one that looks the same (see typosquatting)
+     - making USERINFO look like HOSTNAME|PATH
+  - confidentiality:
+     - knowing one URI gives hints or other possible sibling URIs:
+        - unless random IDs or authorization are used
+     - using USERINFO as plaintext, e.g. USER:PASSWORD
+
+Typosquatting/URL hijacking:
+  - creating similar URLs as well-known websites, but with typos/mistakes, similar word (e.g. plural) or different top-level
+  - can also normal register URL if not used yet
+  - can also use Unicode characters almost identical, thanks to IRI or IDNA
+  - goal: selling it, redirecting to competitor, phishing, getting traffic, etc.
+
+Clickjacking:
+  - DOMAIN2 put DOMAIN in an <iframe|frame|object|embed> to make end-user work on DOMAIN while believing he is on DOMAIN2
+  - defenses:
+     - CSP2 frame-ancestors:
+        - best but not supported by all browsers
+        - when X-Frame-Options specified, frame-ancestors is ignored by Chrome/Firefox (although RFC says inverse)
+     - X-Frame-Options: WORD [S]:
+        - RFC 7034
+        - tells the client that the served page should deny being in an <iframe|frame|object|embed>:
+           - deny: never
+           - sameorigin: only if parent has same origin
+           - allow-from DOMAIN:
+              - only if top-level from DOMAIN
+              - not supported by Safari/Chrome/Opera
+     - ensure before doing sensitive actions that WINDOW.top === WINDOW
+     - WINDOW.confirm() before doing sensitive actions (popup cannot be framed)
+
+HTTPS: see HTTPS doc
+
+Sniffing:
+  - Can use X-Powered-By [S] so should not be used
+
+IE-specific:
+  - X-XSS-Protection: 1; mode=block [S]: same goal as CSP but browser-specific. Also for Chrome.
+  - X-Download-Options: noopen [S]:
+     - don't open automatically content on Content-Disposition [S]
+     - could execute JavaScript code in current context otherwise
+  - X-Content-Type-Options: nosniff [S]:
+     - disables IE "MIME sniffing" feature, which would allow an attacker to inject JavaScript code in a file that looks like
+       another type.
+
+Flash-specific:
+  - Adobe products like Flash asks for /crossdomain.xml (if exists) as a policy file.
+
+Cache attack:
+  - steps:
+     - Alice write confidential information, then cached/stored
+     - Mallory takes control of Alice's device
+     - Mallory read cached confidential information
+  - examples:
+     - accessing someone else device then browsing to logged in websites
+     - use authentication URL with cached authentication headers
+  - solution:
+     - do not cache/store confidential information, or for shorter time
+        - e.g. use no-cache="HEADER" for confidential headers, no caching for confidential body
+
+Cache poisoning:
+  - setting a cache value to an arbitrary value
+  - cache might be shared by several clients, in which case one client can affect others
+
+Cookies:
+  - cannot rely only on cookies for authorization, must also use anti-CSRF measures
+  - content should be encrypted (for confidentiality) and signed (for authenticity) even over HTTPS
+  - should use secure and HttpOnly
+  - content should contain key (to server-side hash table, e.g. session id) not direct information
+  - service on same URL but different port can access cookie
+  - service on same domain or superdomain can set cookies
+
+Open redirect:
+  - redirection that depends on user-generated content in URLs
+     - allowing user-generated URLs has same risk as well
+  - if not validated, allows user to browse to different website without consent
+     - can lead to phishing
+
+Normalization:
+  - when a VAL has different variants, which should be considered equal
+  - if not normalized, comparison can fail
+  - examples:
+     - transtyping
+     - charset, encoding
+     - STR: case, Unicode normalization
+     - NUM: radix, FLOAT representation, decimal digits, epsilon, i18n (e.g. separators)
+     - OBJ: keys order
+     - ARR: order
+     - base64: padding, chars outside charset, newlines
+     - paths: symlinks
+     - path/URIs: . .., relative links, duplicate /
+     - URIs: default parts, unused parts
+
+Browser sandbox:
+  - see about:sandbox (Chrome/Opera), about:support#sandbox (Firefox)
+
+URI:
+  - are rarely confidential, and often logged by intermediaries
+  - so should avoid confidential information in URI
+
+Tracking:
+  - privacy concern: giving personal information without consent is akin to forced negotiation (i.e. weakens one side of the negotation)
+  - can be:
+     - sanctioned, i.e. user control: user consent, based on standards so easy to detect (e.g. cookies, localStorage)
+     - unsanctioned: e.g. fingerprinting, supercookies
+  - standard: W3C TAG "Unsanctioned tracking"
+
+Device|machine fingerprinting:
+  - identifying a device|machine by device|machine capabilities instead of usual state mechanisms (e.g. cookies)
+  - should be:
+     - diverse:
+        - number of possible combinations (measured in bits of entropy)
+        - combinations are evenly distributed
+     - stable: does not change over time
+     - more capabilities add diversity but might reduce stability
+        - however can update new configuration if only parts of it changes, providing the other part has enough diversity entropy
+  - capabilities:
+     - passive (read-only):
+        - browser:
+           - active extensions, e.g. AdBlock
+        - HTTP:
+           - User-Agent [C]
+           - Accept* [C]
+           - Connection [C]
+           - DNT [C]
+        - JavaScript:
+           - DATE.getTimezoneOffset()
+           - supported features, e.g. ES6
+        - DOM:
+           - CANVAS: draw 2D|3D to see variations due to different GPU
+           - NAVIGATOR: plugins, platform, cookieEnabled
+           - SCREEN: height, width, colorDepth
+           - supported features, e.g. localStorage|sessionStorage
+        - Flash:
+           - list of OS fonts
+        - NTP:
+           - clock skew: small sync difference (in ms)
+        - TCP/IP:
+           - configuration
+              - initial packet size, initial TTL, window size, max segment size, window scaling value, flags (don't fragment, sackOK, nop)
+              - 67 bits of entropy
+              - eases OS fingerprinting
+        - IEEE 802.11 (wireless)
+        - OS
+     - active (can write on machine)
+        - MAC address
+        - machine serial number
+        - HTTP enrichment (network proxies adding HTTP headers)
+  - protection:
+     - not sending capabilities information
+     - randomizing capabilities information
+
+Referer: URI [C]:
+  - current URI (without USERINFO nor #HASH)
+     - about:blank means no current URI
+  - problems:
+     - privacy concern: might deduce identity from current URI
+     - confidentiality: if capability URI
+  - solutions:
+     - for specific HTTP request: WINDOW.fetch() REQ.referrer
+     - for any HTTP request: "Referrer Policy":
+        - VAL (def: 'no-referrer-when-downgrade'):
+           +---------------------------------+-----------------+--------------+-------------+
+           | NAME                            | HTTPS->HTTP     | CROSS-ORIGIN | SAME-ORIGIN |
+           |                                 | (HAS PRIO)      |              |             |
+           +---------------------------------+-----------------+--------------+-------------+
+           | no-referrer                     | does not matter | unset                      |
+           +---------------------------------+-----------------+----------------------------+
+           | strict-origin                   | unset           | ORIGIN                     |
+           +---------------------------------+-----------------+----------------------------+
+           | origin                          | does not matter | ORIGIN                     |
+           +---------------------------------+-----------------+--------------+-------------+
+           | same-origin                     | does not matter | unset        | URI         |
+           +---------------------------------+-----------------+--------------+-------------+
+           | strict-origin-when-cross-origin | unset           | ORIGIN       | URI         |
+           +---------------------------------+-----------------+--------------+-------------+
+           | origin-when-cross-origin        | does not matter | ORIGIN       | URI         |
+           +---------------------------------+-----------------+--------------+-------------+
+           | no-referrer-when-downgrade      | unset           | URI                        |
+           +---------------------------------+-----------------+----------------------------+
+           | unsafe-url                      | does not matter | URI                        |
+           +---------------------------------+-----------------+----------------------------+
+        - can specify using:
+           - Referrer-Policy: VAL [S]
+           - <meta name="referrer" content="VAL">
+           - <a|area|iframe|img|link referrerpolicy="VAL">
+           - WINDOW.fetch() REQ.referrerPolicy
+           - CSP referrer
+        - Link: noreferrer [S] or <... rel="noreferrer"> can also be used
+     - browser support:
+        - not IE11, except for Link: noreferrer [S] or <... rel="noreferrer">, but degrades gracefully

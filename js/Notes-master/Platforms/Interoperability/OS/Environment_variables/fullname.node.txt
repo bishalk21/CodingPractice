@@ -1,0 +1,22 @@
+
+            
+   FULLNAME  
+            
+
+
+
+VERSION ==>                       #4.0.1
+
+FULLNAME()->PROMISE_STR           #Returns real name of current user (in priority):
+                                  #  - ENVVAR GIT_AUTHOR_NAME
+                                  #  - ENVVAR GIT_COMITTER_NAME
+                                  #  - ENVVAR HGUSER (Mercurial)
+                                  #  - ENVVAR C9_USER (Cloud9)
+                                  #  - npm CONF.init-author-name
+                                  #  - /etc/passwd (Unix) or id -P (Mac)
+                                  #  - osascript -e "long user name of (system info)" (Mac)
+                                  #  - getent passwd $(whoami) (Linux)
+                                  #  - git config --global user.name
+                                  #  - wmic useraccount where name="%username%" get fullname (Windows)
+
+fullname                          #CLI (1.2.0)

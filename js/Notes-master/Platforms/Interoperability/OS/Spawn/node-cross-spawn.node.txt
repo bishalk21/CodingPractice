@@ -1,0 +1,22 @@
+
+                    
+   NODE-CROSS-SPAWN  
+                    
+
+
+
+ALTERNATIVES ==>                  #See execa
+
+VERSION ==>                       #7.0.3
+
+NODE-CROSS-SPAWN[.sync](...)      #Like CHILD_PROCESS.spawn[Sync](...) but on Windows:
+                                  #  - if OPTS.shell false:
+                                  #     - make it behave like OPTS.shell true
+                                  #     - escape command and arguments, and use path.normalize()
+                                  #  - allow using shebang:
+                                  #     - must use OPTS.shell false
+                                  #     - do it by:
+                                  #        - finding command path (with NODE-WHICH)
+                                  #           - including PATHEXT support
+                                  #        - reading the shebang
+                                  #        - wrap command with the found interpreter

@@ -1,0 +1,114 @@
+
+              
+   UNDERTAKER  
+              
+
+
+
+ALTERNATIVES ==>                  #  - undertaker (prefered):
+                                  #     - minimalistic
+                                  #     - handles several types of async
+                                  #     - easy to customize tasks storage or decorate task functions
+                                  #  - orchestrator: not maintained and less features
+
+VERSION ==>                       #1.3.0
+                                  #Run functions in a specific order in series|parallel according to their dependencies
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CORE              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TASK                              #Either:
+                                  #  - 'TASK' registered with UNDERTAKER.task()
+                                  #  - FUNC()
+                                  #     - uses async-done (see its doc), i.e. must be async with PROMISE|callback|STREAM|EVENTEMITTER|CHILD_PROCESS|OBSERVABLE
+                                  #        - it cannot be sync
+                                  #     - no argument except potential async callback
+
+new Undertaker()                  #
+
+UNDERTAKER.task('TASK', FUNC)     #Register a TASK
+UNDERTAKER.task(FUNC)             #Same but using FUNC.name|displayName
+
+UNDERTAKER.task('TASK')->FUNC2    #FUNC2 is thin wrapper over FUNC:
+                                  #  - FUNC2.unwrap()->FUNC
+                                  #  - FUNC2.displayName->FUNC.name|displayName
+                                  #FUNC[2].description STR and flags { 'OPT': STR, ... } is also used by gulp --tasks
+                                  #Returns undefined if does not exist
+
+UNDERTAKER.series|parallel        #Returns FUNC2 that fires each TASK serially or in parallel
+ (TASK[_ARR],...)->FUNC2(FUNC3)   #To declare task dependencies, use UNDERTAKER.task('TASK', UNDERTAKER.series|parallel(...))
+                                  #FUNC3 is either:
+                                  #  - FUNC3(ERROR, VAL_ARR): stops on first error
+                                  #  (if ENVVAR UNDERTAKER_SETTLE 'true')
+                                  #  - FUNC3(ERROR_ARR, VAL_ARR): does not stop on first error.
+                                  #Uses Bach (see its doc) under the hood
+
+UNDERTAKER.tree([OPTS])->OBJ      #Returns tree of dependencies, as OBJ:
+                                  #  - label 'Tasks'
+                                  #  (if OPTS.deep false (def))
+                                  #  - nodes 'LABEL'_ARR
+                                  #  (if OPTS.deep true)
+                                  #  - nodes NODE_ARR:
+                                  #     - nodes NODE_ARR
+                                  #     (if UNDERTAKER.series|parallel())
+                                  #     - type 'function'
+                                  #     - label '<series|parallel>'
+                                  #     - branch true
+                                  #     (if UNDERTAKER.task())
+                                  #     - type 'task'
+                                  #     - label FUNC.name|displayName|'<anonymous>'
+
+UNDERTAKER.lastRun(TASK[, NUM])   #Returns last time TASK was run
+ ->DATE_NUM|undefined             #NUM is rounding:
+                                  #  - def: 0, i.e. ms rounding
+                                  #  - use 1000 for seconds rounding
+                                  #  - can also use ENVVAR UNDERTAKER_TIME_RESOLUTION
+                                  #Will return undefined if not run or last run was an error.
+
+UNDERTAKER.on('start', FUNC(OBJ)) #When a TASK starts. OBJ:
+                                  #  - uid NUM, name 'LABEL': TASK identifiers
+                                  #  - branch BOOL: whether created with series|parallel()
+                                  #  - time DATE
+UNDERTAKER.on('stop', FUNC(OBJ))  #When a TASK stops. OBJ:
+                                  #  - uid, name, branch, time: same
+                                  #  - duration NUM_ARR (return of process.hrtime())
+UNDERTAKER.on('error', FUNC(OBJ)) #When a TASK errors (see async-done). OBJ:
+                                  #  - uid, name, branch, time, duration: same
+                                  #  - error ERROR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           REGISTRY            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REGISTRY                          #Store tasks
+                                  #Can customize if want:
+                                  #  - not to store in memory
+                                  #  - to handle tasks differently
+                                  #  - to decorate every task function
+                                  #  - to predefine tasks
+REGISTRY.init(UNDERTAKER)         #
+REGISTRY.get('TASK')
+ ->FUNC|undefined                 #Called by UNDERTAKER.task('TASK')
+REGISTRY.set('TASK', FUNC)->FUNC  #Called by UNDERTAKER.task('TASK', FUNC) (with the wrapped FUNC2)
+REGISTRY.tasks()->{TASK: FUNC,...}#
+
+new Undertaker(REGISTRY)          #Specify a custom REGISTRY
+UNDERTAKER.registry()->REGISTRY   #
+UNDERTAKER.registry(REGISTRY)     #Replaces REGISTRY and transfer tasks (using several REGISTRY.set()),
+                                  #i.e. effectively merges two REGISTRY
+
+UNDERTAKER-REGISTRY              ##Default REGISTRY
+                                 ##Only stores tasks in an OBJ.
+                                 ##Version 2.0.0
+
+UNDERTAKER-FORWARD-REFERENCE     ##Like UNDERTAKER-REGISTRY but allow referencing a 'TASK' before it's been registered with UNDERTAKER.task()
+                                 ##Version 2.0.0

@@ -1,0 +1,18 @@
+
+              
+   ASYNC-DONE  
+              
+
+
+
+VERSION ==>                       #2.0.0
+                                  #Abstraction over different ways for a function to be async
+
+ASYNC-DONE(FUNC, FUNC2(ERROR,VAL))#Fires FUNC() right away (with no arguments except potential callback FUNC3).
+                                  #FUNC can:
+                                  #  - throw an ERROR
+                                  #  - return PROMISE: error is PROMISE rejected
+                                  #  - use callback FUNC3([ERROR])
+                                  #  - return STREAM|EVENTEMITTER|REQ|RES|CHILD_PROCESS: using END-OF-STREAM (see its doc)
+                                  #  - return OBSERVABLE: using OBSERVABLE.subscribe()
+                                  #FUNC cannot be sync, i.e. it must be async.

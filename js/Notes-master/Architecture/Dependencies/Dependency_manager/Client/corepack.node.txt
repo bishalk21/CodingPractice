@@ -1,0 +1,51 @@
+
+            
+   COREPACK  
+            
+
+
+
+VERSION ==>                       #0.13.0
+
+INSTALL ==>                       #Either:
+                                  #  - already part of Node.js distribution
+                                  #  - npm install -g corepack
+                                  #     - first, must npm uninstall -g yarn pnpm
+
+MANAGER                           #One of: "npm", "yarn", "pnpm"
+MANAGERX                          #One of: "npm|npx", "yarn[pkg]", "pnpm|pnpx"
+MANAGER[X]V                       #MANAGER[X][@VERSION]
+                                  #VERSION is latest known
+                                  #  - for yarn, it is in Yarn v1
+                                  #  - can use ENVVAR COREPACK_DEFAULT_TO_LATEST=0 to use internal known latest versions,
+                                  #    instead of fetching that information
+MANAGERVV                         #MANAGER@VERSION
+MANAGERVR                         #MANAGER[@RANGE]
+
+COREPACK_HOME                     #~/.cache/node/corepack/ or %LOCALAPPDATA%/node/corepack/
+COREPACK_HOME/MANAGER/VERSION/    #Where MANAGER is cached
+
+corepack prepare MANAGERVR...     #Download MANAGERVR and cache to COREPACK_HOME
+--all                             #Use all possible MANAGERV instead of specifying them
+--activate                        #Write COREPACK_HOME/lastKnownGood.json:
+                                  #  - when present, pins MANAGERV's default versions, instead of using latest
+
+corepack prepare
+--output|-o=FILE.tgz              #Create an archive with MANAGERGVs
+corepack hydrate FILE.tgz         #Like corepack prepare but offline, using a FILE.tgz created by corepack prepare --output
+
+corepack enable [MANAGER...]      #Add symlinks for pnpm|pnpx|yarn|yarnpkg inside the global Node.js binary directory
+                                  #Towards shim files that call: corepack MANAGER ...
+--install-directory=DIR           #Global Node.js binary directory
+
+corepack disable [MANAGER...]     #Remove those symlinks
+--install-directory=DIR           #
+
+corepack MANAGERXV ...            #Same as running MANAGERX ... except run corepack prepare if needed
+
+PACKAGE.packageManager            #'MANAGERVV'
+                                  #In package.json
+                                  #Errors when using corepack ... with a different MANAGER
+                                  #  - except for npx|pnpx|yarn dlx and npm|pnpm init
+                                  #Pins the MANAGER's version
+                                  #Required for corepack prepare

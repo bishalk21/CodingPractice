@@ -1,0 +1,47 @@
+
+                       
+   RANDOM_ACCESS_ARRAY  
+                       
+
+
+
+RANDOM ACCESS ARRAY ==>           #Array where all items have same size.
+                                  #Optimized for random access.
+                                  #Sometimes just called "array", whereas the abstract data type is called "abstract array".
+                                  #Pros:
+                                  #  - optimal space efficiency
+                                  #     - especially when values are small, where other data structures might add pointers for
+                                  #       each value
+                                  #  - great for static data structures
+                                  #  - O(1) access by key
+                                  #  - high locality of reference
+                                  #  - recursive data structure
+                                  #Cons:
+                                  #  - O(n) search by value, insert, delete
+                                  #  - not ordered (but can manually sort)
+                                  #  - not persistent data structure
+
+LAZY DELETION ==>                 #Can delete by setting a null value instead.
+                                  #Pro: O(1) time complexity
+                                  #Con: worst space complexity because of "fragmentation"
+
+INDEX MAP ==>                     #Using a random access array to implement an associate array whose keys are integers.
+                                  #  - as opposed to a regular array, index is conceptually not used as such,
+                                  #    but as a key
+                                  #  - e.g. retrieving name of months by using KEY 1-12
+                                  #Also called "direct addressing" or "trivial hash function"
+
+CIRCULAR BUFFER ==>               #Bounded-size array with:
+                                  #  - a head|write|end pointer:
+                                  #     - where push() adds value, pop() removes value
+                                  #     - incremented on push(), decremented on pop()
+                                  #  - a tail|read|start pointer:
+                                  #     - where shift() removes value, unshift() removes value
+                                  #     - incremented on shift(), decremented on unshift()
+                                  #     - when end pointer passes start pointer:
+                                  #        - i.e. when data is longer than bounded-size array
+                                  #        - can either overwrite data or raise exception
+                                  #  - both pointers rotates to start of array when at the end
+                                  #Is conceptually like an array forming a circle.
+                                  #Used to implement a queue|deque.
+                                  #push(), shift(), head(), pop(), unshift(), peek(): O(1)

@@ -1,0 +1,63 @@
+
+              
+   NODE-FETCH  
+              
+
+
+
+ALTERNATIVES ==>                  #  - Native fetch() in Node.js (>=17.5.0)
+
+VERSION ==>                       #4.0.0-beta.4
+                                  #fetch() polyfill for Node.js
+
+FETCH.fetch|Request|Response|     #Like in browsers, but using HTTP[S].request() under the hood (i.e. HTTP/1.1)
+ Headers                          #Differences are documented below.
+
+NOT SUPPORTED ==>                 #  - REQ.keepalive
+                                  #  - REQ.mode, REQ.credentials, RES.type
+                                  #  - REQ.destination|referrer[Policy]
+                                  #  - REQ.cache
+                                  #  - REQ.integrity
+                                  #  - RES.trailer
+                                  #  - Response.error|redirect()
+                                  #  - 'URL' must be absolute
+                                  #  - only HTTP[S]
+                                  #  - as opposed to web browsers, does not handle: caching, cookies, CORS/CSP
+
+DIFFERENCES ==>                   #ABORT_CONTROLLER must use a ponyfill like the one documented in DOM doc.
+                                  #Note: stream is RSTREAM, not ISTREAM
+
+REQUEST HEADERS ==>               #Most can be overriden:
+                                  #  Connection: close [C] if OPTS.agent null
+                                  #  Content-Type [C]
+                                  #  Content-Length [C]
+                                  #  Accept: */* [C]
+                                  #  Accept-Encoding: gzip, deflate, br [C] if OPTS.compress true
+                                  #  User-Agent: node-fetch (+https://github.com/node-fetch/node-fetch) [C]
+
+EXTRA FEATURES ==>                #fetch() OPTS:
+                                  #  - compress BOOL (def: true): handles gzip|deflate|brotli response body
+                                  #  - size NUM (def: 0, i.e. none): max REQ|RES body size
+                                  #  - follow NUM (def: 20): max number of redirects
+                                  #  - agent AGENT[(URL)] (def: null)
+                                  #  - highWaterMark NUM (def: 16834)
+                                  #  - insecureHTTPParser BOOL (def: false): like HTTP.request()
+                                  #BODY_VAL:
+                                  #  - can be BUFFER, but should prefer RES.arrayBuffer()
+                                  #  - can use formdata-node for FORMDATA
+
+ERRORS =>                         #fetch() promise's ERROR is either:
+                                  #  - TypeError: wrong syntax for URL|headers|body
+                                  #  - AbortError: ABORT_CONTROLLER
+                                  #  - SyntaxError: JSON parsing error during REQ|RES.json()
+                                  #  - FETCH.FetchError:
+                                  #     - message STR
+                                  #     - type|code|errno:
+                                  #        - 'system', 'ECONNREFUSED', 'ECONNREFUSED': network failure
+                                  #        - 'system', 'ECONNRESET': network error
+                                  #        - 'system', 'ENOTFOUND': DNS error
+                                  #        - 'system', 'Z_DATA_ERROR': compression error
+                                  #        - 'max-size': above OPTS.size
+                                  #        - 'max-redirect': above OPTS.follow
+                                  #        - 'no-redirect': OPTS.redirect 'error'
+                                  #        - 'invalid-redirect': response has 3** status code but no Location [S]

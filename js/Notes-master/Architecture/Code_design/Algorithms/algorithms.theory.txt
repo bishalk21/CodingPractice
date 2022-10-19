@@ -1,0 +1,112 @@
+
+              
+   ALGORITHMS  
+              
+
+
+
+QUALITIES ==>                     #Qualities of an algorithm:
+                                  #  - "optimality": best solution is found
+                                  #  - "completeness": all solutions are found
+                                  #  - "accuracy": results are close to solutions
+                                  #  - "precision": results are close to each other
+                                  #  - "complexity"/"efficiency" (see performance doc):
+                                  #     - "parallelism" (see its doc)
+                                  #     - "locality of reference" (see performance doc)
+                                  #  - "persistence" (see state doc)
+
+HEURISTIC ==>                     #Achieving high efficiency by trading off other qualities
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          SUBPROBLEMS          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SUBPROBLEM ==>                    #Subset of input
+
+OPTIMAL SUBSTRUCTURE ==>          #When each subproblem's solution is the optimal solution
+
+OVERLAPPING SUBPROBLEM ==>        #When some subproblems are the same.
+                                  #I.e. memoization can be used
+
+GREEDINESS ==>                    #Way to divide an algorithm into subproblems.
+                                  #Each subproblem is iterately computed then merged:
+                                  #  - each iteration picks candidate ("local optimum")
+                                  #    that gets closer to solution ("global optimum")
+                                  #  - if no candidate, stops
+                                  #  - each iteration does not keep previous individual results
+                                  #Pros:
+                                  #  - can be used even with no optimal substructure
+                                  #     - but in that case, is heuristic, i.e. does not achieve optimality
+                                  #  - sometimes better time complexity
+                                  #  - better memory complexity
+                                  #Cons:
+                                  #  - cannot use overlapping subproblems nor parallelism
+
+RECURSION ==>                     #Way to divide an algorithm into subproblems.
+                                  #All subproblems are computed, then are all merged together.
+                                  #Also called "dynamic programming|optimization"
+                                  #Pros:
+                                  #  - can re-use overlapping subproblems
+                                  #  - can use parallelism
+                                  #Cons:
+                                  #  - only possible if optimal substructure
+                                  #  - worst memory complexity (e.g. stack size)
+                                  #Can be:
+                                  #  - "divide and conquer"/"bottom-up":
+                                  #     - start with subset of input, merged into bigger input
+                                  #     - example: distribution sorts
+                                  #  - "decrease and conquer"/"top-down":
+                                  #     - start with whole input, divided into subsets
+                                  #     - example: binary search
+                                  #     - "prune and search": when doing it with constant factor
+                                  #"Recursive|inductive data structure":
+                                  #  - when subsets of data structures have same properties as superset
+                                  #  - allows efficient recursive algorithms, e.g. merging
+                                  #  - example: array, simply linked list, binary search tree
+                                  #  - couter-example: hash table, doubly linked list, cartesian tree
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           DYNAMISM            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+DYNAMIC ALGORITHM ==>             #When input is changing.
+                                  #Can be:
+                                  #  - "fully dynamic": adding and removing elements
+                                  #  - "incremental algorithm|optimization": only adding elements
+                                  #     - "online algorithm|optimization":
+                                  #        - each new input must compute new solution
+                                  #     - "streaming algorithm":
+                                  #        - new input can defer new solution ("buffering")
+                                  #        - memory is limited (i.e. usually greedy algorithms are used)
+                                  #     - opposite is "offline algorithm"
+                                  #  - "decremental algorithm": only removing elements
+                                  #Opposite is "static algorithm"
+                                  #The word "dynamic" in that sense can also be applied to:
+                                  #  - "dynamic problem"
+                                  #  - "dynamic data structure"
+                                  #     - "dynamization": transforming static data structure into dynamic data structure
+                                  #Note that "dynamic programming" is not the same as "dynamic algorithm"
+                                  #Each new input can be thought as a subproblem:
+                                  #  - i.e. dynamic problems can be solved using greedy or recursive algorithms
+                                  #     - when using a greedy algorithm, might not reach optimality:
+
+COMPETITIVE ANALYSIS ==>          #Calculating complexity cost of online algorithm
+                                  #"Competitive ratio":
+                                  #  - online algorithm complexity divided by related offline algorithm's
+                                  #Uses online algorithm's worst time complexity:
+                                  #  - i.e. each new input is always the worst that could be
+                                  #  - if the algorithm computation is randomized, can calculate random seeds:
+                                  #     - "strong|adaptive offline advisary": all at beginning
+                                  #     - "medium|adaptive online advisary": one input at a time
+                                  #     - "oblivious|weak advisary": not at all
+
+ADAPTIVE ALGORITHM ==>            #When algorithm behavior or qualities changes according to input
+                                  #Example: adaptive sorts

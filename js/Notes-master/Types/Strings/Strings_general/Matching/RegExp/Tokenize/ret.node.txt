@@ -1,0 +1,77 @@
+
+       
+   RET  
+       
+
+
+
+VERSION ==>                       #0.4.2
+                                  #RegExp tokenizer
+                                  #Node/browser
+
+FORMAT ==>                        #Follows JavaScript format
+                                  #Does not handle flags nor modifiers
+                                  #Not the latest additions: \p \P (?<GROUP>) \k<GROUP> (?<=) (?<!)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            METHODS            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+RET('REGEXP')->ROOT               #Parse
+                                  #Throws if invalid REGEXP
+
+RET.reconstruct(TOKEN)->'REGEXP'  #Serialize
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            TOKENS             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TOKEN                             #Base for all tokens
+TOKEN.type                        #One of RET.types.ROOT|GROUP|POSITION|SET|RANGE|REPETITION|REFERENCE|CHAR
+
+ROOT.stack                        #TOKEN_ARR
+                                  #Undefined if ROOT.options is defined
+
+CHAR                              #Specific character, e.g. 'a'
+CHAR.value                        #Unicode codepoint
+
+REPETITION                        #TOKEN*, TOKEN?, TOKEN+, TOKEN{...}
+                                  #Greediness (TOKEN?? TOKEN+?, etc.) is a REPETITION with another REPETITION2 as a child
+REPETITION.value                  #TOKEN
+REPETITION.min|max                #NUM
+                                  #* is 0|Infinity
+                                  #? is 0|1
+                                  #+ is 1|Infinity
+                                  #{[NUM][,][NUM2]} is NUM|NUM2 (including Infinity)
+
+SET                               #[...]
+                                  #Also . (converted to [^\n\r\u2028\u2029])
+                                  #Also \w \W \s \S \d \D (converted as well)
+SET.not                           #BOOL. True if [^...]
+SET.set                           #TOKEN_ARR
+
+RANGE                             #[CHAR-CHAR2]
+                                  #Child of SET
+RANGE.from|to                     #Unicode codepoint
+
+GROUP                             #(...)
+GROUP.stack                       #TOKEN_ARR
+GROUP.remember                    #BOOL. false if (?:...)
+GROUP.followedBy                  #BOOL. true if (?=...)
+GROUP.notFollowedBy               #BOOL. true if (?!...)
+
+ROOT|GROUP.options                #TOKEN|... as TOKEN_ARR_ARR
+
+POSITION                          #^ $ \b \B
+POSITION.value                    #'^'|'$'|'b'\'B'
+
+REFERENCE                         #\1 \2 ...
+REFERENCE.value                   #NUM

@@ -1,0 +1,62 @@
+
+           
+   CI-INFO  
+           
+
+
+
+ALTERNATIVES ==>                  #See env-ci
+
+VERSION ==>                       #3.3.2
+                                  #Detects which is the current CI
+                                  #Do it by checking process.env
+
+SUPPORTED CI ==>                  #The following list is name (CI-SHORT-NAME) detection isPR:
+                                  #  - AppCircle              (APPCIRCLE)   ENV.AC_APPCIRCLE
+                                  #  - AppVeyor               (APPVEYOR)    ENV.APPVEYOR                    ENV.APPVEYOR_PULL_REQUEST_NUMBER
+                                  #  - AWS CodeBuild          (CODEBUILD)   ENV.CODEBUILD_BUILD_ARN
+                                  #  - Azure Pipelines        (AZURE_PIPELINES) ENV.SYSTEM_TEAMFOUNDATIONCOLLECTIONURI ENV.SYSTEM_PULLREQUEST_PULLREQUESTID
+                                  #  - Bamboo                 (BAMBOO)      ENV.bamboo_planKey
+                                  #  - Bitbucket Pipelines    (BITBUCKET)   ENV.BITBUCKET_COMMIT            ENV.BITBUCKET_PR_ID
+                                  #  - Bitrise                (BITRISE)     ENV.BITRISE_IO                  ENV.BITRISE_PULL_REQUEST
+                                  #  - Buddy                  (BUDDY)       ENV.BUDDY_WORKSPACE_ID          ENV.BUDDY_EXECUTION_PULL_REQUEST_ID
+                                  #  - Buildkite              (BUILDKITE)   ENV.BUILDKITE                   ENV.BUILDKITE_PULL_REQUEST (not 'false')
+                                  #  - CircleCI               (CIRCLE)      ENV.CIRCLECI                    ENV.CIRCLE_PULL_REQUEST
+                                  #  - Cirrus CI              (CIRRUS)      ENV.CIRRUS_CI                   ENV.CIRRUS_PR
+                                  #  - Codefresh              (CODEFRESH)   ENV.CODEFRESH                   ENV.CF_PULL_REQUEST_NUMBER|ID
+                                  #  - Codeship               (CODESHIP)    ENV.CI_NAME === 'codeship'
+                                  #  - Drone                  (DRONE)       ENV.DRONE                       ENV.DRONE_BUILD_EVENT 'pull_request'
+                                  #  - dsari                  (DSARI)       ENV.DSARI
+                                  #  - Expo                   (EAS)         ENV.EAS_BUILD
+                                  #  - GitHub actions         (GITHUB_ACTIONS) ENV.GITHUB_ACTIONS           ENV.GITHUB_EVENT_NAME 'pull_request'
+                                  #  - GitLab CI              (GITLAB)      ENV.GITLAB_CI                   ENV.CI_MERGE_REQUEST_ID
+                                  #  - GoCD                   (GOCD)        ENV.GO_PIPELINE_LABEL
+                                  #  - Hudson                 (HUDSON)      ENV.HUDSON_URL
+                                  #  - Jenkins                (JENKINS)     ENV.JENKINS_URL && ENV.BUILD_ID ENV.ghprbPullId|CHANGE_ID
+                                  #  - Layer CI               (LAYERCI)     ENV.LAYERCI                     ENV.LAYERCI_PULL_REQUEST
+                                  #  - Magnum CI              (MAGNUM)      ENV.MAGNUM
+                                  #  - Netlify CI             (NETLIFY)     ENV.NETLIFY                     ENV.PULL_REQUEST (not 'false')
+                                  #  - Nevercode              (NEVERCODE)   ENV.NEVERCODE                   ENV.NEVERCODE_PULL_REQUEST (not 'false')
+                                  #  - Render CI              (RENDER)      ENV.RENDER                      ENV.IS_PULL_REQUEST 'true'
+                                  #  - Sail CI                (SAIL)        ENV.SAILCI                      ENV.SAIL_PULL_REQUEST_NUMBER
+                                  #  - Screwdriver CD         (SCREWDRIVER) ENV.SCREWDRIVER                 ENV.SD_PULL_REQUEST (not 'false')
+                                  #  - Semaphore              (SEMAPHORE)   ENV.SEMAPHORE                   ENV.PULL_REQUEST_NUMBER
+                                  #  - Shippable              (SHIPPABLE)   ENV.SHIPPABLE                   ENV.IS_PULL_REQUEST 'true'
+                                  #  - Strider CD             (STRIDER)     ENV.STRIDER
+                                  #  - TaskCluster            (TASKCLUSTER) ENV.TASK_ID && ENV.RUN_ID
+                                  #  - TeamCity               (TEAMCITY)    ENV.TEAMCITY_VERSION
+                                  #  - Travis CI              (TRAVIS)      ENV.TRAVIS                      ENV.TRAVIS_PULL_REQUEST (not 'false')
+                                  #  - Vercel                 (VERCEL)      ENV.NOW_BUILDER
+                                  #  - Visual Studio AppCenter (APPCENTER)  ENV.APPCENTER                   ENV.APPCENTER_BUILD_ID
+
+CI-INFO.isCI                      #BOOL. If process.env in above list, or process.env.CI|CONTINUOUS_INTEGRATION|BUILD_NUMBER|RUN_ID
+CI-INFO.name                      #Name 'CI-NAME' of current CI. Undefined if none
+CI-INFO.CI-SHORT-NAME             #BOOL
+CI-INFO.isPR                      #BOOL if it is a pull request
+
+
+IS-CI ==>                         #Version 3.0.1
+
+IS-CI                             #Reference to CI-INFO.isCI
+                                  #Consider using is-interactive (see its doc) instead
+is-ci                             #Binary with exit code 0|1

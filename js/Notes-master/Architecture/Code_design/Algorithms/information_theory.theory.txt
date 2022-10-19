@@ -1,0 +1,34 @@
+
+                      
+   INFORMATION THEORY  
+                      
+
+
+
+MESSAGE ==>                       #Message vs signal:
+                                  #  - sent message is before encoding
+                                  #  - sent signal is after encoding
+                                  #  - received signal is before decoding
+                                  #  - received message is after decoding
+
+CHANNEL ==>                       #Way of communicating information from a source to a destination
+                                  #Can have noise, i.e. modify signals
+                                  #A channel has a unit (e.g. the bit)
+
+PROCESSING ==>                    #Data encoding is translating a signal from one channel to another
+                                  #Other possible processing:
+                                  #  - FEC (forward error correction) channel coding: reduce impact of noise
+                                  #  - compression / source coding: reduce size
+                                  #  - cryptography: message confidentiality, integrity, authenticity
+                                  #  - steganography: channel confidentiality
+
+ENTROPY ==>                       #Information quantity.
+                                  #Message meaning does not matter.
+
+HAMMING DISTANCE ==>              #Number of different symbols (depending on units, e.g. characters) between two strings.
+
+HAMMING WEIGHT ==>                #Hamming distance between a string and a null string (i.e. filled with null symbols,
+                                  #e.g. 0 in binary)
+
+LEVENSHTEIN DISTANCE ==>          #Number of single-symbol modifications (insertion, deletion or substitution) to do to go from
+                                  #one string to another.

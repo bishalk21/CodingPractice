@@ -1,0 +1,109 @@
+
+                         
+   UNICODE_LANGUAGE_TAGS  
+                         
+
+
+
+LANGUAGE TAGS ==>                 #Are locale extra options
+
+CALENDAR ==>                      #Short "ca"
+                                  #Can be 'buddhist', 'chinese', 'coptic', 'dangi', 'ethioaa|ethiopic-amete-alem', 'ethiopic',
+                                  #'gregory|gregorian', 'hebrew', 'indian', 'islamic[-umalqura|tbla|civil|rgsa]', 'iso8601',
+                                  #'japanese', 'persian', 'roc'
+
+FIRST DAY OF WEEK ==>             #Short "fw"
+                                  #Can be "sun", "mon", "tue", "wed", "thu", "fri", "sat"
+
+HOUR CYCLE ==>                    #Short "hc"
+                                  #Can be "h12" (1-12), "h11" (0-11), "h24" (1-24), "h23" (0-23)
+
+CURRENCY ==>                      #Short "cu"
+                                  #Three letter codes ISO-4217 or "xxx" for unknown
+
+CURRENCY FORMAT ==>               #Short "cf"
+                                  #How negative numbers are shown
+                                  #Can be "standard" (minus sign) or "account" (parenthesis)
+
+TIMEZONE ==>                      #Short "tz"
+                                  #5 characters timezone or "ZONE/CITY"
+
+NUMBERS ==>                       #Short "nu"
+                                  #  - "arabtext": normal one
+                                  #  - "roman[low]": uppercase|lowercase roman numbers
+                                  #  - "adlm", "ahom", "arab", "armn", "armnlow", "bali", "beng", "bhks", "brah",
+                                  #    "cakm", "cham", "cyrl", "deva", "ethi", "finance", "fullwide", "geor", "gonm", "grek",
+                                  #    "greklow", "gujr", "guru", "hanidays", "hanide", "hans", "hansfin", "hant", "hantfin",
+                                  #    "hebr", "hmng", "java", "jpan", "jpanfin", "kali", "khmr", "knda", "lana", "lanatham",
+                                  #    "laoo", "latn", "lepc", "limb", "mathbold", "mathdbl", "mathmono", "mathsanb", "mathsans",
+                                  #    "mlym", "modi", "mong", "mroo", "mtei", "mymr", "mymrshan", "mymrtlng", "native", "newa",
+                                  #    "nkoo", "olck", "orya", "osma", "saur", "shrd", "sind", "sinh", "sora",
+                                  #    "sund", "takr", "talu", "taml", "tamldec", "telu", "thai", "tirh", "tibt", "traditio[nal]",
+                                  #    "vaii", "wara"
+
+COLLATION ==>                     #Short "co"
+                                  #Can be:
+                                  #  - "standard": default one
+                                  #  - "compat": previous default one
+                                  #  - "emoji": for emojis
+                                  #  - "search": make similar looking characters equal, for string searches
+                                  #  - "eor": Latin, Greek and Cyrillic alphabets
+                                  #  - "big5han", "dict[ionary]", "ducet",
+                                  #    "gb2312[han]", "phoneb[oo]k", "phonetic", "pinyin",
+                                  #    "reformed", "searchjl", "stroke", "trad[itional]", "unihan"
+
+COLATERNATE ==>                   #Short "ka"
+                                  #Can be "noignore|noignorable" or "shifted"
+
+COLBACKWARDS ==>                  #Short "kb"
+                                  #Can be "true|yes" or "false|no"
+
+COLCASELEVEL ==>                  #Short "kc"
+                                  #Whether collation is case-sensitive.
+                                  #Can be "true|yes" or "false|no"
+
+COLCASEFIRST ==>                  #Short "kf"
+                                  #Whethere collation should sort uppercase first ("upper"), last ("lower") or not care
+                                  #("false|no")
+
+COLNORMALIZATION ==>              #Short "kk"
+                                  #Whether should normalized to NFD before collation.
+                                  #Can be "true|yes" or "false|no"
+
+COLNUMERIC ==>                    #Short "kn"
+                                  #Whether numbers should be sorted by whole number ("true|yes") or by digit ("false|no")
+
+COLREORDER ==>                    #Short "kr"
+                                  #Can be "space", "punct", "symbol", "currency", "digit" or others
+
+COL ALTERNATE SHIFT ==>           #Short "kv"
+                                  #Can be "space", "punct", "symbol", "currency"
+
+COLSTRENGTH ==>                   #Short "ks"
+                                  #Can be "level1|primary", "level2|secondary", "level3|tertiary", "level4|qua[r]ternary" or "identic[al]"
+
+EMOJI ==>                         #Short "em"
+                                  #Whether Emojis should be displayed in images ("emoji"), "text" or "default"
+
+LINE BREAK ==>                    #Short "lb"
+                                  #Can be "strict", "normal" or "loose" (like CSS property line-break)
+
+WORD BREAK ==>                    #Short "wb"
+                                  #Can be "normal", "breakall" or "keepall" (like CSS property word-break)
+
+SENTENCE BREAK ==>                #Short "sb"
+                                  #Can be "none" or "standard"
+
+MEASURE ==>                       #Short "ms"
+                                  #Can be "metric", "ussystem", "uksystem|imperial"
+
+ALTERNATE REGION ==>              #Short "rg"
+                                  #Mixes two locales together
+                                  #Country code followed by "zzzz"
+
+ALTERNATE SUBREGION ==>           #Short "sd"
+                                  #Sub-locale
+                                  #Region code followed by "sct"
+
+VARIANT ==>                       #Short "va"
+                                  #Can be "posix"

@@ -1,0 +1,67 @@
+
+        
+   KEYV  
+        
+
+
+
+VERSION ==>                       #4.4.0
+
+new Keyv(['URI'][, OPTS])         #Key-value database abstraction layer
+                                  #OPTS:
+                                  #  - store STORE
+                                  #     - def: use either:
+                                  #        - OPTS.adapter 'MODULE' -> new (require('MODULE'))(OPTS)
+                                  #           - only for supported stores '@keyv/*'
+                                  #        - same but using 'PROTO' from OPTS.uri 'PROTO:URI'
+                                  #  - uri 'URI'
+                                  #     - database URI
+                                  #  - namespace 'NAMESPACE' (def: 'keyv')
+                                  #     - prefixed to every 'KEY' as 'NAMESPACE:KEY'
+                                  #  - serialize(VAL)->STR (def: JSON.stringify() which also handles BUFFER)
+                                  #  - deserialize(STR)->VAL (def: JSON.parse() which also handles BUFFER)
+                                  #  - compress OBJ:
+                                  #     - call brotli on [de]serialize()
+                                  #     - OBJ.opts are options to compress-brotli
+                                  #  - ttl NUM (in ms): default TTL for KEYV.set()
+                                  #  - emitErrors BOOL (def: true): emit 'error' event
+KEYV.get('KEY'[_ARR][, OPTS])     #OPTS:
+ ->PROMISE_VAL[_ARR]              #  - raw BOOL: if true (def), get OBJ instead of OBJ.value
+KEYV.set('KEY', VAL[, NUM])
+ ->PROMISE                        #NUM is TTL
+KEYV.has('KEY')->PROMISE_BOOL     #
+KEYV.delete('KEY'[_ARR])->PROMISE #
+KEYV.clear()->PROMISE             #
+KEYV.iterator(['NAMESPACE'])
+ ->ASYNC_ITERATOR                 #
+KEYV.disconnect()->PROMISE        #
+
+STORE                             #MAP. Store adapter
+
+STORE.namespace                   #Set to OPTS.namespace
+KEYV|STORE.on('error',FUNC(ERROR))#ERROR on STORE are propagated to KEYV
+
+STORE.get('KEY')                  #OBJ:
+ ->[PROMISE_]'OBJ'|OBJ            #  - expires TIMESTAMP_NUM (in ms): call STORE.delete('KEY') if past it
+                                  #  - value VAL: value passed to user
+                                  #  - anything else custom
+STORE.getMany('KEY'_ARR)
+ ->[PROMISE_]'OBJ'|OBJ_ARR        #
+STORE.set('KEY', 'OBJ',
+ TIMESTAMP_NUM|null)[->PROMISE]   #OBJ has properties: expires, value
+STORE.has('KEY')->[PROMISE_]BOOL  #
+STORE.delete('KEY')[->PROMISE]    #
+STORE.deleteMany('KEY'_ARR)
+ [->PROMISE]                      #
+STORE.clear()[->PROMISE]          #
+
+OTHER AVAILABLE STORES ==>        #  - new Map(): in-memory, no limit
+                                  #  - quick-lru (see its doc): in-memory, LRU limit
+                                  #  - keyv-file: in filesystem
+                                  #  - @keyv/redis
+                                  #  - @keyv/mongo
+                                  #  - @keyv/sqlite
+                                  #  - @keyv/postgres
+                                  #  - @keyv/mysql
+                                  #  - @keyv/tiered
+                                  #Not documented yet (do it when I use them)

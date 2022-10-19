@@ -1,0 +1,41 @@
+
+             
+   DEEPMERGE  
+             
+
+
+
+ALTERNATIVES ==>              #  - deepmerge (preferred)
+                              #  - merge-deep: not maintained
+                              #  - raynos deep-merge: not maintained
+
+VERSION ==>                   #4.2.2
+
+DEEPMERGE(VAL, VAL2[, OPTS])  #Deep merge.
+ ->VAL3                       #OPTS:
+                              #  - clone BOOL (def: true):
+                              #     - deep cloning
+                              #     - VAL|VAL2 are never mutated
+                              #  - arrayMerge(ARR, ARR2, OPTS)
+                              #     - by def: concatenates
+                              #     - only called if both values are ARR. Otherwise the right-side prevails.
+                              #  - customMerge('KEY')[->FUNC(VAL, VAL2, OPTS)->VAL3] (def: DEEPMERGE):
+                              #     - nested merges
+                              #     - uses default (DEEPMERGE) if returning undefined
+                              #  - isMergeableObject(VAL)->BOOL
+                              #     - decide whether to recurse
+                              #     - def: is-mergeable-object (see its doc), i.e. is OBJ|ARR but not REGEXP|DATE
+                              #Use enumerable own keys (including for SYMs).
+                              #If arguments:
+                              #  - ARR + non-ARR -> non-ARR
+                              #  - non-ARR + ARR -> ARR
+                              #  - ARR + ARR2 -> arrayMerge()
+                              #  - any + undefined|null -> throws
+                              #  - non-OBJ + non-OBJ -> empty OBJ
+                              #  - non-OBJ + OBJ -> OBJ
+                              #  - OBJ + non-OBJ -> OBJ
+                              #  - OBJ + OBJ2 -> deep merge
+                              #Therefore, should only call when VAL|VAL2 are both OBJ|ARR
+
+DEEPMERGE.all(OBJ_ARR[, OPTS])
+ ->OBJ3                       #Like DEEPMERGE(...OBJ, OPTS)

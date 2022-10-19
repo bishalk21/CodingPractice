@@ -1,0 +1,383 @@
+
+         
+   GRUNT  
+         
+
+
+
+ALTERNATIVES ==>              #See Gulp
+
+VERSION ==>                   #Grunt 0.4.5
+                              #Grunt-cli 0.1.13 (02/06/2015)
+
+INSTALLATION ==>              #Need to install:
+                              #  - grunt-cli globally
+                              #  - grunt/grunt plugins locally (and add them as devDependencies in package.json)
+                              #grunt-cli will create the grunt binary, which will require() the local grunt
+                              #Should install grunt and grunt plugins
+
+IN SHORT ==>                  #Example Gruntfile.js:
+                              #   module.exports = function(grunt) {
+                              #     grunt.config.init({ //Anywhere use <%= pkg.name %>, <%= grunt.template.today() %>, etc.
+                              #       pkg: GRUNT.file.readJSON( "package.json" ),
+                              #       PLUGIN: {
+                              #         options: { ... },
+                              #         TARGET: {
+                              #           src: GPATH,
+                              #           dest: PATH
+                              #         }...
+                              #       }
+                              #     });
+                              #     grunt.task.loadNpmTasks( "PLUGIN" ); ... //Creates "TASK2"
+                              #     grunt.task.registerTask("TASK", "TASK2"_ARR); ...
+                              #   }
+                              #Then run with grunt "TASK"[:TARGET]
+                              #To include own tasks:
+                              #  - create tasks/*.js as Node module FUNC(GRUNT), firing GRUNT.task.register[Multi]Task(...),
+                              #    where TASK_FUNC() can use this.* to look up configuration
+                              #  - then put grunt.task.loadTasks("tasks") in Gruntfile.js
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             MAIN              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+grunt [TASK[:TARGET][:ARG...]]#Read ./Gruntfile.js and executes GRUNT.task.run(...)
+...                           #Déf. TASK is "default".
+                              #Exit code: 0 (no error), 1 (fatal error), 2 (missing Gruntfile.js), 3 (TASK error),
+                              #4 ("GEXP" error), 5 (autocompletion error), 6 (warning)
+-h                            #Show available tasks
+--base DIR                    #Specify $PWD
+--no-color
+--no-write                    #Dry run
+GRUNT.option(STR[, VAL])      #Get/set command line options in JavaScript.
+                              #--OPTION sets to true, --no-OPTION to false.
+GRUNT.option.flags()          #Returns command line options as STR_ARR, e.g. [ "--OPTION" ]
+
+--completion=bash             #Outputs TASK (not TARGET) completion Bash code.
+                              #Should put eval "$( grunt --completion=bash )" in .bashrc
+
+Gruntfile.js                  #Config file.
+                              #Should be at package root dir (can be specified with grunt --gruntfile FILE)
+                              #Is a node module file defining module FUNC(GRUNT)
+
+require("grunt")              #Using GRUNT as a Node module.
+                              #It actually is not working very well, but the idea would be:
+                              #  var grunt = require( "grunt" );
+                              #  require( "./Gruntfile.js" )( grunt );
+                              #  grunt.tasks( "TASK"_ARR ); //Exits Node
+
+grunt-contrib-watch          ##Grunt plugin (0.6.1) for file watching.
+                             ##  - TASK "watch"
+                             ##  - TARGET src: files to watch
+                             ##  - TARGET_OBJ.tasks "TASK"[_ARR]: task to trigger
+                             ##  - options:
+                             ##     - spawn BOOL: if true (def), spawns a child process
+                             ##     - interrupt BOOL (def: false): if true, new spawn interrupts previous one
+                             ##     - debounceDelay NUM (def: 500)
+                             ##     - interval NUM (def: 100)
+                             ##     - event STR_ARR among "all" (def), "changed|added|deleted"
+                             ##     - atBegin BOOL (def: false): if true, triggers at startup
+                             ##     - livereload OBJ|BOOL|NUM: starts a livereload server at port OBJ.port, NUM or 35729
+                             ##       (if true). Can also use OBJ.key|cert STR for HTTPS.
+                             ##     - livereloadOnError BOOL (def: true): if false, no livereload if a task failed
+                             ##     - cwd OBJ|DIR: with OBJ: files (for src) and spawn (where tasks are spawned)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           GRUNTCONF           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+TARGETFILES ==>               #Set of src and dest files of a TASK.
+                              #There can be several TARGETFILES for a TASK, in which case it is performed several times.
+                              #Retrieved by tasks using this.files
+                              #src use GPATH:
+                              #  - Bash extended globbing + brace expansion
+                              #  - as GPATH_ARR, "!GPATH" will exclude files instead of adding them
+
+GRUNT.config.init(GRUNTCONF)  #OBJ with members that are read by GRUNT.config()
+                              #Plugins configuration.
+                              #Often used members:
+                              #  - any VAR
+                              #  - pkg: GRUNT.file.readJSON("package.json")
+                              #  - TASK_OBJ: Options and targets of a TASK.
+                              #    Has members:
+                              #     - options OBJ: conf for all targets
+                              #     - TARGET_OBJ: Options and set of files of a TASK.
+                              #       Has members:
+                              #        - options OBJ: conf for this target
+                              #        - files TARGETFILES[_ARR]
+                              #          Can also be { SRC_GPATH: DEST_GPATH }.
+                              #          TARGETFILES has members:
+                              #           - src GPATH[_ARR]
+                              #           - dest PATH[_ARR]: if no dest, can use TASK_OBJ|TARGET_OBJ GPATH[_ARR] directly
+                              #             instead of TARGET_OBJ.src GPATH[_ARR]
+                              #           - filter STR|FUNC("PATH")->BOOL: removes files from src returning false to argument:
+                              #              - STR can be "isFile|Directory|Block|CharacterDevice|FIFO|Socket|SymbolicLink"
+                              #           - all options to require("glob")
+                              #           - nonull BOOL: if true, gives warning if src file does not exist
+                              #           - expand BOOL:
+                              #              - make current TARGETFILE generates several TARGETFILE
+                              #              - Existing/new TARGETFILES members are used with this meaning:
+                              #                 - src GPATH[_ARR]: generate one TARGETFILE for each src file
+                              #                 - cwd DIR: is also appended to the generated src files
+                              #                 - dest DIR: destination DIR, not file.
+                              #                   Destination filenames are same as GPATH, after transformation induced by
+                              #                   following members (done after GPATH globbing has been performed)
+                              #                 - flatten BOOL: if true (déf: false), removes dirname from GPATH
+                              #                 - ext STR: replace extension
+                              #                   If it creates several src with same dest, groupped them together into one
+                              #                   TARGETFILE
+                              #                 - extDot "first|last" (déf: "first"): when extension begins (which dot)
+                              #                 - rename FUNC(destDIR, FILENAME, TARGET_OBJ.options)->STR:
+                              #                   Otherwise dest will be destDIR + FILENAME.
+GRUNT.config.merge(GRUNTCONF2)#Merges into current GRUNTCONF
+GRUNT.config.data             #Returns GRUNTCONF
+GRUNT.config.get[Raw]         #Returns GRUNTCONF.VARR
+("VARR"[_ARR])                #If not ARR, VAR containing . must escape it with \\.
+                              #Can do it with GRUNT.config.escape(STR)
+                              #If not Raw, processes "GEXP"
+GRUNT.config.set(STR|ARR,VAL) #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           TEMPLATES           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+"GEXP" ==>                    #Parsed by __.template("GEXP", GRUNTCONF) recursively, where GRUNTCONF also can use:
+                              #  - this (global object)
+                              #  - grunt.* GRUNT.*
+                              #Uses grunt.config.process("GEXP")->STR
+
+GRUNT.template.date(INT[,STR])#Prints a DATE, where STR is date format and INT ms since Epoch.
+GRUNT.template.today([STR])   #Same with now
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             TASK              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+
+GRUNT.task.run                #Executes the TASK_FUNC associated to "TASK":
+("TASK[:TARGET]               #  - pass ARGS... to TASK_FUNC
+[:ARG1[:ARG2...]]"[_ARR])     #  - TASK_FUNC this OBJ:
+                              #     - name "TASK"
+                              #     - nameArgs "TASK"[:ARGS...]
+                              #     - args "ARG"_ARR
+                              #     - flags { ARG: true ... }
+                              #     - async(): returns FUNC2(), which should be called to specify async. function has
+                              #       executed
+                              #     - options([OBJ]): returns TASK_OBJ.options
+                              #       If OBJ, concatenate OBJ too (doesn't have priority)
+                              #     - errorCount: number of times GRUNT.log.error() was called in TASK_FUNC
+                              #  - a multiTASK is a TASK_FUNC that has targets:
+                              #     - uses "TARGET". If none, TASK_FUNC is fired for each possible target.
+                              #     - can use those extra members in OBJ this (retrieved from GRUNTCONF):
+                              #        - target "TARGET"
+                              #        - data TARGET_OBJ (prefer using this.files and this.options)
+                              #        - files: TARGETFILES_ARR after globbing, etc. expansion, as OBJ_ARR, with members:
+                              #           - src: STR_ARR
+                              #           - dest: STR[_ARR]
+                              #           - orig: original TARGETFILES
+                              #        - filesSrc: STR_ARR concatenating all the this.files.src
+                              #          To use in tasks that only care about src, not dest.
+                              #        - options([OBJ]): like above but concatenate of TASK_OBJ.options and TARGET_OBJ.options
+                              #  - this is also available as GRUNT.task.current (to use in "GEXP")
+                              #  - a task can fail:
+                              #     - by:
+                              #        - returning false (sync), or call FUNC2(false|ERROR) (async), or by throwing exception
+                              #        - grunt.[fail.]warn|fatal(STR|ERROR[, UINT]):
+                              #           - same but more advanced
+                              #           - with command line --stack, will print stack
+                              #           - with command line --force, will not stop task (warn only)
+                              #           - UINT is exit code (see above)
+                              #     - those functions throw if test fails:
+                              #        - GRUNT.task.requires("TASK"): throws if "TASK" failed or was not run
+                              #        - GRUNT.config.requires(STR|ARR...): throws if GRUNT.config.get(STR|ARR) null|undefined
+                              #          Also available as this.requiresConfig(STR|ARR...)
+                              #  - can check GRUNT.task.exists("TASK")
+                              #  - should use utility functions grunt.log.* and grunt.file.*
+
+GRUNT.task.
+register[Multi]Task
+("TASK"[, STR2 ],
+TASK2[_STR|FUNC][_ARR])       #Creates a [Multi]"TASK" (description STR2) executing TASK2[_ARR]
+GRUNT.task.renameTask
+("TASK", "TASK2")             #Changes "TASK" to "TASK2"
+
+GRUNT.task.loadTasks("DIR")   #Executes all JavaScript files in DIR (don't read files already read before) (usually "tasks/")
+                              #Set this.grunt GRUNT when executing those files.
+                              #Files should create tasks with GRUNT.register[Multi]Task()
+                              #Can also use grunt --tasks DIR on the command line instead.
+GRUNT.task.                   #Same but with node_modules/PLUGIN/tasks/, and JavaScript files must be Node modules, that are
+loadNpmTasks("PLUGIN")        #passed GRUNT as argument:
+                              #  module.exports = function(grunt) { ... }
+                              #"TASK" is usually different from "PLUGIN".
+                              #Can also use grunt --npm PLUGIN on the command line instead.
+LOAD-GRUNT-TASKS(GRUNT[, OBJ])##Node module (3.2.0) that does several GRUNT.task.loadNpmTasks("PLUGIN") according to OBJ:
+                              ## - config FILE (def: nearest "package.json")
+                              ## - scope STR[_ARR] (def: [ "[dev|peer|optional]dependencies" ])
+                              ## - pattern GPATH_ARR (def: [ "grunt-*", "@*/grunt-*" ])
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             FILE              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+PWD ==>                       #Should not change it in a Grunt plugin.
+
+GRUNT.file.defaultEncoding    #Déf: "utf8", null for BUFFER
+                              #Can also use GRUNT.file.read[JSON|YAML]|write() OBJ.encoding
+
+GRUNT.file.read(PATH[, OBJ])  #Returns file as STR.
+GRUNT.file.readJSON(STR[,OBJ])#Same but use JSON.parse() and returns as OBJ
+GRUNT.file.readYAML(STR[,OBJ])#Same for YAML
+GRUNT.file.write(PATH,        #
+STR|BUFFER[, OBJ])            #Creates intermediary directories if needed.
+
+GRUNT.file.copy(PATH, PATH2   #Creates intermediary directories if needed.
+[, OBJ])                      #OBJ has members:
+                              #  - process FUNC(STR)->STR: modify content
+                              #  - noProcess GPATH[_ARR]: don't use process FUNC if GRUNT.file.isMatch(GPATH[_ARR])
+GRUNT.file.delete(PATH[, OBJ])#Erases files/folders recursively.
+                              #To erase outside $PWD, use OBJ.force true
+GRUNT.file.mkdir(PATH[, MODE])#Like mkdir -p. MODE is umask by def
+
+GRUNT.file.exists(PATH...)    #If several PATH... use Node PATH.join()
+GRUNT.file.isLink|Dir|File
+(PATH...)                     #
+GRUNT.file.isPathAbsolute
+(PATH...)                     #
+GRUNT.file.arePathsEquivalent
+(PATH...)                     #
+GRUNT.file.doesPathContain
+(PATH, PATH2...)              #Does not check for existence
+GRUNT.file.isPath[In]Cwd
+(PATH...)                     #
+GRUNT.file.setBase(PATH...)   #Change $PWD
+GRUNT.file.recurse(ROOTDIR,
+FUNC(WHOLEPATH, ROOTDIR,
+SUBDIR, FILENAME))            #Fires FUNC() on all files in ROOTDIR, recursively (excluding ROOTDIR)
+
+GRUNT.file.match([OBJ, ]      #Returns STR matching GPATH[_ARR] as STR2_ARR
+GPATH[_ARR], STR_ARR)         #OBJ are same options as require("minimatch")
+GRUNT.file.isMatch(...)       #Same but returns BOOL if any STR matches.
+GRUNT.file.expand([OBJ, ]     #Same as GRUNT.file.match(), but:
+GPATH[_ARR])                  #  - on files according to current directories
+                              #  - OBJ also has members filter and cwd (like in GRUNTCONF)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:              LOG              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+GRUNT.log.write[ln](STR[,STR])#Same as Node format(). If ln, appends a newline.
+GRUNT.log.ok|error[lns]
+(STR[, STR2])                 #Same but with semantics (and different output): passed|failed action.
+GRUNT.log.subhead|header|fail|
+warn(STR[, STR2])             #Same but for a header (put in bold), header (underlined), fail, warnings.
+GRUNT.log.debug(STR[, STR2])  #Same but for a debugging message. Only printed if --debug is used.
+GRUNT.log.writeflags
+(OBJ[, STR])                  #Same but for an OBJ (e.g. parameters). STR is the start of the output (déf: "Flags")
+GRUNT.verbose.*               #Like GRUNT.log.*, but only print if --verbose is used
+
+GRUNT.log.wraptext(UINT, STR) #Wrap text with newlines, watching out for wordbreaks, and returns as STR.
+                              #GRUNT.log.ok|error|subhead|writeflags|debug() are truncated after 80 chars otherwise.
+                              #GRUNT.log.ok|errorlns() use GRUNT.lod.wraptext() by default
+GRUNT.log.wordlist(ARR[, OBJ])#Returns ARR as STR, by putting OBJ.separators (déf: ", ") and OBJ.color (déf: "cyan", false for
+                              #no color).
+GRUNT.log.uncolor(STR)        #Returns STR without color codes.
+GRUNT.log.table(UINT_ARR,
+STR_ARR)                      #Returns STR_ARR as if each STR was in a column of width UINT
+
+
+grunt-init [DIR]              #Scaffolding tool (not as good as Yeoman)
+                              #To install with Node globally
+                              #If DIR relative path, relative to ~/.grunt-init/
+                              #Example templates are available as Node module usually called "grunt-init-*"
+                              #Populates current directory.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        COMMON PLUGINS         :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+grunt-contrib-clean         ##Grunt plugin (0.6.0) that does rm -R
+                            ##  - TASK "clean"
+                            ##  - TARGET: src GPATH_ARR
+                            ##  - options:
+                            ##     - force BOOL: if false (def), prevents rm -R outside $PWD
+                            ##     - no-write BOOL: if true, dry-run
+
+grunt-contrib-concat        ##Grunt plugin (0.5.1) that concatenates files
+                            ##  - TASK "concat"
+                            ##  - TARGET src, dest
+                            ##  - options:
+                            ##     - separator (def: "\n"): should be ";" or ";\n" if minified
+                            ##     - banner|footer STR: can use "GEXP"
+                            ##     - stripBanners VAL (def: false): remove comments:
+                            ##        - { line true ... }: //... from beginning of line
+                            ##        - { block true ... }: /* */
+                            ##        - true: /* */, except /*! */
+                            ##     - process VAL (def: false):
+                            ##        - true: can use "GEXP"
+                            ##        - OBJ: can use "GEXP", but with OBJ instead of GRUNTCONF
+                            ##        - FUNC(STR, "PATH")->STR: modify content
+                            ##     - sourceMap BOOL (def: false)
+                            ##     - sourceMapName STR[("PATH")]
+                            ##     - sourceMapStyle "embed" (def), "link" or "inline"
+
+grunt-contrib-copy          ##Grunt plugin (0.8.0) that copies files (not dirs)
+                            ##  - TASK "copy"
+                            ##  - TARGET src, dest
+                            ##  - options:
+                            ##     - process(STR, "PATH")->STR: modify content
+                            ##     - noProcess GPATH[_ARR]
+                            ##     - encoding STR (def: GRUNT.file.defaultEncoding)
+                            ##     - mode STR or true (def), i.e. same: file permissions
+                            ##     - timestamp BOOL (def: false): if true, keep atime|mtime (not with process())
+
+grunt-contrib-symlink       ##Grunt plugin (0.3.0) that symlinks:
+                            ##  - TASK "symlink"
+                            ##  - TARGET src, dest
+                            ##  - options:
+                            ##     - overwrite BOOL (def: false)
+                            ##     - force BOOL (def: false): to overwrite outside current directory
+
+grunt-contrib-compress      ##Grunt plugin (0.13.0) that does zip|gzip|tar
+                            ##  - TASK "compress"
+                            ##  - TARGET: src, dest
+                            ##  - options:
+                            ##     - mode "gzip|deflate[Raw]|tar|tgz|zip"
+                            ##     - pretty BOOL (def: false): pretty file size on log
+                            ##  - options ("zip|tar"):
+                            ##     - archive FILE[()]: override dest
+                            ##  - options ("zip|gzip"):
+                            ##     - level NUM (def: 1)
+                            ##  - options ("zip|tar|tgz"):
+                            ##     - date DATE
+                            ##     - mode NUM: file permission
+                            ##  - options ("zip"):
+                            ##     - store BOOL: if true, no compression
+                            ##     - comment STR

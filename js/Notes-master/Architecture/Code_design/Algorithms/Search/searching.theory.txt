@@ -1,0 +1,246 @@
+
+          
+   SEARCH  
+          
+
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            GENERAL            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+BRUTE FORCE ==>                   #Trying all combinations|permutations
+                                  #Also called "exhaustion".
+                                  #Time complexity:
+                                  #  - average|worst: O(nᵐ)
+                                  #  - best: O(1)
+                                  #Space complexity: O(1)
+                                  #Can sort input:
+                                  #  - so than can stop when > the searched value
+                                  #  - to put more likely items first
+
+LINEAR|SEQUENTIAL SEARCH ==>      #Brute force when trying to find an item in an array
+                                  #Time complexity: O(n)
+
+SEARCH KEY ==>                    #Arbitrary starting vertex of search
+
+FINGER SEARCH ==>                 #Search where the search key ("finger") is provided.
+                                  #Only efficient if search key is likely to be close to searched node.
+                                  #Often implemented on linked lists, treaps, etc.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:         GRAPH SEARCH          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+PRUNING ==>                       #During a graph search algorithm, skipping a node's descendants when they
+                                  #can be guessed (from the parent's value) to be invalid.
+                                  #Unless pruning can be done, search algorithms like BFS/DFS are conceptually a linear search.
+
+BREADTH-FIRST SEARCH (BFS) ==>    #Search one level at a time, i.e.:
+                                  #  - start at search key
+                                  #  - visit each vertex with distance 1, then 2, etc.
+                                  #Time complexity: O(order + size)
+                                  #Space complexity: O(order)
+                                  #Good when:
+                                  #  - depth is big
+                                  #  - searched value's height is probably high
+                                  #Bad when:
+                                  #  - space complexity is important
+                                  #  - branching factor is big
+
+DEPTH-FIRST SEARCH (DFS) ==>      #Search one path at a time (until cycle or dead-end), i.e.:
+                                  #  - start at search key
+                                  #  - visit vertex
+                                  #  - if:
+                                  #     - it has non-visited children, repeat with the leftmost one
+                                  #     - it is the search key, stop
+                                  #     - otherwise, repeat with parent ("backtrack")
+                                  #Also called "backtracking" when applying to more general algorithms
+                                  #"Backjumping":
+                                  #  - when it can known that a node and its descendants will be invalid because
+                                  #    a siblings|cousin is invalid
+                                  #Time complexity: O(order + size)
+                                  #Space complexity: O(order)
+                                  #Good when:
+                                  #  - branching factor is big
+                                  #  - searched value's height is probably low
+                                  #Bad when:
+                                  #  - depth is big
+
+DEPTH-LIMITED SEARCH (DLS) ==>    #DFS where we stop when reaching a given depth.
+                                  #Compensate some DFS problems but is an incomplete algorithm
+
+ITERATIVE DEEPENING DFS (IDDFS)   #Running DLS iteratively with increasing depth.
+ ==>                              #Also called "Iterative deepening search" (IDS)
+                                  #Each iteration repeats DLS on nodes already visited:
+                                  #  - cons: time complexity
+                                  #  - pro: space complexity, i.e. does not need to store nodes to know if already visited
+                                  #I.e. has pros of BFS but without space complexity problem.
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:      ABSTRACT DATA TYPES      :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SUMMARY ==>                       #Relationship between data items:
+                                  #  - none:
+                                  #     - with keys: associative array
+                                  #        - unique values: bidirectional map
+                                  #        - array values: multimap
+                                  #     - without keys: multiset
+                                  #        - unique values: set
+                                  #  - serial: list
+                                  #     - FILO access: stack
+                                  #     - FIFO access: queue
+                                  #     - FILO/FIFO access: deque
+                                  #  - other: graph
+                                  #     - parent/child: tree
+
+ASSOCIATIVE ARRAY ==>             #Unordered array of (KEY, VAL) pairs, with unique keys.
+                                  #Also called "map" or "dictionary"
+                                  #Operations:
+                                  #  - access(KEY)->VAL
+                                  #  - set(KEY, VAL)
+                                  #  - delete(KEY)
+                                  #Implementations:
+                                  #  - static data structure:
+                                  #     - varying size items: variant
+                                  #     - same size items: random access array (index map)
+                                  #  - dynamic data structure:
+                                  #     - small size: association list
+                                  #     - medium size: search tree
+                                  #     - big size:
+                                  #        - more space efficient: search tree
+                                  #        - faster, not persistent: hash table
+
+BIDIRECTIONAL MAP ==>             #Associative array where values are unique.
+                                  #I.e. values can be used as keys as well.
+                                  #Also called "hash bag"
+
+MULTIMAP ==>                      #Associate array where values are arrays.
+                                  #Can also be thought as associate array where keys are not unique
+                                  #Also called "multihash" or "multidict"
+
+MULTISET ==>                      #Unordered array of values.
+                                  #Also called "bag"
+                                  #Operations:
+                                  #  - insert(VAL)
+                                  #  - has(VAL)->BOOL
+                                  #  - count(VAL)->NUM
+                                  #  - delete(VAL)
+                                  #  - clear()
+                                  #  - length()->NUM: also called "cardinality" or "capacity"
+                                  #  - pop()->VAL, pick()->VAL: pop|get random element
+                                  #  - union(SET2)->SET3
+                                  #  - intersection(SET2)->SET3
+                                  #  - difference(SET2)->SET3
+                                  #  - is_subset(SET2)->BOOL
+                                  #Implementation: like associative array
+
+SET ==>                           #Multiset with unique values.
+                                  #Operations: like multiset, except count()
+                                  #Implementation: like multiset with also:
+                                  #  - bloom filter: similar pros|cons to hash table but:
+                                  #     - more space efficient
+                                  #     - false positives, limited operations
+
+LIST ==>                          #Ordered array of values
+                                  #Also called "sequence"/"linear data structure"
+                                  #Operations:
+                                  #  - length()->NUM
+                                  #  - access(INDEX)->VAL
+                                  #  - search(VAL)->VAL
+                                  #  - set(INDEX|VAL2, VAL)
+                                  #  - delete(INDEX|VAL)
+                                  #  - slice(INDEX, LENGTH)
+                                  #  - clear()
+                                  #Good for algorithms like rank query, nearest neighbors and range queries.
+                                  #Implementation:
+                                  #  - static data structure: random access array
+                                  #  - dynamic data structure:
+                                  #     - random access array:
+                                  #        - fast access by key
+                                  #        - slow search by value, insert|delete
+                                  #        - best space efficiency, especially if values are small
+                                  #        - high locality of reference
+                                  #        - not persistent
+                                  #     - linked list:
+                                  #        - fast insert|delete (after initial search)
+                                  #        - slow access|search
+                                  #        - fast memory allocation
+                                  #     - search tree:
+                                  #        - fair insert|access|search (neither best nor worst)
+                                  #        - good for ordered iteration
+                                  #        - less time efficient if small number of items
+
+CONS ==>                          #List of size 2, i.e. ordered pair
+                                  #Usually used with Lisp languages to build other data structures like linked list or trees
+
+ASSOCIATION LIST ==>              #List of (KEY, VAL) pairs
+                                  #I.e. ordered associative array
+                                  #Also called "alist"
+                                  #Implementation: like list
+
+STACK/LIFO ==>                    #List with read|write to most-recent item
+                                  #Operations:
+                                  #  - push(VAL)
+                                  #  - pop()->VAL
+                                  #  - peek()->VAL
+                                  #Implementation:
+                                  #  - random access array
+                                  #  - linked list:
+                                  #     - pros:
+                                  #        - persistent
+                                  #        - memory allocation might be easier or more incremental
+                                  #     - cons:
+                                  #        - less space efficient
+
+QUEUE/FIFO ==>                    #List with read|write to least-recent item
+                                  #Sometimes used for buffers.
+                                  #Operations:
+                                  #  - push(VAL)
+                                  #  - shift()->VAL
+                                  #  - head()->VAL
+                                  #Implementation:
+                                  #  - random access array (circular buffer)
+                                  #  - linked list (circular linked list):
+                                  #     - same pros|cons as for stack
+
+DOUBLE-ENDED QUEUE ==>            #Combination of a stack and a queue
+                                  #Also called "deque[ue]" or "head-tail"
+                                  #Implementation: like queue
+
+GRAPH ==>                         #Array of values with relationships (edges).
+                                  #Operations:
+                                  #  - insert|delete_node(NODE)
+                                  #  - insert|delete_edge(NODE, NODE2)
+                                  #  - neighbors(NODE|EDGE)->NODE2|EDGE2_ARR
+                                  #  - adjacent(NODE|EDGE, NODE2|EDGE2)->BOOL
+                                  #  - get_node_value(NODE)->VAL
+                                  #  - set_node_value(NODE, VAL)
+                                  #  - get_edge_value(NODE, NODE2)->VAL
+                                  #  - set_edge_value(NODE, NODE2, VAL)
+                                  #  - traverse|walk(FUNC(NODE|EDGE))
+                                  #EDGE:
+                                  #  - is [NODE, NODE2] pair.
+                                  #  - can be encapsuled in a single EDGE object:
+                                  #     - can be used instead of (NODE, NODE2) in operations
+                                  #        - e.g. get_edge_value(EDGE)->VAL
+                                  #See graph theory doc
+                                  #Implementation (see graph doc for comparison):
+                                  #  - multiset (node|edge list)
+                                  #  - associative array (adjacency|incidence list)
+                                  #  - matrix (adjacency|incidence matrix)
+
+TREE ==>                          #In computer science, usually means arborescence in graph theory, i.e. specific type of graph
+                                  #Implementation: like graph

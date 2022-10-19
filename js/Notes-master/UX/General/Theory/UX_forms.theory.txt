@@ -1,0 +1,30 @@
+
+              
+   UX_FORMS   
+              
+
+
+SLOWNESS TO FILL ==>              #Fast to fill:
+                                  #  - prefilling:
+                                  #     - using autocomplete
+                                  #     - using custom logic
+                                  #Lessen slow to fill inconvenience:
+                                  #  - provide progress bars:
+                                  #     - if multiple parts
+                                  #     - showing labels of all next|previous parts in a bar (as opposed to just percentage)
+                                  #  - save function
+
+INSTRUCTIONS ==>                  #General:
+                                  #  - use <label>
+                                  #Input:
+                                  #  - use <datalist> or combo box libraries
+                                  #  - placeholders should show expected input (e.g. YYYY-MM)
+                                  #  - use right input type
+                                  #Validation:
+                                  #  - can use HTML validation
+                                  #  - use CSS validation pseudo-class for styling
+                                  #  - provide realtime validation
+
+SIMPLE TO FILL ==>                #  - user-select: none:
+                                  #     - on elements that should be interacted with but where copying the text is unlikely (e.g. some buttons)
+                                  #     - to avoid selecting instead of interacting

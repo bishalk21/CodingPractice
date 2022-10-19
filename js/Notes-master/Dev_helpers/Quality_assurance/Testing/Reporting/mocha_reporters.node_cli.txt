@@ -1,0 +1,93 @@
+
+                   
+   MOCHA_REPORTERS  
+                   
+
+
+
+ALTERNATIVES ==>                  #See TAP format doc
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             CORE              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+-R REPORTER
+--reporter REPORTER               #Can also use ENVVAR REPORTER
+-O VAR=VAL[,...]
+--reporter.options VAR=VAL[,...]  #Common ones:
+                                  #  - maxDiffSize NUM (def: 8192)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            CUSTOM             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REPORTER                          #FUNC(RUNNER, MOCHA)
+
+RUNNER.on("start|end", FUNC())    #
+RUNNER
+ .on("suite[ end]",FUNC(DESCRIBE))#
+RUNNER.on("test[ end]", FUNC(IT)) #
+RUNNER.on("hook[ end]", FUNC(IT)) #
+RUNNER.on("pending", FUNC(IT))    #
+RUNNER.on("pass", FUNC(IT))       #
+RUNNER.on("fail", FUNC(IT, ERROR))#
+
+DESCRIBE                          #
+DESCRIBE.title                    #STR
+DESCRIBE.root                     #BOOL
+
+IT                                #
+IT.title                          #STR
+IT.fullTitle()->STR               #
+IT.duration                       #NUM
+IT.slow()->BOOL                   #
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:             LIST              :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+REPORTERS ==>                     #  - "min": only summary
+                                  #  - "dot|nyan|landing|progress": short console output, printing dots|Nyan cat|plane|progress bar
+                                  #  - "spec" (def): prints test suites/cases names and passed status
+                                  #  - "list": same but flatten suites/test cases, and show all execution times
+                                  #  - "tap": TAP (see TAP format doc for details)
+                                  #  - "doc|html": HTML code (doc has no formatting, html can only be used client-side)
+                                 ##  - "mocha-simple-html-reporter" (1.1.0)
+                                  #  - "json":
+                                  #      - stats:
+                                  #          - suites NUM
+                                  #          - tests|passed|failures NUM
+                                  #          - pending NUM
+                                  #          - start|end 'DATE'
+                                  #          - duration NUM
+                                  #       - tests|failures|passes OBJ_ARR:
+                                  #           - file 'PATH'
+                                  #           - [full]title STR
+                                  #           - duration NUM
+                                  #           - currentRetry NUM
+                                  #           - speed 'slow|medium|fast'
+                                  #           - err (when error) OBJ:
+                                  #              - name STR (e.g. "AssertionError")
+                                  #              - message STR
+                                  #              - stack STR
+                                  #              - actual|expected VAL
+                                  #              - showDiff BOOL
+                                  #  - "json-stream": OSTREAM emitting events:
+                                  #      - "start" FUNC(OBJ) with members total NUM
+                                  #      - "pass|fail" FUNC(OBJ) with members [full]title, duration
+                                  #      - "end" FUNC(OBJ) with members suites, tests|passed|failures, pending, start|end, duration
+                                  #  - "xunit"
+                                  #  - "markdown"
+                                 ##  - "mocha-slow-reporter" (0.0.1): show duration of each describe|it|before|after[Each]()

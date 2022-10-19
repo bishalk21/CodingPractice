@@ -1,0 +1,50 @@
+
+         
+   P-MAP  
+         
+
+
+
+P-MAP                             #Like Promise.all([...VAL_[ASYNC_]ITERABLE].map(FUNC))
+ ([PROMISE_]VAL_[ASYNC_]ITERABLE, #OPTS:
+ FUNC(VAL, INDEX)->[PROMISE_]VAL2 #  - concurrency NUM (def: Infinity): only run NUM values from [ASYNC_]ITERABLE at once
+ [, OPTS])->PROMISE_VAL2_ARR      #  - signal ABORT_SIGNAL: on abort, reject PROMISE and stop iteration
+                                  #On exception|rejection in FUNC():
+                                  #  - if OPTS.stopOnError true (def):
+                                  #     - reject PROMISE right away
+                                  #     - reject with that ERROR
+                                  #  - if OPTS.stopOnError false:
+                                  #     - reject PROMISE after all FUNC() have ended
+                                  #     - reject with ERROR:
+                                  #        - name 'AggregateError'
+                                  #        - message with all ERROR.stack joined
+                                  #           - use clean-stack (see its doc)
+                                  #        - errors ERROR_ARR
+                                  #           - normalize to ERROR instances if not
+                                  #Can return pMapSkip (named export) to filter out the value instead
+                                  #Version 5.5.0
+                                  #The following libraries are based on p-map
+
+P-ALL(FUNC_ITERABLE[, OPTS])      #Like P-MAP(...) except using an iterable of FUNC()->[PROMISE_]VAL2
+ ->PROMISE_VAL2_ARR               #I.e. different logic instead of different inputs
+                                  #Version 3.0.0
+
+P-ONE([PROMISE_]VAL_ITERABLE,
+ FUNC(VAL, INDEX)->[PROMISE_]BOOL #Like P-MAP(...) except checking if at least one FUNC() returns true.
+ [, OPTS])->PROMISE_BOOL          #Version 2.0.0
+
+P-EVERY([PROMISE_]VAL_ITERABLE,
+ FUNC(VAL, INDEX)->[PROMISE_]BOOL #Like P-MAP(...) except checking if all FUNC() returns true.
+ [, OPTS])->PROMISE_BOOL          #Version 2.0.0
+
+P-TIMES(NUM,
+ FUNC(INDEX)->[PROMISE_]VAL       #Like P-MAP(...) except iterating NUM times over an incremented INDEX
+ [, OPTS])->PROMISE_VAL_ARR       #Version 4.0.0
+
+P-FILTER([PROMISE_]VAL_ITERABLE,
+ FUNC(VAL, INDEX)->[PROMISE_]BOOL)#Like P-MAP(...) except filtering VALs instead of mapping them
+ ->PROMISE_VAL_ARR                #Version 3.0.0
+
+P-PROPS({ KEY: [PROMISE_]VAL,... }#Like P-MAP(...) except mapping over the values of an OBJ
+ [,FUNC(VAL, KEY)->[PROMISE_]VAL2]#OBJ can be MAP too
+ [, OPTS])->PROMISE_OBJ           #Version 5.0.0

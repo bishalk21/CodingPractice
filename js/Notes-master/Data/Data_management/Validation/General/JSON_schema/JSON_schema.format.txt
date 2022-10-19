@@ -1,0 +1,402 @@
+
+               
+   JSON_SCHEMA  
+               
+
+
+
+ALTERNATIVES ==>                  #  - JSON schema (prefer):
+                                  #     - lots of features
+                                  #     - declarative approach
+                                  #     - JSON-focused, not JavaScript-specific
+                                  #  - JTD:
+                                  #     - RFC 8927
+                                  #     - much simpler, mostly focused on high-level type, not specific validation
+                                  #     - can be combined with parsing|serializing, i.e. useful to fail parsing early when data is invalid
+                                  #     - not widely used
+                                  #  - jest-validate (prefered for simplicity):
+                                  #     - very simple (only need to pass an example object)
+                                  #     - shallowly checks an OBJ against another OBJ2: same types and no unknown props
+                                  #     - also checks against another OBJ3 for deprecated props
+                                  #     - nice error messages. Includes possible typos.
+                                  #  - joi:
+                                  #     - lots of features
+                                  #     - used a lot
+                                  #     - also does transformation
+                                  #  - superstruct:
+                                  #     - lots of features
+                                  #     - not maintained
+                                  #  - spected:
+                                  #     - no built-in rules, i.e. only use custom FUNC()->'ERROR'_ARR|undefined
+                                  #     - simple and lean
+                                  #     - not maintained
+                                  #  - skema:
+                                  #     - modify objects with get functions so they throw on modification
+                                  #     - also does transformation
+                                  #  - talyssonoc structure
+                                  #     - can include references to other types/entities
+                                  #     - also does transformation
+                                  #     - not maintained
+                                  #  - schm:
+                                  #     - transformation-oriented
+                                  #  - indicative:
+                                  #     - also does sanitization
+                                  #  - whitelister
+                                  #     - sanitization-oriented
+                                  #     - not maintained
+                                  #  - validate.js
+                                  #     - not maintained
+                                  #  - async-validator
+                                  #  - yup
+                                  #  - validatorjs
+                                  #  - valid.js
+                                  #     - not maintained
+                                  #  - approvejs:
+                                  #     - not maintained
+                                  #  - obey:
+                                  #     - not maintained
+                                  #  - swagger-model-validator:
+                                  #     - apply JSON schema from OpenAPI SPEC.$defs.MODEL
+                                  #     - reinvent the wheel, prefer using a proper JSON schema validator
+
+JSON SCHEMA ALTERNATIVES ==>      #  - ajv (prefered):
+                                  #     - most used
+                                  #     - most features
+                                  #     - fastest
+                                  #     - up-to-date with latest versions
+                                  #     - also does transformation
+                                  #  - djv: very fast
+                                  #  - jsen, is-my-json-valid: quite ok
+                                  #  - tdegrunt jsonschema, z-schema: too slow
+                                  #  - tv4, jsv, revalidator, kriszyp json-schema, jayschema, amanda: not maintained
+                                  #  - jest-json-schema (prefered for Jest assertions)
+
+VERSION ==>                       #Versions:
+                                  #  - 10: upcoming
+                                  #  - 9 (2020-12), RFC "draft-bhutton-json-schema-[validation-]01"
+                                  #  - 8 (2019-09), RFC "draft-handrews-json-schema-[validation-]02"
+                                  #  - 7 (2018-09), RFC "draft-handrews-json-schema-[validation-]01"
+                                  #  - 6 (2017-04), RFC "draft-wright-json-schema-[validation-]01"
+                                  #  - 5 (2016-10), RFC "draft-wright-json-schema-[validation-]00"
+                                  #  - 4 (2013-01), RFC "draft-zyp-json-schema-04", "draft-fge-json-schema-validation-00"
+                                  #Validates an instance (JSON) against a schema (set of validation rules, also JSON)
+
+NOTATION ==>                     ##Non-standard
+                                 -#Not supported by ajv
+                                 6#Notation for later versions.
+
+EXTENSION ==>                     #.schema.json
+
+application/schema+json           #MIME for a JSON schema
+application/json                  #MIME for a document described by a JSON schema
+application/schema-instance+json 7#Previously used application/json;profile="URI ..."
+
+Link: <URI>; rel="describedby"
+ [C|S]                            #Tells that request|response body is described by a JSON schema
+
+EXAMPLES ==>                      #Many examples available at https://github.com/SchemaStore/schemastore  
+                                  #Mostly conf files (package.json, etc.), JSON-based formats (geoJSON, etc.)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          METASCHEMA           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+RSCHEMA.$schema 'META_SCHEMA_URI' #Metaschema:
+                                  #  - schema validating another schema
+                                  #  - default: "http://json-schema.org/schema#" (latest stable, i.e. v7) or
+                                  #    "http://json-schema.org/draft-04|05|06|07/schema#"
+                                  #Is an identifier not a location, i.e. library might use a cached spec without
+                                  #fetching URL.
+
+CUSTOM ==>                        #Can add:
+                                  #  - new possible schema keywords
+                                  #  - new possible SCHEMA.format
+                                  #Then:
+                                  #  - should write own meta-schema
+                                  #  - consumers should extend $schema (using allOf) with it
+
+SCHEMA.$vocabulary.URI BOOL      8#In metaschema, gives a description URI to group of keywords, and indicate whether
+                                 8#implementation have required to implement them
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          SUBSCHEMAS           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SCHEMA                            #Is either an OBJ
+                                 6#or BOOL (means always succeeds|fails)
+                                 6#Previously BOOL could only be used on additionalItems|additionalProperties
+RSCHEMA                           #Root level of schema
+
+SCHEMA.$id 'URI'                  #Schema identifier, used e.g. by SREF
+                                  #  - can be in sub-schemas
+                                  #  - can be:
+                                  #     - 'ABS_URI' (recommended): required for RSCHEMA
+                                  #     - 'REL_URI': relative to RSCHEMA URI
+                                  #  - can be any URI scheme
+                                 8#  - must not contain a #HASH
+                                 6#Named "id" before and could not be 'REL_URI'
+SCHEMA.$anchor 'HASH'            8#"#HASH", relative to $id's URI
+                                 8#Must be [a-zA-Z][a-zA-Z0-9-_.:]*
+
+SCHEMA.$ref                       #SREF. JSON reference to SCHEMA (targetting SCHEMA.$id|$anchor), including sub-schema
+                                  #Can replace any sub-SCHEMA
+                                  #HASH can be SCHEMA.$hanchor #HASH, or absolute JSON_POINTER
+                                 8#Can have siblings properties, merged shallowly
+SCHEMA.$dynamicRef               8#Like SCHEMA.$ref except when target has $dynamicAnchor defined,
+                                 8#use parent SCHEMA2, providing it has this $dynamicAnchor
+                                 9#Used to be called $recursiveRef
+SCHEMA.$dynamicAnchor 'HASH'     9#Used to be called $recursiveAnchor
+
+SCHEMA.$defs.DEF SCHEMA2          #Does not add any semantics, but used to be pointed by SREF,
+                                  #and put all pointed values together.
+                                 8#Formerly called SCHEMA.definitions.DEF
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:        REFERENCED DATA        :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+{ "$data": "[REL_]JSON_POINTER" }##Can be used instead of any VAL
+                                 ##Replaced by a value coming from the instance being validated, according to JSON pointer
+                                 ##  - as opposed to $ref which uses value from SCHEMA itself
+                                 ##JSON pointer can be:
+                                 ##  - absolute: root of the instance
+                                 ##  - relative: to current { "$data" }
+                                 ##If pointed value does not exist, no error nor validation
+                                 ##Not supported by ajv for:
+                                 ##  - any rule where VAL can be SCHEMA
+                                 ##  - title, description, type, default
+                                 ##ajv requires AOPTS.$data true for support
+                                 ##(uses ajv)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:           METADATA            :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SCHEMA.title STR                  #
+SCHEMA.description STR            #Meant for consumers
+SCHEMA.$comment STR              7#Meant for maintainers
+SCHEMA.examples VAL_ARR          6#
+
+SCHEMA.readOnly|writeOnly BOOL   7#
+
+SCHEMA.deprecated BOOL           8#
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          VALIDATION           :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+STR|NUM|BOOL|OBJ|ARR_SCHEMA       #SCHEMA targetting a STR|NUM|BOOL|OBJ|ARR
+
+
+EQUALITY ==>                      #Is always deep
+DEFINED ==>                       #Means object key is present, i.e. not undefined, but null is fine
+
+REGEXP                            #Is JavaScript REGEXP but recommends avoiding (due to implementations differences)
+                                  #\b \B \w \W \s \S \d \D (?:) (?=) (?!)
+                                  #Matches against part of STR, i.e. must manually add ^ or $ to anchor
+                                 9#Need the "u" flag
+
+
+SCHEMA.type 'TYPE'[_ARR]          #VAL of 'TYPE' among 'string', 'number', 'integer', 'object', 'array', 'boolean', 'null'
+                                  #If ARR, several possible choices
+                                  #Can be not defined, whatever the TYPE. However can only be null if TYPE 'null'
+SCHEMA.typeof 'TYPE'[_ARR]       ##Same but using JavaScript typeof, i.e.:
+                                 ##  - there is no 'integer' (merged in 'number'), 'array', 'null' (both merged in 'object')
+                                 ##  - there is 'undefined', 'symbol', 'function'
+                                 ##(uses ajv-keywords)
+SCHEMA.instanceof 'TYPE'[_ARR]   ##Same but using JavaScript instanceof
+                                 ##TYPE must either:
+                                 ##  - be native, i.e. 'Object', 'Array', 'Function', 'Number', 'String', 'Date', 'RegExp', 'Buffer', 'Promise'
+                                 ##  - have constructor assigned to AJVKEYWORDS.get('instanceof').definition.CONSTRUCTORS.TYPE
+                                 ##(uses ajv-keywords)
+SCHEMA.nullable                  ##BOOL (def: false). Allow 'null'
+                                 ##(uses ajv) (used by OpenAPI)
+SCHEMA.format 'FORMAT'            #VAL matches FORMAT among:
+                                  #  (string)
+                                 7#  - "regex": JavaScript REGEX
+                                  #  - "date-time": RFC 3339, i.e. YYYY-MM-DDTHH:MM:SS[.SSSS...]Z|TIMEZONE
+                                 7#  - "date": RFC 3339 YYYY-MM-DD
+                                 7#  - "time": RFC 3339 HH:MM:SS[TIMEZONE]
+                                 8#  - "duration": RFC 3339 P[*Y][*M][*W][*D][T*H|M|S]
+                                  #  - "email"
+                                -7#  - "idn-email": same but internationalized
+                                  #  - "hostname"
+                                -7#  - "idn-hostname": same but internationalized
+                                  #  - "ipv4|ipv6"
+                                  #  - "uri": URI absolute
+                                  #  - "uri-reference": URI absolute|relative
+                                 6#    Called "uriref" before
+                                 6#  - "uri-template": RFC 6570 URI template
+                                -7#  - "iri": IRI absolute
+                                -7#  - "iri-reference": IRI absolute|relative
+                                 6#  - "json-pointer": absolute
+                                 7#  - "relative-json-pointer": relative
+                                 8#  - "uuid": UUID
+                                 ##  (string, added by ajv-formats)
+                                 ##  - "iso-date[-time]": like "date[-time]" but TIMEZONE is optional
+                                 ##  - "json-pointer-uri-fragment": #HASH of JSON pointer
+                                  #  (any type)
+                                  #  - any custom
+                                 8#For metadata purpose only, not validation
+SCHEMA.enum VAL_ARR               #Only possible values
+                                 8#Can be empty
+                                 8#Can have duplicates
+SCHEMA.const VAL                 6#Only one possible value
+SCHEMA.default VAL                #Default value, if not defined
+OBJ_SCHMA.dynamicDefaults.VAR VAL##Same, but using a function.
+                                 ##VAL can be:
+                                 ##  - 'FUNC': fires FUNC()
+                                 ##  - { func 'FUNC', args: ARGS }: fires FUNC(ARGS)
+                                 ##'FUNC' can be:
+                                 ##  - "timestamp|datetime|date|time": now as DATE_NUM, or [DATE][TIME] (see format above)
+                                 ##  - "randomint", with ARGS.max NUM (def: 2): integer between 0 and NUM (excluded), using Math.random()
+                                 ##  - "random": float between 0 and 1, using Math.random()
+                                 ##  - "seq", with ARGS.name STR (def: ""): incremental sequence of integers, starting from 0
+                                 ##  - custom, by assigning AJVKEYWORDS.get('dynamicDefaults').definition.DEFAULTS.FUNC(ARGS)
+                                 ##Cannot apply to required properties, because applied after validation
+                                 ##(as opposed to SCHEMA.default)
+                                 ##(uses ajv-keywords)
+
+
+NUM_SCHEMA.multipleOf NUM2        #NUM % NUM2 === 0
+NUM_SCHEMA.maximum|minimum NUM2   #NUM <= >= NUM2
+NUM_SCHEMA.                       #NUM < > NUM2
+ exclusiveMaximum|Minimum NUM2   6#Formerly was BOOL instead
+NUM_SCHEMA.[exclusive]range      ##Same as [exclusive]minimum NUM + [exclusive]maximum NUM2
+ [NUM, NUM2]                     ##(uses ajv-keywords)
+
+VAL_SCHEMA.                      ##Like NUM_SCHEMA, but for any VAL according to its SCHEMA.format, if the format has
+ formatMaximum|minimum STR       ##implicit ordering
+VAL_SCHEMA.                      ##E.g. defined for: "date", "time", "date-time"
+ formatExclusiveMaximum|Minimum  ##format* requires format, formatExclusive requires format*
+ BOOL                            ##(uses ajv-keywords)
+
+
+STR_SCHEMA.min|maxLength UINT     #STR.length <= >= UINT (in Unicode chars)
+STR_SCHEMA.pattern 'REGEXP'       #STR matches REGEXP
+STR_SCHEMA.regexp '/REGEXP/FLAGS'
+STR_SCHEMA.regexp                ##Same but can specify flags
+ {pattern:'REGEXP',flags:'FLAGS'}##(uses ajv-keywords)
+STR_SCHEMA.contentEncoding
+ 'ENCODING'                      7#STR uses that encoding
+STR_SCHEMA.contentMediaType
+ 'MIME'                          7#STR uses that MIME
+STR_SCHEMA.contentSchema SCHEMA  8#Content's shape. Must have STR_SCHEMA.contentMediaType
+STR_SCHEMA.transform 'FUNC'_ARR  ##Modifies STR according to 'FUNC':
+                                 ##  - trim[Start|Left|End|Right]
+                                 ##  - toLowerCase|UpperCase
+                                 ##  - toEnumCase (same case as STR_SCHEMA.enum)
+                                 ##(uses ajv-keywords)
+
+
+ARR_SCHEMA.items SCHEMA           #SCHEMA is applied against each ARR element
+
+ARR_SCHEMA.prefixItems SCHEMA_ARR #Each SCHEMA is applied against each ARR element with same index
+                                  #Missing ARR items are allowed (i.e. SCHEMA_ARR.length can be >= ARR.length)
+                                  #Additional ARR items (i.e. when SCHEMA_ARR.length < ARR.length) are all matched against ARR_SCHEMA.items SCHEMA
+                                 9#  - used to be checked against ARR_SCHEMA.additionalItems
+                                 9#Used to be ARR_SCHEMA.items SCHEMA_ARR
+ARR_SCHEMA.
+ unevaluatedItems SCHEMA2        8#Like ARR_SCHEMA.additionalItems, but can reference sub-schemas
+ARR_SCHEMA.contains SCHEMA       6#At least one ARR element must match SCHEMA
+ARR_SCHEMA.max|minContains NUM   8#Number of ARR elements matching ARR_SCHEMA.contains
+
+ARR_SCHEMA.max|minItems NUM       #ARR.length <= >= NUM
+ARR_SCHEMA.uniqueItems BOOL       #If true, no duplicate ARR elements
+OBJ_SCHEMA.uniqueItemProperties  ##Same as uniqueItems true, but using each OBJ.VAR
+ 'VAR'_ARR                       ##(uses ajv-keywords)
+
+
+OBJ_SCHEMA.max|minProperties NUM  #OBJ.length <= >= NUM
+OBJ_SCHEMA.required 'VAR'_ARR     #Each OBJ.VAR is defined
+                                 6#Formerly it could not be empty
+OBJ_SCHEMA.allRequired BOOL      ##Each OBJ_SCHEMA.properties is defined
+                                 ##(uses ajv-keywords)
+OBJ_SCHEMA.anyRequired 'VAR'_ARR ##At least one OBJ.VAR is defined
+                                 ##(uses ajv-keywords)
+OBJ_SCHEMA.oneRequired 'VAR'_ARR ##Only one OBJ.VAR is defined
+                                 ##(uses ajv-keywords)
+OBJ_SCHEMA.deepRequired          ##Same but using absolute JSON pointers
+ 'JSONPOINTER'_ARR               ##(uses ajv-keywords)
+OBJ_SCHEMA.patternRequired       ##Same as required, except at least one property must match each REGEXP
+ 'REGEXP'_ARR                    ##(uses ajv-keywords)
+OBJ_SCHEMA.prohibited 'VAR'_ARR  ##Inverse, i.e. same as { not: { anyOf: [ { required ['VAR'] }, ... ] } }
+                                 ##(uses ajv-keywords)
+
+OBJ_SCHEMA.properties.VAR SCHEMA  #SCHEMA is applied against OBJ.VAR
+OBJ_SCHEMA.deepProperties.       ##Same but with absolute JSON pointers
+ JSONPOINTER SCHEMA              ##(uses ajv-keywords)
+OBJ_SCHEMA.                       #Missing OBJ.VAR are allowed (i.e. present in schema but not in OBJ)
+ additionalProperties SCHEMA2     #Additional OBJ.VAR (i.e. present in OBJ but not in OBJ_SCHEMA.properties|patternProperties)
+                                  #are all matched against SCHEMA2
+OBJ_SCHEMA.
+ unevaluatedProperties SCHEMA2   8#Like OBJ_SCHEMA.additionalProperties, but can reference sub-schemas
+OBJ_SCHEMA.                       #Like OBJ_SCHEMA.properties but matches against any OBJ.VAR whose VAR matches REGEXP
+ patternProperties.REGEXP SCHEMA  #Not impacted by OBJ_SCHEMA.properties
+OBJ_SCHEMA.propertyNames         6#Property names must match STR_SCHEMA
+ STR_SCHEMA                      6#Not impacted by other OBJ_SCHEMA keywords
+
+OBJ_SCHEMA.dependentSchemas.VAR   #Applies OBJ_SCHEMA2 to OBJ, providing OBJ.VAR is defined
+ OBJ_SCHEMA2                     6#Formerly it could not be empty
+                                 8#Formerly named OBJ_SCHEMA.dependencies
+OBJ_SCHEMA.dependentRequired.VAR  #Like OBJ_SCHEMA.dependentSchemas.VAR.required 'VAR'_ARR
+ 'VAR'_ARR                       8#Formerly named OBJ_SCHEMA.dependentSchemas.VAR 'VAR'_ARR
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:          COMBINATION          :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+SCHEMA.not SCHEMA2                #! combination
+SCHEMA.allOf SCHEMA2_ARR          #&& combination
+SCHEMA.anyOf SCHEMA2_ARR          #|| combination
+SCHEMA.oneOf SCHEMA2_ARR          #|| combination, but must match only one
+
+SCHEMA.if|then|else SCHEMA       7#Branching of schemas
+
+SCHEMA.$merge OBJ                ##Merge OBJ.source SCHEMA2 with OBJ.with OBJ2 (JSON merge patch, RFC 7386)
+SCHEMA.$patch OBJ                ##Merge OBJ.source SCHEMA2 with OBJ.with OBJ2_ARR (JSON patch, RFC 6902)
+                                 ##(uses ajv-merge-patch)
+
+
+                                             /=+===============================+=\
+                                            /  :                               :  \
+                                            )==:            OUTPUT             :==(
+                                            \  :_______________________________:  /
+                                             \=+===============================+=/
+
+
+OUTPUT                           8#Recommendation on how implementation should output validation
+OUTPUT.valid                     8#BOOL
+OUTPUT.instanceLocation          8#'JSON_POINTER': within VAL
+OUTPUT.evaluationPath            8#'JSON_POINTER': within SCHEMA
+                               <10#Was named keywordLocation
+OUTPUT.schemaLocation            8#Same but absolute
+                               <10#Was named absoluteKeywordLocation
+OUTPUT.nested                    8#OBJ_ARR:
+                                 8#  - error 'MESSAGE'
+                                 8#  - errors OUTPUT_ARR
+                               <10#Was named errors|annotations

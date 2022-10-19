@@ -1,0 +1,37 @@
+
+            
+   DOT-PROP  
+            
+
+
+
+ALTERNATIVES ==>                  #  - dot-prop (preferred)
+                                  #  - get-value
+                                  #  - safe-get-prop
+                                  #  - object-path: not maintained
+
+VERSION ==>                       #7.2.0
+
+VARR                              #Can contain:
+                                  #  - .VAR (can be \-escaped)
+                                  #  - [NUM]
+                                  #Can \-escape . [ ]
+                                  #Cannot be __proto__|prototype|constructor
+
+getProperty(OBJ, 'VARR'[, VAL2])  #Retrieve OBJ[VARR]
+ ->VAL                            #VAL2 is default value
+                                  #If OBJ primitive type, returns it instead.
+
+setProperty(OBJ, 'VARR', VAL)->OBJ#Sets OBJ[VARR]
+                                  #Mutates.
+                                  #If OBJ primitive type, noop.
+
+deleteProperty(OBJ, 'VARR')->BOOL #Delete OBJ[VARR]
+                                  #Mutates.
+                                  #If OBJ primitive type, noop.
+
+hasProperty(OBJ, 'VARR')->BOOL    #
+
+escapePath('VAR')->'VAR'          #Prepend . [ ] with \ when meant as 'VAR' not 'VARR'
+
+deepKeys(OBJ)->'VARR'_ARR         #Returns all possible 'VARR' that are not OBJ|ARR

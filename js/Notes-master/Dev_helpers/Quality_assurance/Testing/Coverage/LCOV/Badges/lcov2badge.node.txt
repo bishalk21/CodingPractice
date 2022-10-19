@@ -1,0 +1,16 @@
+
+              
+   LCOV2BADGE  
+              
+
+
+
+ALTERNATIVES ==>                  #See lcov-badge
+
+LCOV2BADGE.badge                  #Returns a Badge's 'SVG' showing coverage percentage using LCOV
+ ('LCOV_FILE'|OPTS,               #Does an average of lines
+ FUNC(ERROR, 'SVG'))              #Thresholds: 60|80
+                                  #OPTS:
+                                  #  - filename 'LCOV_FILE'
+                                  #  - subject STR (def: 'coverage')
+                                  #  - okColor|warnColor|koColor (def: 'brightgreen|orange|red')

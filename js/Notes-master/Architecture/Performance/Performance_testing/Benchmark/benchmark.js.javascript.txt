@@ -1,0 +1,18 @@
+
+                
+   BENCHMARK.JS  
+                
+
+
+
+ALTERNATIVES ==>                  #No reporting:
+                                  #  - benchmark.js (prefered):
+                                  #     - provide nice mean, standard deviation, etc. stats
+                                  #     - too bloated / old school
+                                  #     - browser/node
+                                  #  - wedgetail: not maintained
+                                  #  - benchmarkJS: not maintained
+                                  #Reporting:
+                                  #  - matcha: not maintained
+                                  #  - speedracer: not maintqained
+                                  #  - nanobench: not maintained
