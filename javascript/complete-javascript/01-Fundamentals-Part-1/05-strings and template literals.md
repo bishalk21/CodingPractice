@@ -75,6 +75,9 @@ console.log(bisha);
   - operators
   - function calls
 
-```
+### Key Points:
 
-```
+- The old way to concatenate strings is by using the string concatenation operator (`+`).
+- Template literals are string literals that include embedded expressions.
+- Template literals in JavaScript are denoted with backticks (\`), and can template literals can contain placeholders which are represented using `${expression}`.
+- Template literals preserve newlines as part of the string.

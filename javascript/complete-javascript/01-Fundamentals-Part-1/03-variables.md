@@ -143,3 +143,11 @@ With let and const, you will always get ReferenceError.
 - Use **let** or **const**
 - Use **const** more often
 - Use **let**, when you need to reassign
+
+## `let` and `const`
+
+- Variables declared with `let` and `const` are scoped to the block, not to the function.
+- Variables declared with `let` and `const` can only be accessed after they have been declared.
+- They eliminate issues from hoisting.
+- Variables declared with `let` can be reassigned, but can’t be redeclared in the same scope.
+- Variables declared with `const` must be assigned an initial value, but can’t be redeclared, or reassigned in the same scope.

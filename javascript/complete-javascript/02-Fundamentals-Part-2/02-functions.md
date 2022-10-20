@@ -238,6 +238,15 @@ orderPizza('veg', 'cheese', function (message) {
 - passing function as arguement is powerful programming concept that can be used to notify caller that something happened. <br> It is also known as **callback function**.
 - Nesting too many callback function is not a great idea and it creates callback hell.
 
+### `this` and regular functions
+
+| Function Call           | `this`                                                                    |
+| ----------------------- | ------------------------------------------------------------------------- |
+| With the `new` operator | The new object                                                            |
+| With `call` / `apply`   | Specified by `call` / `apply`                                             |
+| Method of an object     | The object the method is called from                                      |
+| With no context         | - In non-strict mode: the global object<br/>- In strict mode: `undefined` |
+
 ## JavaScript Map
 
 The **Array.map()** allows you to iterate over array using loop.

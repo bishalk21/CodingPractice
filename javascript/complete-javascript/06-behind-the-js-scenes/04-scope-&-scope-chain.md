@@ -31,12 +31,22 @@ function init() {
 init();
 ```
 
+Lexical is related to 'author' time
+
+`this` gives us that dynamic 'run-time' scope
+
+Anti-pattern :)
+
+From James Churchill to Everyone: (03:14 PM)(^ referring to defining all of your variables globally)
+
 | Scoping                                                                           | Lexical Scoping                                                                                                                                                                                    |
 | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Scoping is the process of determining the accessibility of variables.             | Lexical Scoping is a static scoping technique in which the scope is determined by author-time decisions of where functions, blocks, and variables are declared.                                    |
 | In JavaScript, we have two types of scope: the global scope, and the local scope. | Lexical scoping is a way of determining how we access the variable in nested functions. The lexical scope is defined at the time of writing the code and is based on where functions are declared. |
 
 ## Scope
+
+Scope is bucketing values together. You can go from the most enclosed → outwards. You cant go from out to in.
 
 Scope is the set of variables, objects, and functions you have access to.
 

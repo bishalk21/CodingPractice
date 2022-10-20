@@ -412,6 +412,17 @@ Open the visual studio code by double-clicking the visual studio icon. When you 
 
 ![coding running](./images/launched_on_new_tab.png)
 
+### Strict Mode in JavaScript
+
+Strict mode is a new feature in JavaScript ES5. Strict mode makes it easier to write "secure" JavaScript. Strict mode changes previously accepted "bad syntax" into real errors. Strict mode is declared by adding "use strict"; to the beginning of a JavaScript file or a function.
+
+```js
+"use strict";
+
+let x = 3.14;
+x = 3; 
+```
+
 ### Adding JavaScript to a web page
 
 JavaScript can be added to a web page in three ways:
