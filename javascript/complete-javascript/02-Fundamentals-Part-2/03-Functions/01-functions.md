@@ -69,6 +69,156 @@ var sayGreeting = function () {
 - Argument: a value that appears in the code when the function is invoked.
 - Parameters are always passed by value.
 
+## Default Parameters
+
+- Default parameters allow named parameters to be initialized with default values if no value or undefined is passed.
+
+```js
+const bookings = [];
+
+const createBooking = function (
+  flightNum,
+  numPassengers = 1,
+  price = 199 * numPassengers
+) {
+  // ES5
+  // numPassengers = numPassengers || 1;
+  // price = price || 199;
+
+  const booking = {
+    flightNum,
+    numPassengers,
+    price,
+  };
+  console.log(booking);
+  bookings.push(booking);
+};
+
+createBooking("LH123");
+createBooking("LH123", 2, 800);
+createBooking("LH123", 2);
+createBooking("LH123", 5);
+```
+
+## How Passing Arguments Works: Value vs. Reference (Primitives vs. Objects)
+
+```js
+const flight = "LH234";
+const jonas = {
+  name: "Bishal Karki",
+  passport: 24739479284,
+};
+
+const checkIn = function (flightNum, passenger) {
+  // flightNum = flight, passenger = jonas
+
+  // not a good practice
+  flightNum = "LH999";
+  passenger.name = "Mr. " + passenger.name;
+
+  if (passenger.passport === 24739479284) {
+    alert("Checked in");
+  } else {
+    alert("Wrong passport!");
+  }
+};
+
+checkIn(flight, jonas); //arguments
+console.log(flight); // LH234
+console.log(jonas); // {name: "Mr. Bishal Karki", passport: 24739479284}
+```
+
+- In JavaScript, all **primitive values** are passed by value, and all **objects** are passed by reference.
+
+In case of primitive `flight`:
+
+| identifier | value | memory address |
+| ---------- | ----- | -------------- |
+| flight     | LH234 | 0001           |
+| flightNum  | LH234 | 0001           |
+
+```js
+flightNum = flight;
+```
+
+Inside function:
+
+- `flightNum` is a new variable that is created inside the function scope.
+
+| identifier | value | memory address |
+| ---------- | ----- | -------------- |
+| flightNum  | LH999 | 0002           |
+
+```js
+flightNum = "LH999";
+```
+
+In case of object `jonas`: (in heap)
+
+| identifier | value | memory address |
+| ---------- | ----- | -------------- |
+| jonas      | 00    | 0001           |
+
+```js
+jonas = {
+  name: "Mr. " + passenger.name,
+  passport: 24739479284,
+};
+```
+
+When we pass reference type to function, what is copied is just the reference to the object in memory. So, when we change the object inside the function, it is also changed outside the function.
+
+`jonas` and `passenger` are pointing to the same object in memory.
+
+```js
+const passenger = jonas;
+```
+
+In stack:
+
+| identifier | value | memory address |
+| ---------- | ----- | -------------- |
+| passenger  | 00    | 0001           |
+
+```js
+passenger.name = "Mr. " + passenger.name;
+```
+
+## Practice
+
+```js
+const flight = "LH234";
+const jonas = {
+  name: "Bishal Karki",
+  passport: 24739479284,
+};
+
+const checkIn = function (flightNum, passenger) {
+  // flightNum = flight, passenger = jonas
+
+  // not a good practice
+  flightNum = "LH999";
+  passenger.name = "Mr. " + passenger.name;
+
+  if (passenger.passport === 24739479284) {
+    alert("Checked in");
+  } else {
+    alert("Wrong passport!");
+  }
+};
+
+checkIn(flight, jonas); //arguments
+
+const newPassport = function (person) {
+  person.passport = Math.trunc(Math.random() * 100000000000);
+};
+
+newPassport(jonas);
+checkIn("LH123", jonas); // Wrong passport!
+```
+
+**Note:** JavaScript only has **pass by value**. It does not have pass by reference.
+
 ## Return value
 
 - A function always returns some value back to the caller.
