@@ -1,5 +1,7 @@
 # Arrays
 
+Arrays are a special type of object. They are used to store multiple values in a single variable. Arrays are zero-based, meaning that the first element in an array is at index 0.
+
 ## Objectives
 
 - Explain what an array is and why we use it

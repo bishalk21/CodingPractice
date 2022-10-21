@@ -125,3 +125,82 @@ const newSpan = document.createElement("span");
 // causes an error
 document.appendChild(newSpan);
 ```
+
+#### Adding Content To The Page - Version 2!
+
+We can also use the `.insertBefore()` method to add an element to the page. This method is similar to `.appendChild()`, but instead of adding the element to the end of the list of children, it adds it to the beginning of the list of children.
+
+```js
+// create a brand new <span> element
+const newSpan = document.createElement("span");
+
+// select the first (main) heading of the page
+const mainHeading = document.querySelector("h1");
+
+// add the the <span> element as the first child element of the main heading
+mainHeading.insertBefore(newSpan, mainHeading.firstChild);
+```
+
+#### Adding Content To The Page - Version 3!
+
+We can also use the `.insertAdjacentHTML()` method to add an element to the page. This method is similar to `.appendChild()`, but instead of adding the element to the end of the list of children, it adds it to the beginning of the list of children.
+
+```js
+// create a brand new <span> element
+const newSpan = document.createElement("span");
+
+// select the first (main) heading of the page
+const mainHeading = document.querySelector("h1");
+
+// add the the <span> element as the first child element of the main heading
+mainHeading.insertAdjacentHTML("afterbegin", newSpan);
+```
+
+#### document.body.append()
+
+We can also use the `.append()` method on the `document.body` element to add an element to the page. This method is similar to `.appendChild()`, but instead of adding the element to the end of the list of children, it adds it to the beginning of the list of children.
+
+```js
+// create a brand new <span> element
+const newSpan = document.createElement("span");
+
+// add the the <span> element as the first child element of the main heading
+document.body.append(newSpan);
+```
+
+## Methods to manipulate body and document
+
+| Method                                           | Description                                                   |
+| ------------------------------------------------ | ------------------------------------------------------------- |
+| `document.body.append(...nodes or strings)`      | Inserts nodes or strings at the end of `document.body`.       |
+| `document.body.prepend(...nodes or strings)`     | Inserts nodes or strings at the beginning of `document.body`. |
+| `document.body.before(...nodes or strings)`      | Inserts nodes or strings before `document.body`.              |
+| `document.body.after(...nodes or strings)`       | Inserts nodes or strings after `document.body`.               |
+| `document.body.replaceWith(...nodes or strings)` | Replaces `document.body` with nodes or strings.               |
+| `document.body.remove()`                         | Removes `document.body` from the DOM.                         |
+
+## Methods to manipulate elements
+
+| Method                                       | Description                                                                  |
+| -------------------------------------------- | ---------------------------------------------------------------------------- |
+| `elem.append(...nodes or strings)`           | Inserts nodes or strings at the end of `elem`.                               |
+| `elem.prepend(...nodes or strings)`          | Inserts nodes or strings at the beginning of `elem`.                         |
+| `elem.before(...nodes or strings)`           | Inserts nodes or strings before `elem`.                                      |
+| `elem.after(...nodes or strings)`            | Inserts nodes or strings after `elem`.                                       |
+| `elem.replaceWith(...nodes or strings)`      | Replaces `elem` with nodes or strings.                                       |
+| `elem.remove()`                              | Removes `elem` from the DOM.                                                 |
+| `elem.cloneNode(deep)`                       | Clones the element. If `deep` is `true`, then clones all the descendants too |
+| `elem.closest(selector)`                     | Returns the nearest ancestor that matches the selector.                      |
+| `elem.matches(selector)`                     | Returns `true` if `elem` matches the selector.                               |
+| `elem.insertAdjacentHTML(where, html)`       | Inserts `html` at the given position relative to `elem`.                     |
+| `elem.insertAdjacentElement(where, element)` | Inserts `element` at the given position relative to `elem`.                  |
+| `elem.insertAdjacentText(where, text)`       | Inserts `text` at the given position relative to `elem`.                     |
+
+## Methods to manipulate attributes
+
+| Method                           | Description                             |
+| -------------------------------- | --------------------------------------- |
+| `elem.hasAttribute(name)`        | Returns `true` if the attribute exists. |
+| `elem.getAttribute(name)`        | Returns the value of the attribute.     |
+| `elem.setAttribute(name, value)` | Sets the attribute to the value.        |
+| `elem.removeAttribute(name)`     | Removes the attribute.                  |

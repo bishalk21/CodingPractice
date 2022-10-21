@@ -12,3 +12,8 @@
 var age = 20;
 var canDrive = age > 16 ? "yes" : "no";
 ```
+
+```js
+const myAge = 22;
+const canIdrive = myAge > 18 ? "yes" : "no";
+```
