@@ -226,3 +226,51 @@ Syntax:
     functionWithArgs(1, 2);
     functionWithArgs(7, 9);
     ```
+
+11. Return a Value from a Function with Return
+
+`return` is a keyword that exits a function and returns a value from that function
+
+    ```js
+    function timesFive(num) {
+      return num * 5;
+    }
+
+    let answer = timesFive(5); // answer equals 25
+    ```
+
+12. Global Scope and Functions
+
+- Scope refers to the visibility of variables
+- Variables which are defined outside of a function block have Global scope
+- Variables which are defined inside a function block have Local scope
+- Variables which are defined with the `var` keyword have Function scope
+- Variables which are defined with the `let` keyword have Block scope
+- Variables which are declared without the let or const keywords are automatically created in the global scope
+
+  ```js
+  // Declare the myGlobal variable below this line
+  var myGlobal = 10;
+
+  function fun1() {
+    // Assign 5 to oopsGlobal Here
+    oopsGlobal = 5;
+  }
+
+  // Only change code above this line
+
+  function fun2() {
+    var output = "";
+    if (typeof myGlobal != "undefined") {
+      output += "myGlobal: " + myGlobal;
+    }
+    if (typeof oopsGlobal != "undefined") {
+      output += " oopsGlobal: " + oopsGlobal;
+    }
+    console.log(output);
+  }
+  ```
+
+13. Local Scope and Functions
+
+- Variables which are declared within a function, as well as the function parameters have local scope
