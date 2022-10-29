@@ -212,7 +212,7 @@ array.slice([begin[, end]])
 ["Banana", "Orange", "Lemon", "Apple", "Mango"]
 >>> citrus
 ["Orange", "Lemon"]
->>> fruits.slice(1)
+>>> fruits.slice(1) // start
 ["Orange", "Lemon", "Apple", "Mango"]
 >>> fruits.slice(1).slice(1)
 ["Lemon", "Apple", "Mango"]
