@@ -132,3 +132,8 @@ Reasons why objects are stored in the heap:
 
 Prototypal Inheritance - object-oriented programming
 Events and Event Loop - asynchronous programming
+
+## Recap
+
+- Primitive types are immutable. They are passed by value. They are stored in the stack.
+- Objects are mutable. They are passed by reference. They are stored in the heap. The variable that stores the reference to the object is stored in the stack.
