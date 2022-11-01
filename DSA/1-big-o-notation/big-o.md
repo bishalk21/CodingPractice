@@ -169,6 +169,22 @@ Since we declare an array here, the space complexity depends linearly with its l
 2. log<sub>2</sub>64 = 6
 3. log<sub>2</sub>1 = 0
 
+## Properties and explanation of BIG O Notation
+
+1. O(n)
+
+O(n) is basically
+
+```javascript
+function sum(array) {
+  let total = 0;
+  for (const num of array) {
+    total += num;
+  }
+  return total;
+}
+```
+
 ## Review
 
 Time complexity counts number of _Operations_
