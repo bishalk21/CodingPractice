@@ -57,9 +57,16 @@ In arrays, each item is mapped with its index with number so easy finding of pos
 ## Implementation
 
 ```javascript
+// class Node {
+//   constructor(data) {
+//     this.data = data;
+//     this.next = null;
+//   }
+// }
+
 class Node {
-  constructor(data) {
-    this.data = data;
+  constructor(val) {
+    this.val = val;
     this.next = null;
   }
 }
@@ -71,11 +78,18 @@ class Node {
 // first.next.next.next.next = new Node("you");
 // first.next.next.next.next.next = new Node("?");
 
+// class SinglyLinkedList {
+//   constructor() {
+//     this.length = null;
+//     this.head = null;
+//     this.tail = null;
+//   }
+
 class SinglyLinkedList {
   constructor() {
-    this.length = null;
     this.head = null;
     this.tail = null;
+    this.length = 0;
   }
 
   // Pushing Pseudocode
@@ -86,18 +100,31 @@ class SinglyLinkedList {
   // 5. Increment the length by one
   // 6. Return the linked list
 
-  push(data) {
-    let newNode = new Node(data);
+  //   push(data) {
+  //     let newNode = new Node(data);
+  //     if (!this.head) {
+  //       // Empty list
+  //       this.head = newNode;
+  //       this.tail = newNode;
+  //     } else {
+  //       this.tail.next = newNode;
+  //       this.tail = newNode;
+  //     }
+  //     this.length++;
+  //     return this.length;
+  //   }
+
+  push(val) {
+    let newNode = new Node(val);
     if (!this.head) {
-      // Empty list
       this.head = newNode;
-      this.tail = newNode;
+      this.tail = this.head;
     } else {
       this.tail.next = newNode;
       this.tail = newNode;
     }
     this.length++;
-    return this.length;
+    return this;
   }
 
   // Popping Pseudocode
@@ -108,22 +135,40 @@ class SinglyLinkedList {
   // 5. Decrement the length of the list by 1
   // 6. Return the value of the node removedf
 
+  //   pop() {
+  //     if (!this.length) return undefined;
+  //     // Find the second last node
+  //     let iterator = this.head;
+  //     while (iterator.next != this.tail) {
+  //       iterator = iterator.next;
+  //     }
+  //     let final = this.tail.data;
+  //     this.tail = iterator;
+  //     this.tail.next = null;
+  //     this.length--;
+  //     if (this.length === 0) {
+  //       this.head = null;
+  //       this.tail = null;
+  //     }
+  //     return final;
+  //   }
+
   pop() {
-    if (!this.length) return undefined;
-    // Find the second last node
-    let iterator = this.head;
-    while (iterator.next != this.tail) {
-      iterator = iterator.next;
+    if (!this.head) return undefined;
+    let current = this.head;
+    let newTail = current;
+    while (current.next) {
+      newTail = current;
+      current = current.next;
     }
-    let final = this.tail.data;
-    this.tail = iterator;
+    this.tail = newTail;
     this.tail.next = null;
     this.length--;
     if (this.length === 0) {
       this.head = null;
       this.tail = null;
     }
-    return final;
+    return current;
   }
 
   // Shifting Pseudocode
@@ -133,17 +178,28 @@ class SinglyLinkedList {
   // 4. Decrement the length by 1
   // 5. Return the value of the node removed
 
+  //   shift() {
+  //     if (!this.length) return undefined;
+  //     let newHead = this.head.next;
+  //     let final = this.head.data;
+  //     this.head = newHead;
+  //     this.length--;
+  //     if (this.length === 0) {
+  //       this.head = null;
+  //       this.tail = null;
+  //     }
+  //     return final;
+  //   }
+
   shift() {
-    if (!this.length) return undefined;
-    let newHead = this.head.next;
-    let final = this.head.data;
-    this.head = newHead;
+    if (!this.head) return undefined;
+    let currentHead = this.head;
+    this.head = currentHead.next;
     this.length--;
     if (this.length === 0) {
-      this.head = null;
       this.tail = null;
     }
-    return final;
+    return currentHead;
   }
 
   // Unshifting Pseudocode
@@ -155,28 +211,49 @@ class SinglyLinkedList {
   // 6. Increment the length of the list by 1
   // 7. Return the linked list
 
-  unshift(data) {
-    let newHead = new Node(data);
-    if (this.length === 0) {
-      this.head = newHead;
-      this.tail = newHead;
+  //   unshift(data) {
+  //     let newHead = new Node(data);
+  //     if (this.length === 0) {
+  //       this.head = newHead;
+  //       this.tail = newHead;
+  //     } else {
+  //       newHead.next = this.head;
+  //       this.head = newHead;
+  //     }
+  //     this.length++;
+  //     return this.length;
+  //   }
+
+  unshift(val) {
+    let newNode = new Node(val);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = this.head;
     } else {
-      newHead.next = this.head;
-      this.head = newHead;
+      newNode.next = this.head;
+      this.head = newNode;
     }
     this.length++;
-    return this.length;
+    return this;
   }
 
   // traverse pseudocode - means visit each node of the list in order to perform some operation on the list
   // 1. Loop through the list until you reach the tail
   // 2. Print the value of each node
   // 3. Return the linked list
+  //   traverse() {
+  //     let iterator = this.head;
+  //     while (iterator) {
+  //       console.log(iterator.data);
+  //       iterator = iterator.next;
+  //     }
+  //   }
+
   traverse() {
-    let iterator = this.head;
-    while (iterator) {
-      console.log(iterator.data);
-      iterator = iterator.next;
+    let current = this.head;
+    while (current) {
+      console.log(current.val);
+      current = current.next;
     }
   }
 
@@ -185,15 +262,26 @@ class SinglyLinkedList {
   // 2. If the index is less than zero or greater than or equal to the length of the list, return null
   // 3. Loop through the list until you reach the index and return the node at that specific index
 
-  get(index = 0) {
-    let iteratorPostion = 0;
-    let iterator = this.head;
-    if (index >= this.length || index < 0) return null;
-    while (iteratorPostion != index) {
-      iterator = iterator.next;
-      iteratorPostion++;
+  //   get(index = 0) {
+  //     let iteratorPostion = 0;
+  //     let iterator = this.head;
+  //     if (index >= this.length || index < 0) return null;
+  //     while (iteratorPostion != index) {
+  //       iterator = iterator.next;
+  //       iteratorPostion++;
+  //     }
+  //     return iterator;
+  //   }
+
+  get(index) {
+    if (index < 0 || index >= this.length) return null;
+    let counter = 0;
+    let current = this.head;
+    while (counter !== index) {
+      current = current.next;
+      counter++;
     }
-    return iterator;
+    return current;
   }
 
   // Set Pseudocode
@@ -202,11 +290,20 @@ class SinglyLinkedList {
   // 3. If the node is not found, return false
   // 4. If the node is found, set the value of that node to be the value passed to the function and return true
 
-  set(index = 0, data = undefined) {
-    let iterator = this.get(index);
-    if (!iterator) return false;
-    iterator.data = data;
-    return true;
+  //   set(index = 0, data = undefined) {
+  //     let iterator = this.get(index);
+  //     if (!iterator) return false;
+  //     iterator.data = data;
+  //     return true;
+  //   }
+
+  set(index, val) {
+    let foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = val;
+      return true;
+    }
+    return false;
   }
 
   // Insert Pseudocode - adding node to the linked list at specific position
@@ -219,18 +316,32 @@ class SinglyLinkedList {
   // 7. Increment the length
   // 8. Return true
 
-  insert(index = 0, data = undefined) {
-    let prevNode = this.get(index - 1);
-    let nextNode = this.get(index);
-    let newNode = new Node(data);
-    if (this.length === 0 || !nextNode) this.push(data);
-    else if (!prevNode) this.unshift(data);
-    else {
-      prevNode.next = newNode;
-      newNode.next = nextNode;
-      this.length++;
-    }
-    return this.length;
+  //   insert(index = 0, data = undefined) {
+  //     let prevNode = this.get(index - 1);
+  //     let nextNode = this.get(index);
+  //     let newNode = new Node(data);
+  //     if (this.length === 0 || !nextNode) this.push(data);
+  //     else if (!prevNode) this.unshift(data);
+  //     else {
+  //       prevNode.next = newNode;
+  //       newNode.next = nextNode;
+  //       this.length++;
+  //     }
+  //     return this.length;
+  //   }
+
+  insert(index, val) {
+    if (index < 0 || index > this.length) return false;
+    if (index === this.length) return !!this.push(val);
+    if (index === 0) return !!this.unshift(val);
+
+    let newNode = new Node(val);
+    let prev = this.get(index - 1);
+    let temp = prev.next;
+    prev.next = newNode;
+    newNode.next = temp;
+    this.length++;
+    return true;
   }
 
   // Remove Pseudocode - removing a node from the Linked List at a specific position
@@ -242,18 +353,30 @@ class SinglyLinkedList {
   // 6. Decrement the length
   // 7. Return the value of the node removed
 
-  remove(index = 0) {
-    let prevNode = this.get(index - 1);
-    let nextNode = this.get(index + 1);
-    let currentNode = this.get(index);
-    if (this.length === 0) return null;
-    else if (!prevNode) this.shift();
-    else if (!nextNode) this.pop();
-    else {
-      prevNode.next = nextNode;
-      this.length--;
-      return currentNode.data;
-    }
+  //   remove(index = 0) {
+  //     let prevNode = this.get(index - 1);
+  //     let nextNode = this.get(index + 1);
+  //     let currentNode = this.get(index);
+  //     if (this.length === 0) return null;
+  //     else if (!prevNode) this.shift();
+  //     else if (!nextNode) this.pop();
+  //     else {
+  //       prevNode.next = nextNode;
+  //       this.length--;
+  //       return currentNode.data;
+  //     }
+  //   }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+
+    let previousNode = this.get(index - 1);
+    let removed = previousNode.next;
+    previousNode.next = removed.next;
+    this.length--;
+    return removed;
   }
 
   // Reverse Pseudocode - reversing the Linked List in place
@@ -268,20 +391,35 @@ class SinglyLinkedList {
   // 9. Set the node variable to be the value of the next variable
   // 10. Return the list
 
+  //   reverse() {
+  //     // flip head and tail
+  //     let temp = this.head;
+  //     this.head = this.tail;
+  //     this.tail = temp;
+  //     let node = this.tail;
+  //     let prevNode = null;
+  //     let nextNode = node.next;
+  //     while (node != null) {
+  //       node.next = prevNode;
+  //       prevNode = node;
+  //       node = nextNode;
+  //       if (node != null) nextNode = node.next;
+  //     }
+  //   }
+
   reverse() {
-    // flip head and tail
-    let temp = this.head;
+    let node = this.head;
     this.head = this.tail;
-    this.tail = temp;
-    let node = this.tail;
-    let prevNode = null;
-    let nextNode = node.next;
-    while (node != null) {
-      node.next = prevNode;
-      prevNode = node;
-      node = nextNode;
-      if (node != null) nextNode = node.next;
+    this.tail = node;
+    let next;
+    let prev = null;
+    for (let i = 0; i < this.length; i++) {
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
     }
+    return this;
   }
 
   // Print Pseudocode
