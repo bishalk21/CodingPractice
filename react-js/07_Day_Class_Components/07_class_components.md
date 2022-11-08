@@ -806,7 +806,7 @@ function add(a, b) {
   return a + b;
 }
 
-add(2,3)
+add(2, 3);
 ```
 
 2. What is inheritance and how do you make a child from a parent class?
@@ -848,11 +848,28 @@ bishal.code();
 > Class based React component is a component that is written as a class. It has a render method that returns the JSX. It has a constructor method that is called before any other method. It has a state object that holds the data of the component. It has a lifecycle method that is called when the component is mounted or unmounted.
 
 4. What is the difference between functional React component and class based React component ?
+
+> Functional React component is a component that is written as a function. It returns the JSX. It does not have a constructor method. It does not have a state object. It does not have a lifecycle method.
+
 5. When do we need to use class based components instead of functional components
+
+> We need to use class based components when we need to use state or lifecycle methods. We can use functional components when we do not need to use state or lifecycle methods.
+
 6. What is the use cases of class based component ?
+
+> Class based component is used when we need to use state or lifecycle methods. It is also used when we need to use the ref attribute.
+
 7. Which type of component do use most frequently ? functional or class-based component
+
+> Functional component is used most frequently because it is easier to write and read. It is also easier to test.
+
 8. What is React life cycle ? (not covered yet) ?
+
+> React lifecycle is a set of methods that are called at different stages of the component's life. It is used to perform certain actions at different stages of the component's life.
+
 9. What is state in React ? (not covered yet)
+
+> State is an object that holds the data of the component. It is used to rerender the component when there is a change in state.
 
 ## Exercises: Level 2
 
