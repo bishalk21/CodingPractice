@@ -883,15 +883,14 @@ const userCard = (
         <p>
           <span>Location:</span> New York
         </p>
-  </div>
-  </div>
+      </div>
+    </div>
 
-  <div className="user-card__actions">
-    <button>Follow</button>
-    <button>Message</button>
+    <div className="user-card__actions">
+      <button>Follow</button>
+      <button>Message</button>
+    </div>
   </div>
-</div>
-
 );
 
 const rootElement = document.getElementById("root");
@@ -1051,6 +1050,86 @@ ReactDOM.render(calculator, rootElement);
 ```
 
 3. Design the following form.
+
+> I have designed the following form:
+
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+
+const form = (
+  <div className="form">
+    <h1>Sign Up</h1>
+    <p>
+      <label htmlFor="username">Username</label>
+      <input type="text" id="username" />
+    </p>
+    <p>
+      <label htmlFor="email">Email</label>
+      <input type="email" id="email" />
+    </p>
+    <p>
+      <label htmlFor="password">Password</label>
+      <input type="password" id="password" />
+    </p>
+    <p>
+      <label htmlFor="confirm-password">Confirm Password</label>
+      <input type="password" id="confirm-password" />
+    </p>
+    <p>
+      <button>Sign Up</button>
+    </p>
+  </div>
+);
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(form, rootElement);
+```
+
+```css
+.form {
+  width: 300px;
+  height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.form h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.form p {
+  margin: 10px 0;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fca311;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+```
 
 🎉 CONGRATULATIONS ! 🎉
 
