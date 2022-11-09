@@ -12,6 +12,130 @@ Context is designed to share data that can be considered “global” for a tree
 
 The above text has been taken from [react documentation](https://reactjs.org/docs/context.html) without any change.
 
+## Creating Context
+
+We can create context using `React.createContext()` method. This method takes an argument which is the default value of the context. The default value is used when a component does not have a matching Provider above it in the tree.
+
+```js
+import React from "react";
+
+const ThemeContext = React.createContext("light");
+
+export default ThemeContext;
+```
+
+## Using Context
+
+We can use context in two ways:
+
+1. Using `Context.Consumer`
+
+2. Using `Context.Provider`
+
+### Using Context.Consumer
+
+We can use the `Context.Consumer` to consume the context value. The `Context.Consumer` is a React component that subscribes to context changes. This lets you subscribe to a context within a function component.
+
+```js
+import React from "react";
+import ThemeContext from "./ThemeContext";
+
+const Button = () => {
+  return (
+    <ThemeContext.Consumer>
+      {(theme) => <button className={`btn btn-${theme}`}>Click Me</button>}
+    </ThemeContext.Consumer>
+  );
+};
+
+export default Button;
+```
+
+### Using Context.Provider
+
+We can use the `Context.Provider` to provide the context value. The `Context.Provider` is a React component that allows consuming components to subscribe to context changes.
+
+```js
+import React from "react";
+import ThemeContext from "./ThemeContext";
+
+const Button = () => {
+  return (
+    <ThemeContext.Provider value="dark">
+      <button className="btn btn-dark">Click Me</button>
+    </ThemeContext.Provider>
+  );
+};
+
+export default Button;
+```
+
+## Exercises
+
+### Exercises: Level 1
+
+1. Create a context with default value `light`.
+
+```js
+import React from "react";
+
+const ThemeContext = React.createContext("light");
+
+export default ThemeContext;
+```
+
+2. Create a component `Button` which will consume the context.
+
+```js
+import React from "react";
+import ThemeContext from "./ThemeContext";
+
+const Button = () => {
+  return (
+    <ThemeContext.Consumer>
+      {(theme) => <button className={`btn btn-${theme}`}>Click Me</button>}
+    </ThemeContext.Consumer>
+  );
+};
+
+export default Button;
+```
+
+3. Create a component `App` which will provide the context value.
+
+```js
+import React from "react";
+import ThemeContext from "./ThemeContext";
+import Button from "./Button";
+
+const App = () => {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Button />
+    </ThemeContext.Provider>
+  );
+};
+
+export default App;
+```
+
+4. Render the `Button` component inside the `App` component.
+
+```js
+import React from "react";
+import ThemeContext from "./ThemeContext";
+
+const App = () => {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Button />
+    </ThemeContext.Provider>
+  );
+};
+
+export default App;
+```
+
 It seems the react documentation has pretty good information about context, you can go through the [react documentation](https://reactjs.org/docs/context.html).
 
 # Exercises
