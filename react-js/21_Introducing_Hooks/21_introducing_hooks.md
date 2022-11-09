@@ -486,6 +486,272 @@ ReactDOM.render(<App />, rootElement);
 - Managing the authentication of an application
 - Managing the state of an application
 
+### Reducer Hook
+
+The Reducer Hook lets you create a reducer and use it in function components:
+
+Q. What is reducer in useReducer hooks?
+
+A. A reducer is a function that determines changes to an application’s state. It uses the action it receives to determine this change.
+
+```js
+import React, { useReducer } from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+const initialState = { count: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    case "reset":
+      return initialState;
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+    </>
+  );
+}
+
+function App() {
+  return <Counter />;
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+### Use cases of useReducer Hook
+
+- Managing the state of an application
+- Managing the state of a form
+- Managing the state of a modal
+- Managing the state of a dropdown
+
+### Memo Hook
+
+The Memo Hook lets you create a memoized value and use it in function components:
+
+Q. What is memoized value?
+
+A. A memoized value is a value that is stored in memory. It is used to prevent the same value from being calculated multiple times.
+
+Q. What is memo in useMemo hooks?
+
+A. useMemo is a hook that is used to memorize the result of a function. It is useful when you have a function that is computationally expensive and you want to avoid recalculating the result unless one of its dependencies has changed.
+
+```js
+import React, { useState, useMemo } from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+function complexCompute(num) {
+  let i = 0;
+  while (i < 1000000000) i++;
+  return num * 2;
+}
+
+function App() {
+  const [number, setNumber] = useState(42);
+  const [colored, setColored] = useState(false);
+
+  const styles = useMemo(() => {
+    return {
+      color: colored ? "darkred" : "black",
+    };
+  }, [colored]);
+
+  const computed = useMemo(() => {
+    return complexCompute(number);
+  }, [number]);
+
+  return (
+    <>
+      <h1 style={styles}>Calculated property: {computed}</h1>
+      <button
+        className="btn btn-success"
+        onClick={() => setNumber((prev) => prev + 1)}
+      >
+        Add
+      </button>
+      <button
+        className="btn btn-danger"
+        onClick={() => setNumber((prev) => prev - 1)}
+      >
+        Sub
+      </button>
+      <button
+        className="btn btn-warning"
+        onClick={() => setColored((prev) => !prev)}
+      >
+        Change
+      </button>
+    </>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+### Use cases of useMemo Hook
+
+- Calculating a value that is computationally expensive
+- Calculating a value that is expensive to render
+- Calculating a value that is expensive to render
+
+### Callback Hook
+
+The Callback Hook lets you create a callback and use it in function components:
+
+Q. What is callback in useCallback hooks?
+
+A. useCallback is a hook that is used to memorize the result of a function. It is useful when you have a function that is computationally expensive and you want to avoid recalculating the result unless one of its dependencies has changed.
+
+```js
+import React, { useState, useCallback } from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+function App() {
+  const [colored, setColored] = useState(false);
+  const [count, setCount] = useState(1);
+
+  const styles = {
+    color: colored ? "darkred" : "black",
+  };
+
+  const generateItemsFromAPI = useCallback(() => {
+    return new Array(count).fill("").map((_, i) => `Element ${i + 1}`);
+  }, [count]);
+
+  return (
+    <>
+      <h1 style={styles}>Count of elements: {count}</h1>
+      <button
+        className="btn btn-success"
+        onClick={() => setCount((prev) => prev + 1)}
+      >
+        Add
+      </button>
+      <button
+        className="btn btn-danger"
+        onClick={() => setCount((prev) => prev - 1)}
+      >
+        Sub
+      </button>
+      <button
+        className="btn btn-warning"
+        onClick={() => setColored((prev) => !prev)}
+      >
+        Change
+      </button>
+
+      <List getItems={generateItemsFromAPI} />
+    </>
+  );
+}
+
+function List({ getItems }) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const newItems = getItems();
+    setItems(newItems);
+    console.log("Items");
+  }, [getItems]);
+
+  return (
+    <ul>
+      {items.map((i) => (
+        <li key={i}>{i}</li>
+      ))}
+    </ul>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+### Use cases of useCallback Hook
+
+- Passing a function as a prop to a child component
+- Passing a function as a prop to a child component
+- Passing a function as a prop to a child component
+
+### Ref Hook
+
+The Ref Hook lets you create a reference and use it in function components:
+
+Q. What is ref in useRef hooks?
+
+A. useRef is a hook that is used to create a reference to a DOM element. It is useful when you want to access a DOM element without using a query selector.
+
+```js
+import React, { useState, useRef } from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+function App() {
+  const [value, setValue] = useState("initial");
+  const renderCount = useRef(1);
+  const inputRef = useRef(null);
+  const prevValue = useRef("");
+
+  useEffect(() => {
+    renderCount.current++;
+    console.log(inputRef.current.value);
+  });
+
+  useEffect(() => {
+    prevValue.current = value;
+  }, [value]);
+
+  const focus = () => inputRef.current.focus();
+
+  return (
+    <div>
+      <h1>Count of renders: {renderCount.current}</h1>
+      <h2>Previous state: {prevValue.current}</h2>
+      <input
+        ref={inputRef}
+        type="text"
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+      <button className="btn btn-success" onClick={focus}>
+        Focus
+      </button>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+### Use cases of useRef Hook
+
+- Accessing DOM elements
+
 ## Additional Hook
 
 ### useReducer Hook
@@ -536,6 +802,79 @@ function App() {
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
 ```
+
+### useLayoutEffect Hook
+
+The useLayoutEffect Hook lets you use the layout effect in function components:
+
+Q. What is the difference between useEffect and useLayoutEffect?
+
+A. The useEffect Hook is used to perform side effects in function components. The useLayoutEffect Hook is used to perform layout effects in function components.
+
+```js
+import React, { useState, useLayoutEffect } from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect");
+  });
+
+  return (
+    <div className="App">
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+### useDebugValue Hook
+
+The useDebugValue Hook lets you use the debug value in function components:
+
+Q. What is the use of useDebugValue Hook?
+
+A. The useDebugValue Hook is used to display a label for custom hooks in React DevTools.
+
+```js
+import React, { useState, useDebugValue } from "react";
+import ReactDOM from "react-dom";
+
+import "./styles.css";
+
+function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  useDebugValue(isOnline ? "Online" : "Offline");
+
+  return isOnline;
+}
+
+function App() {
+  const isOnline = useFriendStatus(1);
+
+  return (
+    <div className="App">
+      <h1>{isOnline ? "Online" : "Offline"}</h1>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+```
+
+## Conclusion
+
+In this article, we have learned about the Hooks in React. We have also learned about the useState Hook, useEffect Hook, useContext Hook, useReducer Hook, useLayoutEffect Hook, and useDebugValue Hook.
 
 # Exercises
 
