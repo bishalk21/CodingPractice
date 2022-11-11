@@ -1776,6 +1776,63 @@ Now, you have a very good understanding of how to create JSX elements and also h
           ReactDOM.render(app, document.getElementById("root"));
           ```
 
+## Declarative vs Imperative Approach
+
+- React tells Don't touch the DOM, I will do it for you.
+- React is declarative, not imperative.
+- Imperative approach is like telling the computer what to do and how to do it.
+- Declarative approach is like telling the computer what to do and let the computer figure out how to do it.
+
+## Component Architecture
+
+- React is a component-based library.
+- React is a library for building user interfaces.
+
+## Why React?
+
+- React is a component-based library.
+- React is a library for building user interfaces.
+- React is declarative, not imperative.
+- React is fast.
+- React is easy to learn.
+- React is easy to maintain.
+- One way data flow
+- React is a library, not a framework.
+
+## One Way Data Flow
+
+- React is a one-way data flow library.
+
+Q. How does one way data flow work?
+
+A. React is a one-way data flow library. It means that data flows in one direction. Data flows from parent to child. Data flows from top to bottom. Data flows from state to view. Data flows from state to UI. Data flows from state to DOM.
+
+## React is a library, not a framework
+
+- React is a library, not a framework.
+
+Q. What is the difference between a library and a framework?
+
+A. A library is a collection of functions and methods that you can use in your application. A framework is a collection of functions and methods that you can use in your application and also a collection of rules and conventions that you have to follow.
+
+## React is fast
+
+- React is fast.
+
+Q. How is React fast?
+
+A. React is fast because it uses virtual DOM. Virtual DOM is a virtual representation of the real DOM. Virtual DOM is a lightweight representation of the real DOM. Virtual DOM is a JavaScript object. Virtual DOM is a JavaScript object that is a representation of the real DOM. Virtual DOM is a JavaScript object that is a representation of the real DOM and it is lightweight. Virtual DOM is a JavaScript object that is a representation of the real DOM and it is lightweight and it is fast. Virtual DOM is a JavaScript object that is a representation of the real DOM and it is lightweight and it is fast and it is easy to manipulate.
+
+## Hooks vs Classes
+
+- React has two ways to create components.
+- React has two ways to create components: hooks and classes.
+
+| Hooks                               | Classes                       |
+| ----------------------------------- | ----------------------------- |
+| Functional components               | Class components              |
+| Functional components are stateless | Class components are stateful |
+
 🎉 CONGRATULATIONS ! 🎉
 
 [<< Day 1](../01_Day_JavaScript_Refresher/01_javascript_refresher.md) | [Day 3 >>](../03_Day_Setting_Up/03_setting_up.md)
