@@ -1554,11 +1554,32 @@ Now, you have a very good understanding of how to create JSX elements and also h
 
    > JSX is a syntax extension to JavaScript. It is used with React to describe what the UI should look like. JSX may remind you of a template language, but it comes with the full power of JavaScript.
 
-5. What is babel?
+### Characteristics of JSX:
+
+- produces react elements.
+- it is not a string.
+- it is a combination of HTML, CSS, and JavaScript.
+- it is a syntax extension to JavaScript.
+- it is used with React to describe what the UI should look like.
+- it is used to inject data to JSX.
+- allows writing expressions (javascript expression or react variable) in {}.
+- allows writing comments, style, class in {}.
+- parenthesis i.e, () is used to insert large block of HTML.
+- it is not a template language, but comes with full power of JavaScript.
+
+5. Why JSX?
+
+   > JSX makes it easier to write and add HTML in React(along with JavaScript Code).
+   > JSX can easily convert HTML tags into react elements.
+   > JSX allows us to put HTML elements in DOM without using appendChild() or createElement() method.
+   > JSX embraces the fact that rendering logic is inherently coupled with other UI logic: how events are handled, how the state changes over time, and how the data is prepared for display.
+   > It also allows React to show more useful error and warning messages.
+
+6. What is babel?
 
    > Babel is a JavaScript compiler. It is used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in current and older browsers or environments.
 
-6. What is a transpiler?
+7. What is a transpiler?
 
 #### Exercises: JSX Elements
 
