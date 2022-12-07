@@ -366,3 +366,23 @@ A function that checks if the token is revoked.
 Q. What are the methods that isRevokedCallback() takes?
 
 - isRevokedCallback: Checks if the token is revoked.
+
+### CORS
+
+CORS stands for Cross-Origin Resource Sharing
+CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+
+Advantage of using cors:
+
+- It can be used as a standalone package or as a part of Express/Connect framework.
+- It can be used to enable CORS for a specific route or for an entire application.
+- It can be used to enable preflight requests for all the routes or for specific routes.
+- It can be used to set the Access-Control-Allow-Origin header to a specific origin or to a wildcard.
+- It can be used to set Access-Control-Allow-Credentials header to true so that the server will pass the cookie information along with the request.
+- It can be used to set Access-Control-Max-Age header so that the preflight request will not be sent for subsequent requests.
+- It can be used to set Access-Control-Allow-Headers header so that the server will accept the specified custom headers.
+- It can be used to set Access-Control-Allow-Methods header so that the server will accept the specified methods.
+
+Q. What are the methods that CORS takes?
+
+- cors: Returns a middleware function to be used in your application.
