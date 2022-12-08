@@ -54,6 +54,8 @@ MongoDB is a document database, while SQL is a relational database.
 
 Q. What is a Schema?
 
+A Schema is a JSON object that defines the structure and contents of given data.
+
 A schema is a Mongoose construct that defines the structure of the documents within a given collection. Schemas are used to define the structure of the documents within a given collection. Schemas are used to define the structure of the documents within a given collection.
 
 Q. What is a Model?
