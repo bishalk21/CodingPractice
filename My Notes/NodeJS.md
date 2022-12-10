@@ -386,3 +386,19 @@ Advantage of using cors:
 Q. What are the methods that CORS takes?
 
 - cors: Returns a middleware function to be used in your application.
+
+### req.params
+
+req.params is an object containing properties mapped to the named route “parameters”.
+
+req.params is the part you send in the request url parameter or the header parts of requests.
+
+For example, if you have the route /user/:name, then the “name” property is available as req.params.name. This object defaults to {}.
+
+### req.body
+
+req.body is an object containing the parsed body, available under the req.body property. This object defaults to {}.
+
+req.body is the JSON data we are sending in postman so we can access it in the post request body part.
+
+For example, if you have the route /user/:name, then the “name” property is available as req.body.name.
