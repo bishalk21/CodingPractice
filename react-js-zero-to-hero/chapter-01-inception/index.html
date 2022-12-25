@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>REACT - zero to hero</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <!-- <div class="header">Header</div> -->
+
+    <!-- root is the place where react runs or every code we write renders here -->
+    <div id="root">
+        <!-- <h1>
+            REACT - zero to hero
+        </h1> -->
+
+        <!-- if another same prop or attribute is passed as in reactElement (title), the htmlElement will be override by reactElement! - CHECK IN NETWORK CONSOLE WITH TIME INTERVAL SET TO CHECK THE RENDERING AND OVERRIDING -->
+        <!-- - browser loads website
+        - browser sees the html and css and renders it
+        - browser sees the javascript and executes it
+        - javascript modifies the dom
+        - browser sees the modified dom and renders it
+        - browser sees the javascript and executes it
+        - javascript modifies the dom
+         -->
+        <!-- <h1 id="title">
+            Namaste JAVASCRIPT
+        </h1> -->
+    </div>
+    <!-- <div class="footer">Footer</div> -->
+
+
+    <!-- IF NEED TO PRINT THE ABOVE H1 USING JAVASCRIPT ----- DOM Manipulation
+    <script>
+        // first create element by document.createElement, a super power given by browser
+        const h1 = document.createElement("h1");
+        // then add text to the element
+        h1.innerHTML = " REACT - zero to hero";
+        // then append the element to the root div to put it there
+        const root = document.getElementById("root");
+        root.appendChild(h1);
+    </script> -->
+
+    <!-- NOW USING REACT - FIRST INJECT CDN REACT -->
+    <!-- ORDER IS IMPORTANT -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+
+    <script src="./script.js">
+    </script>
+
+</body>
+
+</html>
