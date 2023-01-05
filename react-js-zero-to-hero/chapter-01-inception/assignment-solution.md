@@ -91,6 +91,8 @@ This is called Inversion of Control.
 - Defer ensures the order of the JS excecution
 - Prefer defer!
 
+<img src="./async vs defer.png">
+
 ## Interview Question
 
 1. React Overriding whatever is in root with render and not only showing what is in render()
