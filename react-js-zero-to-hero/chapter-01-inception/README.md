@@ -55,3 +55,70 @@ https://react-cn.github.io/react/downloads.html
 
 6. Async VS Defer
    https://www.youtube.com/watch?v=IrHmpdORLu8
+
+## Building React App from scratch
+
+1. Create a new folder
+
+`react-app`
+
+2. Create a new file
+
+`index.html`
+
+3. Add the following code to the file
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+4. Add react and react-dom development script in index.html
+
+   ```html
+   <script
+     src="https://unpkg.com/react/umd/react.development.js"
+     crossorigin
+   ></script>
+   <script
+     src="https://unpkg.com/react-dom/umd/react-dom.development.js"
+     crossorigin
+   ></script>
+   ```
+
+Now we have the super power of react in our app.
+
+5. Create a new file
+
+`index.js`
+
+6. Add the following code to the file
+
+```html
+<script src="index.js"></script>
+```
+
+7. Add the following code to the file
+
+```js
+// creating element using react
+const element = React.createElement("h1", null, "Hello World");
+
+// create an root element using react
+const rootElement = document.getElementById("root");
+
+// tell the react dom the root element is root
+const root = ReactDOM.createRoot(rootElement);
+
+// render the element to the root
+root.render(element);
+```

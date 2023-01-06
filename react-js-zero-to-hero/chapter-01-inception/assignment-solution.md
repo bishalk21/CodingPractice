@@ -1,19 +1,19 @@
 # Coding -
 
-● Set up all the tools in your laptop
-○ VS Code
-○ Chrome
-○ Extensions of Chrome
-● Create a new Git repo
-● Build your first Hello World program using,
-○ Using just HTML
-○ Using JS to manipulate the DOM
-○ Using React
-■ use CDN Links
-■ Create an Element
-■ Create nested React Elements
-■ Use root.render
-● Push code to Github (Theory as well as code)
+- Set up all the tools in your laptop
+- VS Code
+- Chrome
+- Extensions of Chrome
+- Create a new Git repo
+- Build your first Hello World program using,
+- Using just HTML
+- Using JS to manipulate the DOM
+- Using React
+- use CDN Links
+- Create an Element
+- Create nested React Elements
+- Use root.render
+- Push code to Github (Theory as well as code)
 
 References:
 
@@ -32,6 +32,8 @@ References:
 
 2. Difference between Library and Framework.
 
+It just take minimum effort for library to put it inside our code.
+
 | Library                                                            | Framework                                                         |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------- |
 | Set of Helper functions which the developer calls as per the needs | Provides a skeleton which the developer can fill as per the needs |
@@ -42,6 +44,7 @@ This is called Inversion of Control.
 3. What is CDN and Why do we use it?
 
 - CDN - Content Delivery Network
+- A content delivery network (CDN) refers to a geographically distributed group of servers that work together to provide fast delivery of Internet content.
 - A set of servers spread over geographically many locations
 - Duplicates of data - generally static assets like stylesheets, images and JS
 - Server the request based on the location of the request of the end user - it will help in reducing the latency of the response
@@ -71,7 +74,7 @@ This is called Inversion of Control.
 6. What is the difference between React and React DOM?
 
 - React is a library for building user interfaces. The react package holds the react source for components, state, props and all the code that is react. React package contains: React.createElement, React.createClass, React.Component, React.PropTypes, React.Children
-- React DOM is a library for rendering the React components to the DOM. The react-dom package as the name implies is the glue between React and the DOM. Often, you will only use it for one single thing: mounting your application to the index.html file with ReactDOM.render(). React-dom package contains: ReactDOM.render, ReactDOM.unmountComponentAtNode, ReactDOM.findDOMNode, and react-dom/server that's including: ReactDOMServer.renderToString and ReactDOMServer.renderToStaticMarkup.
+- React DOM is web version of react. React DOM is a library for rendering the React components to the DOM. The react-dom package as the name implies is the glue between React and the DOM. Often, you will only use it for one single thing: mounting your application to the index.html file with ReactDOM.render(). React-dom package contains: ReactDOM.render, ReactDOM.unmountComponentAtNode, ReactDOM.findDOMNode, and react-dom/server that's including: ReactDOMServer.renderToString and ReactDOMServer.renderToStaticMarkup.
 
 7. What is difference between react.development.js and react.production.js files via CDN?
 
@@ -96,3 +99,11 @@ This is called Inversion of Control.
 ## Interview Question
 
 1. React Overriding whatever is in root with render and not only showing what is in render()
+
+2. DOM vs React DOM
+
+| DOM                                          | REACT DOM                                             |
+| -------------------------------------------- | ----------------------------------------------------- |
+| DOM is a tree of nodes                       | React DOM is a tree of components                     |
+| DOM is a representation of the HTML document | React DOM is a representation of the React components |
+| DOM is a part of the browser                 | React DOM is a part of the React library              |
