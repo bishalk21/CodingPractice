@@ -1,3 +1,5 @@
+// strict mode
+"use strict";
 //   <!-- LETS WRITE HELLO PROGRAM -->
 // FIRST CREATE ELEMENT
 // createElement takes three args - tag, object as attribute and what you want to put inside tag
@@ -45,3 +47,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // then render the element or passing element inside root
 // root.render(h1);
 root.render(container);
+
+// const a = "b";
+// const b = "a";
+// const c = {
+//   b: 7,
+// };
+// console.log(c[a]);

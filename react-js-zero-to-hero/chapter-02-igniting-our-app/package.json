@@ -1,0 +1,29 @@
+{
+  "name": "chapter-02-igniting-our-app",
+  "version": "1.0.0",
+  "description": "React Day 02",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Bishal Karki",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "devDependencies": {
+    "parcel": "^2.8.2",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserlist": [
+    "last 2 versions"
+  ]
+}
