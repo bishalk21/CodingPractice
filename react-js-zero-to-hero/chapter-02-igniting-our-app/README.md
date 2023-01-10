@@ -1,3 +1,23 @@
+1. [npm](#npm)
+2. [Parcel/Webpack](#bundlers---webpack-parcel)
+3. [.parcel-cache](#parcel-cache)
+4. [npx](#npx)
+5. [Differences-between-devDependencies-and-dependencies](##differences-between-dependencies-and-devdependencies)
+6. [Tree-shaking](#what-is-tree-shaking)
+7. [Hot-module-replacement](##hot-module-replacement)
+8. [SuperPowers-of-parcel](##super-powers-of-parcel)
+9. [.gitignore](##gitignore)
+10. [Difference-between-package.json-and-package--lock.json](##difference-between-packagejson-and-package-lockjson)
+11. [Why-should-I-not-modify-`package-lock.json`](##why-should-I-not-modify-`package-lock.json)
+12. [node_modules](##node_modules)
+13. [Dist-Folder](##dist-folder)
+14. [Read-about-different-bundlers](##read-about-different-bundlers)
+15. [Read-about-caret-and-tilde](##read-about-caret-and-tilde)
+16. [Read-about-script-types-in-html](##read-about-script-types-in-html)
+17. [Practical](#Practical)
+18. [References](#References)
+19. [browserslist](##browserslist)
+
 # Bundlers - webpack, parcel
 
 1. What are bundlers?
@@ -6,12 +26,14 @@ A bundler is a development tool that combines many JavaScript code files into a 
 
 Bundlers are tools that help you write code in modules and then bundle them together into small packages to be used in the browser. They take away the hassle of manually creating scripts and linking them together. They also help you to use the latest JavaScript features, regardless of whether your users’ browsers support them.
 
-Q. What is `Parcel/Webpack`? Why do we need it?
+## What is `Parcel/Webpack`? Why do we need it?
 
 Parcel/Webpack is a bundler that means all the javascript code written in different files and folders
 including all the dependencies and packages are bundled and minified in a single file which is then given
 to the browser.
 They provide many different advantges like Hot Module Replacement, Caching etc.
+
+## Read about different bundlers
 
 2. Examples of Bundlers:
 
@@ -22,6 +44,13 @@ They provide many different advantges like Hot Module Replacement, Caching etc.
 - vite
 - esbuild
 
+## vite
+
+Vite is a new breed of frontend build tool that significantly improves the frontend development experience. It consists of two major parts:
+
+- A dev server that provides rich feature enhancements over native ES Module imports
+- A build command that bundles your code with Rollup, pre-configured to output highly optimized static assets for production
+
 3. What is webpack?
 
 webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.
@@ -31,6 +60,8 @@ webpack is a module bundler. Its main purpose is to bundle JavaScript files for 
 - Parcel is the beast
 
 Parcel is a web application bundler, differentiated by its developer experience. It offers blazing fast performance utilizing multicore processing, and requires zero configuration.
+
+## Super powers of parcel
 
 - bundles all our code and build minified production ready
 - hot module REPLACEMENT - HMR
@@ -115,7 +146,7 @@ Q. What is devDependencies?
 
 - devDependencies are the packages that are used in development only. They are not required in production.
 
-Q. Differences between dependencies and devDependencies?
+## Differences between dependencies and devDependencies?
 
 - dependencies are the packages that are required in production.
 - devDependencies are the packages that are used in development only. They are not required in production.
@@ -152,7 +183,15 @@ npm install -g is used to install a package globally on your system.
 
 npm install -S is used to install a package and save it as a dependency in package.json.
 
-# tilde and caret
+## Read about caret and tilde
+
+1. What is caret(^)?
+
+The caret (^) is used to match the most recent major version (the middle number). For example, ^1.2.3 will match all 1.x.x versions but will hold off on 2.0.0.
+
+2. What is tilde(~)?
+
+The tilde (~) is used to match the most recent minor version (the last number). For example, ~1.2.3 will match all 1.2.x versions but will hold off on 1.3.0.
 
 ## package-lock.json
 
@@ -167,15 +206,6 @@ package.lock.json is an automatically generated file based on the exact versions
 - package-lock.version is a property in package-lock.json file. It is used to specify the version of the package-lock.json file format.
 - has integrity: maintains the hash of the package-lock file which insures what version of package was running on my system and is exactly the same on production.
 - important file, lock the version packages , `never have to keep in .gitignore`
-
-## node modules
-
-1. What is node_modules?
-
-node_modules is a directory that contains all the dependencies of the project.
-
-- database of npm
-- heaviest object in the universe
 
 ## Why not to use cdn links for react
 
@@ -227,7 +257,7 @@ A module is a piece of code that is used to perform a specific task. It is a col
 
 In Parcel,
 
-2. What is Hot Module Reloading?
+## Hot module replacement
 
 Hot Module Reloading is a feature that allows you to update the code of your app without reloading the entire page. It is a feature that is available in webpack and parcel.
 When the developer saves the project then parcel automatically updates the modules in runtime without letting
@@ -238,6 +268,8 @@ the developer to reload the page.
 HMR works by replacing modules in the browser without a full reload. This means that the state of your app is preserved. You can edit your components and see the changes without losing the state of your app.
 
 There is sth known as File Watcher Algorithm, written in C++.
+
+# parcel–cache
 
 4. What is .parcel-cache?
 
@@ -278,19 +310,19 @@ Q. How do I make my app compatible with older browsers using browserlist?
 - add browserslist in package.json
 - add browserslist in .babelrc
 
-## [browserslist](https://browserslist.dev/?q=bGFzdCAyIHZlcnNpb25z)
-
 ## What is Tree Shaking?
 
 Tree Shaking is also called Dead Code Elimination. Parcel analyzes all the modules for imports and exports
 and eliminates all the things which are unused. Works for both dynamic and static imports.
+
+## gitignore
 
 ## What is `.gitignore`? What should we add and not add into it?
 
 .gitignore is a file in which those files are added which are not supossed to be tracked by git while
 pushing to the git repository.
 
-## What is the difference between `package.json` and `package-lock.json`
+## Difference between package.json and package-lock.json
 
 package.json defines all the packages and modules with their version on which the application is running on
 and also defines all the scripts which are created by the developers. It contains all the metadata about the
@@ -306,10 +338,21 @@ version of the dependencies.
 If package-lock.json is modified then it might lead to inconsistency and conflicts in the versions of the dependencies
 and may cause problem is successful installation of the application.
 
+## node_modules
+
+1. What is node_modules?
+
+node_modules is a directory that contains all the dependencies of the project.
+
+- database of npm
+- heaviest object in the universe
+
 ## What is `node_modules` ? Is it a good idea to push that on git?
 
 node_modules is a folder where all the dependencies and dependencies of the dependencies resides.
 The node_modules folder can be regenerated so it can be avoided while pushing.
+
+## [browserslist](https://browserslist.dev/?q=bGFzdCAyIHZlcnNpb25z)
 
 ## What is `browserlists`?
 
@@ -325,3 +368,29 @@ It is not only the virtual DOM that makes React faster but other components like
 Parcel Commands :
 For development build:
 npx parcel <entry_point>
+
+For production build:
+npx parcel build <entry_point>
+
+## Read about script types in html
+
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
+
+# Practical
+
+- intialize `npm` into your repo
+- install `react` and `react-dom`
+- remove CDN links of react
+- install parcel
+- ignite your app with parcel
+- add scripts for “start” and “build” with parcel commands
+- add `.gitignore` file
+- add `browserlists`
+- build a production version of your code using `parcel build`
+
+# References
+
+- [Creating-your-own-create--react--app](https://medium.com/@JedaiSaboteur/creating-a-react-app-from-scratch-f3c693b84658)
+- [Parcel Documentation](https://parceljs.org/getting-started/webapp/)
+- [Parcel on Production](https://parceljs.org/features/production/)
+- [browserslist](https://browserslist.dev/?q=bGFzdCAyIHZlcnNpb25z)

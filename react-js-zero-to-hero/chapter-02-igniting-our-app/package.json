@@ -11,9 +11,6 @@
   },
   "author": "Bishal Karki",
   "license": "ISC",
-  "bugs": {
-    "url": ""
-  },
   "homepage": "",
   "devDependencies": {
     "parcel": "^2.8.2",
