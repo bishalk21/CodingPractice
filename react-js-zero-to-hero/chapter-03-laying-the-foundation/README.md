@@ -18,7 +18,11 @@
 14. [React Setup](#react-setup)
 15. [React.createElement](#createElement)
 16. [JSX](#JSX)
+
+    - [Role od Babel and parcer](##role-of-babel-and-parcel-in-jsx)
+
 17. [React Component](#react-component)
+18. [Role of type attribute in script tag](#role-of-type-attribute-in-script-tag)
     [Resources](#resources)
     [Interview Question](#Interview-question)
 
@@ -382,6 +386,10 @@ React.createElement outputs object and object is put into DOM, converted into ht
 
 JSX is a syntax extension to JavaScript. It is used with React to describe what the UI should look like. JSX may remind you of a template language, but it comes with the full power of JavaScript.
 
+## Super Power of jsx:
+
+JSX makes it easier to write or add HTML in React. JSX can easily convert HTML tags to react elements. It is faster than regular JavaScript. JSX allows us to put HTML elements in DOM without using appendChild() or createElement() method.
+
 ### Is JSX html inside JavaScript?
 
 ```js
@@ -394,6 +402,8 @@ const heading = (
 ```
 
 JSX is html like syntax but it is not html inside javascript.
+
+## Role of babel and parcel in JSX?
 
 ### How JSX is executed?
 
@@ -526,6 +536,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<NavbarComponent />);
 ```
 
+# [⬆ Back to Top](#table-of-contents)
+
 ## Component Composition
 
 - component being used inside another component or passing component into component.
@@ -552,6 +564,38 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(<NavbarComponent />);
 ```
+
+# [⬆ Back to Top](#table-of-contents)
+
+# Role of `type` attribute in script tag
+
+**script:** used to embed executable code or data
+
+## Attributes
+
+- async
+- crossorigin
+- defer
+- fetchpriority
+- integrity
+- nomodule
+- nonce
+- referrerpolicy: Indicates which referrer to send when fetching the script, or resources fetched by the script:
+
+  - no-referrer: The Referer header will not be sent.
+  - no-referrer-when-downgrade:he Referer header will not be sent to origins without TLS (HTTPS).
+  - origin: The sent referrer will be limited to the origin of the referring page: its scheme, host, and port.
+  - origin-when-cross-origin: The referrer sent to other origins will be limited to the scheme, the host, and the port. Navigations on the same origin will still include the path.
+  - same-origin: A referrer will be sent for same origin, but cross-origin requests will contain no referrer information.
+  - strict-origin: Only send the origin of the document as the referrer when the protocol security level stays the same (HTTPS→HTTPS), but don't send it to a less secure destination (HTTPS→HTTP).
+  - strict-origin-when-cross-origin (default): Send a full URL when performing a same-origin request, only send the origin when the protocol security level stays the same (HTTPS→HTTPS), and send no header to a less secure destination (HTTPS→HTTP).
+  - unsafe-url: The referrer will include the origin and the path (but not the fragment, password, or username). This value is unsafe, because it leaks origins and paths from TLS-protected resources to insecure origins.
+
+- src: specifies the URI of an external script
+- type: indicates the type of script represented:
+  - Attribute is not set (default), an empty string, or a JavaScript MIME type: Indicates that the script is a "classic script", containing JavaScript code.
+  - module: This value causes the code to be treated as a [JavaScript module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
+  - importmap; This value indicates that the body of the element contains an import map.
 
 ## Class-Based Component
 
