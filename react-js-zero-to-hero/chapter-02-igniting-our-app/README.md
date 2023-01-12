@@ -112,15 +112,9 @@ Q. What factors affect on buliding development ready or production ready app?
 NPM is a package manager for all the modules and packages that are used in a projects.
 NPM is used for installing packages and publishing our own packages as well.
 
-- an online repository for the publishing of open-source Node.js projects
-- a command-line utility for interacting with said repository that aids in
-  - package installation,
-  - version management, and
-  - dependency management.
-
-2. What is the use of npm?
-
-npm makes it easy for JavaScript developers to share and reuse code, and it makes it easy to update the code that you’re sharing. It’s built on Node.js, npm, and Git, and is distributed with the Node.js binary distribution.
+    - package installation,
+    - version management, and
+    - dependency management.
 
 https://github.com/npm/npm-expansions/blob/master/expansions.txt
 
@@ -157,11 +151,7 @@ Q. What is devDependencies?
 
 1. What is package.json?
 
-package.json is a file that contains all the dependencies of your project. It is used to give information to npm that allows it to identify the project as well as handle the project’s dependencies.
-
-2. What is the use of package.json?
-
-package.json is used to give information to npm that allows it to identify the project as well as handle the project’s dependencies.
+package.json is a file that is used to store metadata related to the project. This file is also used to specify the project dependencies.
 
 3. What is the use of npm init?
 
@@ -196,8 +186,6 @@ The tilde (~) is used to match the most recent minor version (the last number). 
 ## package-lock.json
 
 1. What is package-lock.version?
-
-package-lock.version is a property in package-lock.json file. It is used to specify the version of the package-lock.json file format.
 
 package.lock.json is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. It is used to ensure that the same versions of dependencies are installed when you run npm install on another machine.
 

@@ -1,5 +1,11 @@
 # DOM
 
+- tree-like structure
+- structural representation of all nodes in HTML document
+- represents UI of an application
+- we need DOM so that we can dynamically update or manipulate or change the content of web page.
+- DOM allows to the script to update the content, style and structure of the document
+
 DOM is an acronym for Document Object Model. It is a programming interface for HTML and XML documents. It represents the page so that programs can change the document structure, style, and content. The DOM represents the document as nodes and objects. That way, programming languages can connect to the page.
 
 - structured representation of an HTML documents.
@@ -44,3 +50,16 @@ DOM methods and properties are a part of WEB APIs. WEB APIs are a set of tools t
 API stands for Application Programming Interface. It is a set of tools that allow you to interact with the browser and its built-in features such as the DOM, Geolocation, Local Storage, timers, etc without having to write any low-level code.
 
 All the DOM methods and properties are standard and can be used in all major browsers. However, the JavaScript DOM methods and properties are not standard. They are supported in all major browsers, but some browsers may support additional methods and properties.
+
+## Real DOM VS Virtual DOM
+
+| Real DOM                           | Virtual DOM                   |
+| ---------------------------------- | ----------------------------- |
+| DOM manupulation is very expensive | is very easy                  |
+| updates slow                       | updates fast                  |
+| directly update HTML               | can't                         |
+| too much memory wastage            | no memory wastage             |
+| represents UI of application       | virtual representation of DOM |
+| creates new DOM if element updates | updates JSX if element update |
+
+|
