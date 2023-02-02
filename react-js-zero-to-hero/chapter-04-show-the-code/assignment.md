@@ -202,3 +202,103 @@ const RestaurantCard = ({ reataurantList }) => {
 ```
 
 **key:** React wraps all the properties into variables known as props (can be called anything).
+
+```js
+// const RestaurantCard = (props) => { we destructure data from props
+const RestaurantCard = ({ restaurant }) => {
+  const { cloudinaryImageId, name, cuisines, avgRating } = restaurant.data;
+
+  return (
+    <div className="card">
+      <img
+        src={
+          "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
+          cloudinaryImageId
+        }
+        alt=""
+      />
+      {/* <h2>{props.restaurant.data?.name}</h2> */}
+      <h2>{name}</h2>
+      {/* <h3>Burgers, American</h3> */}
+      <h3>{cuisines.join(", ")}</h3>
+      <h4>{avgRating} Stars</h4>
+    </div>
+  );
+};
+
+// props - properties
+const BodyComponent = () => {
+  return (
+    <div className="restro-card">
+      {/* {RestaurantCard(restrauList[0])} - argument in function */}
+      <RestaurantCard restaurant={restrauList[0]} />
+      <RestaurantCard restaurant={restrauList[1]} />
+      <RestaurantCard restaurant={restrauList[2]} />
+      <RestaurantCard restaurant={restrauList[3]} />
+    </div>
+  );
+};
+```
+
+### We can also destructure all the properties of restrauList in Card itself:
+
+```js
+// const RestaurantCard = (props) => { we destructure data from props
+const RestaurantCard = ({ restaurant }) => {
+  const { cloudinaryImageId, name, cuisines, avgRating } = restaurant.data;
+
+  return (
+    <div className="card">
+      <img
+        src={
+          "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
+          cloudinaryImageId
+        }
+        alt=""
+      />
+      {/* <h2>{props.restaurant.data?.name}</h2> */}
+      <h2>{name}</h2>
+      {/* <h3>Burgers, American</h3> */}
+      <h3>{cuisines.join(", ")}</h3>
+      <h4>{avgRating} Stars</h4>
+    </div>
+  );
+};
+
+// props - properties
+const BodyComponent = () => {
+  return (
+    <div className="restro-card">
+      {/* {RestaurantCard(restrauList[0])} - argument in function */}
+      {/* <RestaurantCard restaurant={restrauList[0]} />*/}
+      <RestaurantCard {...restrauList[0].data} />
+      <RestaurantCard {...restrauList[1].data} />
+      <RestaurantCard {...restrauList[2].data} />
+      <RestaurantCard {...restrauList[3].data} />
+    </div>
+  );
+};
+```
+
+Using map() function to loop over number of cards - best way
+
+```js
+const BodyComponent = () => {
+  return (
+    <div className="restro-card">
+      {/* {RestaurantCard(restrauList[0])} - argument in function */}
+      {/* <RestaurantCard restaurant={restrauList[0]} />
+      <RestaurantCard {...restrauList[0].data} />restrauList
+      <RestaurantCard {...restrauList[1].data} />
+      <RestaurantCard {...restrauList[2].data} />
+      <RestaurantCard {...restrauList[3].data} /> */}
+
+      {restrauList.map((restaurant) => {
+        return <RestaurantCard {...restrauList.data} />;
+      })}
+    </div>
+  );
+};
+```
+
+### [map, filter & reduce - YouTube ](https://www.youtube.com/watch?v=zdp0zrpKzIE)
