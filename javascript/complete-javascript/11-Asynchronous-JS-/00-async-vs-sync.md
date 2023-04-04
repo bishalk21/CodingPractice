@@ -1,6 +1,6 @@
 # Synchronous Vs Asynchronous
 
-__`Synchronous:`__ Every statement of code get executed one by one.<br>
+**`Synchronous:`** Every statement of code get executed one by one.<br>
 So basically, a statement has to wait for earlier statement of get executed.<br>
 E.g.
 
@@ -12,7 +12,7 @@ console.log('ice-cream');
 
 > It will print `I` first, then `eat`, after that `ice-cream`
 
-__`Asynchronous:`__ It allows program to be executed immediately without blocking the code. Unlike the Synchronous method it doesn't wait for earlier statement to get executed first. <br>
+**`Asynchronous:`** It allows program to be executed immediately without blocking the code. Unlike the Synchronous method it doesn't wait for earlier statement to get executed first. <br>
 Each task execute completed independently.<br>
 E.g.<br>
 
@@ -116,4 +116,3 @@ const fetchData = async () => {
 };
 fetchData();
 ```
-
