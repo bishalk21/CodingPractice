@@ -29,10 +29,14 @@ alert("let's learn javascript");
 
 - high level: no need worry about computer memory, registers, etc.
 - synchronous: one command at a time
+- prototype-based: style of object-oriented programming in which classes are not explicitly defined but rather derived by adding properties and methods to an instance of another class or less frequently adding them to empty object. (style allows the creation of an object without first defining its class)
+- single-threaded: a thread in CS is the execution of multiple tasks or programs at the same time. Each unit capable of executing code is called a thread. The main thread is where browser processes user events and paints. By default, browser uses a single thread to run all the JS in page and as well as to perform layout, reflows and garbage collection. This means that long running javascript functions can block thread, leading to an unresponsive page and a bad user experience. Modern JS offers additional threads by using web workers which is used to spin off a sub-program which runs concurrently with the main thread in a thread of its own.
+- dynamically-typed language: where interpreter assigns variables a type at runtime based on the variable's value at the time.
 - interpreted programming language: no need to compile code before running it
 - object-oriented: based on objects, stores data in properties, and methods that perform actions on the data
 - multi-paradigm: can use different programming styles like functional, procedural, and object-oriented
-- lightweight, interpreted, or just-in-time compiled programming language with first-class functions.
+- lightweight, interpreted, or just-in-time compiled programming language with first-class functions(functions are treated like any other variable).
+- JIT Compilation or dynamic translation or run-time compilation: way of executing code that involves compilation during the execution of the program (at the run time) rather than before execution.
 
 ## History of JavaScript
 
