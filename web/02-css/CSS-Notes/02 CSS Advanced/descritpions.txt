@@ -1,1 +1,0 @@
-in here the advanced concepts of CSS are dealt with and how they are used with sample examples and illustrations.

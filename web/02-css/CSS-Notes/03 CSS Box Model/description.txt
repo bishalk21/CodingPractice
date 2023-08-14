@@ -1,1 +1,0 @@
-The Box model concept of CSS is explained in as simple way as possible. Read throught to understand the concepts and their usage.
